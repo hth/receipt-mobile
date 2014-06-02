@@ -34,9 +34,7 @@ public class OnLoginSimpleUrlAuthenticationSuccessHandler extends SimpleUrlAuthe
         }
 
         String targetUrlParam = getTargetUrlParameter();
-        if(isAlwaysUseDefaultTargetUrl() ||
-                (targetUrlParam != null &&
-                        StringUtils.hasText(request.getParameter(targetUrlParam)))) {
+        if(isAlwaysUseDefaultTargetUrl() || (targetUrlParam != null && StringUtils.hasText(request.getParameter(targetUrlParam)))) {
             requestCache.removeRequest(request, response);
             clearAuthenticationAttributes(request);
             return;
