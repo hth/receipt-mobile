@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+		  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		  http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+          http://www.springframework.org/schema/util
+          http://www.springframework.org/schema/util/spring-util-3.2.xsd
+          http://www.springframework.org/schema/task
+          http://www.springframework.org/schema/task/spring-task-3.2.xsd
+          http://www.springframework.org/schema/jms
+          http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
+
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+    <context:component-scan base-package="com.receiptofi.mobile" />
+
+    <!-- Currently not being used -->
+    <!--suppress SpringModelInspection -->
+    <context:property-placeholder location="classpath:/conf/config.properties"                  order="1" ignore-unresolvable="true" />
+    <!--suppress SpringModelInspection -->
+    <context:property-placeholder location="classpath:/conf/dev.properties"                     order="2" ignore-unresolvable="true" />
+
+    <!-- Configures the @Controller programming model -->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+        <property name="favorParameter"     value="true" />
+        <!--<property name="defaultContentType" value="text/html" />-->
+        <!--<property name="useJaf"             value="false"/>-->
+
+        <property name="mediaTypes">
+            <map>
+                <entry key="json"   value="application/json" />
+                <entry key="html"   value="text/html" />
+            </map>
+        </property>
+    </bean>
+
+</beans>
