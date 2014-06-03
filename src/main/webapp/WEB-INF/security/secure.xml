@@ -6,6 +6,15 @@
              http://www.springframework.org/schema/security
              http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+    <!--<debug />-->
+
+    <global-method-security mode="aspectj"
+                            jsr250-annotations="enabled"
+                            pre-post-annotations="enabled"
+                            secured-annotations="enabled" />
+
+    <http pattern="/static/**" security="none"/>
+
     <http entry-point-ref="restAuthenticationEntryPoint" create-session="ifRequired">
         <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/access/**" access="ROLE_USER"/>
