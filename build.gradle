@@ -62,4 +62,8 @@ task showMeCache << {
     configurations.compile.each { println it }
 }
 
+task wrapper(type: Wrapper){
+    gradleVersion = '1.12'
+}
+
 defaultTasks 'clean', 'build'
