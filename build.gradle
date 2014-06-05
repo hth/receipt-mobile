@@ -2,10 +2,13 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
 
-war.archiveName "receipt-mobile.war"
+war {
+    version = '' // no version
+    baseName="receipt-mobile"
+}
 
 repositories {
-	mavenCentral()
+    mavenCentral()
     maven { url "http://repo.spring.io/libs-milestone" }
 }
 
