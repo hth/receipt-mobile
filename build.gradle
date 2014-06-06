@@ -5,6 +5,14 @@ apply plugin: 'war'
 war {
     version = '' // no version
     baseName="receipt-mobile"
+
+    webInf {
+        from('src/main/resources') {
+            include 'dev.properties'
+            include 'config.properties'
+        }
+        into 'classes/conf'
+    }
 }
 
 repositories {
