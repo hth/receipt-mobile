@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xmlns:jms="http://www.springframework.org/schema/jms"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
 		  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
@@ -15,17 +15,17 @@
           http://www.springframework.org/schema/context/spring-context-3.2.xsd
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-          http://www.springframework.org/schema/data/mongo
-          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
           http://www.springframework.org/schema/util
           http://www.springframework.org/schema/util/spring-util-3.2.xsd
+          http://www.springframework.org/schema/cache
+          http://www.springframework.org/schema/cache/spring-cache.xsd
           http://www.springframework.org/schema/task
           http://www.springframework.org/schema/task/spring-task-3.2.xsd
           http://www.springframework.org/schema/jms
           http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
 
-    <!-- Scans the classpath of this application for @Components to deploy as beans -->
-    <context:component-scan base-package="com.receiptofi.mobile" />
+<!-- Scans the classpath of this application for @Components to deploy as beans -->
+<context:component-scan base-package="com.receiptofi" />
 
     <!-- Currently not being used -->
     <!--suppress SpringModelInspection -->
@@ -35,6 +35,21 @@
 
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+    <!-- turn on declarative caching -->
+    <!--<cache:annotation-driven />-->
+
+    <!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+
+    <!-- for setting up scheduling of task -->
+    <task:executor id="taskExecutor" pool-size="100" />
+    <task:scheduler id="scheduler" pool-size="5" />
+    <task:annotation-driven executor="taskExecutor" scheduler="scheduler"/>
+    <!-- for setting up scheduling of task ends -->
+
+    <!-- Forwards requests to the "/" resource to the "welcome" view -->
+    <!--suppress SpringModelInspection -->
+    <!--<mvc:view-controller path="/" view-name="login"/>-->
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="false" />
@@ -50,6 +65,163 @@
         </property>
     </bean>
 
+    <!-- the application context definition for the receipt DispatcherServlet -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+        <!--<property name="cacheSeconds" value="0" />-->
+    </bean>
+
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <!--&lt;!&ndash; one of the properties available; the maximum file size in bytes; supports 10MB &ndash;&gt;-->
+    <!--<property name="maxUploadSize" value="10485760"/>-->
+    <!--</bean>-->
+
+    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--https://stackoverflow.com/questions/21397939/spring-security-3-2-csrf-support-for-multipart-requests-->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="port"               value="${sslMailPort}"/>
+        <property name="defaultEncoding"    value="${mailEncoding}"/>
+        <property name="host"               value="${goDaddyMailHost}"/>
+        <property name="username"           value="${goDaddyUsername}"/>
+        <property name="password"           value="${goDaddy}"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">${smtpProtocol}</prop>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- Use TLS to encrypt communication with SMTP server, May be just for GMAIL-->
+                <!--<prop key="mail.smtp.starttls.enable">true</prop>-->
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.port">${sslMailPort}</prop>
+                <prop key="mail.smtp.socketFactory.port">${sslMailPort}</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- this is a template message that we can pre-load with default state -->
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${goDaddyUsername}"/>
+    </bean>
+
+    <!-- refer this for session scope -->
+    <!-- http://richardchesterwood.blogspot.com.au/2011/03/using-sessions-in-spring-mvc-including.html -->
+    <!-- an HTTP Session-scoped bean exposed as a proxy -->
+    <bean id="userAuthenticationManager"    class="com.receiptofi.repository.UserAuthenticationManagerImpl" />
+    <bean id="userProfileManager"           class="com.receiptofi.repository.UserProfileManagerImpl" />
+    <bean id="userPreferenceManager"        class="com.receiptofi.repository.UserPreferenceManagerImpl" />
+    <bean id="receiptManager"               class="com.receiptofi.repository.ReceiptManagerImpl" />
+    <bean id="itemManager"                  class="com.receiptofi.repository.ItemManagerImpl" />
+    <bean id="documentManager"              class="com.receiptofi.repository.DocumentManagerImpl" />
+    <bean id="itemOCRManager"               class="com.receiptofi.repository.ItemOCRManagerImpl" />
+    <bean id="itemFeatureManager"           class="com.receiptofi.repository.ItemFeatureManagerImpl" />
+    <bean id="messageManager"               class="com.receiptofi.repository.MessageManagerImpl" />
+    <bean id="expenseManager"               class="com.receiptofi.repository.ExpenseTagManagerImpl" />
+    <bean id="notificationManager"          class="com.receiptofi.repository.NotificationManagerImpl" />
+    <bean id="evalFeedbackManager"          class="com.receiptofi.repository.EvalFeedbackManagerImpl" />
+    <bean id="bizNameManager"               class="com.receiptofi.repository.BizNameManagerImpl" />
+    <bean id="bizStoreManager"              class="com.receiptofi.repository.BizStoreManagerImpl" />
+    <bean id="fileSystemManager"            class="com.receiptofi.repository.FileSystemManagerImpl" />
+    <bean id="mileageManager"               class="com.receiptofi.repository.MileageManagerImpl" />
+    <bean id="rememberMeTokenManager"       class="com.receiptofi.repository.social.RememberMeTokenManagerImpl" />
+
+    <bean id="userRegistrationValidator"    class="com.receiptofi.web.validator.UserRegistrationValidator" />
+    <bean id="userLoginValidator"           class="com.receiptofi.web.validator.UserLoginValidator" />
+    <bean id="mileageDocumentValidator"     class="com.receiptofi.web.validator.MileageDocumentValidator" />
+    <bean id="receiptDocumentValidator"     class="com.receiptofi.web.validator.ReceiptDocumentValidator" />
+    <bean id="bizValidator"                 class="com.receiptofi.web.validator.BizValidator" />
+    <bean id="bizSearchValidator"           class="com.receiptofi.web.validator.BizSearchValidator" />
+    <bean id="expenseTypeValidator"         class="com.receiptofi.web.validator.ExpenseTypeValidator" />
+    <bean id="forgotRecoverValidator"       class="com.receiptofi.web.validator.ForgotRecoverValidator" />
+    <bean id="forgotAuthenticateValidator"  class="com.receiptofi.web.validator.ForgotAuthenticateValidator" />
+    <bean id="inviteAuthenticateValidator"  class="com.receiptofi.web.validator.InviteAuthenticateValidator" />
+    <bean id="evalFeedbackValidator"        class="com.receiptofi.web.validator.EvalFeedbackValidator" />
+    <!-- ===================================== -->
+    <!-- JMS configuration                     -->
+    <!-- ===================================== -->
+    <!-- JMS connection factory for ActiveMQ connecting to a remote broker on a specific host name and port. -->
+    <!-- CachingConnectionFactory -->
+    <!-- preferred way of doing it -->
+    <!-- <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>tcp://localhost:61616</value>
+        </property>
+    </bean>
+
+    <bean id="jmsFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="destination" />
+    </bean>
+
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="${queue-name}"/>
+    </bean>
+
+    <jms:listener-container connection-factory="connectionFactory">
+        <jms:listener destination="${queue-name}" ref="fileUploadListenerJMS" method="receive" />
+    </jms:listener-container>
+
+    <bean id="fileUploadDocumentSenderJMS" class="com.tholix.service.routes.FileUploadDocumentSenderJMS" />
+    <bean id="fileUploadDocumentListenerJMS" class="com.tholix.service.routes.FileUploadDocumentListenerJMS" />    -->
+    <!-- ===================================== -->
+    <!-- JMS configuration end                 -->
+    <!-- ===================================== -->
+
+
+    <!-- ====================== -->
+    <!-- JMS                    -->
+    <!-- ====================== -->
+    <!--<amq:topic id="eventTopic" name="topic.events" />-->
+
+    <!--<amq:queue id="processingQueue" name="queue.process" />-->
+    <!--<amq:queue id="${queue-name}" name="${queue-name}"/>-->
+
+    <!-- http://sourceforge.net/projects/activemqbrowser/files/ -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>${activemq-URL}</value>
+        </property>
+    </bean>
+
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="${queue-name}"/>
+        <!--<constructor-arg ref="${queue-name}" />-->
+    </bean>
+
+    <!--http://briansjavablog.blogspot.com/2012/09/spring-jms-tutorial-with-activemq.html-->
+    <!-- JMSTemplate is a Spring template that allows us to communicate with
+         a message broker via JMS. JMSTemplate takes care of boiler plate code such as exception handling
+         and resource management such as connection pooling. This allows us concentrate on solving the 'business'
+         problem. We supply the JMS template with the connection factory mentioned above
+     -->
+    <bean id="jmsSenderTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="destination" />
+    </bean>
+
+    <bean id="fileUploadDocumentSenderJMS" class="com.receiptofi.service.routes.FileUploadDocumentSenderJMS" />
+    <bean id="fileUploadDocumentListenerJMS" class="com.receiptofi.service.routes.FileUploadDocumentListenerJMS" />
+
+    <jms:listener-container connection-factory="connectionFactory">
+        <!--suppress SpringModelInspection -->
+        <jms:listener destination="${queue-name}" ref="fileUploadDocumentListenerJMS" method="receive" />
+    </jms:listener-container>
+    <!-- ===================================== -->
+    <!-- JSM bean End                          -->
+    <!-- ===================================== -->
+
+    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/jsp/" />
@@ -58,4 +230,10 @@
         <property name="order"  value="1" />
     </bean>
 
+    <!--
+    If a compatible view cannot be supplied by the ViewResolver chain, then the list of views specified through the
+    DefaultViews property will be consulted
+    http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/mvc.html 17.5.4
+    -->
+    <!--<bean id="defaultViews" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />-->
 </beans>
