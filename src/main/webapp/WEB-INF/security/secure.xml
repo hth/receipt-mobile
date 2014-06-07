@@ -15,7 +15,7 @@
 
     <http pattern="/static/**" security="none"/>
 
-    <http entry-point-ref="restAuthenticationEntryPoint" create-session="ifRequired">
+    <http entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
         <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/access/**" access="ROLE_USER"/>
 
@@ -26,17 +26,16 @@
                 delete-cookies="JSESSIONID"
                 invalidate-session="true" />
 
-        <!--session-fixation-protection="migrateSession"-->
-        <session-management invalid-session-url="/">
-            <concurrency-control max-sessions="5"
-                                 error-if-maximum-exceeded="true"
-                                 expired-url="/" />
-        </session-management>
+        <headers>
+            <cache-control />
+            <content-type-options />
+            <hsts />
+            <frame-options />
+            <xss-protection />
+        </headers>
     </http>
 
-    <!--<beans:bean id="mySuccessHandler" class="com.receiptofi.mobile.security.OnLoginSimpleUrlAuthenticationSuccessHandler"/>-->
     <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
-
     <beans:bean id="onLoginSuccessHandler" class="com.receiptofi.security.OnLoginAuthenticationSuccessHandler" />
 
     <!-- Declare an authentication-manager to use a custom userDetailsService -->
