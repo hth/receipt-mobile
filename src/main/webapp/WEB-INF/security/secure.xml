@@ -19,24 +19,33 @@
         <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/access/**" access="ROLE_USER"/>
 
-        <form-login
-                authentication-success-handler-ref="mySuccessHandler"
-                authentication-failure-handler-ref="myFailureHandler"
-                />
+        <form-login authentication-success-handler-ref="onLoginSuccessHandler"
+                    authentication-failure-handler-ref="myFailureHandler" />
 
-        <logout />
+        <logout logout-success-url="/"
+                delete-cookies="JSESSIONID"
+                invalidate-session="true" />
+
+        <!--session-fixation-protection="migrateSession"-->
+        <session-management invalid-session-url="/">
+            <concurrency-control max-sessions="5"
+                                 error-if-maximum-exceeded="true"
+                                 expired-url="/" />
+        </session-management>
     </http>
 
-    <beans:bean id="mySuccessHandler" class="com.receiptofi.mobile.security.OnLoginSimpleUrlAuthenticationSuccessHandler"/>
+    <!--<beans:bean id="mySuccessHandler" class="com.receiptofi.mobile.security.OnLoginSimpleUrlAuthenticationSuccessHandler"/>-->
     <beans:bean id="myFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
 
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user name="temporary" password="temporary" authorities="ROLE_ADMIN"/>
-                <user name="user" password="user" authorities="ROLE_USER"/>
-            </user-service>
+    <beans:bean id="onLoginSuccessHandler" class="com.receiptofi.security.OnLoginAuthenticationSuccessHandler" />
+
+    <!-- Declare an authentication-manager to use a custom userDetailsService -->
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
 
+    <!-- Use a BCrypt encoder since the user's passwords are stored as BCrypt in the database -->
+    <beans:bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>
 </beans:beans>
