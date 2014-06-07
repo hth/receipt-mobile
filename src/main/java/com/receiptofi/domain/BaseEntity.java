@@ -35,11 +35,9 @@ public abstract class BaseEntity implements Serializable {
     @Field("V")
 	private Integer version;
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
     @Field("U")
 	private Date updated = DateUtil.nowTime();
 
-	@DateTimeFormat(iso = ISO.DATE_TIME)
     @Field("C")
 	private Date created = DateUtil.nowTime();
 
