@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import org.joda.time.DateTime;
 
@@ -26,6 +27,7 @@ import com.mongodb.WriteResult;
  * User: hitender
  * Date: 12/25/13 4:16 AM
  */
+@Repository
 public class MileageManagerImpl implements MileageManager {
     private static final String TABLE = BaseEntity.getClassAnnotationValue(MileageEntity.class, Document.class, "collection");
 

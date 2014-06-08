@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.mongodb.WriteResult;
 
@@ -21,6 +22,7 @@ import com.mongodb.WriteResult;
  * User: hitender
  * Date: 3/30/14 7:38 PM
  */
+@Repository
 public class RememberMeTokenManagerImpl implements RememberMeTokenManager {
     private static final Logger log = LoggerFactory.getLogger(RememberMeTokenManagerImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(RememberMeTokenEntity.class, Document.class, "collection");

@@ -1,4 +1,4 @@
-package com.receiptofi.security;
+package com.receiptofi.mobile.security;
 
 import com.receiptofi.domain.types.RoleEnum;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -28,11 +29,20 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    private AuthenticatedToken authenticatedToken;
+
+    @Autowired
+    public OnLoginAuthenticationSuccessHandler(AuthenticatedToken authenticatedToken) {
+        this.authenticatedToken = authenticatedToken;
+    }
+
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws ServletException, IOException {
         if(request.getHeader("cookie") != null) {
             handle(request, response, authentication);
             clearAuthenticationAttributes(request);
+        } else {
+            response.addCookie(authenticatedToken.createAuthenticatedCookie("one@tholix.com"));
         }
 
         /**

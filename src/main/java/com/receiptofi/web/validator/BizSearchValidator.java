@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,6 +16,7 @@ import org.springframework.validation.Validator;
  * Date: 8/8/13
  * Time: 11:07 AM
  */
+@Component
 public final class BizSearchValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(BizSearchValidator.class);
 
