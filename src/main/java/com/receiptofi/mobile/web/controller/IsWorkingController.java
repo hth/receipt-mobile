@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public final class IsWorkingController {
     private static final Logger log = LoggerFactory.getLogger(IsWorkingController.class);
 
-    @RequestMapping(value = "/open/isWorking", method = RequestMethod.GET)
+    @RequestMapping(value = "/isWorking", method = RequestMethod.GET)
     public String index() {
         log.info("isWorking");
         return "isWorking";

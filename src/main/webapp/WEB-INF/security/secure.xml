@@ -15,12 +15,18 @@
 
     <http pattern="/static/**" security="none"/>
 
-    <http entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
-        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/access/**" access="ROLE_USER"/>
+    <http auto-config="true" use-expressions="true" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
+        <intercept-url pattern="/api/**"
+                       access="permitAll"/>
+
+        <intercept-url pattern="/monitoring/**"
+                       access="hasIpAddress('192.168.1.*')" />
 
         <form-login authentication-success-handler-ref="onLoginSuccessHandler"
-                    authentication-failure-handler-ref="myFailureHandler" />
+                    authentication-failure-handler-ref="myFailureHandler"
+                    username-parameter="mail"
+                    password-parameter="password"
+                />
 
         <logout logout-success-url="/"
                 delete-cookies="JSESSIONID"
