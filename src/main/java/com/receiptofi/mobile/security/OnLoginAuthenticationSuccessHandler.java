@@ -45,7 +45,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         } else {
             response.addHeader("X-R-AUTH-USER", ((ReceiptUser) authentication.getPrincipal()).getUsername());
             response.addHeader("X-R-AUTH-KEY", authenticatedToken.getUserAuthenticationKey(((ReceiptUser) authentication.getPrincipal()).getUsername()));
-            response.addHeader("X-R-ROLE", authentication.getAuthorities().toString());
+            //response.addHeader("X-R-ROLE", authentication.getAuthorities().toString());
             response.addCookie(authenticatedToken.createAuthenticatedCookie(((ReceiptUser) authentication.getPrincipal()).getUsername()));
         }
 
