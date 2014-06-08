@@ -1,7 +1,6 @@
-package com.receiptofi.security;
+package com.receiptofi.mobile.security;
 
 import com.receiptofi.domain.types.RoleEnum;
-import com.receiptofi.mobile.security.AuthenticatedToken;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
