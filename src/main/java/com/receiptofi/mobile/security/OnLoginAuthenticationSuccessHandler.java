@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.security;
 
+import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.domain.types.RoleEnum;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,10 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
             handle(request, response, authentication);
             clearAuthenticationAttributes(request);
         } else {
-            response.addCookie(authenticatedToken.createAuthenticatedCookie("one@tholix.com"));
+            response.addHeader("X-R-AUTH-USER", ((ReceiptUser) authentication.getPrincipal()).getUsername());
+            response.addHeader("X-R-AUTH-KEY", authenticatedToken.getUserAuthenticationKey(((ReceiptUser) authentication.getPrincipal()).getUsername()));
+            response.addHeader("X-R-ROLE", authentication.getAuthorities().toString());
+            response.addCookie(authenticatedToken.createAuthenticatedCookie(((ReceiptUser) authentication.getPrincipal()).getUsername()));
         }
 
         /**

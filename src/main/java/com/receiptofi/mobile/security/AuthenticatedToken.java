@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.security;
 
 import com.receiptofi.domain.UserAccountEntity;
-import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.service.AccountService;
 
 import javax.servlet.http.Cookie;
@@ -18,7 +17,7 @@ import org.springframework.util.Assert;
 @Component
 public class AuthenticatedToken {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Value("${cookieMaxAge:1814400}")
     private int cookieMaxAge;
@@ -40,15 +39,18 @@ public class AuthenticatedToken {
         this.accountService = accountService;
     }
 
-    public Cookie createAuthenticatedCookie(String receiptUserId) {
-        UserAccountEntity userAccountEntity = accountService.findByUserId(receiptUserId);
-        Assert.notNull(userAccountEntity);
-
-        Cookie cookie = new Cookie("id", receiptUserId + "|" + userAccountEntity.getUserAuthentication().getAuthenticationKey());
+    protected Cookie createAuthenticatedCookie(String receiptUserId) {
+        Cookie cookie = new Cookie("id", receiptUserId + "|" + getUserAuthenticationKey(receiptUserId));
         cookie.setPath(cookiePath);
         cookie.setDomain(cookieDomain);
         cookie.setMaxAge(cookieMaxAge);
         cookie.setHttpOnly(cookieHttpOnly);
         return cookie;
+    }
+
+    protected String getUserAuthenticationKey(String receiptUserId) {
+        UserAccountEntity userAccountEntity = accountService.findByUserId(receiptUserId);
+        Assert.notNull(userAccountEntity);
+        return userAccountEntity.getUserAuthentication().getAuthenticationKey();
     }
 }
