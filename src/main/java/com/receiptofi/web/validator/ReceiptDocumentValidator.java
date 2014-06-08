@@ -13,6 +13,7 @@ import java.text.ParseException;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -21,6 +22,7 @@ import org.springframework.validation.Validator;
  * @author hitender
  * @since Jan 10, 2013 10:00:24 PM
  */
+@Component
 public final class ReceiptDocumentValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(ReceiptDocumentValidator.class);
 

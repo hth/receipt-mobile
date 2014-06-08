@@ -4,6 +4,7 @@ import com.receiptofi.web.form.ForgotAuthenticateForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -13,6 +14,7 @@ import org.springframework.validation.Validator;
  * Date: 6/4/13
  * Time: 3:11 AM
  */
+@Component
 public final class ForgotAuthenticateValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(ForgotAuthenticateValidator.class);
 

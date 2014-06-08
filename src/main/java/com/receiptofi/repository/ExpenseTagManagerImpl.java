@@ -23,6 +23,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Repository;
 
 import com.mongodb.WriteResult;
 
@@ -31,6 +32,7 @@ import com.mongodb.WriteResult;
  * Date: 5/13/13
  * Time: 11:59 PM
  */
+@Repository
 public final class ExpenseTagManagerImpl implements ExpenseTagManager {
     private static final Logger log = LoggerFactory.getLogger(ExpenseTagManagerImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(ExpenseTagEntity.class, Document.class, "collection");

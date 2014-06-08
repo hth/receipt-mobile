@@ -4,6 +4,7 @@ import com.receiptofi.web.form.ReceiptDocumentForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -12,6 +13,7 @@ import org.springframework.validation.Validator;
  * User: hitender
  * Date: 1/25/14 10:59 PM
  */
+@Component
 public final class MileageDocumentValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(MileageDocumentValidator.class);
 

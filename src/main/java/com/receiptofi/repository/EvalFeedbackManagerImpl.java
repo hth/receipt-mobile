@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Repository;
 
 import com.mongodb.WriteResult;
 
@@ -18,6 +19,7 @@ import com.mongodb.WriteResult;
  * Date: 7/20/13
  * Time: 5:37 PM
  */
+@Repository
 public final class EvalFeedbackManagerImpl implements EvalFeedbackManager {
     private static final Logger log = LoggerFactory.getLogger(EvalFeedbackManagerImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(EvalFeedbackEntity.class, Document.class, "collection");

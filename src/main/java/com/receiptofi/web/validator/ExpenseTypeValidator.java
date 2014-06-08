@@ -5,6 +5,7 @@ import com.receiptofi.web.form.ExpenseTypeForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -14,6 +15,7 @@ import org.springframework.validation.Validator;
  * Date: 5/14/13
  * Time: 7:08 PM
  */
+@Component
 public final class ExpenseTypeValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(ExpenseTypeValidator.class);
     private static int EXPENSE_TAG_MAX_CHAR = 6;

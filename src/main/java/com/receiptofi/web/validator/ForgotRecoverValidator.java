@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -16,6 +17,7 @@ import org.springframework.validation.Validator;
  * Date: 5/31/13
  * Time: 8:29 PM
  */
+@Component
 public final class ForgotRecoverValidator implements Validator {
     private static final Logger log = LoggerFactory.getLogger(ForgotRecoverValidator.class);
 

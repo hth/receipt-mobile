@@ -7,6 +7,7 @@ import com.receiptofi.web.form.UserLoginForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -15,6 +16,7 @@ import org.springframework.validation.Validator;
  * @author hitender
  * @since Dec 16, 2012 6:52:46 PM
  */
+@Component
 public final class UserLoginValidator implements Validator {
     @SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(UserLoginValidator.class);

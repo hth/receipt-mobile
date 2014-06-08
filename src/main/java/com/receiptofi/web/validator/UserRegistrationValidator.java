@@ -7,6 +7,7 @@ import com.receiptofi.web.form.UserRegistrationForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -16,6 +17,7 @@ import org.springframework.validation.Validator;
  * @since Dec 25, 2012 12:17:57 PM
  *
  */
+@Component
 public final class UserRegistrationValidator implements Validator {
 	private static final Logger log = LoggerFactory.getLogger(UserRegistrationValidator.class);
 
