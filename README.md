@@ -20,4 +20,4 @@ All API call should have the user and auth key in the header
 To query use following curl (replace XXX with valid user id and auth key)
 
 	curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/haveAccess.json
-	curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: 88a3ddadbb709a5284c58255845a5af59a49c01b"  http://localhost:9090/receipt-mobile/api/version.json
+	curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: 88a3ddadbb709a5284c58255845a5af59a49c01b"  http://localhost:9090/receipt-mobile/api/haveAccess.json
