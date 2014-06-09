@@ -19,8 +19,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.WriteResult;
-
 /**
  * User: hitender
  * Date: 12/23/13 9:21 PM

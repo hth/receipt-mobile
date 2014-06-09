@@ -6,8 +6,6 @@ package com.receiptofi.repository;
 import java.io.Serializable;
 import java.util.List;
 
-import com.mongodb.WriteResult;
-
 /**
  * @author hitender
  * @since Dec 22, 2012 8:56:01 PM

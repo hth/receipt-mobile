@@ -21,8 +21,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.WriteResult;
-
 /**
  * User: hitender
  * Date: 4/22/13

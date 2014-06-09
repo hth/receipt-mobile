@@ -13,8 +13,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.WriteResult;
-
 /**
  * User: hitender
  * Date: 4/13/14 5:19 PM

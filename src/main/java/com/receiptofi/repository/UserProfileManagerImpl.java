@@ -6,18 +6,15 @@ package com.receiptofi.repository;
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.types.UserLevelEnum;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
 import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.core.query.Update.update;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,8 +23,6 @@ import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.WriteResult;
 
 /**
  * @author hitender

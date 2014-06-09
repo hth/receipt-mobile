@@ -10,9 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
 import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.core.query.Update.update;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,8 +19,6 @@ import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.WriteResult;
 
 /**
  * @author hitender
