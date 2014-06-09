@@ -10,15 +10,16 @@ Below there are couple of examples using curl and httpie. For encoding password 
 **Authenticate**
 ____________
 
-Use following curl or install httpie with your username and password. In test and prod only call made over secure protocol be supported
+Use following curl or httpie with your username and password. 
+Note: In test and prod environment only call made over **secure protocol** will be supported
 
 Local
 
-	curl -i -X POST  -d mail=test@receiptofi.com -d password=test http://localhost:9090/receipt-mobile/j_spring_security_check
+    curl -i -X POST  -d mail=test@receiptofi.com -d password=test http://localhost:9090/receipt-mobile/j_spring_security_check
 
 QA secure
 
-	curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
+    curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
 
 QA
 
