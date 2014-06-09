@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "USER_AUTHENTICATION")
 @CompoundIndexes({
-        @CompoundIndex(name = "user_authentication_role_idx", def = "{'P': 1, 'A': 1, 'G_P': 1}", unique = true)
+        @CompoundIndex(name = "user_authentication_role_idx", def = "{'PA': 1, 'AU': 1, 'G_PA': 1}", unique = true)
 })
 public final class UserAuthenticationEntity extends BaseEntity {
 
