@@ -1,10 +1,16 @@
 receipt-mobile
 ==============
 
+There two ways to test through command line
+- curl on mac
+- httpie https://gist.github.com/BlakeGardner/5586954
+
+Below there are couple of examples using curl and httpie. For encoding password please use http://www.url-encode-decode.com/
+
 **Authenticate**
 ____________
 
-Use following curl with your username and password. In test and prod only call made over secure protocol be supported
+Use following curl or install httpie with your username and password. In test and prod only call made over secure protocol be supported
 
 Local
 
@@ -18,12 +24,34 @@ QA
 
     curl -i -X POST  -d mail=test@receiptofi.com -d password=test http://67.148.60.37:9090/receipt-mobile/j_spring_security_check
 
+Example of response
+
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-R-MAIL: test@receiptofi.com
+X-R-AUTH: $2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS
+Set-Cookie: id="test@receiptofi.com|$2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS"; Version=1; Domain=localhost; Max-Age=1814400; Expires=Mon, 30-Jun-2014 03:59:38 GMT; Path=/receipt-mobile
+Content-Length: 0
+Date: Mon, 09 Jun 2014 03:59:38 GMT
+
+X-R-MAIL and X-R-AUTH needs to be saved locally and has to be supplied with http header in every call that gets invoked from app
+
 
 **API Call**
 ________
 
-All API call should have the user and auth key in the header.
-To query use following curl (replace XXX with valid user id and auth key)
+All API call should have the MAIL and AUTH in http header.
+To query use following curl or http (replace XXX with valid user id and auth key)
 
 	curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/haveAccess.json
-	curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: 88a3ddadbb709a5284c58255845a5af59a49c01b"  http://localhost:9090/receipt-mobile/api/haveAccess.json
+    curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24LOIOMLJUu5S5yXGvFqAl3udDB%2FmTd3tSHPRyml41EHWi7QIARSrwS"  http://localhost:9090/receipt-mobile/api/haveAccess.json
+	http GET http://localhost:9090/receipt-mobile/api/haveAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24LOIOMLJUu5S5yXGvFqAl3udDB%2FmTd3tSHPRyml41EHWi7QIARSrwS
+
+Note: X-R-AUTH code needs to be encoded by going to site http://www.url-encode-decode.com/;
+Decoded auth code is    $2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS
