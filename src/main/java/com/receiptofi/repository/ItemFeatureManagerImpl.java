@@ -47,11 +47,6 @@ public final class ItemFeatureManagerImpl implements ItemFeatureManager {
 	}
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(ItemFeatureEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

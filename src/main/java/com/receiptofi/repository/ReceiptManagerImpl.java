@@ -273,11 +273,6 @@ public final class ReceiptManagerImpl implements ReceiptManager {
     }
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(ReceiptEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

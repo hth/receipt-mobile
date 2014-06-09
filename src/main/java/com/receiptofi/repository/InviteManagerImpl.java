@@ -72,11 +72,6 @@ public final class InviteManagerImpl implements InviteManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(InviteEntity object) {
         mongoTemplate.remove(object);
     }

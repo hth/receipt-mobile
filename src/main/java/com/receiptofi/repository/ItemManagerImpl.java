@@ -191,11 +191,6 @@ public final class ItemManagerImpl implements ItemManager {
     }
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(ItemEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

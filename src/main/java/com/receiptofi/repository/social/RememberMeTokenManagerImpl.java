@@ -56,11 +56,6 @@ public class RememberMeTokenManagerImpl implements RememberMeTokenManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(RememberMeTokenEntity rememberMeTokenEntity) {
         mongoTemplate.remove(rememberMeTokenEntity);
     }

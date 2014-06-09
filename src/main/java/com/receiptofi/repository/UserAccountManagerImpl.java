@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
-
-import com.mongodb.WriteResult;
 
 /**
  * User: hitender
@@ -49,19 +47,14 @@ public class UserAccountManagerImpl implements UserAccountManager {
             }
             mongoTemplate.save(object, TABLE);
         } catch (DataIntegrityViolationException e) {
-            log.error("Duplicate record entry for UserAuthenticationEntity:{} {}", e.getLocalizedMessage(), e);
+            log.error("Duplicate record entry for UserAuthenticationEntity={}", e.getLocalizedMessage(), e);
             throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
     public UserAccountEntity findOne(String id) {
-        return mongoTemplate.findOne(query(Criteria.where("id").is(id)), UserAccountEntity.class, TABLE);
-    }
-
-    @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
+        return mongoTemplate.findOne(query(where("id").is(id)), UserAccountEntity.class, TABLE);
     }
 
     @Override
@@ -76,11 +69,11 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public UserAccountEntity findByReceiptUserId(String rid) {
-        return mongoTemplate.findOne(query(Criteria.where("RID").is(rid)), UserAccountEntity.class, TABLE);
+        return mongoTemplate.findOne(query(where("RID").is(rid)), UserAccountEntity.class, TABLE);
     }
 
     @Override
-    public UserAccountEntity findByUserId(String email) {
-        return mongoTemplate.findOne(query(Criteria.where("UID").is(email)), UserAccountEntity.class, TABLE);
+    public UserAccountEntity findByUserId(String mail) {
+        return mongoTemplate.findOne(query(where("UID").is(mail)), UserAccountEntity.class, TABLE);
     }
 }

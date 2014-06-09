@@ -52,11 +52,6 @@ public final class CommentManagerImpl implements CommentManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(CommentEntity object) {
         mongoTemplate.remove(object);
     }

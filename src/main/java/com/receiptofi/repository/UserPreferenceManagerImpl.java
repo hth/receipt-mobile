@@ -62,11 +62,6 @@ public final class UserPreferenceManagerImpl implements UserPreferenceManager {
 	}
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(UserPreferenceEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

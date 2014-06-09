@@ -5,6 +5,8 @@ package com.receiptofi.domain;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,19 +15,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since Dec 15, 2012 8:11:45 PM
  */
 @Document(collection = "USER_AUTHENTICATION")
+@CompoundIndexes({
+        @CompoundIndex(name = "user_authentication_role_idx", def = "{'P': 1, 'A': 1, 'G_P': 1}", unique = true)
+})
 public final class UserAuthenticationEntity extends BaseEntity {
 
 	@NotNull
-    @Field("PASSWORD")
+    @Field("PA")
 	private String password;
 
 	@NotNull
-    @Field("AUTH")
+    @Field("AU")
 	private String authenticationKey;
 
     //TODO drop this column
     @NotNull
-    @Field("G_PASSWORD")
+    @Field("G_PA")
     private String grandPassword;
 
 	/**

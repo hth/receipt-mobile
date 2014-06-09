@@ -85,11 +85,6 @@ public final class DocumentManagerImpl implements DocumentManager {
     }
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(DocumentEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

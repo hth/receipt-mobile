@@ -65,11 +65,6 @@ public final class UserAuthenticationManagerImpl implements UserAuthenticationMa
 	}
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		return mongoTemplate.updateFirst(query(Criteria.where("id").is(id)), entityUpdate(update("NAME", name)), TABLE);
-	}
-
-	@Override
 	public void deleteHard(UserAuthenticationEntity object) {
 		mongoTemplate.remove(object, TABLE);
 	}

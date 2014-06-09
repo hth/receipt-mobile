@@ -54,11 +54,6 @@ public final class BizStoreManagerImpl implements BizStoreManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(BizStoreEntity object) {
         mongoTemplate.remove(object);
     }
