@@ -73,11 +73,6 @@ public final class StorageManagerImpl implements StorageManager {
 		throw new UnsupportedOperationException("Method not implemented");
 	}
 
-	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
     private void deleteSoft(String id) {
         GridFSDBFile receiptBlob = get(id);
         receiptBlob.put("D", true);

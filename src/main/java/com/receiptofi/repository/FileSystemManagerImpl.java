@@ -52,11 +52,6 @@ public final class FileSystemManagerImpl implements FileSystemManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(FileSystemEntity object) {
         mongoTemplate.remove(object, TABLE);
     }

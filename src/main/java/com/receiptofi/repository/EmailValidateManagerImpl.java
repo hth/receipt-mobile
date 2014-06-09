@@ -50,11 +50,6 @@ public final class EmailValidateManagerImpl implements EmailValidateManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
     public void deleteHard(EmailValidateEntity object) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

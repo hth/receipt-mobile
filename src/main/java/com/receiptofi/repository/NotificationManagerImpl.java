@@ -53,11 +53,6 @@ public final class NotificationManagerImpl implements NotificationManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(NotificationEntity object) {
         throw new UnsupportedOperationException("Method not implemented");
     }

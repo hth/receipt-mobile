@@ -35,7 +35,7 @@ public class MileageManagerImpl implements MileageManager {
 
     @Override
     public List<MileageEntity> getAllObjects() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException("Method not implemented");
     }
 
     @Override
@@ -54,11 +54,6 @@ public class MileageManagerImpl implements MileageManager {
     @Override
     public MileageEntity findOne(String id, String userProfileId) {
         return mongoTemplate.findOne(query(where("id").is(id)).addCriteria(where("USER_PROFILE_ID").is(userProfileId)), MileageEntity.class, TABLE);
-    }
-
-    @Override
-    public WriteResult updateObject(String id, String name) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

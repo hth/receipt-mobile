@@ -23,6 +23,7 @@ public final class UserPreferenceEntity extends BaseEntity {
     /**
      * To make bean happy
      */
+    @SuppressWarnings("unused")
     private UserPreferenceEntity() {
 
     }

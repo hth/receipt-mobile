@@ -45,11 +45,6 @@ public final class BrowserManagerImpl implements BrowserManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public void deleteHard(BrowserEntity object) {
         throw new UnsupportedOperationException("Method not implemented");
     }

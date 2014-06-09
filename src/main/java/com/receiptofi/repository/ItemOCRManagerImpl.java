@@ -83,11 +83,6 @@ public final class ItemOCRManagerImpl implements ItemOCRManager {
 	}
 
 	@Override
-	public WriteResult updateObject(String id, String name) {
-		throw new UnsupportedOperationException("Method not implemented");
-	}
-
-	@Override
 	public void deleteHard(ItemEntityOCR object) {
 		mongoTemplate.remove(object, TABLE);
 	}

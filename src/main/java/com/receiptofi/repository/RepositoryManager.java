@@ -33,11 +33,6 @@ public interface RepositoryManager<T> extends Serializable {
 	T findOne(String id);
 
 	/**
-	 * Updates a record name for a particular id.
-	 */
-	WriteResult updateObject(String id, String name);
-
-	/**
 	 * Delete a record for a particular object.
 	 */
 	void deleteHard(T object);

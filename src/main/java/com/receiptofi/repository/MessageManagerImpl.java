@@ -156,11 +156,6 @@ public final class MessageManagerImpl implements MessageManager {
     }
 
     @Override
-    public WriteResult updateObject(String id, String name) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
-
-    @Override
     public WriteResult updateObject(String receiptOCRId, DocumentStatusEnum statusFind, DocumentStatusEnum statusSet) {
         mongoTemplate.setWriteResultChecking(WriteResultChecking.LOG);
         Query query = query(where("LOCKED").is(true).and("DS_E").is(statusFind).and("RECEIPT_OCR_ID").is(receiptOCRId));
