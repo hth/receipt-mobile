@@ -1,7 +1,7 @@
 receipt-mobile
 ==============
 
-Authenticate
+**Authenticate**
 ____________
 
 Use following curl with your username and password. In test and prod only call made over secure protocol be supported
@@ -19,7 +19,7 @@ QA
     curl -i -X POST  -d mail=test@receiptofi.com -d password=test http://67.148.60.37:9090/receipt-mobile/j_spring_security_check
 
 
-API Call
+**API Call**
 ________
 
 All API call should have the user and auth key in the header.
