@@ -21,8 +21,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.WriteResult;
-
 /**
  * User: hitender
  * Date: 5/17/14 6:29 PM

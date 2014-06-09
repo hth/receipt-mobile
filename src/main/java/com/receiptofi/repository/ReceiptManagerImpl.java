@@ -44,8 +44,6 @@ import org.springframework.stereotype.Repository;
 
 import org.joda.time.DateTime;
 
-import com.mongodb.WriteResult;
-
 /**
  * @author hitender
  * @since Dec 26, 2012 9:17:04 PM

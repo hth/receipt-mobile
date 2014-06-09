@@ -5,11 +5,8 @@ package com.receiptofi.repository;
 
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.types.UserLevelEnum;
 
 import java.util.List;
-
-import com.mongodb.WriteResult;
 
 /**
  * @author hitender
