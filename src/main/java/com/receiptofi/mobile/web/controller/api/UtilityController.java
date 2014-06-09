@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.mobile.domain.UserAccess;
-import com.receiptofi.mobile.web.RestPreconditions;
 import com.receiptofi.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +37,7 @@ public class UtilityController {
     @RequestMapping(
             value = "/hasAccess",
             method = RequestMethod.GET,
-            produces = "application/json; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
     )
     public @ResponseBody
     UserAccess hasAccess(
