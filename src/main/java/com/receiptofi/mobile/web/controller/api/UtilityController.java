@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.mobile.domain.UserAccess;
+import com.receiptofi.mobile.web.RestPreconditions;
 import com.receiptofi.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +35,12 @@ public class UtilityController {
     }
 
     @RequestMapping(
-            value = "/haveAccess",
+            value = "/hasAccess",
             method = RequestMethod.GET,
             produces = "application/json; charset=utf-8"
     )
     public @ResponseBody
-    String haveAccess(
+    UserAccess hasAccess(
             @RequestHeader("X-R-MAIL")
             String mail,
 
@@ -49,10 +51,9 @@ public class UtilityController {
     ) throws IOException {
         log.debug("email={}, auth={}", mail, "*********");
         if(accountService.hasAccess(mail, auth)) {
-            return "Access";
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return "Unauthorized";
+            return UserAccess.newInstance("granted");
         }
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        return null;
     }
 }
