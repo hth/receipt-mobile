@@ -36,8 +36,8 @@ Example of response
     X-Frame-Options: DENY
     X-Content-Type-Options: nosniff
     X-R-MAIL: test@receiptofi.com
-    X-R-AUTH: $2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS
-    Set-Cookie: id="test@receiptofi.com|$2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS"; Version=1; Domain=localhost; Max-Age=1814400; Expires=Mon, 30-Jun-2014 03:59:38 GMT; Path=/receipt-mobile
+    X-R-AUTH: $2a$15$iGQajnbSWtUyVwfxP1z.du4Whtqxr2nwgTSnt8GUE9uPTgfFYpNhm
+    Set-Cookie: id="test@receiptofi.com|$2a$15$iGQajnbSWtUyVwfxP1z.du4Whtqxr2nwgTSnt8GUE9uPTgfFYpNhm"; Version=1; Domain=localhost; Max-Age=1814400; Expires=Mon, 30-Jun-2014 03:59:38 GMT; Path=/receipt-mobile
     Content-Length: 0
     Date: Mon, 09 Jun 2014 03:59:38 GMT
 
@@ -51,8 +51,8 @@ All API call should have the MAIL and AUTH in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/haveAccess.json
-    curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24LOIOMLJUu5S5yXGvFqAl3udDB%2FmTd3tSHPRyml41EHWi7QIARSrwS"  http://localhost:9090/receipt-mobile/api/haveAccess.json
-    http GET http://localhost:9090/receipt-mobile/api/haveAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24LOIOMLJUu5S5yXGvFqAl3udDB%2FmTd3tSHPRyml41EHWi7QIARSrwS
+    curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24iGQajnbSWtUyVwfxP1z.du4Whtqxr2nwgTSnt8GUE9uPTgfFYpNhm"  http://localhost:9090/receipt-mobile/api/haveAccess.json
+    http GET http://localhost:9090/receipt-mobile/api/haveAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24iGQajnbSWtUyVwfxP1z.du4Whtqxr2nwgTSnt8GUE9uPTgfFYpNhm
 
 Note: X-R-AUTH code needs to be encoded by going to site http://www.url-encode-decode.com/;
-Decoded auth code is    $2a$15$LOIOMLJUu5S5yXGvFqAl3udDB/mTd3tSHPRyml41EHWi7QIARSrwS
+Decoded auth code is    $2a$15$iGQajnbSWtUyVwfxP1z.du4Whtqxr2nwgTSnt8GUE9uPTgfFYpNhm
