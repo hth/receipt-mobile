@@ -24,8 +24,8 @@
           http://www.springframework.org/schema/jms
           http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
 
-<!-- Scans the classpath of this application for @Components to deploy as beans -->
-<context:component-scan base-package="com.receiptofi" />
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+    <context:component-scan base-package="com.receiptofi" />
 
     <!-- Currently not being used -->
     <!--suppress SpringModelInspection -->
@@ -54,13 +54,13 @@
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="false" />
         <property name="favorParameter"     value="true" />
-        <!--<property name="defaultContentType" value="text/html" />-->
-        <!--<property name="useJaf"             value="false"/>-->
+        <property name="defaultContentType" value="application/json" />
+        <property name="useJaf"             value="false"/>
+        <property name="ignoreAcceptHeader" value="true"/>
 
         <property name="mediaTypes">
             <map>
                 <entry key="json"   value="application/json" />
-                <entry key="html"   value="text/html" />
             </map>
         </property>
     </bean>
