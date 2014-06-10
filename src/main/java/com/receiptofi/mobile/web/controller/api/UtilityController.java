@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.mobile.domain.UserAccess;
+import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,11 @@ public class UtilityController {
 
     private static final Logger log = LoggerFactory.getLogger(UtilityController.class);
 
-    private AccountService accountService;
+    private AuthenticateService authenticateService;
 
     @Autowired
-    public UtilityController(AccountService accountService) {
-        this.accountService = accountService;
+    public UtilityController(AuthenticateService authenticateService) {
+        this.authenticateService = authenticateService;
     }
 
     @RequestMapping(
@@ -50,7 +51,7 @@ public class UtilityController {
             HttpServletResponse response
     ) throws IOException {
         log.debug("email={}, auth={}", mail, "*********");
-        if(accountService.hasAccess(mail, auth)) {
+        if(authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

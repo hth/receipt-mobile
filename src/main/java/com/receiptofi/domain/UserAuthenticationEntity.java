@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "USER_AUTHENTICATION")
 @CompoundIndexes({
-        @CompoundIndex(name = "user_authentication_idx", def = "{'PA': 1, 'AU': 1, 'G_PA': 1}", unique = true)
+        @CompoundIndex(name = "user_authentication_idx", def = "{'PA': 1, 'AU': 1}", unique = true)
 })
 public final class UserAuthenticationEntity extends BaseEntity {
 
@@ -27,11 +27,6 @@ public final class UserAuthenticationEntity extends BaseEntity {
 	@NotNull
     @Field("AU")
 	private String authenticationKey;
-
-    //TODO drop this column
-    @NotNull
-    @Field("G_PA")
-    private String grandPassword;
 
 	/**
 	 * Required for Bean Instantiation
@@ -66,12 +61,4 @@ public final class UserAuthenticationEntity extends BaseEntity {
 	public String getAuthenticationKey() {
 		return authenticationKey;
 	}
-
-    public String getGrandPassword() {
-        return grandPassword;
-    }
-
-    public void setGrandPassword(String grandPassword) {
-        this.grandPassword = grandPassword;
-    }
 }

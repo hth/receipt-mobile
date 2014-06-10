@@ -5,7 +5,6 @@ import com.receiptofi.utils.DateUtil;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -177,7 +176,7 @@ public final class MileageEntity extends BaseEntity {
 
     public void addFileSystemEntities(Collection<FileSystemEntity> fileSystemEntities) {
         if(this.fileSystemEntities == null) {
-            this.fileSystemEntities = Collections.emptyList();
+            this.fileSystemEntities = new ArrayList<>();
         }
         this.fileSystemEntities.addAll(fileSystemEntities);
     }
