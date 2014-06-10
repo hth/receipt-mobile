@@ -305,7 +305,7 @@ public final class LandingService {
             UserProfileEntity userProfile = userProfileManager.findByReceiptUserId(documentEntity.getUserProfileId());
             senderJMS.send(documentEntity, userProfile);
         } catch (Exception exce) {
-            log.error("Exception occurred during saving receipt: " + exce.getLocalizedMessage());
+            log.error("Exception occurred during saving receipt={}", exce.getLocalizedMessage(), exce);
             log.warn("Undo all the saves");
 
             int sizeFSInitial = fileDBService.getFSDBSize();
@@ -341,7 +341,7 @@ public final class LandingService {
             }
 
             log.info("Complete with rollback: throwing exception");
-            throw new Exception(exce.getLocalizedMessage());
+            throw new Exception(exce);
         }
     }
 

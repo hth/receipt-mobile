@@ -18,13 +18,9 @@ import com.receiptofi.utils.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import org.joda.time.DateTime;
 
@@ -43,10 +39,6 @@ public final class AccountService {
     private final UserPreferenceManager userPreferenceManager;
     private final ForgotRecoverManager forgotRecoverManager;
     private final GenerateUserIdManager generateUserIdManager;
-
-    //TODO remove this
-    @Value("${grandPassword}")
-    private String grandPassword;
 
     @Value("${domain}")
     private String domain;
@@ -83,18 +75,6 @@ public final class AccountService {
         return userAccountManager.findByUserId(mail);
     }
 
-    public boolean hasAccess(String mail, String auth) {
-        UserAccountEntity userAccountEntity = userAccountManager.findByUserId(mail);
-        Assert.notNull(userAccountEntity);
-
-        try {
-            return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            log.error("Auth decoding issue for user={}, reason={}", mail, e.getLocalizedMessage(), e);
-            return false;
-        }
-    }
-
     /**
      * Create a new account
      * @param email
@@ -115,7 +95,6 @@ public final class AccountService {
                     HashText.computeBCrypt(password),
                     HashText.computeBCrypt(RandomString.newInstance().nextString())
             );
-            userAuthentication.setGrandPassword(grandPassword);
             userAuthenticationManager.save(userAuthentication);
         } catch (Exception e) {
             log.error("During saving UserAuthenticationEntity={}", e.getLocalizedMessage(), e);
@@ -198,7 +177,6 @@ public final class AccountService {
      * @throws Exception
      */
     public void updateAuthentication(UserAuthenticationEntity userAuthenticationEntity) throws Exception {
-        userAuthenticationEntity.setGrandPassword(grandPassword);
         userAuthenticationManager.save(userAuthenticationEntity);
     }
 
