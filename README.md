@@ -52,8 +52,17 @@ All API call should have the MAIL and AUTH in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/haveAccess.json
-    curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%248Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq."  http://localhost:9090/receipt-mobile/api/haveAccess.json
-    http GET http://localhost:9090/receipt-mobile/api/haveAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%248Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq.
+
+
+    curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%248Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq."  http://localhost:9090/receipt-mobile/api/hasAccess.json
+    
+
+    http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%248Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq.
+    
+Secure 
+
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%248Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq."  https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
+    
 
 Note: X-R-AUTH code needs to be encoded by going to site http://www.url-encode-decode.com/;
 Decoded auth code is    $2a$15$8Ny7RNsMAzzsTGxmJdKirOChLWidNO.scuMGoNl2n1G1bHEwXsoq.
