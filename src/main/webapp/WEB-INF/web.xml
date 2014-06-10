@@ -106,12 +106,13 @@
 
     <servlet-mapping>
         <servlet-name>receipt-mobile</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.json</url-pattern>
+        <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
     <!--Do no include html servlet mapping here as this would result in not throwing the right error codes listed below -->
 
     <welcome-file-list>
         <!-- maps to LoginController index -->
-        <welcome-file>healthCheck.json</welcome-file>
+        <welcome-file>isWorking.htm</welcome-file>
     </welcome-file-list>
 </web-app>
