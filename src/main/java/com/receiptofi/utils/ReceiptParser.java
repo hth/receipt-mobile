@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Parses the data from OCR
  *
@@ -28,7 +30,7 @@ public final class ReceiptParser {
 
 	public static void read(String receiptOCRTranslation, DocumentEntity documentEntity, List<ItemEntityOCR> items) {
 		StringTokenizer st = new StringTokenizer(receiptOCRTranslation, "\n");
-		String save = "";
+		String save = StringUtils.EMPTY;
 		int sequence = 1;
 		while (st.hasMoreTokens()) {
 			String s = st.nextToken();
@@ -38,7 +40,7 @@ public final class ReceiptParser {
 				save = save + s;
 				log.debug(save);
 				items.add(processItem(save, sequence, documentEntity));
-				s = "";
+				s = StringUtils.EMPTY;
 			} else if (dateMatcher.find()) {
 				// http://stackoverflow.com/questions/600733/using-java-to-find-substring-of-a-bigger-string-using-regular-expression
 				// String date = d.group(1);
@@ -50,8 +52,8 @@ public final class ReceiptParser {
 		}
 
         //At least have one item added for place holder. This will help is cloning for more items later.
-        if(items.size() == 0) {
-            items.add(processItem("", 1, documentEntity));
+        if(items.isEmpty()) {
+            items.add(processItem(StringUtils.EMPTY, 1, documentEntity));
         }
 	}
 

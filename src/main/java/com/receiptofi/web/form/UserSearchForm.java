@@ -6,6 +6,8 @@ package com.receiptofi.web.form;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.types.UserLevelEnum;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.base.Objects;
 
 /**
@@ -17,9 +19,9 @@ public final class UserSearchForm {
 
 	private String id;
     private String receiptUserId;
-	private String userName = "";
-	private String firstName = "";
-	private String lastName = "";
+	private String userName = StringUtils.EMPTY;
+	private String firstName = StringUtils.EMPTY;
+	private String lastName = StringUtils.EMPTY;
 	private UserLevelEnum level;
     private String emailId;
 
@@ -69,10 +71,10 @@ public final class UserSearchForm {
      * @return
      */
 	public String getUserName() {
-		if(userName.length() > 2 && !userName.equalsIgnoreCase(", ")) {
+		if(!userName.equalsIgnoreCase(", ") && userName.length() > 2) {
 			return userName;
 		}
-		return "";
+		return StringUtils.EMPTY;
 	}
 
 	public String getFirstName() {

@@ -28,7 +28,7 @@ public class TextInputScrubber {
             decoded = URLDecoder.decode(text, "UTF-8");
         } catch(Exception exce) {
             log.error("Text decode failed: " + text);
-            return "";
+            return StringUtils.EMPTY;
         }
 
         HtmlPolicyBuilder htmlPolicyBuilder = new HtmlPolicyBuilder();

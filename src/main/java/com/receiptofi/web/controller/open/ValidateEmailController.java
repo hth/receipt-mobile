@@ -61,11 +61,14 @@ public final class ValidateEmailController {
                 emailValidate.inActive();
                 emailValidateService.saveEmailValidateEntity(emailValidate);
                 redirectAttrs.addFlashAttribute("success", "true");
+                log.info("authentication success for user={}", userAccount.getReceiptUserId());
             } else {
                 redirectAttrs.addFlashAttribute("success", "false");
+                log.info("authentication failed for user={}", userAccount.getReceiptUserId());
             }
             return validateResult;
         } else {
+            log.info("authentication failed for invalid auth={}", key);
             httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }

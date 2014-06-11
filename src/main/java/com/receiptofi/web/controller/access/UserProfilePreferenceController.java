@@ -4,6 +4,7 @@
 package com.receiptofi.web.controller.access;
 
 import com.receiptofi.domain.ExpenseTagEntity;
+import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserPreferenceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.site.ReceiptUser;
@@ -23,12 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,17 +63,17 @@ public final class UserProfilePreferenceController {
     @PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/i", method = RequestMethod.GET)
 	public ModelAndView loadForm(
-            @ModelAttribute("expenseTypeForm") ExpenseTypeForm expenseTypeForm,
-            @ModelAttribute("userProfilePreferenceForm") UserProfilePreferenceForm userProfilePreferenceForm,
+            @ModelAttribute("expenseTypeForm")
+            ExpenseTypeForm expenseTypeForm,
+
+            @ModelAttribute("userProfilePreferenceForm")
+            UserProfilePreferenceForm userProfilePreferenceForm,
+
             Model model
     ) throws IOException {
         DateTime time = DateUtil.now();
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(receiptUser.getRid());
-        Assert.notNull(userProfile);
-        userProfilePreferenceForm.setUserProfile(userProfile);
-
+        populateUserProfilePreferenceForm(receiptUser.getRid(), userProfilePreferenceForm);
         ModelAndView modelAndView = populateModel(nextPage, null, userProfilePreferenceForm);
 
         //Gymnastic to show BindingResult errors if any
@@ -95,19 +97,21 @@ public final class UserProfilePreferenceController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value="/i", method = RequestMethod.POST)
     public String addExpenseTag(
-            @ModelAttribute("userProfilePreferenceForm") UserProfilePreferenceForm userProfilePreferenceForm,
-            @ModelAttribute("expenseTypeForm") ExpenseTypeForm expenseTypeForm,
+            @ModelAttribute("userProfilePreferenceForm")
+            UserProfilePreferenceForm userProfilePreferenceForm,
+
+            @ModelAttribute("expenseTypeForm")
+            ExpenseTypeForm expenseTypeForm,
+
             BindingResult result,
             RedirectAttributes redirectAttrs) {
 
         DateTime time = DateUtil.now();
-        ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         //There is UI logic based on this. Set the right to be active when responding.
         redirectAttrs.addFlashAttribute("showTab", "#tabs-2");
 
-        UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(receiptUser.getRid());
-        userProfilePreferenceForm.setUserProfile(userProfile);
+        ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        populateUserProfilePreferenceForm(receiptUser.getRid(), userProfilePreferenceForm);
 
         expenseTypeValidator.validate(expenseTypeForm, result);
         if (result.hasErrors()) {
@@ -124,7 +128,7 @@ public final class UserProfilePreferenceController {
             userProfilePreferenceService.addExpenseType(expenseType);
         } catch (Exception e) {
             log.error(e.getLocalizedMessage());
-            result.rejectValue("expName", "", e.getLocalizedMessage());
+            result.rejectValue("expName", StringUtils.EMPTY, e.getLocalizedMessage());
         }
 
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -156,10 +160,7 @@ public final class UserProfilePreferenceController {
             userProfilePreferenceService.modifyVisibilityOfExpenseType(expenseTagId, changeStatTo, receiptUser.getRid());
         }
 
-        UserProfileEntity userProfile = userProfilePreferenceService.findById(receiptUser.getRid());
-        Assert.notNull(userProfile);
-        userProfilePreferenceForm.setUserProfile(userProfile);
-
+        populateUserProfilePreferenceForm(receiptUser.getRid(), userProfilePreferenceForm);
         ModelAndView modelAndView = populateModel(nextPage, expenseTypeForm, userProfilePreferenceForm);
 
         //There is UI logic based on this. Set the right to be active when responding.
@@ -172,7 +173,7 @@ public final class UserProfilePreferenceController {
     /**
      * Only admin has access to this link. Others get 403 error.
      *
-     * @param id
+     * @param rid
      * @param expenseTypeForm
      * @return
      * @throws IOException
@@ -180,23 +181,28 @@ public final class UserProfilePreferenceController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/their", method = RequestMethod.GET)
 	public ModelAndView getUser(
-            @RequestParam("id") String id,
-            @ModelAttribute("expenseTypeForm") ExpenseTypeForm expenseTypeForm,
-            @ModelAttribute("userProfilePreferenceForm") UserProfilePreferenceForm userProfilePreferenceForm
+            @RequestParam("id")
+            String rid,
+
+            @ModelAttribute("expenseTypeForm")
+            ExpenseTypeForm expenseTypeForm,
+
+            @ModelAttribute("userProfilePreferenceForm")
+            UserProfilePreferenceForm userProfilePreferenceForm
     ) throws IOException {
         DateTime time = DateUtil.now();
-
-        UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(id);
-        Assert.notNull(userProfile);
-        userProfilePreferenceForm.setUserProfile(userProfile);
-
+        populateUserProfilePreferenceForm(rid, userProfilePreferenceForm);
         ModelAndView modelAndView = populateModel(nextPage, expenseTypeForm, userProfilePreferenceForm);
-        modelAndView.addObject("id", id);
-
+        modelAndView.addObject("id", rid);
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return modelAndView;
 
 	}
+
+    private void populateUserProfilePreferenceForm(String rid, UserProfilePreferenceForm userProfilePreferenceForm) {
+        UserProfileEntity userProfile = userProfilePreferenceService.forProfilePreferenceFindByReceiptUserId(rid);
+        userProfilePreferenceForm.setUserProfile(userProfile);
+    }
 
     /**
      * Only Admin can update the user level. Others get 403 error. If the user cannot access /their, then its highly
@@ -209,14 +215,17 @@ public final class UserProfilePreferenceController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String updateUser(
-            @ModelAttribute("expenseTypeForm") ExpenseTypeForm expenseTypeForm,
-            @ModelAttribute("userProfilePreferenceForm") UserProfilePreferenceForm userProfilePreferenceForm
+            @ModelAttribute("expenseTypeForm")
+            ExpenseTypeForm expenseTypeForm,
+
+            @ModelAttribute("userProfilePreferenceForm")
+            UserProfilePreferenceForm userProfilePreferenceForm
     ) throws IOException {
         DateTime time = DateUtil.now();
 
-        UserProfileEntity userProfile = userProfilePreferenceService.findById(userProfilePreferenceForm.getUserProfile().getId());
-        Assert.notNull(userProfile);
-
+        UserProfileEntity userProfile = userProfilePreferenceService.forProfilePreferenceFindByReceiptUserId(
+                userProfilePreferenceForm.getUserProfile().getReceiptUserId()
+        );
         userProfile.setLevel(userProfilePreferenceForm.getUserProfile().getLevel());
         if(!userProfilePreferenceForm.isActive() || !userProfile.isActive()) {
             if(userProfilePreferenceForm.isActive()) {
@@ -225,18 +234,22 @@ public final class UserProfilePreferenceController {
                 userProfile.inActive();
             }
         }
-        try {
-            //TODO remove this code as its a temporary fix to update existing email ids from capital case in the email to lowercase
-            //userProfile.setEmailId(StringUtils.lowerCase(userProfile.getEmailId()));
 
+        UserAccountEntity userAccount = accountService.changeAccountRolesToMatchUserLevel(
+                userProfile.getReceiptUserId(),
+                userProfile.getLevel()
+        );
+
+        try {
+            accountService.saveUserAccount(userAccount);
             userProfilePreferenceService.updateProfile(userProfile);
         } catch (Exception exce) {
-            log.error("Failed updating User Profile: " + exce.getLocalizedMessage() + ", user profile Id: " + userProfile.getEmail());
-            userProfilePreferenceForm.setErrorMessage("Failed updating user profile: " + exce.getLocalizedMessage());
+            //XXX todo should there be two phase commit
+            log.error("Failed updating User Profile, rid={}", userProfile.getReceiptUserId(), exce);
+            userProfilePreferenceForm.setErrorMessage("Failed updating user profile " + exce.getLocalizedMessage());
         }
 
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
-        //Re-direct to prevent resubmit
         return "redirect:/access" + nextPage + "/their" + ".htm?id=" + userProfile.getReceiptUserId();
 	}
 
@@ -249,7 +262,11 @@ public final class UserProfilePreferenceController {
         DateTime time = DateUtil.now();
 
         UserPreferenceEntity userPreference = userProfilePreferenceService.loadFromProfile(userProfilePreference.getUserProfile());
-        userProfilePreference.setUserAuthentication(accountService.findByReceiptUserId(userProfilePreference.getUserProfile().getReceiptUserId()).getUserAuthentication());
+        userProfilePreference.setUserAuthentication(
+                accountService.findByReceiptUserId(
+                        userProfilePreference.getUserProfile().getReceiptUserId()
+                ).getUserAuthentication()
+        );
 
 		ModelAndView modelAndView = new ModelAndView(nextPage);
         userProfilePreference.setUserPreference(userPreference);

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * User: hitender
  * Date: 1/19/14 2:05 AM
@@ -20,7 +22,7 @@ public class MileageDateUpdateResponse {
     private String days;
 
     @JsonProperty("m")
-    private String message = "";
+    private String message = StringUtils.EMPTY;
 
     public boolean isSuccess() {
         return success;

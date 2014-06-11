@@ -5,6 +5,8 @@ import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.domain.UserPreferenceEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.types.RoleEnum;
+import com.receiptofi.domain.types.UserLevelEnum;
 import com.receiptofi.repository.ForgotRecoverManager;
 import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.repository.UserAccountManager;
@@ -17,6 +19,9 @@ import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.utils.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -186,5 +191,45 @@ public final class AccountService {
 
     public void saveUserAccount(UserAccountEntity userAccountEntity) {
         userAccountManager.save(userAccountEntity);
+    }
+
+    public UserAccountEntity changeAccountRolesToMatchUserLevel(String receiptUserId, UserLevelEnum userLevel) {
+        UserAccountEntity userAccountEntity = findByReceiptUserId(receiptUserId);
+        switch(userLevel) {
+            case TECHNICIAN:
+                userAccountEntity.setRoles(
+                        new LinkedHashSet<RoleEnum>() {{
+                            add(RoleEnum.ROLE_USER);
+                            add(RoleEnum.ROLE_TECHNICIAN);
+                        }}
+                );
+                break;
+            case SUPERVISOR:
+                userAccountEntity.setRoles(
+                        new LinkedHashSet<RoleEnum>() {{
+                            add(RoleEnum.ROLE_USER);
+                            add(RoleEnum.ROLE_TECHNICIAN);
+                            add(RoleEnum.ROLE_SUPERVISOR);
+                        }}
+                );
+                break;
+            case ADMIN:
+                userAccountEntity.setRoles(
+                        new LinkedHashSet<RoleEnum>() {{
+                            add(RoleEnum.ROLE_USER);
+                            add(RoleEnum.ROLE_TECHNICIAN);
+                            add(RoleEnum.ROLE_SUPERVISOR);
+                            add(RoleEnum.ROLE_ADMIN);
+                        }}
+                );
+                break;
+            default:
+                userAccountEntity.setRoles(
+                        new LinkedHashSet<RoleEnum>() {{
+                            add(RoleEnum.ROLE_USER);
+                        }}
+                );
+        }
+        return userAccountEntity;
     }
 }

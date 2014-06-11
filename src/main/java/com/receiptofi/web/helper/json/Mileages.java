@@ -41,7 +41,7 @@ public final class Mileages {
                 mileageEntity.getEnd(),
                 mileageEntity.getStartDate(),
                 mileageEntity.getEndDate(),
-                mileageEntity.getMileageNotes() == null ? "" : mileageEntity.getMileageNotes().getText(),
+                mileageEntity.getMileageNotes() == null ? StringUtils.EMPTY : mileageEntity.getMileageNotes().getText(),
                 mileageEntity.getTotal(), mileageEntity.isComplete())
         );
     }

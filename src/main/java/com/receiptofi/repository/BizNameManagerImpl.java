@@ -10,6 +10,8 @@ import java.util.Set;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.WriteResultChecking;
@@ -61,7 +63,7 @@ public final class BizNameManagerImpl implements BizNameManager {
 
     @Override
     public BizNameEntity noName() {
-        return mongoTemplate.findOne(query(where("N").is("")), BizNameEntity.class, TABLE);
+        return mongoTemplate.findOne(query(where("N").is(StringUtils.EMPTY)), BizNameEntity.class, TABLE);
     }
 
     @Override

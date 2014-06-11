@@ -82,8 +82,12 @@ public final class ReceiptUpdateController {
             Model model,
             HttpServletRequest httpServletRequest
     ) {
+        updateReceipt(receiptOCRId, receiptDocumentForm, model, httpServletRequest);
+        return new ModelAndView(NEXT_PAGE_UPDATE);
+	}
+
+    private void updateReceipt(String receiptOCRId, ReceiptDocumentForm receiptDocumentForm, Model model, HttpServletRequest httpServletRequest) {
         DateTime time = DateUtil.now();
-        ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         //Gymnastic to show BindingResult errors if any or any special receipt document containing error message
         if (model.asMap().containsKey("result")) {
@@ -100,8 +104,7 @@ public final class ReceiptUpdateController {
         }
 
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ModelAndView(NEXT_PAGE_UPDATE);
-	}
+    }
 
     /**
      * For Technician: Loads recheck receipt
@@ -121,23 +124,7 @@ public final class ReceiptUpdateController {
             Model model,
             HttpServletRequest httpServletRequest
     ) {
-        DateTime time = DateUtil.now();
-
-        //Gymnastic to show BindingResult errors if any or any special receipt document containing error message
-        if (model.asMap().containsKey("result")) {
-            //result contains validation errors
-            model.addAttribute("org.springframework.validation.BindingResult.receiptDocumentForm", model.asMap().get("result"));
-            receiptDocumentForm = (ReceiptDocumentForm) model.asMap().get("receiptDocumentForm");
-            loadBasedOnAppropriateUserLevel(receiptOCRId, receiptDocumentForm, httpServletRequest);
-        } else if(model.asMap().containsKey("receiptDocumentForm")) {
-            //errorMessage here contains any other logical error found
-            receiptDocumentForm = (ReceiptDocumentForm) model.asMap().get("receiptDocumentForm");
-            loadBasedOnAppropriateUserLevel(receiptOCRId, receiptDocumentForm, httpServletRequest);
-        } else {
-            loadBasedOnAppropriateUserLevel(receiptOCRId, receiptDocumentForm, httpServletRequest);
-        }
-
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
+        updateReceipt(receiptOCRId, receiptDocumentForm, model, httpServletRequest);
         return new ModelAndView(NEXT_PAGE_RECHECK);
     }
 

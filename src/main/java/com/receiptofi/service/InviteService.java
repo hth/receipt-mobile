@@ -11,6 +11,8 @@ import com.receiptofi.utils.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,19 +44,38 @@ public final class InviteService {
     }
 
     /**
-     * @param emailId
+     * @param invitedUserEmail
      * @param userProfile
      * @return
      */
-    public InviteEntity initiateInvite(String emailId, UserProfileEntity userProfile) {
-        InviteEntity inviteEntity;
+    public InviteEntity initiateInvite(String invitedUserEmail, UserProfileEntity userProfile) {
+        UserAccountEntity userAccount = createNewUserAccount(invitedUserEmail);
+        return createInvite(invitedUserEmail, userProfile, userAccount);
+    }
+
+    private InviteEntity createInvite(String invitedUserEmail, UserProfileEntity userProfile, UserAccountEntity userAccount) {
+        UserProfileEntity newInvitedUser = userProfileManager.findByReceiptUserId(userAccount.getReceiptUserId());
+        newInvitedUser.inActive();
+        userProfileManager.save(newInvitedUser);
+
+        InviteEntity inviteEntity = InviteEntity.newInstance(
+                invitedUserEmail,
+                HashText.computeBCrypt(RandomString.newInstance().nextString()),
+                newInvitedUser,
+                userProfile
+        );
+        inviteManager.save(inviteEntity);
+        return inviteEntity;
+    }
+
+    private UserAccountEntity createNewUserAccount(String invitedUserEmail) {
         UserAccountEntity userAccount;
         try {
             //First save is performed
             userAccount = accountService.executeCreationOfNewAccount(
-                    emailId,
-                    "",
-                    "",
+                    invitedUserEmail,
+                    StringUtils.EMPTY,
+                    StringUtils.EMPTY,
                     RandomString.newInstance(8).nextString()
             );
         } catch (RuntimeException exception) {
@@ -65,12 +86,7 @@ public final class InviteService {
         //Updating the record as inactive until user completes registration
         userAccount.inActive();
         userAccountManager.save(userAccount);
-
-        UserProfileEntity newInvitedUser = userProfileManager.findByReceiptUserId(userAccount.getReceiptUserId());
-        String authenticationKey = HashText.computeBCrypt(RandomString.newInstance().nextString());
-        inviteEntity = InviteEntity.newInstance(emailId, authenticationKey, newInvitedUser, userProfile);
-        inviteManager.save(inviteEntity);
-        return inviteEntity;
+        return userAccount;
     }
 
     /**

@@ -32,16 +32,16 @@ public final class UserProfilePreferenceService {
         return userProfileManager.findByReceiptUserId(receiptUserId);
     }
 
+    public UserProfileEntity forProfilePreferenceFindByReceiptUserId(String receiptUserId) {
+        return userProfileManager.forProfilePreferenceFindByReceiptUserId(receiptUserId);
+    }
+
     public UserProfileEntity getUsingUserId(String userId) {
         return userProfileManager.findByUserId(userId);
     }
 
     public void updateProfile(UserProfileEntity userProfile) throws Exception {
         userProfileManager.save(userProfile);
-    }
-
-    public UserProfileEntity findById(String userProfileId) {
-        return userProfileManager.findOne(userProfileId);
     }
 
     public UserPreferenceEntity loadFromProfile(UserProfileEntity userProfileEntity) {

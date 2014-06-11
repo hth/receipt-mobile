@@ -110,7 +110,7 @@ public final class ExpensofiController {
             }
         }
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ExcelFileName("").asJson();
+        return new ExcelFileName(StringUtils.EMPTY).asJson();
     }
 
     private void updateReceiptWithExcelFilename(ReceiptEntity receiptEntity, String filename) {

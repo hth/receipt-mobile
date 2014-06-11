@@ -193,7 +193,7 @@ public final class DocumentUpdateService {
                  * If the comment is not equal then it means Technician has modified the comment and this needs
                  * to be updated with new time. Else do not update the time of recheck comment
                  */
-                String fetchedRecheckComment = "";
+                String fetchedRecheckComment = StringUtils.EMPTY;
                 if(fetchedReceipt != null && fetchedReceipt.getRecheckComment() != null) {
                     fetchedRecheckComment = fetchedReceipt.getRecheckComment().getText();
                 }

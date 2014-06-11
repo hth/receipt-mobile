@@ -82,8 +82,15 @@ public final class InviteController {
         return authenticatePage;
     }
 
+    /**
+     * Completes user invitation sent through email
+     * @param inviteAuthenticateForm
+     * @param redirectAttrs
+     * @param result
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST, value = "authenticate", params = {"confirm_invitation"})
-    public String post(
+    public String completeInvitation(
             @ModelAttribute("inviteAuthenticateForm")
             InviteAuthenticateForm inviteAuthenticateForm,
             RedirectAttributes redirectAttrs,
@@ -104,8 +111,8 @@ public final class InviteController {
 
                 UserAuthenticationEntity userAuthenticationEntity = UserAuthenticationEntity.newInstance(
                         HashText.computeBCrypt(inviteAuthenticateForm.getForgotAuthenticateForm().getPassword()),
-                        HashText.computeBCrypt(RandomString.newInstance().nextString()));
-
+                        HashText.computeBCrypt(RandomString.newInstance().nextString())
+                );
 
                 UserAccountEntity userAccountEntity = loginService.findByReceiptUserId(userProfileEntity.getReceiptUserId());
 
@@ -117,6 +124,8 @@ public final class InviteController {
                     userProfileManager.save(userProfileEntity);
                     accountService.updateAuthentication(userAuthenticationEntity);
 
+                    userAccountEntity.setFirstName(userProfileEntity.getFirstName());
+                    userAccountEntity.setLastName(userProfileEntity.getLastName());
                     userAccountEntity.active();
                     userAccountEntity.setAccountValidated(true);
                     userAccountEntity.setUserAuthentication(userAuthenticationEntity);
@@ -126,7 +135,7 @@ public final class InviteController {
                     redirectAttrs.addFlashAttribute(SUCCESS, "true");
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " success");
                 } catch (Exception e) {
-                    log.error("Error during updating of the old authentication keys: " + e.getLocalizedMessage());
+                    log.error("Error during updating of the old authentication keys={}", e.getLocalizedMessage(), e);
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
                     redirectAttrs.addFlashAttribute(SUCCESS, "false");
                 }
