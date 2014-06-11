@@ -54,6 +54,10 @@ public final class UserAuthenticationEntity extends BaseEntity {
 		return new UserAuthenticationEntity(password, authenticationKey);
 	}
 
+    public static UserAuthenticationEntity blankInstance() {
+        return new UserAuthenticationEntity();
+    }
+
 	public String getPassword() {
 		return password;
 	}

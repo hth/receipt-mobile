@@ -79,9 +79,6 @@ public final class UserAccountEntity extends BaseEntity {
     @Field("AV")
     private boolean isAccountValidated;
 
-    public UserAccountEntity() {
-    }
-
     private UserAccountEntity(
             String receiptUserId,
             String userId,

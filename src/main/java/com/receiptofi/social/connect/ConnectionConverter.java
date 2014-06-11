@@ -1,8 +1,9 @@
 package com.receiptofi.social.connect;
 
 import com.receiptofi.domain.UserAccountEntity;
+import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.domain.types.ProviderEnum;
-import com.receiptofi.domain.types.RoleEnum;
+import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -45,11 +46,16 @@ public class ConnectionConverter {
         );
     }
 
-    public UserAccountEntity convert(Connection<?> cnn) {
+    public UserAccountEntity convert(String userId, String receiptUserId, Connection<?> cnn) {
         ConnectionData data = cnn.createData();
 
-        UserAccountEntity userAccount = new UserAccountEntity();
-        userAccount.addRole(RoleEnum.ROLE_USER);
+        UserAccountEntity userAccount = UserAccountEntity.newInstance(
+                receiptUserId,
+                userId,
+                StringUtils.EMPTY,
+                StringUtils.EMPTY,
+                UserAuthenticationEntity.blankInstance()
+        );
         userAccount.setProviderId(ProviderEnum.valueOf(data.getProviderId().toUpperCase()));
         userAccount.setProviderUserId(data.getProviderUserId());
         userAccount.setDisplayName(data.getDisplayName());
@@ -60,6 +66,10 @@ public class ConnectionConverter {
         userAccount.setRefreshToken(encrypt(data.getRefreshToken()));
         userAccount.setExpireTime(data.getExpireTime());
         return userAccount;
+    }
+
+    public UserAccountEntity convert(String userId, Connection<?> cnn) {
+        return convert(userId, null, cnn);
     }
 
     private String decrypt(String encryptedText) {
