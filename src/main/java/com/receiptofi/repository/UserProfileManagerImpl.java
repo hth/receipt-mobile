@@ -22,6 +22,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.WriteResultChecking;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -78,7 +79,20 @@ public final class UserProfileManagerImpl implements UserProfileManager {
 
     @Override
     public UserProfileEntity findByReceiptUserId(String receiptUserId) {
-        return mongoTemplate.findOne(query(where("RID").is(receiptUserId).andOperator(isActive())), UserProfileEntity.class, TABLE);
+        return mongoTemplate.findOne(byReceiptUserId(receiptUserId, true), UserProfileEntity.class, TABLE);
+    }
+
+    @Override
+    public UserProfileEntity forProfilePreferenceFindByReceiptUserId(String receiptUserId) {
+        return mongoTemplate.findOne(byReceiptUserId(receiptUserId, false), UserProfileEntity.class, TABLE);
+    }
+
+    private Query byReceiptUserId(String receiptUserId, boolean activeProfile) {
+        if(activeProfile) {
+            return query(where("RID").is(receiptUserId).andOperator(isActive()));
+        } else {
+            return query(where("RID").is(receiptUserId));
+        }
     }
 
     @Override

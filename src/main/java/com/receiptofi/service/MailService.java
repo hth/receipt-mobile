@@ -186,23 +186,23 @@ public final class MailService {
     /**
      * Used in sending the invitation for the first time
      *
-     * @param emailId            Invited users email address
-     * @param userProfileEmailId Existing users email address
+     * @param invitedUserEmail  Invited users email address
+     * @param existingUserEmail Existing users email address
      * @return
      */
-    public boolean sendInvitation(String emailId, String userProfileEmailId) {
-        UserProfileEntity userProfileEntity = accountService.findIfUserExists(userProfileEmailId);
+    public boolean sendInvitation(String invitedUserEmail, String existingUserEmail) {
+        UserProfileEntity userProfileEntity = accountService.findIfUserExists(existingUserEmail);
         if(userProfileEntity != null) {
             InviteEntity inviteEntity = null;
             try {
-                inviteEntity = inviteService.initiateInvite(emailId, userProfileEntity);
-                formulateInvitationEmail(emailId, userProfileEntity, inviteEntity);
+                inviteEntity = inviteService.initiateInvite(invitedUserEmail, userProfileEntity);
+                formulateInvitationEmail(invitedUserEmail, userProfileEntity, inviteEntity);
             } catch (RuntimeException exception) {
                 if(inviteEntity != null) {
                     deleteInvite(inviteEntity);
                     log.info("Due to failure in sending the invitation email. Deleting Invite: " + inviteEntity.getId() + ", for: " + inviteEntity.getEmailId());
                 }
-                log.error("Exception occurred during persisting InviteEntity: " + exception.getLocalizedMessage());
+                log.error("Exception occurred during persisting InviteEntity, message={}", exception.getLocalizedMessage(), exception);
                 return false;
             }
         }

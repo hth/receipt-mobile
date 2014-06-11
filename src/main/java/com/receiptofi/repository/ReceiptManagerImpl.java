@@ -359,7 +359,11 @@ public final class ReceiptManagerImpl implements ReceiptManager {
 
     @Override
     public void removeExpensofiFilenameReference(String filename) {
-        mongoTemplate.findAndModify(query(where("EXP_FILENAME").is(filename)), Update.update("EXP_FILENAME", ""), ReceiptEntity.class);
+        mongoTemplate.findAndModify(
+                query(where("EXP_FILENAME").is(filename)),
+                Update.update("EXP_FILENAME", StringUtils.EMPTY),
+                ReceiptEntity.class
+        );
     }
 
     private Query checksumQuery(String checksum) {

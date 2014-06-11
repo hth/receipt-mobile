@@ -17,6 +17,8 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
@@ -100,8 +102,8 @@ public final class MessageManagerImpl implements MessageManager {
                 save(object);
             } catch (Exception e) {
                 object.setRecordLocked(false);
-                object.setUserProfileId("");
-                object.setEmailId("");
+                object.setUserProfileId(StringUtils.EMPTY);
+                object.setEmailId(StringUtils.EMPTY);
                 try {
                     save(object);
                 } catch (Exception e1) {

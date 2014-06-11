@@ -15,6 +15,7 @@ import static java.math.BigDecimal.ZERO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * User: hitender
@@ -82,27 +83,31 @@ public final class ItemService {
      * @return
      */
     private BigDecimal calculateSum(BigDecimal sum, List<ItemEntity> items) {
+        Assert.notNull(sum);
+        BigDecimal newSum = sum;
         for(ItemEntity item : items) {
-            sum = calculateTotalCost(sum, item);
+            newSum = calculateTotalCost(newSum, item);
         }
-        return sum;
+        return newSum;
     }
 
     /**
      * Finds all the un-assigned items for the user
-     *
      * @param expenseItems
      * @param netSum
+     * @param profileId
      * @return
      */
     private BigDecimal populateWithUnAssignedItems(Map<String, BigDecimal> expenseItems, BigDecimal netSum, String profileId) {
         List<ItemEntity> unassignedItems = itemManager.getItemEntitiesForUnAssignedExpenseTypeForTheYear(profileId);
+        Assert.notNull(netSum);
+        BigDecimal newNetSum = netSum;
         if(unassignedItems.isEmpty()) {
             BigDecimal sum = calculateSum(ZERO, unassignedItems);
-            netSum = Maths.add(netSum, sum);
+            newNetSum = Maths.add(newNetSum, sum);
             expenseItems.put("Un-Assigned", sum);
         }
-        return netSum;
+        return newNetSum;
     }
 
     /**
@@ -114,7 +119,7 @@ public final class ItemService {
      * @return
      */
     public BigDecimal calculateTotalCost(BigDecimal sum, ItemEntity item) {
-        sum = Maths.add(sum, item.getTotalPriceWithTax());
-        return sum;
+        Assert.notNull(sum);
+        return Maths.add(sum, item.getTotalPriceWithTax());
     }
 }

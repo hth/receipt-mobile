@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -93,11 +95,11 @@ public final class MileageEntity extends BaseEntity {
 
     private StringBuilder mergeComments(MileageEntity mileageEntity) {
         StringBuilder mergedText = new StringBuilder();
-        mergedText.append(mileageNotes != null ? mileageNotes.getText() : "");
+        mergedText.append(mileageNotes != null ? mileageNotes.getText() : StringUtils.EMPTY);
         if(mergedText.toString().length() > 0) {
             mergedText.append("\n\n");
         }
-        mergedText.append(mileageEntity.getMileageNotes() != null ? mileageEntity.getMileageNotes().getText() : "");
+        mergedText.append(mileageEntity.getMileageNotes() != null ? mileageEntity.getMileageNotes().getText() : StringUtils.EMPTY);
         return mergedText;
     }
 
@@ -207,7 +209,7 @@ public final class MileageEntity extends BaseEntity {
     @Transient
     public String tripDays() {
         if(startDate == null) {
-            return "";
+            return StringUtils.EMPTY;
         }
 
         DateTime dayStart = DateUtil.toDateTime(startDate);
@@ -225,7 +227,7 @@ public final class MileageEntity extends BaseEntity {
                 } else if(days < 0) {
                     return "Trip end day greater";
                 } else {
-                    return "";
+                    return StringUtils.EMPTY;
                 }
         }
     }

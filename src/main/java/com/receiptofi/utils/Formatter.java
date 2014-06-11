@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
@@ -75,7 +77,7 @@ public final class Formatter {
             return FormatterSingleton.INSTANCE.phoneInstance().format(numberPrototype, PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
         } catch (NumberParseException e) {
             log.error("NumberParseException was thrown while parsing the phone number : " + e.toString());
-            return "";
+            return StringUtils.EMPTY;
         }
     }
 

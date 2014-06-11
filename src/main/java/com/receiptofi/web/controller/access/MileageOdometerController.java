@@ -9,6 +9,8 @@ import com.receiptofi.web.form.MileageForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -103,7 +105,7 @@ public final class MileageOdometerController {
             }
         } catch(Exception exce) {
             log.error("Error occurred during receipt delete: Receipt Id: " + mileageForm.getMileage().getId() + ", error message: " + exce.getLocalizedMessage());
-            result.rejectValue("errorMessage", "", "Delete request failed to execute");
+            result.rejectValue("errorMessage", StringUtils.EMPTY, "Delete request failed to execute");
             redirectAttrs.addFlashAttribute("result", result);
 
             //set the error message to display to user
@@ -133,7 +135,7 @@ public final class MileageOdometerController {
             mileageService.split(mileageForm.getMileage().getId(), receiptUser.getRid());
         } catch(Exception exce) {
             log.error("Error occurred during splitting mileage: Mileage Id: " + mileageForm.getMileage().getId() + ", error message: " + exce.getLocalizedMessage());
-            result.rejectValue("errorMessage", "", exce.getLocalizedMessage());
+            result.rejectValue("errorMessage", StringUtils.EMPTY, exce.getLocalizedMessage());
             redirectAttrs.addFlashAttribute("result", result);
 
             //set the error message to display to user

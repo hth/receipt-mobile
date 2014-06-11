@@ -41,7 +41,7 @@ public final class EvalFeedbackValidator implements  Validator {
             if(evalFeedbackForm.getFileData().getSize() > 10485760) {
                 errors.rejectValue("fileData",
                         "file.length.high",
-                        new Object[] { "" },
+                        new Object[] { StringUtils.EMPTY },
                         "Uploaded file size exceeds the file size limitation of 10MB");
             }
 

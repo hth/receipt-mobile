@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -217,7 +218,7 @@ public final class ExpensofiExcelView extends AbstractExcelView {
             style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
         } else {
             if(value == null) {
-                value = "";   // Ignore
+                value = StringUtils.EMPTY;   // Ignore
             }
             log.debug("OTHER: " + value + " (" + value.getClass() + ")");
             cell.setCellValue(new HSSFRichTextString(value.toString()));

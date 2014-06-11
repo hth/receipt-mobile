@@ -26,7 +26,7 @@ public final class EvalFeedbackService {
     @Autowired FileDBService fileDBService;
 
     public void addFeedback(String comment, int rating, CommonsMultipartFile fileData, String receiptUserId) {
-        String blobId = "";
+        String blobId = StringUtils.EMPTY;
         try {
             if(fileData.getSize() > 0) {
                 UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();

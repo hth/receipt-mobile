@@ -367,7 +367,7 @@ public final class LandingController extends BaseController {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
 
-        String json = "";
+        String json = StringUtils.EMPTY;
         try {
             json = ow.writeValueAsString(landingView);
         } catch (IOException e) {
@@ -419,7 +419,7 @@ public final class LandingController extends BaseController {
             return landingView;
         } else {
             Header header = getHeaderForProfileOrAuthFailure();
-            LandingView landingView = LandingView.newInstance("", "", header);
+            LandingView landingView = LandingView.newInstance(StringUtils.EMPTY, StringUtils.EMPTY, header);
 
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             return landingView;
