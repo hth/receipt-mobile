@@ -96,11 +96,7 @@ public final class AccountService {
         UserProfileEntity userProfile;
 
         try {
-            userAuthentication = UserAuthenticationEntity.newInstance(
-                    HashText.computeBCrypt(password),
-                    HashText.computeBCrypt(RandomString.newInstance().nextString())
-            );
-            userAuthenticationManager.save(userAuthentication);
+            userAuthentication = getUserAuthenticationEntity(password);
         } catch (Exception e) {
             log.error("During saving UserAuthenticationEntity={}", e.getLocalizedMessage(), e);
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error saving user authentication");
@@ -231,5 +227,14 @@ public final class AccountService {
                 );
         }
         return userAccountEntity;
+    }
+
+    public UserAuthenticationEntity getUserAuthenticationEntity(String password) {
+        UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
+                HashText.computeBCrypt(password),
+                HashText.computeBCrypt(RandomString.newInstance().nextString())
+        );
+        userAuthenticationManager.save(userAuthentication);
+        return userAuthentication;
     }
 }

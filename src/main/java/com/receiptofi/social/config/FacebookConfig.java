@@ -1,5 +1,8 @@
 package com.receiptofi.social.config;
 
+import com.receiptofi.repository.GenerateUserIdManager;
+import com.receiptofi.repository.UserAuthenticationManager;
+import com.receiptofi.service.AccountService;
 import com.receiptofi.service.CustomUserDetailsService;
 import com.receiptofi.social.connect.ConnectionConverter;
 import com.receiptofi.social.connect.ConnectionServiceImpl;
@@ -35,7 +38,13 @@ public class FacebookConfig {
     private MongoTemplate mongoTemplate;
 
     @Autowired
+    private GenerateUserIdManager generateUserIdManager;
+
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Bean
     @Scope(value = "singleton", proxyMode = ScopedProxyMode.INTERFACES)
@@ -87,6 +96,11 @@ public class FacebookConfig {
     @Bean
     public ConnectionServiceImpl mongoConnectionService() {
         logger.info("Initializing mongoConnectionService");
-        return new ConnectionServiceImpl(mongoTemplate, connectionConverter());
+        return new ConnectionServiceImpl(
+                mongoTemplate,
+                connectionConverter(),
+                generateUserIdManager,
+                accountService
+        );
     }
 }
