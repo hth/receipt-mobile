@@ -68,7 +68,7 @@ public final class AccountService {
         this.generateUserIdManager = generateUserIdManager;
     }
 
-    public UserProfileEntity findIfUserExists(String mail) {
+    public UserProfileEntity doesUserExists(String mail) {
         return userProfileManager.findOneByMail(mail);
     }
 

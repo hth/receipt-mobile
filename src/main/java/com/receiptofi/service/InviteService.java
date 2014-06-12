@@ -45,15 +45,15 @@ public final class InviteService {
 
     /**
      * @param invitedUserEmail
-     * @param userProfile
+     * @param invitedBy
      * @return
      */
-    public InviteEntity initiateInvite(String invitedUserEmail, UserProfileEntity userProfile) {
+    public InviteEntity initiateInvite(String invitedUserEmail, UserAccountEntity invitedBy) {
         UserAccountEntity userAccount = createNewUserAccount(invitedUserEmail);
-        return createInvite(invitedUserEmail, userProfile, userAccount);
+        return createInvite(invitedUserEmail, invitedBy, userAccount);
     }
 
-    private InviteEntity createInvite(String invitedUserEmail, UserProfileEntity userProfile, UserAccountEntity userAccount) {
+    private InviteEntity createInvite(String invitedUserEmail, UserAccountEntity invitedBy, UserAccountEntity userAccount) {
         UserProfileEntity newInvitedUser = userProfileManager.findByReceiptUserId(userAccount.getReceiptUserId());
         newInvitedUser.inActive();
         userProfileManager.save(newInvitedUser);
@@ -62,7 +62,7 @@ public final class InviteService {
                 invitedUserEmail,
                 HashText.computeBCrypt(RandomString.newInstance().nextString()),
                 newInvitedUser,
-                userProfile
+                invitedBy
         );
         inviteManager.save(inviteEntity);
         return inviteEntity;
@@ -95,8 +95,8 @@ public final class InviteService {
      * @param emailId
      * @return
      */
-    public InviteEntity reInviteActiveInvite(String emailId, UserProfileEntity userProfile) {
-        return inviteManager.reInviteActiveInvite(emailId, userProfile);
+    public InviteEntity reInviteActiveInvite(String emailId, UserAccountEntity invitedBy) {
+        return inviteManager.reInviteActiveInvite(emailId, invitedBy);
     }
 
     public InviteEntity find(String emailId) {
