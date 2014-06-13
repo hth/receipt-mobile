@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
+import static com.receiptofi.repository.util.AppendAdditionalFields.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;

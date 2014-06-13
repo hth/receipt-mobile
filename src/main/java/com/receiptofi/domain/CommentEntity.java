@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.google.common.base.Objects;
-
 /**
  * User: hitender
  * Date: 6/11/13
@@ -58,9 +56,10 @@ public final class CommentEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("text", text)
-                .add("updated", getUpdated())
-                .toString();
+        return "CommentEntity{" +
+                "textLength=" + textLength +
+                ", text='" + text + '\'' +
+                ", commentType=" + commentType +
+                '}';
     }
 }
