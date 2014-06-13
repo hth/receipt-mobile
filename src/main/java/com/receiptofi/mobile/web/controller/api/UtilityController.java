@@ -2,7 +2,6 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.mobile.domain.UserAccess;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
