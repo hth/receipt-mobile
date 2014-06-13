@@ -9,7 +9,6 @@ import com.receiptofi.domain.types.DocumentStatusEnum;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -199,6 +198,20 @@ public final class DocumentEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return Objects.toString(this);
+        return "DocumentEntity{" +
+                "documentStatus=" + documentStatus +
+                ", fileSystemEntities=" + fileSystemEntities +
+                ", receiptDate='" + receiptDate + '\'' +
+                ", subTotal='" + subTotal + '\'' +
+                ", total='" + total + '\'' +
+                ", tax='" + tax + '\'' +
+                ", userProfileId='" + userProfileId + '\'' +
+                ", bizName=" + bizName +
+                ", bizStore=" + bizStore +
+                ", receiptId='" + receiptId + '\'' +
+                ", recheckComment=" + recheckComment +
+                ", notes=" + notes +
+                ", documentOfType=" + documentOfType +
+                '}';
     }
 }

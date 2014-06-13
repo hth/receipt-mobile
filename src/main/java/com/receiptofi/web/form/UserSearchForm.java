@@ -8,8 +8,6 @@ import com.receiptofi.domain.types.UserLevelEnum;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.base.Objects;
-
 /**
  * @author hitender
  * @since Mar 26, 2013 3:52:26 PM
@@ -111,12 +109,14 @@ public final class UserSearchForm {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("level", level)
-                .add("emailId", emailId)
-                .toString();
+        return "UserSearchForm{" +
+                "id='" + id + '\'' +
+                ", receiptUserId='" + receiptUserId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", level=" + level +
+                ", emailId='" + emailId + '\'' +
+                '}';
     }
 }

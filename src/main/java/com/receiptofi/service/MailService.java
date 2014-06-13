@@ -187,52 +187,52 @@ public final class MailService {
      * Used in sending the invitation for the first time
      *
      * @param invitedUserEmail  Invited users email address
-     * @param existingUserEmail Existing users email address
+     * @param invitedByRid Existing users email address
      * @return
      */
-    public boolean sendInvitation(String invitedUserEmail, String existingUserEmail) {
-        UserProfileEntity userProfileEntity = accountService.findIfUserExists(existingUserEmail);
-        if(userProfileEntity != null) {
+    public boolean sendInvitation(String invitedUserEmail, String invitedByRid) {
+        UserAccountEntity invitedBy = accountService.findByReceiptUserId(invitedByRid);
+        if(invitedBy != null) {
             InviteEntity inviteEntity = null;
             try {
-                inviteEntity = inviteService.initiateInvite(invitedUserEmail, userProfileEntity);
-                formulateInvitationEmail(invitedUserEmail, userProfileEntity, inviteEntity);
+                inviteEntity = inviteService.initiateInvite(invitedUserEmail, invitedBy);
+                formulateInvitationEmail(invitedUserEmail, invitedBy, inviteEntity);
+                return true;
             } catch (RuntimeException exception) {
                 if(inviteEntity != null) {
                     deleteInvite(inviteEntity);
-                    log.info("Due to failure in sending the invitation email. Deleting Invite: " + inviteEntity.getId() + ", for: " + inviteEntity.getEmailId());
+                    log.info("Due to failure in sending the invitation email. Deleting Invite={}, for={}", inviteEntity.getId(), inviteEntity.getEmail());
                 }
                 log.error("Exception occurred during persisting InviteEntity, message={}", exception.getLocalizedMessage(), exception);
-                return false;
             }
         }
-        return true;
+        return false;
     }
 
     /**
      * Helps in re-sending the invitation or to send new invitation to existing (pending) invitation by a new user.
      *
      * @param emailId            Invited users email address
-     * @param userProfileEmailId Existing users email address
+     * @param invitedByRid Existing users email address
      * @return
      */
-    public boolean reSendInvitation(String emailId, String userProfileEmailId) {
-        UserProfileEntity userProfileEntity = accountService.findIfUserExists(userProfileEmailId);
-        if(userProfileEntity != null) {
+    public boolean reSendInvitation(String emailId, String invitedByRid) {
+        UserAccountEntity invitedBy = accountService.findByReceiptUserId(invitedByRid);
+        if(invitedBy != null) {
             try {
-                InviteEntity inviteEntity = inviteService.reInviteActiveInvite(emailId, userProfileEntity);
+                InviteEntity inviteEntity = inviteService.reInviteActiveInvite(emailId, invitedBy);
                 boolean isNewInvite = false;
                 if(inviteEntity == null) {
                     //Means invite exist by another user. Better to create a new invite for the requesting user
-                    inviteEntity = reCreateAnotherInvite(emailId, userProfileEntity);
+                    inviteEntity = reCreateAnotherInvite(emailId, invitedBy);
                     isNewInvite = true;
                 }
-                formulateInvitationEmail(emailId, userProfileEntity, inviteEntity);
+                formulateInvitationEmail(emailId, invitedBy, inviteEntity);
                 if(!isNewInvite) {
                     inviteManager.save(inviteEntity);
                 }
             } catch (Exception exception) {
-                log.error("Exception occurred during persisting InviteEntity: " + exception.getLocalizedMessage());
+                log.error("Exception occurred during persisting InviteEntity, reason={}", exception.getLocalizedMessage(), exception);
                 return false;
             }
         }
@@ -242,28 +242,28 @@ public final class MailService {
     /**
      * Invitation is created by the new user
      *
-     * @param emailId
-     * @param userProfile
+     * @param email
+     * @param invitedBy
      * @return
      */
-    public InviteEntity reCreateAnotherInvite(String emailId, UserProfileEntity userProfile) {
-        InviteEntity inviteEntity = inviteService.find(emailId);
+    public InviteEntity reCreateAnotherInvite(String email, UserAccountEntity invitedBy) {
+        InviteEntity inviteEntity = inviteService.find(email);
         try {
             String auth = HashText.computeBCrypt(RandomString.newInstance().nextString());
-            inviteEntity = InviteEntity.newInstance(emailId, auth, inviteEntity.getInvited(), userProfile);
+            inviteEntity = InviteEntity.newInstance(email, auth, inviteEntity.getInvited(), invitedBy);
             inviteManager.save(inviteEntity);
             return inviteEntity;
         } catch (Exception exception) {
-            log.error("Error occurred during creation of invited user={}", emailId, exception.getLocalizedMessage(), exception);
+            log.error("Error occurred during creation of invited user={}", email, exception.getLocalizedMessage(), exception);
             return null;
         }
     }
 
-    private void formulateInvitationEmail(String emailId, UserProfileEntity userProfileEntity, InviteEntity inviteEntity) {
+    private void formulateInvitationEmail(String email, UserAccountEntity invitedBy, InviteEntity inviteEntity) {
         Map<String, String> rootMap = new HashMap<>();
-        rootMap.put("from", userProfileEntity.getName());
-        rootMap.put("fromEmail", userProfileEntity.getEmail());
-        rootMap.put("to", emailId);
+        rootMap.put("from", invitedBy.getName());
+        rootMap.put("fromEmail", invitedBy.getUserId());
+        rootMap.put("to", email);
         rootMap.put("link", inviteEntity.getAuthenticationKey());
         rootMap.put("domain", domain);
         rootMap.put("https", https);
@@ -274,16 +274,16 @@ public final class MailService {
             // use the true flag to indicate you need a multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(new InternetAddress(inviteeEmail, emailAddressName));
-            helper.setTo(!StringUtils.isEmpty(devSentTo) ? devSentTo : emailId);
-            log.info("Invitation send to : " + (!StringUtils.isEmpty(devSentTo) ? devSentTo : emailId));
+            helper.setTo(!StringUtils.isEmpty(devSentTo) ? devSentTo : email);
+            log.info("Invitation send to={}", (!StringUtils.isEmpty(devSentTo) ? devSentTo : email));
             sendMail(
-                    mailInviteSubject + " - " + userProfileEntity.getName(),
+                    mailInviteSubject + " - " + invitedBy.getName(),
                     freemarkerToString("mail/invite.ftl", rootMap),
                     message,
                     helper
             );
         } catch (TemplateException | IOException | MessagingException exception) {
-            log.error("Invitation failure email inviteId={}, for={}, exception={}", inviteEntity.getId(), inviteEntity.getEmailId(), exception);
+            log.error("Invitation failure email inviteId={}, for={}, exception={}", inviteEntity.getId(), inviteEntity.getEmail(), exception);
             throw new RuntimeException(exception);
         }
     }
@@ -320,7 +320,7 @@ public final class MailService {
      */
     private void deleteInvite(InviteEntity inviteEntity) {
         log.info("Deleting: Profile, Auth, Preferences, Invite as the invitation message failed to sent");
-        UserProfileEntity userProfile = accountService.findIfUserExists(inviteEntity.getEmailId());
+        UserProfileEntity userProfile = accountService.doesUserExists(inviteEntity.getEmail());
         UserAccountEntity userAccount = loginService.findByReceiptUserId(userProfile.getReceiptUserId());
         UserAuthenticationEntity userAuthenticationEntity = userAccount.getUserAuthentication();
         UserPreferenceEntity userPreferenceEntity = accountService.getPreference(userProfile);

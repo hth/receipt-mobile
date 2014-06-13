@@ -18,9 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
+import static com.receiptofi.repository.util.AppendAdditionalFields.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -242,12 +240,12 @@ public final class ItemManagerImpl implements ItemManager {
     @Override
     public void updateItemWithExpenseType(ItemEntity item) throws Exception {
         ItemEntity foundItem = findOne(item.getId());
-        if(foundItem != null) {
-            foundItem.setExpenseTag(item.getExpenseTag());
-            save(foundItem);
-        } else {
+        if(foundItem == null) {
             log.error("Could not update ExpenseType as no ItemEntity with Id was found: " + item.getId());
             throw new Exception("Could not update ExpenseType as no ItemEntity with Id was found: " + item.getId());
+        } else {
+            foundItem.setExpenseTag(item.getExpenseTag());
+            save(foundItem);
         }
     }
 

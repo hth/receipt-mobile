@@ -105,10 +105,10 @@ public final class BizStoreManagerImpl implements BizStoreManager {
 
         if(bizNameEntity != null && StringUtils.isNotEmpty(bizNameEntity.getId())) {
             Criteria criteriaA = where("BIZ_NAME.$id").is(new ObjectId(bizNameEntity.getId()));
-            if(query != null) {
-                query.addCriteria(criteriaA);
-            } else {
+            if(query == null) {
                 query = query(criteriaA);
+            } else {
+                query.addCriteria(criteriaA);
             }
         }
         return mongoTemplate.find(query.limit(STORE_LIMIT), BizStoreEntity.class, TABLE);

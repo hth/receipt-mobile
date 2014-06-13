@@ -236,13 +236,22 @@ public final class UserAccountEntity extends BaseEntity {
     }
 
     public String getName() {
-        return this.firstName + " " + this.lastName;
+        if(StringUtils.isNoneBlank(firstName, lastName)) {
+            return firstName + " " + lastName;
+        }
+        if(StringUtils.isNotBlank(displayName)) {
+            return displayName;
+        }
+        return userId;
     }
 
     @Override
     public String toString() {
-        if(StringUtils.isNotBlank(firstName)) {
-            return firstName;
+        if(StringUtils.isNoneBlank(firstName, lastName)) {
+            return firstName + " " + lastName;
+        }
+        if(StringUtils.isNotBlank(displayName)) {
+            return displayName;
         }
         return userId;
     }

@@ -13,8 +13,6 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 
-import com.google.common.base.Objects;
-
 /**
  * @author hitender
  * @since Jan 12, 2013 6:25:15 PM
@@ -106,11 +104,11 @@ public final class ReceiptGrouped implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
-                .add("total", total)
-                .add("year", year)
-                .add("month", month)
-                .add("day", day)
-                .toString();
+        return "ReceiptGrouped{" +
+                "total=" + total +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
     }
 }

@@ -108,21 +108,23 @@ public final class StorageManagerImpl implements StorageManager {
 		boolean closeStreamOnPersist = true;
 		GridFSInputFile receiptBlob;
         try {
-            if(!uploadReceiptImage.containsFile()) {
+            if(uploadReceiptImage.containsFile()) {
+                InputStream is = new FileInputStream(uploadReceiptImage.getFile());
+                receiptBlob = gridFs.createFile(is, uploadReceiptImage.getFileName(), closeStreamOnPersist);
+            } else {
                 receiptBlob = gridFs.createFile(
                         uploadReceiptImage.getFileData().getInputStream(),
                         uploadReceiptImage.getFileName(),
                         closeStreamOnPersist);
-            } else {
-                InputStream is = new FileInputStream(uploadReceiptImage.getFile());
-                receiptBlob = gridFs.createFile(is, uploadReceiptImage.getFileName(), closeStreamOnPersist);
             }
         } catch (IOException ioe) {
             log.error("Image persist error:{}", ioe);
             throw new RuntimeException(ioe.getCause());
         }
 
-        if(receiptBlob != null) {
+        if(receiptBlob == null) {
+            return null;
+        } else {
             receiptBlob.put("D", false);
             receiptBlob.put("FILE_TYPE", uploadReceiptImage.getFileType().getName());
             receiptBlob.setContentType(uploadReceiptImage.getFileData().getContentType());
@@ -130,10 +132,8 @@ public final class StorageManagerImpl implements StorageManager {
 
             receiptBlob.save();
             return receiptBlob.getId().toString();
-        } else {
-            return null;
         }
-	}
+    }
 
 	@Override
 	public GridFSDBFile get(String id) {

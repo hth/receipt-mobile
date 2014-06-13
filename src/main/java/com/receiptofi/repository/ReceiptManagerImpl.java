@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
+import static com.receiptofi.repository.util.AppendAdditionalFields.*;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;

@@ -2,16 +2,14 @@ package com.receiptofi.repository;
 
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.InviteEntity;
-import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.UserAccountEntity;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.receiptofi.repository.util.AppendAdditionalFields.entityUpdate;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
-import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
+import static com.receiptofi.repository.util.AppendAdditionalFields.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
@@ -37,14 +35,14 @@ public final class InviteManagerImpl implements InviteManager {
 
     @Override
     public InviteEntity findByAuthenticationKey(String auth) {
-        Query query = query(where("AUTH").is(auth)).addCriteria(isActive()).addCriteria(isNotDeleted());
+        Query query = query(where("AU").is(auth)).addCriteria(isActive()).addCriteria(isNotDeleted());
         return mongoTemplate.findOne(query, InviteEntity.class, TABLE);
     }
 
     @Override
     public void invalidateAllEntries(InviteEntity object) {
         mongoTemplate.updateMulti(
-                query(where("USER_PROFILE_INVITED.$id").is(new ObjectId(object.getInvited().getId()))),
+                query(where("IN.$id").is(new ObjectId(object.getInvited().getId()))),
                 entityUpdate(update("A", false)),
                 InviteEntity.class
         );
@@ -60,7 +58,6 @@ public final class InviteManagerImpl implements InviteManager {
         if(object.getId() != null) {
             object.setUpdated();
         }
-        object.increaseInvitationCount();
         mongoTemplate.save(object, TABLE);
     }
 
@@ -80,8 +77,8 @@ public final class InviteManagerImpl implements InviteManager {
     }
 
     @Override
-    public InviteEntity reInviteActiveInvite(String emailId, UserProfileEntity invitedBy) {
-        Criteria criteria = where("EM").is(emailId).and("USER_PROFILE_INVITED_BY.$id").is(new ObjectId(invitedBy.getId()));
+    public InviteEntity reInviteActiveInvite(String emailId, UserAccountEntity invitedBy) {
+        Criteria criteria = where("EM").is(emailId).and("IN_BY.$id").is(new ObjectId(invitedBy.getId()));
         Query query = query(criteria).addCriteria(isActive()).addCriteria(isNotDeleted());
         return mongoTemplate.findOne(query, InviteEntity.class, TABLE);
     }

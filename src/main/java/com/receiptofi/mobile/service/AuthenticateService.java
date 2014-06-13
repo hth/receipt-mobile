@@ -28,14 +28,32 @@ public class AuthenticateService {
     }
 
     public boolean hasAccess(String mail, String auth) {
+        return findUserAccount(mail, auth) != null;
+    }
+
+    public UserAccountEntity findUserAccount(String mail, String auth) {
         UserAccountEntity userAccountEntity = userAccountManager.findByUserId(mail);
         Assert.notNull(userAccountEntity);
 
         try {
-            return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8"));
+            return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8")) ? userAccountEntity : null;
         } catch (UnsupportedEncodingException e) {
             log.error("Auth decoding issue for user={}, reason={}", mail, e.getLocalizedMessage(), e);
-            return false;
+            return null;
         }
+    }
+
+    /**
+     * Finds authenticated receipt user id
+     * @param mail
+     * @param auth
+     * @return
+     */
+    public String getReceiptUserId(String mail, String auth) {
+        UserAccountEntity userAccountEntity = findUserAccount(mail, auth);
+        if(userAccountEntity != null) {
+            return userAccountEntity.getReceiptUserId();
+        }
+        return null;
     }
 }

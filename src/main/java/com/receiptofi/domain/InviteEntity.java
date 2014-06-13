@@ -17,36 +17,32 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "INVITE")
 @CompoundIndexes(value = {
-        @CompoundIndex(name = "invite_email_idx",   def = "{'EMAIL': 0}", unique = false),
-        @CompoundIndex(name = "invite_key_idx",     def = "{'AUTH' : 0}", unique = true)
+        @CompoundIndex(name = "invite_email_idx",   def = "{'EM': 0}", unique = false),
+        @CompoundIndex(name = "invite_key_idx",     def = "{'AU' : 0}", unique = true)
 } )
 public final class InviteEntity extends BaseEntity {
 
     @NotNull
     @Field("EM")
     @Email
-    private String emailId;
+    private String email;
 
     @NotNull
-    @Field("AUTH")
+    @Field("AU")
     private String authenticationKey;
 
     @DBRef
-    @Field("USER_PROFILE_INVITED")
+    @Field("IN")
     private UserProfileEntity invited;
 
     @DBRef
-    @Field("USER_PROFILE_INVITED_BY")
-    private UserProfileEntity invitedBy;
+    @Field("IN_BY")
+    private UserAccountEntity invitedBy;
 
-    @NotNull
-    @Field("COUNT")
-    private int invitationCount;
-
-    public static InviteEntity newInstance(String emailId, String authenticationKey, UserProfileEntity invited, UserProfileEntity invitedBy) {
+    public static InviteEntity newInstance(String email, String authenticationKey, UserProfileEntity invited, UserAccountEntity invitedBy) {
         InviteEntity inviteEntity = new InviteEntity();
 
-        inviteEntity.setEmailId(emailId);
+        inviteEntity.setEmail(email);
         inviteEntity.setAuthenticationKey(authenticationKey);
         inviteEntity.setInvited(invited);
         inviteEntity.setInvitedBy(invitedBy);
@@ -54,12 +50,12 @@ public final class InviteEntity extends BaseEntity {
         return inviteEntity;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAuthenticationKey() {
@@ -78,19 +74,11 @@ public final class InviteEntity extends BaseEntity {
         this.invited = invited;
     }
 
-    public UserProfileEntity getInvitedBy() {
+    public UserAccountEntity getInvitedBy() {
         return invitedBy;
     }
 
-    public void setInvitedBy(UserProfileEntity invitedBy) {
+    public void setInvitedBy(UserAccountEntity invitedBy) {
         this.invitedBy = invitedBy;
-    }
-
-    public int getInvitationCount() {
-        return invitationCount;
-    }
-
-    public void increaseInvitationCount() {
-        this.invitationCount ++;
     }
 }

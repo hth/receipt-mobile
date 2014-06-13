@@ -94,7 +94,7 @@ public final class AccountRegistrationController {
             return registrationPage;
         }
 
-        UserProfileEntity userProfile = accountService.findIfUserExists(userRegistrationForm.getEmailId());
+        UserProfileEntity userProfile = accountService.doesUserExists(userRegistrationForm.getEmailId());
         if(userProfile != null) {
             userRegistrationValidator.accountExists(userRegistrationForm, result);
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "account exists");
@@ -173,7 +173,7 @@ public final class AccountRegistrationController {
         String email =  StringUtils.lowerCase(ParseJsonStringToMap.jsonStringToMap(body).get("email"));
         AvailabilityStatus availabilityStatus;
 
-        UserProfileEntity userProfileEntity = accountService.findIfUserExists(email);
+        UserProfileEntity userProfileEntity = accountService.doesUserExists(email);
         if(userProfileEntity != null && userProfileEntity.getEmail().equals(email)) {
             log.info("Email={} provided during registration exists", email);
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
