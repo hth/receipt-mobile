@@ -108,16 +108,16 @@
     <!-- for now not being used -->
     <!-- Mostly used to invoke get and post on another application -->
     <!-- Configure to plugin JSON as request and response in method handler -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonMessageConverter"/>
-            </list>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+        <!--<property name="messageConverters">-->
+            <!--<list>-->
+                <!--<ref bean="jsonMessageConverter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <!-- Configure bean to convert JSON to POJO and vice versa -->
-    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+    <!--&lt;!&ndash; Configure bean to convert JSON to POJO and vice versa &ndash;&gt;-->
+    <!--<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />-->
     <!-- End for now not being used -->
     <!-- ===================================== -->
 
