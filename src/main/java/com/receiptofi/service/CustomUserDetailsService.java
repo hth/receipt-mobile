@@ -43,7 +43,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         //Always check user login with lower letter email case
         UserProfileEntity userProfile = userProfilePreferenceService.findByEmail(email);
-        if (userProfile != null) {
+        if(userProfile == null) {
+            log.warn("not found user={}", email);
+            throw new UsernameNotFoundException("Error in retrieving user");
+        } else {
             UserAccountEntity userAccountEntity = loginService.findByReceiptUserId(userProfile.getReceiptUserId());
             UserAuthenticationEntity userAuthenticate = userAccountEntity.getUserAuthentication();
 
@@ -55,9 +58,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                     userProfile.getLevel(),
                     userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
             );
-        } else {
-            log.warn("not found user={}", email);
-            throw new UsernameNotFoundException("Error in retrieving user");
         }
     }
 
@@ -65,7 +65,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         log.info("login through facebook user={}", uid);
 
         UserProfileEntity userProfile = userProfilePreferenceService.getUsingUserId(uid);
-        if (userProfile != null) {
+        if(userProfile == null) {
+            log.warn("not found user={}", uid);
+            throw new UsernameNotFoundException("Error in retrieving user");
+        } else {
             UserAccountEntity userAccountEntity = loginService.findByReceiptUserId(userProfile.getReceiptUserId());
             UserAuthenticationEntity userAuthenticate = userAccountEntity.getUserAuthentication();
 
@@ -79,9 +82,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                     userProfile.getLevel(),
                     userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
             );
-        } else {
-            log.warn("not found user={}", uid);
-            throw new UsernameNotFoundException("Error in retrieving user");
         }
     }
 

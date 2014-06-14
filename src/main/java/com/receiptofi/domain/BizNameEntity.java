@@ -10,6 +10,10 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * User: hitender
  * Date: 4/22/13
@@ -19,8 +23,23 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @CompoundIndexes(value = {
         @CompoundIndex(name = "biz_name_idx", def = "{'N': 1}",  unique = true),
 } )
+@JsonIgnoreProperties({
+
+        "id",
+        "version",
+        "updated",
+        "created",
+        "active",
+        "deleted"
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE
+)
 public final class BizNameEntity extends BaseEntity {
 
+    @JsonProperty("name")
     @NotNull
     @Field("N")
     private String businessName;

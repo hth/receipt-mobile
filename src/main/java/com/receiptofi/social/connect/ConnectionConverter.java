@@ -73,10 +73,10 @@ public class ConnectionConverter {
     }
 
     private String decrypt(String encryptedText) {
-        return encryptedText != null ? textEncryptor.decrypt(encryptedText) : encryptedText;
+        return encryptedText == null ? encryptedText : textEncryptor.decrypt(encryptedText);
     }
 
     private String encrypt(String text) {
-        return text != null ? textEncryptor.encrypt(text) : text;
+        return text == null ? text : textEncryptor.encrypt(text);
     }
 }

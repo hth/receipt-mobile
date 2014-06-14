@@ -7,11 +7,31 @@ import java.beans.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * User: hitender
  * Date: 12/13/13 12:47 AM
  */
 @Document(collection = "FILE_SYSTEM")
+@JsonIgnoreProperties({
+        "height",
+        "width",
+
+        "id",
+        "version",
+        "updated",
+        "created",
+        "active",
+        "deleted"
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE
+)
 public final class FileSystemEntity extends BaseEntity {
 
     @NotNull
@@ -26,6 +46,7 @@ public final class FileSystemEntity extends BaseEntity {
     @Field("W")
     private int width;
 
+    @JsonProperty("orientation")
     @NotNull
     @Field("ORIENTATION")
     private int imageOrientation = 0;
