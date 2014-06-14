@@ -3,8 +3,6 @@
  */
 package com.receiptofi.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.receiptofi.domain.types.DocumentStatusEnum;
 import com.receiptofi.utils.HashText;
 
@@ -38,10 +36,8 @@ import org.joda.time.DateTime;
         @CompoundIndex(name = "receipt_unique_idx",    def = "{'CHECK_SUM': -1}", unique = true),
         @CompoundIndex(name = "receipt_expense_Report",def = "{'EXP_FILENAME': -1}")
 } )
-@JsonIgnoreProperties(ignoreUnknown=true)
 public final class ReceiptEntity extends BaseEntity {
 
-    @JsonProperty("status")
 	@NotNull
     @Field("DS_E")
 	private DocumentStatusEnum receiptStatus;
@@ -50,7 +46,6 @@ public final class ReceiptEntity extends BaseEntity {
     @Field("FS")
 	private Collection<FileSystemEntity> fileSystemEntities;
 
-    @JsonProperty("date")
 	@NotNull
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @Field("RECEIPT_DATE")
@@ -68,18 +63,15 @@ public final class ReceiptEntity extends BaseEntity {
     @Field("DAY")
 	private int day;
 
-    @JsonProperty("total")
 	@NotNull
 	@NumberFormat(style = Style.CURRENCY)
     @Field("TOTAL")
 	private Double total;
 
-    @JsonProperty("tax")
 	@NumberFormat(style = Style.CURRENCY)
     @Field("TAX")
 	private Double tax = 0.00;
 
-    @JsonProperty("taxPercent")
     @NotNull
     @NumberFormat(style = Style.PERCENT)
     @Field("PERCENT_TAX")
@@ -105,7 +97,6 @@ public final class ReceiptEntity extends BaseEntity {
     @Field("COMMENT_RECHECK")
     private CommentEntity recheckComment;
 
-    @JsonProperty("notes")
     @DBRef
     @Field("COMMENT_NOTES")
     private CommentEntity notes;
