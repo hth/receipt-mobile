@@ -116,7 +116,7 @@ public final class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(new InternetAddress(doNotReplyEmail, emailAddressName));
 
-            String sentTo = !StringUtils.isEmpty(devSentTo) ? devSentTo : userAccount.getUserId();
+            String sentTo = StringUtils.isEmpty(devSentTo) ? userAccount.getUserId() : devSentTo;
             if(!sentTo.equalsIgnoreCase(devSentTo)) {
                 helper.setTo(new InternetAddress(userAccount.getUserId(), userAccount.getName()));
             } else {
@@ -160,7 +160,7 @@ public final class MailService {
                 MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
                 helper.setFrom(new InternetAddress(doNotReplyEmail, emailAddressName));
 
-                String sentTo = !StringUtils.isEmpty(devSentTo) ? devSentTo : emailId;
+                String sentTo = StringUtils.isEmpty(devSentTo) ? emailId : devSentTo;
                 if(!sentTo.equalsIgnoreCase(devSentTo)) {
                     helper.setTo(new InternetAddress(emailId, userAccount.getName()));
                 } else {
@@ -274,8 +274,8 @@ public final class MailService {
             // use the true flag to indicate you need a multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom(new InternetAddress(inviteeEmail, emailAddressName));
-            helper.setTo(!StringUtils.isEmpty(devSentTo) ? devSentTo : email);
-            log.info("Invitation send to={}", (!StringUtils.isEmpty(devSentTo) ? devSentTo : email));
+            helper.setTo(StringUtils.isEmpty(devSentTo) ? email : devSentTo);
+            log.info("Invitation send to={}", (StringUtils.isEmpty(devSentTo) ? email : devSentTo));
             sendMail(
                     mailInviteSubject + " - " + invitedBy.getName(),
                     freemarkerToString("mail/invite.ftl", rootMap),

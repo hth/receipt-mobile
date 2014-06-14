@@ -36,8 +36,9 @@ public final class EmpLandingController {
 
     @PreAuthorize("hasAnyRole('ROLE_TECHNICIAN', 'ROLE_SUPERVISOR')")
     @RequestMapping(value = "/landing", method = RequestMethod.GET)
-    public ModelAndView loadForm() {
+    public ModelAndView empLanding() {
         DateTime time = DateUtil.now();
+        log.info("employee landed");
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ModelAndView modelAndView = new ModelAndView(nextPage);
