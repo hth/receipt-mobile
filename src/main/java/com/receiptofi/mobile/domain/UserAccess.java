@@ -1,16 +1,17 @@
 package com.receiptofi.mobile.domain;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * User: hitender
  * Date: 6/9/14 12:06 PM
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class UserAccess {
 
-    @JsonProperty("working")
+    @JsonProperty("access")
     private String access;
 
     private UserAccess(String access) {
