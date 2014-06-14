@@ -4,10 +4,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:jms="http://www.springframework.org/schema/jms"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
 		  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
@@ -15,10 +11,6 @@
           http://www.springframework.org/schema/context/spring-context-3.2.xsd
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-          http://www.springframework.org/schema/util
-          http://www.springframework.org/schema/util/spring-util-3.2.xsd
-          http://www.springframework.org/schema/cache
-          http://www.springframework.org/schema/cache/spring-cache.xsd
           http://www.springframework.org/schema/task
           http://www.springframework.org/schema/task/spring-task-3.2.xsd
           http://www.springframework.org/schema/jms
@@ -35,6 +27,10 @@
 
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+    <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json"/>
+    </bean>
 
     <!-- turn on declarative caching -->
     <!--<cache:annotation-driven />-->
@@ -103,23 +99,6 @@
             </props>
         </property>
     </bean>
-
-    <!-- ===================================== -->
-    <!-- for now not being used -->
-    <!-- Mostly used to invoke get and post on another application -->
-    <!-- Configure to plugin JSON as request and response in method handler -->
-    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
-        <!--<property name="messageConverters">-->
-            <!--<list>-->
-                <!--<ref bean="jsonMessageConverter"/>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; Configure bean to convert JSON to POJO and vice versa &ndash;&gt;-->
-    <!--<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />-->
-    <!-- End for now not being used -->
-    <!-- ===================================== -->
 
     <!-- this is a template message that we can pre-load with default state -->
     <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">

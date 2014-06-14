@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * http://blog.jdriven.com/2012/11/consume-rest-json-webservices-easily-using-spring-web/
  *
- * Uncomment in receipt-servlet-mobile.xml
+ * Add the code in receipt-servlet-mobile.xml
  * <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
  *      <property name="messageConverters">
  *          <list>
