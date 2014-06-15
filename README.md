@@ -2,10 +2,8 @@ receipt-mobile
 ==============
 
 There two ways to test through command line
-- curl on mac
-- httpie on windows or mac. Can be found - https://gist.github.com/BlakeGardner/5586954
-
-Below there are couple of examples using curl and httpie. 
+- curl using mac
+- httpie on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found https://gist.github.com/BlakeGardner/5586954
 
 ##User Authentication##
 ____________
@@ -46,6 +44,24 @@ Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www
 ##API Call##
 ________
 
+###Check if site is up and running###
+
+Following call will make sure if site is up and running
+
+    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
+    
+HTTP Response success
+
+    HTTP/1.1 200 OK
+    Server: Apache-Coyote/1.1
+    ......
+    
+HTTP Body
+
+    {"working":true}
+
+If no response then site is not working. This call should return a response very quickly. 
+
 ###Check if user has access###
 
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
@@ -83,21 +99,5 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Language: en
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
-
-###Check if web site is working###
-
-Following call will make sure if site is working
-
-    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
-    
-HTTP Response success
-
-    HTTP/1.1 200 OK
-    Server: Apache-Coyote/1.1
-    ......
-    
-HTTP Body
-
-    {"working":true}
 
     
