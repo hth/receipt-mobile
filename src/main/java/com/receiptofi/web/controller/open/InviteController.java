@@ -103,7 +103,10 @@ public final class InviteController {
             return authenticatePage;
         } else {
             InviteEntity inviteEntity = inviteService.findInviteAuthenticationForKey(inviteAuthenticateForm.getForgotAuthenticateForm().getAuthenticationKey());
-            if(inviteEntity != null) {
+            if(inviteEntity == null) {
+                PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
+                redirectAttrs.addFlashAttribute(SUCCESS, "false");
+            } else {
                 UserProfileEntity userProfileEntity = inviteEntity.getInvited();
                 userProfileEntity.setFirstName(inviteAuthenticateForm.getFirstName());
                 userProfileEntity.setLastName(inviteAuthenticateForm.getLastName());
@@ -139,9 +142,6 @@ public final class InviteController {
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
                     redirectAttrs.addFlashAttribute(SUCCESS, "false");
                 }
-            } else {
-                PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
-                redirectAttrs.addFlashAttribute(SUCCESS, "false");
             }
             return authenticateResult;
         }

@@ -59,8 +59,7 @@ public final class BusinessController {
             model.addAttribute("org.springframework.validation.BindingResult.bizForm", model.asMap().get("result"));
         }
 
-        ModelAndView modelAndView = new ModelAndView(NEXT_PAGE);
-        return modelAndView;
+        return new ModelAndView(NEXT_PAGE);
     }
 
     @RequestMapping(value = "/business/edit", method = RequestMethod.GET)

@@ -118,8 +118,7 @@ public final class LandingService {
         Iterator<ReceiptGrouped> groupedIterator = receiptManager.getAllObjectsGroupedByMonth(userProfileId);
 
         List<ReceiptGrouped> receiptGroupedList = Lists.newArrayList(groupedIterator);
-        List<ReceiptGrouped> sortedList = descendingOrder.sortedCopy(receiptGroupedList);
-        return sortedList;
+        return descendingOrder.sortedCopy(receiptGroupedList);
     }
 
     /**
@@ -184,19 +183,19 @@ public final class LandingService {
                 for(ItemEntity itemEntity : itemEntities) {
                     BigDecimal sum = BigDecimal.ZERO;
                     sum = itemService.calculateTotalCost(sum, itemEntity);
-                    if(itemEntity.getExpenseTag() != null) {
-                        if(itemMaps.containsKey(itemEntity.getExpenseTag().getTagName())) {
-                            BigDecimal out = itemMaps.get(itemEntity.getExpenseTag().getTagName());
-                            itemMaps.put(itemEntity.getExpenseTag().getTagName(), Maths.add(out, sum));
-                        } else {
-                            itemMaps.put(itemEntity.getExpenseTag().getTagName(), sum);
-                        }
-                    } else {
+                    if(itemEntity.getExpenseTag() == null) {
                         if(itemMaps.containsKey("Un-Assigned")) {
                             BigDecimal out = itemMaps.get("Un-Assigned");
                             itemMaps.put("Un-Assigned", Maths.add(out, sum));
                         } else {
                             itemMaps.put("Un-Assigned", sum);
+                        }
+                    } else {
+                        if(itemMaps.containsKey(itemEntity.getExpenseTag().getTagName())) {
+                            BigDecimal out = itemMaps.get(itemEntity.getExpenseTag().getTagName());
+                            itemMaps.put(itemEntity.getExpenseTag().getTagName(), Maths.add(out, sum));
+                        } else {
+                            itemMaps.put(itemEntity.getExpenseTag().getTagName(), sum);
                         }
                     }
                 }
@@ -329,16 +328,16 @@ public final class LandingService {
             long sizeReceiptFinal = documentManager.collectionSize();
             long sizeItemFinal = itemOCRManager.collectionSize();
 
-            if(sizeReceiptInitial != sizeReceiptFinal) {
-                log.warn("Initial receipt size: " + sizeReceiptInitial + ", Final receipt size: " + sizeReceiptFinal + ". Removed Document: " + documentEntity.getId());
-            } else {
+            if(sizeReceiptInitial == sizeReceiptFinal) {
                 log.warn("Initial receipt size and Final receipt size are same: '" + sizeReceiptInitial + "' : '" + sizeReceiptFinal + "'");
+            } else {
+                log.warn("Initial receipt size: " + sizeReceiptInitial + ", Final receipt size: " + sizeReceiptFinal + ". Removed Document: " + documentEntity.getId());
             }
 
-            if(sizeItemInitial != sizeItemFinal) {
-                log.warn("Initial item size: " + sizeItemInitial + ", Final item size: " + sizeItemFinal);
-            } else {
+            if(sizeItemInitial == sizeItemFinal) {
                 log.warn("Initial item size and Final item size are same: '" + sizeItemInitial + "' : '" + sizeItemFinal + "'");
+            } else {
+                log.warn("Initial item size: " + sizeItemInitial + ", Final item size: " + sizeItemFinal);
             }
 
             log.info("Complete with rollback: throwing exception");

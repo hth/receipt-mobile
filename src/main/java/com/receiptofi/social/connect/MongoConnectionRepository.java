@@ -63,8 +63,7 @@ public class MongoConnectionRepository implements ConnectionRepository {
 
     @SuppressWarnings("unchecked")
     public <A> List<Connection<A>> findConnections(Class<A> apiType) {
-        List<?> connections = findConnections(getProviderId(apiType));
-        return (List<Connection<A>>) connections;
+        return (List<Connection<A>>) (List<?>) findConnections(getProviderId(apiType));
     }
 
     public MultiValueMap<String, Connection<?>> findConnectionsToUsers(MultiValueMap<String, String> providerUserIds) {

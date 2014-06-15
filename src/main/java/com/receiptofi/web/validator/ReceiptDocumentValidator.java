@@ -69,7 +69,10 @@ public final class ReceiptDocumentValidator implements Validator {
 
         int count = 0;
         BigDecimal subTotal = BigDecimal.ZERO;
-        if (receiptDocumentForm.getItems() != null) {
+        if(receiptDocumentForm.getItems() == null) {
+            log.error("Exception during update of receipt: " + receiptDocumentForm.getReceiptDocument().getId() + ", as no items were found");
+            errors.rejectValue("receiptDocumentForm", "item.required", new Object[]{"Item(s)"}, "Items required to submit a receipt");
+        } else {
             boolean conditionFailed = false;
             int conditionFailedCounter = 0;
             for (ItemEntityOCR item : receiptDocumentForm.getItems()) {
@@ -93,9 +96,6 @@ public final class ReceiptDocumentValidator implements Validator {
                 log.error("Exception during update of receipt: " + receiptDocumentForm.getReceiptDocument().getId() + ", as no items were found");
                 errors.rejectValue("receiptDocument", "item.required", new Object[]{"Item(s)"}, "Items required to submit a receipt");
             }
-        } else {
-            log.error("Exception during update of receipt: " + receiptDocumentForm.getReceiptDocument().getId() + ", as no items were found");
-            errors.rejectValue("receiptDocumentForm", "item.required", new Object[]{"Item(s)"}, "Items required to submit a receipt");
         }
 
         BigDecimal submittedSubTotal = null;
@@ -105,27 +105,27 @@ public final class ReceiptDocumentValidator implements Validator {
                 subTotal = Maths.adjustScale(subTotal);
                 int comparedValue = submittedSubTotal.compareTo(subTotal);
                 if (comparedValue > 0) {
-                    if(!Maths.withInRange(submittedSubTotal, subTotal)) {
+                    if(Maths.withInRange(submittedSubTotal, subTotal)) {
+                        log.warn("Found difference in Calculated subTotal: " + subTotal +
+                                ", submittedSubTotal: " + submittedSubTotal +
+                                ". Which is less than application specified diff of " +
+                                Maths.ACCEPTED_RANGE_IN_LOWEST_DENOMINATION);
+                    } else {
                         errors.rejectValue("receiptDocument.subTotal", "field.currency.match.first",
                                 new Object[]{receiptDocumentForm.getReceiptDocument().getSubTotal(), subTotal.toString()},
                                 "Summation not adding up");
-                    } else {
-                        log.warn("Found difference in Calculated subTotal: " + subTotal +
-                                ", submittedSubTotal: " + submittedSubTotal +
-                                ". Which is less than application specified diff of " +
-                                Maths.ACCEPTED_RANGE_IN_LOWEST_DENOMINATION);
                     }
 
                 } else if (comparedValue < 0) {
-                    if(!Maths.withInRange(submittedSubTotal, subTotal)) {
-                        errors.rejectValue("receiptDocument.subTotal", "field.currency.match.second",
-                            new Object[]{receiptDocumentForm.getReceiptDocument().getSubTotal(), subTotal.toString()},
-                            "Summation not adding up");
-                    } else {
+                    if(Maths.withInRange(submittedSubTotal, subTotal)) {
                         log.warn("Found difference in Calculated subTotal: " + subTotal +
                                 ", submittedSubTotal: " + submittedSubTotal +
                                 ". Which is less than application specified diff of " +
                                 Maths.ACCEPTED_RANGE_IN_LOWEST_DENOMINATION);
+                    } else {
+                        errors.rejectValue("receiptDocument.subTotal", "field.currency.match.second",
+                            new Object[]{receiptDocumentForm.getReceiptDocument().getSubTotal(), subTotal.toString()},
+                            "Summation not adding up");
                     }
                 }
             } catch (ParseException | NumberFormatException e) {
@@ -143,7 +143,9 @@ public final class ReceiptDocumentValidator implements Validator {
             }
 
             try {
-                if(submittedSubTotal != null && total != null) {
+                if(submittedSubTotal == null || total == null) {
+                    errors.rejectValue("receiptDocument.total", "field.currency.cannot.compute", new Object[]{receiptDocumentForm.getReceiptDocument().getTotal()}, "Cannot compute because of previous error(s)");
+                } else {
                     BigDecimal tax = Formatter.getCurrencyFormatted(receiptDocumentForm.getReceiptDocument().getTax());
                     //Since this is going to be displayed to user setting the scale to two.
                     BigDecimal calculatedTotal = Maths.add(submittedSubTotal, tax).setScale(Maths.SCALE_TWO);
@@ -152,8 +154,6 @@ public final class ReceiptDocumentValidator implements Validator {
                                 new Object[]{receiptDocumentForm.getReceiptDocument().getTotal(), calculatedTotal.toString()},
                                 "Summation not adding up");
                     }
-                } else {
-                    errors.rejectValue("receiptDocument.total", "field.currency.cannot.compute", new Object[]{receiptDocumentForm.getReceiptDocument().getTotal()}, "Cannot compute because of previous error(s)");
                 }
             } catch (ParseException | NumberFormatException exception) {
                 log.error("Exception during update of receipt: " + receiptDocumentForm.getReceiptDocument().getId() + ", with error message: " + exception.getLocalizedMessage());

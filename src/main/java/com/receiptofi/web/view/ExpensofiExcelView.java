@@ -47,7 +47,7 @@ public final class ExpensofiExcelView extends AbstractExcelView {
     @Value("${expensofiReportLocation}")
     private String expensofiReportLocation;
 
-    public final HSSFCellStyle NO_STYLE = null;
+    public static final HSSFCellStyle NO_STYLE = null;
 
     private ExpensofiExcelView() {}
 
@@ -155,7 +155,7 @@ public final class ExpensofiExcelView extends AbstractExcelView {
 
     //add picture data to this workbook.
     private void anchorReceiptImage(byte[] imageBytes, String imageContentType, HSSFWorkbook workbook, HSSFSheet sheet, HSSFRow row) {
-        int pictureIdx = workbook.addPicture(imageBytes, !imageContentType.equalsIgnoreCase("image/jpeg") ? Workbook.PICTURE_TYPE_PNG : Workbook.PICTURE_TYPE_JPEG);
+        int pictureIdx = workbook.addPicture(imageBytes, "image/jpeg".equalsIgnoreCase(imageContentType) ? Workbook.PICTURE_TYPE_JPEG : Workbook.PICTURE_TYPE_PNG);
 
         CreationHelper helper = workbook.getCreationHelper();
 

@@ -24,11 +24,11 @@ public final class IndexController {
     public String index(ModelMap map) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("Auth {}", authentication.getPrincipal().toString());
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            map.addAttribute("userDetails", userDetails);
-            return "redirect:/access/landing.htm";
+        if(authentication instanceof AnonymousAuthenticationToken) {
+            return "index";
         }
-        return "index";
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        map.addAttribute("userDetails", userDetails);
+        return "redirect:/access/landing.htm";
     }
 }

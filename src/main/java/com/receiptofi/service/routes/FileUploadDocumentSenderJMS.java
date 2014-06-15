@@ -32,7 +32,6 @@ public final class FileUploadDocumentSenderJMS {
     private String queueName;
 
 	public void send(final DocumentEntity documentEntity, final UserProfileEntity userProfile) {
-        assert(queueName.length() > 0);
         jmsSenderTemplate.send(queueName,
 				new MessageCreator() {
 					public Message createMessage(Session session) throws JMSException {
@@ -49,6 +48,6 @@ public final class FileUploadDocumentSenderJMS {
 					}
 				}
 				);
-		log.info("Message sent ReceiptOCR - id: "+ documentEntity.getId() + ". With level: " + userProfile.getLevel().getDescription());
+		log.info("Message sent ReceiptOCR={}, level={}", documentEntity.getId(), userProfile.getLevel().getDescription());
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentReme
         @CompoundIndex(name = "remember_username_idx", def = "{'UN': 1}"),
         @CompoundIndex(name = "remember_series_idx", def = "{'S': 1}")
 })
-public class RememberMeTokenEntity extends BaseEntity {
+public final class RememberMeTokenEntity extends BaseEntity {
 
     @NotNull
     @Field("UN")
@@ -34,7 +34,7 @@ public class RememberMeTokenEntity extends BaseEntity {
     private String tokenValue;
 
     @SuppressWarnings("unused")
-    public RememberMeTokenEntity() {}
+    private RememberMeTokenEntity() {}
 
     public RememberMeTokenEntity(PersistentRememberMeToken persistentToken) {
         this.series = persistentToken.getSeries();

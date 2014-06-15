@@ -109,7 +109,7 @@ API call <code>/receipt-mobile/api/allReceipts.json</code>
     
 **To get Receipts from start of the year** 
 
-API call <code>/receipt-mobile/api/allReceipts.json</code>
+API call <code>/receipt-mobile/api/ytdReceipts.json</code>
 
     curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/ytdReceipts.json
 

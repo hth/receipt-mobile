@@ -69,34 +69,37 @@ public final class LandingViewService {
 
             File file = CreateTempFile.file("XML-Landing", ".xml");
             jaxbMarshaller.marshal(landingView, file);
-            jaxbMarshaller.marshal(landingView, System.out);
-
-            Map rootMap = new HashMap();
-            rootMap.put("doc", freemarker.ext.dom.NodeModel.parse(file));
-
-            rootMap.put("protocol", https);
-            rootMap.put("host", host);
-            if(rootMap.get("protocol").equals(https)) {
-                rootMap.put("port", securePort);
-            } else {
-                rootMap.put("port", port);
-            }
-            rootMap.put("appname", appName);
-
-            return freemarkerDo(rootMap);
+            return populateDataForFTL(file);
         } catch (JAXBException | SAXException | ParserConfigurationException | IOException | TemplateException e) {
             log.error("Error while processing reporting template: " + e.getLocalizedMessage());
         }
         return null;
     }
 
+    public String populateDataForFTL(File file) throws SAXException, IOException, ParserConfigurationException, TemplateException {
+        //Commenting console output
+        //jaxbMarshaller.marshal(landingView, System.out);
+
+        Map rootMap = new HashMap();
+        rootMap.put("doc", freemarker.ext.dom.NodeModel.parse(file));
+
+        rootMap.put("protocol", https);
+        rootMap.put("host", host);
+        if(rootMap.get("protocol").equals(https)) {
+            rootMap.put("port", securePort);
+        } else {
+            rootMap.put("port", port);
+        }
+        rootMap.put("appname", appName);
+
+        return freemarkerDo(rootMap);
+    }
+
 
     private String freemarkerDo(Map rootMap) throws IOException, TemplateException {
         Configuration cfg = freemarkerConfiguration.createConfiguration();
         Template template = cfg.getTemplate("landingview-mobile.ftl");
-        final String text = processTemplateIntoString(template, rootMap);
-        log.debug(text);
-        return text;
+        return processTemplateIntoString(template, rootMap);
     }
 
     /**

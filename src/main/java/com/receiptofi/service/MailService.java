@@ -117,12 +117,12 @@ public final class MailService {
             helper.setFrom(new InternetAddress(doNotReplyEmail, emailAddressName));
 
             String sentTo = StringUtils.isEmpty(devSentTo) ? userAccount.getUserId() : devSentTo;
-            if(!sentTo.equalsIgnoreCase(devSentTo)) {
-                helper.setTo(new InternetAddress(userAccount.getUserId(), userAccount.getName()));
-            } else {
+            if(sentTo.equalsIgnoreCase(devSentTo)) {
                 helper.setTo(new InternetAddress(devSentTo, emailAddressName));
+            } else {
+                helper.setTo(new InternetAddress(userAccount.getUserId(), userAccount.getName()));
             }
-            log.info("Account validation sent to={}", !StringUtils.isEmpty(devSentTo) ? devSentTo : userAccount.getUserId());
+            log.info("Account validation sent to={}", StringUtils.isEmpty(devSentTo) ? userAccount.getUserId() : devSentTo);
             sendMail(
                     userAccount.getName() + ": " + mailValidateSubject,
                     freemarkerToString("mail/self-signup.ftl", rootMap),
@@ -161,12 +161,12 @@ public final class MailService {
                 helper.setFrom(new InternetAddress(doNotReplyEmail, emailAddressName));
 
                 String sentTo = StringUtils.isEmpty(devSentTo) ? emailId : devSentTo;
-                if(!sentTo.equalsIgnoreCase(devSentTo)) {
-                    helper.setTo(new InternetAddress(emailId, userAccount.getName()));
-                } else {
+                if(sentTo.equalsIgnoreCase(devSentTo)) {
                     helper.setTo(new InternetAddress(devSentTo, emailAddressName));
+                } else {
+                    helper.setTo(new InternetAddress(emailId, userAccount.getName()));
                 }
-                log.info("Mail recovery send to : " + (!StringUtils.isEmpty(devSentTo) ? devSentTo : emailId));
+                log.info("Mail recovery send to={}", StringUtils.isEmpty(devSentTo) ? emailId : devSentTo);
                 sendMail(
                         userAccount.getName() + ": " + mailRecoverSubject,
                         freemarkerToString("mail/account-recover.ftl", rootMap),

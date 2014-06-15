@@ -96,8 +96,7 @@ public final class ItemAnalyticService {
         Iterable<ItemEntity> filtered = Iterables.filter(items, new Predicate<ItemEntity>() {
             @Override
             public boolean apply(ItemEntity item) {
-                boolean condition = item.getReceipt().getReceiptDate().after(untilThisDay.toDate());
-                return condition;
+                return item.getReceipt().getReceiptDate().after(untilThisDay.toDate());
             }
         });
 
