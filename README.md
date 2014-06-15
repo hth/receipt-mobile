@@ -3,7 +3,7 @@ receipt-mobile
 
 There two ways to test through command line
 - curl on mac
-- httpie https://gist.github.com/BlakeGardner/5586954
+- httpie on windows or mac. Can be found - https://gist.github.com/BlakeGardner/5586954
 
 Below there are couple of examples using curl and httpie. 
 
@@ -46,7 +46,7 @@ Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www
 ##API Call##
 ________
 
-###User Has Access###
+###Check if user has access###
 
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
@@ -58,10 +58,17 @@ Check if user has access using <code>X-R-AUTH</code> code
     curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
     http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     
-If user has access then JSON Response <code>{"access":"granted"}</code><br>
-If user is denied access then Response header is like below with *HTTP/1.1 401 Unauthorized*
+HTTP Header response when success
 
-HTTP Response Header when access denied
+    HTTP/1.1 200 OK
+    Server: Apache-Coyote/1.1
+    ......
+    
+HTTP body response when success
+    
+    {"access":"granted"}
+
+HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 
     HTTP/1.1 401 Unauthorized
     Server: Apache-Coyote/1.1
@@ -77,6 +84,20 @@ HTTP Response Header when access denied
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
-###Check if site is working###
+###Check if web site is working###
+
+Following call will make sure if site is working
+
+    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
+    
+HTTP Response success
+
+    HTTP/1.1 200 OK
+    Server: Apache-Coyote/1.1
+    ......
+    
+HTTP Body
+
+    {"working":true}
 
     
