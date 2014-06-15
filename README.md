@@ -17,7 +17,7 @@ QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
     curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
 
-Example of response
+HTTP Response Header
 
     HTTP/1.1 200 OK
     Server: Apache-Coyote/1.1
@@ -46,6 +46,8 @@ Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www
 **API Call**
 ________
 
+-User Has Access-
+
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
 Example
@@ -53,15 +55,13 @@ Example
 *Check if user has access using <code>X-R-AUTH</code> code*
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/hasAccess.json
-    
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
     http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     
-    
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
-    
-
 If user has access then JSON Response <code>{"access":"granted"}</code><br>
 If user is denied access then Response header is like below with *HTTP/1.1 401 Unauthorized*
+
+HTTP Response Header when access denied
 
     HTTP/1.1 401 Unauthorized
     Server: Apache-Coyote/1.1
@@ -77,6 +77,6 @@ If user is denied access then Response header is like below with *HTTP/1.1 401 U
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
-*Check if site is working*
+-Check if site is working-
 
     
