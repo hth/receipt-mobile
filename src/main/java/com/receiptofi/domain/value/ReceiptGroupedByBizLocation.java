@@ -37,7 +37,7 @@ public final class ReceiptGroupedByBizLocation implements Serializable {
 
     public String getTotalStr() {
         NumberFormat fmt = NumberFormat.getCurrencyInstance();
-       return fmt.format(getTotal());
+        return fmt.format(getTotal());
     }
 
     public BizNameEntity getBizName() {

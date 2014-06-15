@@ -124,8 +124,7 @@ public final class Maths {
      */
     public static BigDecimal divide(Double divide, BigDecimal by) {
         BigDecimal total = new BigDecimal(divide.toString());
-        BigDecimal outcome = divide(total, by);
-        return outcome;
+        return divide(total, by);
     }
 
     /**
@@ -188,8 +187,7 @@ public final class Maths {
         if(taxedAmount == 0 || withoutTaxedAmount.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         }
-        BigDecimal fraction = divide(taxedAmount, withoutTaxedAmount);
-        return fraction;
+        return divide(taxedAmount, withoutTaxedAmount);
     }
 
     /**

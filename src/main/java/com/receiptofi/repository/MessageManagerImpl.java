@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.receiptofi.repository.util.AppendAdditionalFields.*;
-import static org.springframework.data.domain.Sort.Direction.ASC;
-import static org.springframework.data.domain.Sort.Direction.DESC;
+import static org.springframework.data.domain.Sort.Direction.*;
 import static org.springframework.data.domain.Sort.Order;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -41,6 +40,13 @@ public final class MessageManagerImpl implements MessageManager {
     private static final Logger log = LoggerFactory.getLogger(MessageManagerImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(MessageDocumentEntity.class, Document.class, "collection");
 
+    private static final Sort SORT_BY_USER_LEVEL_AND_CREATED = new Sort(
+            new ArrayList<Order>() {{
+                add(new Order(DESC, "USER_LEVEL_ENUM"));
+                add(new Order(ASC, "C"));
+            }}
+    );
+
     @Value("${messageQueryLimit:10}")
     private int messageQueryLimit;
 
@@ -59,14 +65,7 @@ public final class MessageManagerImpl implements MessageManager {
     @Override
     public List<MessageDocumentEntity> findWithLimit(DocumentStatusEnum status, int limit) {
         Query query = query(where("LOCKED").is(false).and("DS_E").is(status));
-
-        List<Order> orders = new ArrayList<Order>() {{
-            add(new Order(DESC, "USER_LEVEL_ENUM"));
-            add(new Order(ASC, "C"));
-        }};
-        Sort sort = new Sort(orders);
-
-        query.with(sort).limit(limit);
+        query.with(SORT_BY_USER_LEVEL_AND_CREATED).limit(limit);
         return mongoTemplate.find(query, MessageDocumentEntity.class, TABLE);
     }
 
@@ -118,28 +117,14 @@ public final class MessageManagerImpl implements MessageManager {
     @Override
     public List<MessageDocumentEntity> findPending(String emailId, String userProfileId, DocumentStatusEnum status) {
         Query query = query(where("LOCKED").is(true).and("DS_E").is(status).and("EM").is(emailId).and("USER_PROFILE_ID").is(userProfileId));
-
-        List<Order> orders = new ArrayList<Order>() {{
-            add(new Order(DESC, "USER_LEVEL_ENUM"));
-            add(new Order(ASC, "C"));
-        }};
-        Sort sort = new Sort(orders);
-
-        query.with(sort);
+        query.with(SORT_BY_USER_LEVEL_AND_CREATED);
         return mongoTemplate.find(query, MessageDocumentEntity.class, TABLE);
     }
 
     @Override
     public List<MessageDocumentEntity> findAllPending() {
         Query query = query(where("LOCKED").is(true).and("DS_E").is(DocumentStatusEnum.OCR_PROCESSED));
-
-        List<Order> orders = new ArrayList<Order>() {{
-            add(new Order(DESC, "USER_LEVEL_ENUM"));
-            add(new Order(ASC, "C"));
-        }};
-        Sort sort = new Sort(orders);
-
-        query.with(sort);
+        query.with(SORT_BY_USER_LEVEL_AND_CREATED);
         return mongoTemplate.find(query, MessageDocumentEntity.class, TABLE);
     }
 
@@ -169,11 +154,9 @@ public final class MessageManagerImpl implements MessageManager {
     public WriteResult undoUpdateObject(String receiptOCRId, boolean value, DocumentStatusEnum statusFind, DocumentStatusEnum statusSet) {
         mongoTemplate.setWriteResultChecking(WriteResultChecking.LOG);
         Query query = query(where("LOCKED").is(true).and("DS_E").is(statusFind).and("A").is(false).and("RECEIPT_OCR_ID").is(receiptOCRId));
-
         Update update = update("recordLocked", false)
                 .set("A", true)
                 .set("DS_E", statusSet);
-
         return mongoTemplate.updateFirst(query, entityUpdate(update), MessageDocumentEntity.class);
     }
 

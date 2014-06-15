@@ -53,6 +53,6 @@ public final class FileUploadDocumentListenerJMS {
         MessageDocumentEntity object = MessageDocumentEntity.newInstance(id, levelEnum, documentStatusEnum);
         messageManager.save(object);
 
-		log.info("Message received: " + id + ", user level: " + level + ", and persisted with id: " + object.getId());
+		log.info("Message received id={}, user level={}, and persisted with id={}", id, level, object.getId());
 	}
 }

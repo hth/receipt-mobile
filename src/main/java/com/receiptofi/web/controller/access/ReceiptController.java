@@ -88,7 +88,7 @@ public final class ReceiptController extends BaseController {
         boolean task = false;
         try {
             task = receiptService.deleteReceipt(receiptForm.getReceipt().getId(), receiptUser.getRid());
-            if(task == false) {
+            if(!task) {
                 //TODO in case of failure to delete send message to USER
             }
         } catch(Exception exce) {

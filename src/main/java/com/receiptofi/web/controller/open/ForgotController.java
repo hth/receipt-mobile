@@ -197,7 +197,10 @@ public final class ForgotController {
         } else {
             ForgotRecoverEntity forgotRecoverEntity = accountService.findAccountAuthenticationForKey(forgotAuthenticateForm.getAuthenticationKey());
             ModelAndView modelAndView = new ModelAndView(authenticateConfirm);
-            if(forgotRecoverEntity != null) {
+            if(forgotRecoverEntity == null) {
+                PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
+                modelAndView.addObject(SUCCESS, false);
+            } else {
                 UserProfileEntity userProfileEntity = userProfilePreferenceService.findByReceiptUserId(forgotRecoverEntity.getReceiptUserId());
                 Assert.notNull(userProfileEntity);
 
@@ -222,9 +225,6 @@ public final class ForgotController {
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
                     modelAndView.addObject(SUCCESS, false);
                 }
-            } else {
-                PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), " failure");
-                modelAndView.addObject(SUCCESS, false);
             }
             return modelAndView;
         }

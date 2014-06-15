@@ -390,8 +390,7 @@ public final class LandingController extends BaseController {
         DateTime time = DateUtil.now();
         log.info("HTML : " + profileId);
         LandingView landingView = landingView(profileId, authKey, time);
-        String html = landingViewService.landingViewHTMLString(landingView);
-        return html;
+        return landingViewService.landingViewHTMLString(landingView);
     }
 
     /**
@@ -404,7 +403,13 @@ public final class LandingController extends BaseController {
      */
     private LandingView landingView(String profileId, String authKey, DateTime time) {
         UserProfileEntity userProfile = authenticate(profileId, authKey);
-        if(userProfile != null) {
+        if(userProfile == null) {
+            Header header = getHeaderForProfileOrAuthFailure();
+            LandingView landingView = LandingView.newInstance(StringUtils.EMPTY, StringUtils.EMPTY, header);
+
+            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
+            return landingView;
+        } else {
             long pendingCount = landingService.pendingReceipt(profileId);
             List<ReceiptEntity> receipts = landingService.getAllReceiptsForThisMonth(profileId, DateUtil.now());
 
@@ -416,12 +421,6 @@ public final class LandingController extends BaseController {
             log.info("Rest/JSON Service returned={}, rid={} ",profileId, userProfile.getReceiptUserId());
 
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), true);
-            return landingView;
-        } else {
-            Header header = getHeaderForProfileOrAuthFailure();
-            LandingView landingView = LandingView.newInstance(StringUtils.EMPTY, StringUtils.EMPTY, header);
-
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             return landingView;
         }
     }
