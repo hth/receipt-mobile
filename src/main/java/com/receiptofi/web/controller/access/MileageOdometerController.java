@@ -65,12 +65,12 @@ public final class MileageOdometerController {
             mileageForm.setMileage(mileageEntity);
         } else {
             MileageEntity mileageEntity = mileageService.getMileage(mileageId, receiptUser.getRid());
-            if(mileageEntity != null) {
-                mileageForm.setMileage(mileageEntity);
-            } else {
+            if(mileageEntity == null) {
                 //TODO check all get methods that can result in display sensitive data of other users to someone else fishing
                 //Possible condition of bookmark or trying to gain access to some unknown receipt
-                log.warn("User " + receiptUser.getRid() + ", tried submitting an invalid mileage id: " + mileageId);
+                log.warn("rid={}, tried submitting an invalid mileage id={}", receiptUser.getRid(), mileageId);
+            } else {
+                mileageForm.setMileage(mileageEntity);
             }
         }
 
@@ -123,18 +123,20 @@ public final class MileageOdometerController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params="split")
-    public ModelAndView split(@ModelAttribute("mileageForm") MileageForm mileageForm,
-                              BindingResult result, RedirectAttributes redirectAttrs) {
+    public ModelAndView split(
+            @ModelAttribute("mileageForm")
+            MileageForm mileageForm,
 
+            BindingResult result,
+            RedirectAttributes redirectAttrs
+    ) {
         DateTime time = DateUtil.now();
-        log.info("Split mileage " + mileageForm.getMileage().getId());
-
+        log.debug("Split mileage " + mileageForm.getMileage().getId());
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         try {
             mileageService.split(mileageForm.getMileage().getId(), receiptUser.getRid());
         } catch(Exception exce) {
-            log.error("Error occurred during splitting mileage: Mileage Id: " + mileageForm.getMileage().getId() + ", error message: " + exce.getLocalizedMessage());
+            log.error("Error occurred during splitting mileage: Mileage={}, reason={}", mileageForm.getMileage().getId(), exce.getLocalizedMessage(), exce);
             result.rejectValue("errorMessage", StringUtils.EMPTY, exce.getLocalizedMessage());
             redirectAttrs.addFlashAttribute("result", result);
 

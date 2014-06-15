@@ -271,7 +271,7 @@ public final class LandingController extends BaseController {
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
                 } catch (Exception exce) {
                     outcome = "{\"success\" : false, \"uploadMessage\" : \"" + exce.getLocalizedMessage() + "\"}";
-                    log.error("Receipt upload exception: " + exce.getLocalizedMessage() + ", for user: " + receiptUser.getRid());
+                    log.error("Receipt upload reason={}, for rid={}", exce.getLocalizedMessage(), receiptUser.getRid(), exce);
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error in receipt save");
                 }
             }
@@ -321,7 +321,7 @@ public final class LandingController extends BaseController {
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
                 } catch (Exception exce) {
                     outcome = "{\"success\" : false, \"uploadMessage\" : \"" + exce.getLocalizedMessage() + "\"}";
-                    log.error("Receipt upload exception: " + exce.getLocalizedMessage() + ", for user: " + receiptUser.getRid());
+                    log.error("Receipt upload reason={}, for rid={}", exce.getLocalizedMessage(), receiptUser.getRid(), exce);
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error in receipt save");
                 }
             }
@@ -413,7 +413,7 @@ public final class LandingController extends BaseController {
             landingView.setReceipts(receipts);
             landingView.setStatus(Header.RESULT.SUCCESS);
 
-            log.info("Rest/JSON Service returned : " + profileId + ", Email ID: " + userProfile.getEmail());
+            log.info("Rest/JSON Service returned={}, rid={} ",profileId, userProfile.getReceiptUserId());
 
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), true);
             return landingView;
