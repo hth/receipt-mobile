@@ -9,7 +9,7 @@ There two ways to test through command line
 ____________
 
 Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>.<br>
-**Note**: Application should make secure HTTPS calls, only HTTPS calls will be supported and responded. Any other call will get exception.
+**Note**: Application should make secure <code>HTTPS</code> calls, only <code>HTTPS</code> calls will be supported and responded. Any other call will get exception.
 
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
@@ -64,8 +64,8 @@ If there is no response then site is not working. This call should return a resp
 
 ###Check if user has access###
 
-All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
-To query use following curl or http (replace XXX with valid user id and auth key)
+All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.<br>
+To query use following <code>curl</code> or <code>httpie</code>. (replace XXX with valid User Id and AUTH code)<br>
 Example
 
 Check if user has access using <code>X-R-AUTH</code> code
@@ -80,7 +80,7 @@ HTTP Header response when success
     Server: Apache-Coyote/1.1
     ......
     
-HTTP body response when success
+HTTP Body response when success
     
     {"access":"granted"}
 
