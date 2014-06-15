@@ -5,15 +5,15 @@ There two ways to test through command line
 - curl on mac
 - httpie https://gist.github.com/BlakeGardner/5586954
 
-Below there are couple of examples using curl and httpie. For encoding password please use http://www.url-encode-decode.com/
+Below there are couple of examples using curl and httpie. 
 
-**Authenticate**
+**User Authentication**
 ____________
 
 Use following curl or httpie with your username and password. 
-Note: In test and prod environment only call made over **secure protocol** will be supported
+Note: Call made over **secure protocol like HTTPS** is only supported.
 
-QA Secure login for getting *X-R-AUTH* code from user's account
+QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
     curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
 
@@ -41,7 +41,7 @@ Note: X-R-AUTH code has to be encoded before sending in with the header.
 **API Call**
 ________
 
-All API call should have the X-R-MAIL and X-R-AUTH in http header.
+All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
 Example
 
@@ -55,7 +55,7 @@ Example
     curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
     
 
-If user has access then JSON Response {"access":"granted"}
+If user has access then JSON Response <code>{"access":"granted"}</code><br>
 If user is denied access then Response header is like below with *HTTP/1.1 401 Unauthorized*
 
     HTTP/1.1 401 Unauthorized
@@ -73,7 +73,7 @@ If user is denied access then Response header is like below with *HTTP/1.1 401 U
     Date: Sun, 15 Jun 2014 04:29:39 GMT
     
 
-Note: X-R-AUTH code needs to be encoded by going to site http://www.url-encode-decode.com/;
+Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www.url-encode-decode.com/;
 
     Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
