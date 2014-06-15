@@ -69,9 +69,9 @@ public final class ReceiptService {
      * @return
      */
     public List<ReceiptEntity> findReceipt(DateTime dateTime, String userProfileId) {
-        int year    = dateTime.getYear();
-        int month   = dateTime.getMonthOfYear();
-        int day     = dateTime.getDayOfMonth();
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthOfYear();
+        int day = dateTime.getDayOfMonth();
 
         return receiptManager.findThisDayReceipts(year, month, day, userProfileId);
     }
@@ -92,36 +92,36 @@ public final class ReceiptService {
      */
     public boolean deleteReceipt(String receiptId, String userProfileId) throws Exception {
         ReceiptEntity receipt = receiptManager.findOne(receiptId, userProfileId);
-        if(receipt != null) {
-            if(receipt.isActive()) {
-                itemManager.deleteSoft(receipt);
-                fileSystemService.deleteSoft(receipt.getFileSystemEntities());
-                storageManager.deleteSoft(receipt.getFileSystemEntities());
-
-                if(receipt.getRecheckComment() != null && !StringUtils.isEmpty(receipt.getRecheckComment().getId())) {
-                    commentManager.deleteHard(receipt.getRecheckComment());
-                }
-                if(receipt.getNotes() != null && !StringUtils.isEmpty(receipt.getNotes().getId())) {
-                    commentManager.deleteHard(receipt.getNotes());
-                }
-
-                if(!StringUtils.isEmpty(receipt.getReceiptOCRId())) {
-                    DocumentEntity documentEntity = documentManager.findOne(receipt.getReceiptOCRId(), userProfileId);
-                    if(documentEntity != null) {
-                        itemOCRManager.deleteWhereReceipt(documentEntity);
-                        documentManager.deleteHard(documentEntity);
-                        receipt.setReceiptOCRId(null);
-                    }
-                }
-
-                receiptManager.deleteSoft(receipt);
-                return true;
-            } else {
-                log.error("Attempt to delete inactive Receipt: " + receipt.getId() + ", Browser Back Action performed");
-                throw new Exception("Receipt no longer exists");
-            }
+        if(receipt == null) {
+            return false;
         }
-        return false;
+        if(receipt.isActive()) {
+            itemManager.deleteSoft(receipt);
+            fileSystemService.deleteSoft(receipt.getFileSystemEntities());
+            storageManager.deleteSoft(receipt.getFileSystemEntities());
+
+            if(receipt.getRecheckComment() != null && !StringUtils.isEmpty(receipt.getRecheckComment().getId())) {
+                commentManager.deleteHard(receipt.getRecheckComment());
+            }
+            if(receipt.getNotes() != null && !StringUtils.isEmpty(receipt.getNotes().getId())) {
+                commentManager.deleteHard(receipt.getNotes());
+            }
+
+            if(!StringUtils.isEmpty(receipt.getReceiptOCRId())) {
+                DocumentEntity documentEntity = documentManager.findOne(receipt.getReceiptOCRId(), userProfileId);
+                if(documentEntity != null) {
+                    itemOCRManager.deleteWhereReceipt(documentEntity);
+                    documentManager.deleteHard(documentEntity);
+                    receipt.setReceiptOCRId(null);
+                }
+            }
+
+            receiptManager.deleteSoft(receipt);
+            return true;
+        } else {
+            log.error("Attempt to delete inactive Receipt={}, Browser Back Action performed", receipt.getId());
+            throw new Exception("Receipt no longer exists");
+        }
     }
 
     /**
@@ -131,7 +131,10 @@ public final class ReceiptService {
     public void reopen(ReceiptForm receiptForm, String userProfileId) throws Exception {
         try {
             ReceiptEntity receipt = receiptManager.findOne(receiptForm.getReceipt().getId(), userProfileId);
-            if(receipt.getReceiptOCRId() != null) {
+            if(receipt.getReceiptOCRId() == null) {
+                log.error("No receiptOCR id found in Receipt={}, aborting the reopen process", receipt.getId());
+                throw new Exception("Receipt could not be requested for Re-Check. Contact administrator with Receipt # " + receipt.getId() + ", contact Administrator with the Id");
+            } else {
                 if(receipt.isActive()) {
                     receipt.inActive();
                     List<ItemEntity> items = itemManager.getWhereReceipt(receipt);
@@ -156,18 +159,19 @@ public final class ReceiptService {
                     UserProfileEntity userProfile = userProfileManager.findByReceiptUserId(receiptOCR.getUserProfileId());
                     senderJMS.send(receiptOCR, userProfile);
                 } else {
-                    log.error("Attempt to invoke re-check on Receipt: " + receipt.getId() + ", Browser Back Action performed");
+                    log.error("Attempt to invoke re-check on Receipt={}, Browser Back Action performed", receipt.getId());
                     throw new Exception("Receipt no longer exists");
                 }
-            } else {
-                log.error("No receiptOCR id found in Receipt: " + receipt.getId() + ", aborting the reopen process");
-                throw new Exception("Receipt could not be requested for Re-Check. Contact administrator with Receipt # " + receipt.getId() + ", contact Administrator with the Id");
             }
         } catch (Exception e) {
-            log.error("Exception during customer requesting receipt recheck operation: " + e.getLocalizedMessage());
+            log.error("Exception during customer requesting receipt recheck operation, reason={}", e.getLocalizedMessage(), e);
 
             //Need to send a well formatted error message to customer instead of jumbled mumbled exception stacktrace
-            throw new Exception("Exception occurred during requesting receipt recheck operation for Receipt # " + receiptForm.getReceipt().getId() + ", contact Administrator with the Id");
+            throw new Exception(
+                    "Exception occurred during requesting receipt recheck operation for Receipt # " +
+                            receiptForm.getReceipt().getId() +
+                            ", contact Administrator with the Id"
+            );
         }
     }
 
@@ -242,7 +246,7 @@ public final class ReceiptService {
             }
             return true;
         } catch (Exception exce) {
-            log.error("Failed updating notes for receipt: " + receiptId);
+            log.error("Failed updating notes for Receipt={}, reason={}", receiptId, exce.getLocalizedMessage(), exce);
             return false;
         }
     }
@@ -275,7 +279,7 @@ public final class ReceiptService {
             }
             return true;
         } catch (Exception exce) {
-            log.error("Failed updating comment for receipt: " + receiptId);
+            log.error("Failed updating comment for Receipt={}, reason={}", receiptId, exce.getLocalizedMessage(), exce);
             return false;
         }
     }
@@ -307,7 +311,7 @@ public final class ReceiptService {
             }
             return true;
         } catch (Exception exce) {
-            log.error("Failed updating comment for receiptOCR: " + documentId);
+            log.error("Failed updating comment for ReceiptOCR={}, reason={}", documentId, exce.getLocalizedMessage(), exce);
             return false;
         }
     }
@@ -352,7 +356,7 @@ public final class ReceiptService {
         try {
             receiptManager.save(receiptEntity);
         } catch (Exception e) {
-            log.error("Failed updating ReceiptEntity with Expense Report Filename: " + e.getLocalizedMessage(), e);
+            log.error("Failed updating ReceiptEntity with Expense Report Filename, reason={}", e.getLocalizedMessage(), e);
             return false;
         }
         return true;

@@ -90,10 +90,10 @@ public final class MileageService {
                 }
             }
         } catch (RuntimeException re) {
-            log.error("Merge failed to save id1, id2" + id1 + "," + id2, re);
+            log.error("Merge failed to save id1:id2 {}:{}, reason={}", id1, id2, re.getLocalizedMessage(), re);
             throw new RuntimeException("Merge failed to save " + re.getLocalizedMessage());
         } catch(Exception exception) {
-            log.error("Merge failed to save id1, id2" + id1 + "," + id2, exception);
+            log.error("Merge failed to save id1:id2 {}:{}, reason={}", id1, id2, exception.getLocalizedMessage(), exception);
             throw new RuntimeException("Merge failed to save");
         }
         throw new RuntimeException("Merge failed as one or both could not be merged");
@@ -113,7 +113,7 @@ public final class MileageService {
                 return list;
             }
         } catch(Exception exception) {
-            log.error("Split failed to save, id=" + id, exception);
+            log.error("Split failed to save, id={}, reason={}", id, exception.getLocalizedMessage(), exception);
             throw new RuntimeException("Split failed to save");
         }
         throw new RuntimeException("Could not process split");
@@ -159,7 +159,7 @@ public final class MileageService {
             }
             return true;
         } catch (Exception exce) {
-            log.error("Failed updating notes for receipt: " + mileageId);
+            log.error("Failed updating notes for mileage={}, reason={}", mileageId, exce.getLocalizedMessage(), exce);
             return false;
         }
     }
@@ -184,5 +184,4 @@ public final class MileageService {
         }
         return false;
     }
-
 }
