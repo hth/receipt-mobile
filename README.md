@@ -34,8 +34,13 @@ Example of response
     Content-Length: 0
     Date: Sun, 15 Jun 2014 04:09:38 GMT
 
-Values from *X-R-MAIL* and *X-R-AUTH* has to be supplied in http header with every API call that gets invoked in APP
-Note: X-R-AUTH code has to be encoded before sending in with the header.
+Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied in http header with every API call that gets invoked in APP.<br>
+Note: <code>X-R-AUTH</code> code has to be encoded before sending in with the header. Any Java encoding API should help. For testing go to the site http://www.url-encode-decode.com/ for encoding <code>X-R-AUTH</code> string
+
+Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www.url-encode-decode.com/;
+
+    Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
+    Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
 
 
 **API Call**
@@ -45,7 +50,7 @@ All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in 
 To query use following curl or http (replace XXX with valid user id and auth key)
 Example
 
-*Check if user has access using X-R-AUTH code*
+*Check if user has access using <code>X-R-AUTH</code> code*
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/hasAccess.json
     
@@ -71,12 +76,6 @@ If user is denied access then Response header is like below with *HTTP/1.1 401 U
     Content-Language: en
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
-    
-
-Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www.url-encode-decode.com/;
-
-    Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
-    Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
 
 *Check if site is working*
 
