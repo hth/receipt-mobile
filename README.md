@@ -66,7 +66,6 @@ If there is no response then site is not working. This call should return a resp
 
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.<br>
 To query use following <code>curl</code> or <code>httpie</code>. (replace XXX with valid User Id and AUTH code)<br>
-Example
 
 Check if user has access using <code>X-R-AUTH</code> code
 
@@ -100,4 +99,84 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
+### Get receipts ###   
+
+**To get all receipts** 
+
+API call <code>/receipt-mobile/api/allReceipts.json</code>
+
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/allReceipts.json
     
+**To get Receipts from start of the year** 
+
+API call <code>/receipt-mobile/api/allReceipts.json</code>
+
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/ytdReceipts.json
+
+**To get Receipts for this month**
+
+API call <code>/receipt-mobile/api/thisMonthReceipts.json</code>
+
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/thisMonthReceipts.json
+    
+HTTP Header response
+
+    HTTP/1.1 200 OK
+    Server: Apache-Coyote/1.1
+    
+HTTP Body when there is data
+
+    [
+      {
+        "id": "539d0c3a8de23882a69b94ad",
+        "total": 116.0,
+        "bizName": {
+          "name": "Costco"
+        },
+        "bizStore": {
+          "address": "1000 North Rengstorff Avenue, Mountain View, CA 94043, USA",
+          "phone": "(650) 988-1841"
+        },
+        "notes": null,
+        "files": [
+          {
+            "blobId": "539d09a10364b2452f8e744d",
+            "sequence": 0,
+            "orientation": 90
+          }
+        ],
+        "date": 1402815600000,
+        "ptax": "0.0000",
+        "rid": "10000000002",
+        "expenseReport": null
+      },
+      {
+        "id": "539ceb490364da3e933db72b",
+        "total": 5.96,
+        "bizName": {
+          "name": "Target"
+        },
+        "bizStore": {
+          "address": "298 West McKinley Avenue, Sunnyvale, CA 94086, USA",
+          "phone": "(408) 702-1012"
+        },
+        "notes": {
+          "text": "Bought kiwi for shoe"
+        },
+        "files": [
+          {
+            "blobId": "539ce78f0364ab6cb1bacbbf",
+            "sequence": 0,
+            "orientation": 90
+          }
+        ],
+        "date": 1402786020000,
+        "ptax": "0.085610",
+        "rid": "10000000002",
+        "expenseReport": null
+      }
+    ]
+    
+HTTP Body when there is **No** data
+
+    []
