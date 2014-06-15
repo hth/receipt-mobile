@@ -7,7 +7,7 @@ There two ways to test through command line
 
 Below there are couple of examples using curl and httpie. 
 
-**User Authentication**
+##User Authentication##
 ____________
 
 Use following curl or httpie with your username and password. 
@@ -43,16 +43,16 @@ Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www
     Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
 
 
-**API Call**
+##API Call##
 ________
 
--User Has Access-
+###User Has Access###
 
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.
 To query use following curl or http (replace XXX with valid user id and auth key)
 Example
 
-*Check if user has access using <code>X-R-AUTH</code> code*
+Check if user has access using <code>X-R-AUTH</code> code
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/hasAccess.json
     curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
@@ -77,6 +77,6 @@ HTTP Response Header when access denied
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
--Check if site is working-
+###Check if site is working###
 
     
