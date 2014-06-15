@@ -2,13 +2,13 @@ receipt-mobile
 ==============
 
 There two ways to test through command line
-- curl using mac
-- httpie on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found https://gist.github.com/BlakeGardner/5586954
+- <code>curl</code> using mac
+- <code>httpie</code> on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found https://gist.github.com/BlakeGardner/5586954
 
 ##User Authentication##
 ____________
 
-Use following curl or httpie with your username and password. 
+Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>. 
 Note: Call made over **secure protocol like HTTPS** is only supported.
 
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
