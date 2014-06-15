@@ -9,7 +9,7 @@ There two ways to test through command line
 ____________
 
 Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>. 
-Note: Call made over **secure protocol like HTTPS** is only supported.
+Note: Application should make secure HTTPS calls, only HTTPS calls will be supported and responded. Any other call will get exception.
 
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
@@ -32,7 +32,7 @@ HTTP Response Header
     Content-Length: 0
     Date: Sun, 15 Jun 2014 04:09:38 GMT
 
-Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied in http header with every API call that gets invoked in APP.<br>
+Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied in http header with every API call that gets invoked through mobile application.<br>
 Note: <code>X-R-AUTH</code> code has to be encoded before sending in with the header. Any Java encoding API should help. For testing go to the site http://www.url-encode-decode.com/ for encoding <code>X-R-AUTH</code> string
 
 Note: <code>X-R-AUTH</code> code needs to be encoded by going to site http://www.url-encode-decode.com/;
@@ -60,7 +60,7 @@ HTTP Body
 
     {"working":true}
 
-If no response then site is not working. This call should return a response very quickly. 
+If there is no response then site is not working. This call should return a response very quickly. 
 
 ###Check if user has access###
 
