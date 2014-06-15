@@ -99,7 +99,7 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
-###Get receipts###   
+###Get receipts
 
 **To get all receipts** 
 
