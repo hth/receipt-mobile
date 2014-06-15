@@ -175,7 +175,7 @@ public final class ReceiptUpdateController {
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
             return new ModelAndView(REDIRECT_EMP_LANDING_HTM);
         } catch(Exception exce) {
-            log.error("Error in Submit Process: " + exce.getLocalizedMessage());
+            log.error("Error in Submit Process, reason={}", exce.getLocalizedMessage(), exce);
 
             receiptDocumentForm.setErrorMessage(exce.getLocalizedMessage());
             redirectAttrs.addFlashAttribute("receiptDocumentForm", receiptDocumentForm);
@@ -224,7 +224,7 @@ public final class ReceiptUpdateController {
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
             return new ModelAndView(REDIRECT_EMP_LANDING_HTM);
         } catch(Exception exce) {
-            log.error("Error in Submit Process: " + exce.getLocalizedMessage());
+            log.error("Error in Submit Process, reason={}", exce.getLocalizedMessage(), exce);
 
             receiptDocumentForm.setErrorMessage(exce.getLocalizedMessage());
             redirectAttrs.addFlashAttribute("receiptDocumentForm", receiptDocumentForm);
@@ -245,7 +245,6 @@ public final class ReceiptUpdateController {
             @ModelAttribute("receiptDocumentForm")
             ReceiptDocumentForm receiptDocumentForm,
 
-            BindingResult result,
             RedirectAttributes redirectAttrs
     ) {
         DateTime time = DateUtil.now();
