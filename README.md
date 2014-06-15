@@ -3,7 +3,7 @@ receipt-mobile
 
 There two ways to test through command line
 - <code>curl</code> using mac
-- <code>httpie</code> on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found https://gist.github.com/BlakeGardner/5586954
+- <code>httpie</code> on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found  https://gist.github.com/BlakeGardner/5586954
 
 ##User Authentication##
 ____________
