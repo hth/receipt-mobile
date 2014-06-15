@@ -40,8 +40,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 )
 public final class CommentEntity extends BaseEntity {
 
+    //XXX TODO @Value annotation is not working, find why
     @Value("${textLength:250}")
-    private int textLength;
+    private int textLength = 250;
 
     @Field("T")
     private String text;
