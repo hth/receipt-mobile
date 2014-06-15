@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * User: hitender
  * Date: 6/11/13
@@ -19,6 +22,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @CompoundIndexes(value = {
         @CompoundIndex(name = "comment_idx", def = "{'ID': 1}"),
 } )
+@JsonIgnoreProperties({
+        "textLength",
+        "commentType",
+
+        "id",
+        "version",
+        "updated",
+        "created",
+        "active",
+        "deleted"
+})
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE
+)
 public final class CommentEntity extends BaseEntity {
 
     @Value("${textLength:250}")
