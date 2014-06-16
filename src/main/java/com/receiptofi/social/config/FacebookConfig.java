@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -28,10 +29,13 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
 @Configuration
 public class FacebookConfig {
-    private static final String facebookClientId = "230231300514410";
-    private static final String facebookClientSecret = "2dc2546cbc2539f9f97a942c5060133f";
-
     private static final Logger logger = LoggerFactory.getLogger(FacebookConfig.class);
+
+    @Value("${facebookClientId}")
+    private String facebookClientId;
+
+    @Value("${facebookClientSecret}")
+    private String facebookClientSecret;
 
     @Autowired
     private MongoTemplate mongoTemplate;

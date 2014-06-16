@@ -1,7 +1,6 @@
 package com.receiptofi.service;
 
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.service.mobile.LandingViewService;
 import com.receiptofi.utils.CreateTempFile;
 import com.receiptofi.web.rest.Header;
 import com.receiptofi.web.rest.ReportView;
@@ -44,7 +43,24 @@ public final class ReportService {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired private FreeMarkerConfigurationFactoryBean freemarkerConfiguration;
-    @Autowired private LandingViewService landingViewService;
+
+    @Value("${http}")
+    private String http;
+
+    @Value("${https}")
+    private String https;
+
+    @Value("${host}")
+    private String host;
+
+    @Value("${port}")
+    private String port;
+
+    @Value("${secure.port}")
+    private String securePort;
+
+    @Value("${app.name}")
+    private String appName;
 
     public String monthlyReport(DateTime month, String profileId, String emailId, Header header) {
         List<ReceiptEntity> receipts = landingService.getAllReceiptsForThisMonth(profileId, month);
@@ -66,7 +82,23 @@ public final class ReportService {
 
             File file = CreateTempFile.file("XML-Report", ".xml");
             jaxbMarshaller.marshal(reportView, file);
-            landingViewService.populateDataForFTL(file);
+
+            //Commenting console output
+            //jaxbMarshaller.marshal(reportView, System.out);
+
+            Map rootMap = new HashMap();
+            rootMap.put("doc", freemarker.ext.dom.NodeModel.parse(file));
+
+            rootMap.put("protocol", https);
+            rootMap.put("host", host);
+            if(rootMap.get("protocol").equals(https)) {
+                rootMap.put("port", securePort);
+            } else {
+                rootMap.put("port", port);
+            }
+            rootMap.put("appname", appName);
+
+            return freemarkerDo(rootMap);
         } catch (JAXBException | SAXException | ParserConfigurationException | IOException | TemplateException e) {
             log.error("Error while processing reporting template: " + e.getLocalizedMessage());
         }
