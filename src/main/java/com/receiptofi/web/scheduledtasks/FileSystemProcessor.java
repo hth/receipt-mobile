@@ -77,9 +77,7 @@ public class FileSystemProcessor {
         File file = CreateTempFile.file("delete", ".xml");
         File directory = file.getParentFile();
 
-        if(!directory.exists()) {
-            log.info(directory + " Directory doesn't exists");
-        } else {
+        if(directory.exists()) {
             FilenameFilter textFilter = new FilenameFilter() {
                 public boolean accept(File dir, String name) {
                     return name.startsWith(CreateTempFile.TEMP_FILE_START_WITH);
@@ -88,10 +86,12 @@ public class FileSystemProcessor {
 
             int numberOfFiles = directory.listFiles(textFilter).length;
             for(File f : directory.listFiles(textFilter)) {
-                log.debug("File: " + directory + File.separator + f.getName());
+                log.debug("File={}{}{}", directory, File.separator, f.getName());
                 FileUtils.deleteQuietly(f);
             }
-            log.info("Removed total temp files: count '" + numberOfFiles);
+            log.info("removed total temp files count={}", numberOfFiles);
+        } else {
+            log.info("{} directory doesn't exists", directory);
         }
 
         FileUtils.deleteQuietly(file);

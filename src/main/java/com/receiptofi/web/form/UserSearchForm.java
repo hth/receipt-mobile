@@ -11,28 +11,27 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author hitender
  * @since Mar 26, 2013 3:52:26 PM
- *
  */
 public final class UserSearchForm {
 
-	private String id;
+    private String id;
     private String receiptUserId;
-	private String userName = StringUtils.EMPTY;
-	private String firstName = StringUtils.EMPTY;
-	private String lastName = StringUtils.EMPTY;
-	private UserLevelEnum level;
+    private String userName = StringUtils.EMPTY;
+    private String firstName = StringUtils.EMPTY;
+    private String lastName = StringUtils.EMPTY;
+    private UserLevelEnum level;
     private String emailId;
 
-	/** To make bean happy */
-	private UserSearchForm() {}
+    /** To make bean happy */
+    private UserSearchForm() {
+    }
 
     public static UserSearchForm newInstance() {
         return new UserSearchForm();
     }
 
-	public static UserSearchForm newInstance(UserProfileEntity userProfile) {
-		UserSearchForm userSearchForm = new UserSearchForm();
-
+    public static UserSearchForm newInstance(UserProfileEntity userProfile) {
+        UserSearchForm userSearchForm = newInstance();
         userSearchForm.setId(userProfile.getId());
         userSearchForm.setReceiptUserId(userProfile.getReceiptUserId());
         userSearchForm.setFirstName(userProfile.getFirstName());
@@ -41,15 +40,15 @@ public final class UserSearchForm {
         userSearchForm.setLevel(userProfile.getLevel());
         userSearchForm.setEmailId(userProfile.getEmail());
         return userSearchForm;
-	}
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getReceiptUserId() {
         return receiptUserId;
@@ -59,45 +58,45 @@ public final class UserSearchForm {
         this.receiptUserId = receiptUserId;
     }
 
-    public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
     /**
      * Not sure why this logic but it forces user toe enter more than two characters to find a specific user
      *
      * @return
      */
-	public String getUserName() {
-		if(!userName.equalsIgnoreCase(", ") && userName.length() > 2) {
-			return userName;
-		}
-		return StringUtils.EMPTY;
-	}
+    public String getUserName() {
+        if(userName.length() <= 2 || ", ".equalsIgnoreCase(userName)) {
+            return StringUtils.EMPTY;
+        }
+        return userName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public UserLevelEnum getLevel() {
-		return level;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLevel(UserLevelEnum level) {
-		this.level = level;
-	}
+    public UserLevelEnum getLevel() {
+        return level;
+    }
+
+    public void setLevel(UserLevelEnum level) {
+        this.level = level;
+    }
 
     public String getEmailId() {
         return emailId;
