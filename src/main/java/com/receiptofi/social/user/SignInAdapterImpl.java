@@ -1,6 +1,8 @@
 package com.receiptofi.social.user;
 
+import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.service.CustomUserDetailsService;
+import com.receiptofi.social.annotation.Social;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 @Component
 @Profile(value = "DEV")
+@Social
 public final class SignInAdapterImpl implements SignInAdapter {
     private static final Logger log = LoggerFactory.getLogger(SignInAdapterImpl.class);
 
@@ -47,18 +50,27 @@ public final class SignInAdapterImpl implements SignInAdapter {
 
     public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
         UserDetails user;
-        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        if(servletWebRequest.getRequest().getRequestURI().contains("facebook")) {
-            user = myUserAccountService.loadUserByUserId(localUserId);
-        } else {
+        if(localUserId.contains("@")) {
+            log.info("signin in user={} from receiptofi login page", localUserId);
             user = myUserAccountService.loadUserByUsername(StringUtils.lowerCase(localUserId));
+        } else {
+            userSignedInUsingProvider(localUserId, request);
+            user = myUserAccountService.loadUserByUserId(localUserId);
         }
         Assert.notNull(user);
-
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return extractOriginalUrl(request, user);
+    }
+
+    private void userSignedInUsingProvider(String localUserId, NativeWebRequest request) {
+        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+        if(servletWebRequest.getRequest().getRequestURI().contains(ProviderEnum.FACEBOOK.name().toLowerCase())) {
+            log.info("signin in user={} provider={}", localUserId, ProviderEnum.FACEBOOK);
+        } else if(servletWebRequest.getRequest().getRequestURI().contains(ProviderEnum.GOOGLE.name().toLowerCase())) {
+            log.info("signin in user={} provider={}", localUserId, ProviderEnum.GOOGLE);
+        }
     }
 
     private String extractOriginalUrl(NativeWebRequest request, UserDetails user) {

@@ -33,6 +33,8 @@ import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 /**
@@ -41,6 +43,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
  * User: hitender
  * Date: 11/30/13 2:45 AM
  */
+@Component
 public final class ExpensofiExcelView extends AbstractExcelView {
     private static final Logger log = LoggerFactory.getLogger(ExpensofiExcelView.class);
 
@@ -48,12 +51,6 @@ public final class ExpensofiExcelView extends AbstractExcelView {
     private String expensofiReportLocation;
 
     public static final HSSFCellStyle NO_STYLE = null;
-
-    private ExpensofiExcelView() {}
-
-    public static ExpensofiExcelView newInstance() {
-        return new ExpensofiExcelView();
-    }
 
     public void generateExcel(Map<String, Object> model, HSSFWorkbook workbook) throws IOException {
         buildExcelDocument(model, workbook, null, null);
@@ -141,10 +138,18 @@ public final class ExpensofiExcelView extends AbstractExcelView {
     protected void persistWorkbookToFileSystem(Workbook workbook, String filename) throws IOException {
         FileOutputStream out = null;
         try {
-			out = new FileOutputStream(new File(expensofiReportLocation + File.separator + filename));
+            Assert.notNull(expensofiReportLocation);
+            out = new FileOutputStream(new File(expensofiReportLocation + File.separator + filename));
 			workbook.write(out);
         } catch (IOException e) {
-            log.error("Error while persisting file to file system: " + filename, e);
+            log.error(
+                    "Possible permission error while persisting file to file system={}{}{}, reason=",
+                    expensofiReportLocation,
+                    File.separator,
+                    filename,
+                    e.getLocalizedMessage(),
+                    e
+            );
         } finally {
         	if(out != null) {
                 out.flush();
@@ -229,5 +234,4 @@ public final class ExpensofiExcelView extends AbstractExcelView {
         log.debug(" (" + style + ")");
         return cell;
     }
-
 }

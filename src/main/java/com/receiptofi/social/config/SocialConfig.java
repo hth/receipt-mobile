@@ -3,6 +3,7 @@ package com.receiptofi.social.config;
 import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.service.CustomUserDetailsService;
+import com.receiptofi.social.annotation.Social;
 import com.receiptofi.social.connect.ConnectionConverter;
 import com.receiptofi.social.connect.ConnectionServiceImpl;
 import com.receiptofi.social.connect.MongoUsersConnectionRepository;
@@ -26,16 +27,28 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 
+/**
+ * User: hitender
+ * Date: 5/10/14 12:35 AM
+ */
 @Configuration
-public class FacebookConfig {
-    private static final Logger logger = LoggerFactory.getLogger(FacebookConfig.class);
+@Social
+public class SocialConfig {
+    private static final Logger logger = LoggerFactory.getLogger(SocialConfig.class);
 
     @Value("${facebookClientId}")
     private String facebookClientId;
 
     @Value("${facebookClientSecret}")
     private String facebookClientSecret;
+
+    @Value("${googleClientId}")
+    private String googleClientId;
+
+    @Value("${googleClientSecret}")
+    private String googleClientSecret;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -49,13 +62,17 @@ public class FacebookConfig {
     @Autowired
     private AccountService accountService;
 
+    /**
+     * When a new provider is added to the app, register its {@link org.springframework.social.connect.ConnectionFactory} here.
+     * @see org.springframework.social.google.connect.GoogleConnectionFactory
+     */
     @Bean
     @Scope(value = "singleton", proxyMode = ScopedProxyMode.INTERFACES)
     public ConnectionFactoryLocator connectionFactoryLocator() {
         logger.info("Initializing connectionFactoryLocator");
         ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
         registry.addConnectionFactory(new FacebookConnectionFactory(facebookClientId, facebookClientSecret));
-
+        registry.addConnectionFactory(new GoogleConnectionFactory(googleClientId, googleClientSecret));
         return registry;
     }
 
@@ -70,6 +87,9 @@ public class FacebookConfig {
         return repository;
     }
 
+    /**
+     * The Spring MVC Controller that allows users to sign-in with their provider accounts.
+     */
     @Bean
     public ProviderSignInController providerSignInController(RequestCache requestCache) {
         logger.info("Initializing ProviderSignInController");

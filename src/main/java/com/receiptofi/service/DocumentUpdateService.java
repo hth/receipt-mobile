@@ -41,7 +41,6 @@ public final class DocumentUpdateService {
 
     @Autowired private DocumentManager documentManager;
     @Autowired private ItemOCRManager itemOCRManager;
-
     @Autowired private ReceiptManager receiptManager;
     @Autowired private ItemManager itemManager;
     @Autowired private MessageManager messageManager;
@@ -105,8 +104,7 @@ public final class DocumentUpdateService {
             notificationService.addNotification(sb.toString(), NotificationTypeEnum.RECEIPT, receipt);
 
         } catch(Exception exce) {
-            log.error(exce.getLocalizedMessage());
-            log.warn("Revert all the transaction for Receipt: " + receipt.getId() + ", ReceiptOCR: " + documentForm.getId());
+            log.error("Revert all the transaction for Receipt={}, ReceiptOCR={}, reason={}", receipt.getId(), documentForm.getId(), exce.getLocalizedMessage(), exce);
 
             //For rollback
             if(StringUtils.isNotEmpty(receipt.getId())) {
@@ -118,16 +116,16 @@ public final class DocumentUpdateService {
 
                 long sizeReceiptFinal = receiptManager.collectionSize();
                 long sizeItemFinal = itemManager.collectionSize();
-                if(sizeReceiptInitial != sizeReceiptFinal) {
-                    log.warn("Initial receipt size: " + sizeReceiptInitial + ", Final receipt size: " + sizeReceiptFinal + ". Removed Receipt: " + receipt.getId());
+                if(sizeReceiptInitial == sizeReceiptFinal) {
+                    log.warn("Initial receipt size and Final receipt size are same={}:{}", sizeReceiptInitial, sizeReceiptFinal);
                 } else {
-                    log.warn("Initial receipt size and Final receipt size are same: '" + sizeReceiptInitial + "' : '" + sizeReceiptFinal + "'");
+                    log.warn("Initial receipt size={}, Final receipt size={}. Removed Receipt={}", sizeReceiptInitial, sizeReceiptFinal, receipt.getId());
                 }
 
-                if(sizeItemInitial != sizeItemFinal) {
-                    log.warn("Initial item size: " + sizeItemInitial + ", Final item size: " + sizeItemFinal);
+                if(sizeItemInitial == sizeItemFinal) {
+                    log.warn("Initial item size and Final item size are same={}:{}", sizeItemInitial, sizeItemFinal);
                 } else {
-                    log.warn("Initial item size and Final item size are same: '" + sizeItemInitial + "' : '" + sizeItemFinal + "'");
+                    log.warn("Initial item size={}, Final item size={}", sizeItemInitial, sizeItemFinal);
                 }
 
                 documentForm.setDocumentStatus(DocumentStatusEnum.OCR_PROCESSED);
@@ -168,7 +166,7 @@ public final class DocumentUpdateService {
                 fetchedReceipt = receiptManager.findOne(receipt.getId());
                 if(fetchedReceipt == null) {
                     // By creating new receipt with old id, we move the pending receipt from the list back to users account
-                    log.warn("Something had gone wrong with original receipt id: " + receipt.getId() + ", so creating another with old receipt id");
+                    log.warn("Something had gone wrong with original Receipt={}, so creating another with old receipt id", receipt.getId());
                 } else {
                     receipt.setVersion(fetchedReceipt.getVersion());
                     receipt.setCreated(fetchedReceipt.getCreated());
@@ -183,7 +181,12 @@ public final class DocumentUpdateService {
             receiptDocument.inActive();
 
             //Only recheck comments are updated by technician. Receipt notes are never modified
-            if(!StringUtils.isEmpty(receiptDocument.getRecheckComment().getText())) {
+            if(StringUtils.isEmpty(receiptDocument.getRecheckComment().getText())) {
+                CommentEntity comment = receiptDocument.getRecheckComment();
+                commentManager.deleteHard(comment);
+                receiptDocument.setRecheckComment(null);
+                receipt.setRecheckComment(null);
+            } else {
                 CommentEntity comment = receiptDocument.getRecheckComment();
                 if(StringUtils.isEmpty(comment.getId())) {
                     comment.setId(null);
@@ -203,11 +206,6 @@ public final class DocumentUpdateService {
                 }
                 receiptDocument.setRecheckComment(comment);
                 receipt.setRecheckComment(comment);
-            } else {
-                CommentEntity comment = receiptDocument.getRecheckComment();
-                commentManager.deleteHard(comment);
-                receiptDocument.setRecheckComment(null);
-                receipt.setRecheckComment(null);
             }
 
             //Since Technician cannot change notes at least we gotta make sure we are not adding one when the Id for notes are missing
@@ -228,8 +226,7 @@ public final class DocumentUpdateService {
             notificationService.addNotification(sb.toString(), NotificationTypeEnum.RECEIPT, receipt);
 
         } catch(Exception exce) {
-            log.error(exce.getLocalizedMessage());
-            log.warn("Revert all the transaction for Receipt: " + receipt.getId() + ", ReceiptOCR: " + receiptDocument.getId());
+            log.error("Revert all the transaction for Receipt={}, ReceiptOCR={}, reason={}", receipt.getId(), receiptDocument.getId(), exce.getLocalizedMessage(), exce);
 
             //For rollback
             if(StringUtils.isNotEmpty(receipt.getId())) {
@@ -241,16 +238,16 @@ public final class DocumentUpdateService {
 
                 long sizeReceiptFinal = receiptManager.collectionSize();
                 long sizeItemFinal = itemManager.collectionSize();
-                if(sizeReceiptInitial != sizeReceiptFinal) {
-                    log.warn("Initial receipt size: " + sizeReceiptInitial + ", Final receipt size: " + sizeReceiptFinal + ". Removed Receipt: " + receipt.getId());
+                if(sizeReceiptInitial == sizeReceiptFinal) {
+                    log.warn("Initial receipt size and Final receipt size are same={}:{}", sizeReceiptInitial, sizeReceiptFinal);
                 } else {
-                    log.warn("Initial receipt size and Final receipt size are same: '" + sizeReceiptInitial + "' : '" + sizeReceiptFinal + "'");
+                    log.warn("Initial receipt size={}, Final receipt size={}. Removed Receipt={}", sizeReceiptInitial, sizeReceiptFinal, receipt.getId());
                 }
 
-                if(sizeItemInitial != sizeItemFinal) {
-                    log.warn("Initial item size: " + sizeItemInitial + ", Final item size: " + sizeItemFinal);
+                if(sizeItemInitial == sizeItemFinal) {
+                    log.warn("Initial item size and Final item size are same={}:{}", sizeItemInitial, sizeItemFinal);
                 } else {
-                    log.warn("Initial item size and Final item size are same: '" + sizeItemInitial + "' : '" + sizeItemFinal + "'");
+                    log.warn("Initial item size={}, Final item size={}", sizeItemInitial, sizeItemFinal);
                 }
 
                 receiptDocument.setDocumentStatus(DocumentStatusEnum.OCR_PROCESSED);
@@ -311,8 +308,7 @@ public final class DocumentUpdateService {
             notificationService.addNotification(sb.toString(), NotificationTypeEnum.DOCUMENT, receiptOCR);
 
         } catch(Exception exce) {
-            log.error("Rejection of a receipt failed: " + exce.getLocalizedMessage());
-            log.warn("Revert all the transaction for ReceiptOCR: " + receiptOCR.getId());
+            log.error("Revert all the transaction for ReceiptOCR={}. Rejection of a receipt failed, reason={}", receiptOCR.getId(), exce.getLocalizedMessage(), exce);
 
             receiptOCR.setDocumentStatus(DocumentStatusEnum.OCR_PROCESSED);
             receiptOCR.active();
@@ -343,7 +339,7 @@ public final class DocumentUpdateService {
             storageManager.deleteHard(documentEntity.getFileSystemEntities());
             fileSystemService.deleteHard(documentEntity.getFileSystemEntities());
         } else {
-            log.warn("User trying to delete processed Document #: " + documentEntity.getId() + ", Receipt Id #:" + documentEntity.getReceiptId());
+            log.warn("User trying to delete processed Document={}, Receipt={}",documentEntity.getId(), documentEntity.getReceiptId());
         }
     }
 
@@ -420,10 +416,10 @@ public final class DocumentUpdateService {
             sb.append("odometer reading processed");
             notificationService.addNotification(sb.toString(), NotificationTypeEnum.MILEAGE, mileageEntity);
         } catch(DuplicateKeyException duplicateKeyException) {
-            log.error(duplicateKeyException.getLocalizedMessage());
+            log.error(duplicateKeyException.getLocalizedMessage(), duplicateKeyException);
             throw new RuntimeException("Found existing record with similar odometer reading");
         } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
+            log.error(e.getLocalizedMessage(), e);
             //add roll back
         }
     }

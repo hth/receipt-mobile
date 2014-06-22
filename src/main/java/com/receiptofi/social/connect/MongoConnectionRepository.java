@@ -1,6 +1,7 @@
 package com.receiptofi.social.connect;
 
 import com.receiptofi.domain.types.ProviderEnum;
+import com.receiptofi.social.annotation.Social;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import org.springframework.social.connect.NotConnectedException;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-
+@Social
 public class MongoConnectionRepository implements ConnectionRepository {
 
     private final String userId;

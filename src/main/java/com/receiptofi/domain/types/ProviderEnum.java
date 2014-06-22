@@ -6,6 +6,5 @@ package com.receiptofi.domain.types;
  */
 public enum ProviderEnum {
     FACEBOOK,
-    GOOGLE_PLUS
+    GOOGLE
 }
-
