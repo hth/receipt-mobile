@@ -22,32 +22,36 @@ import com.google.common.hash.Hashing;
 /**
  * @author hitender
  * @since Dec 22, 2012 11:52:04 PM
- *
  */
 public final class HashText {
-	private static final Logger log = LoggerFactory.getLogger(HashText.class);
+    private static final Logger log = LoggerFactory.getLogger(HashText.class);
 
     // Define the BCrypt workload to use when generating password hashes. 10-31 is a valid value.
     private static final int WORKLOAD = 15;
 
-	private static MessageDigest MD1;
+    private static MessageDigest MD1;
+
     private static MessageDigest MD5;
 
-	static {
-		try {
+    static {
+        try {
             MD1 = MessageDigest.getInstance("SHA-1");
             MD5 = MessageDigest.getInstance("SHA-512");
-		} catch (NoSuchAlgorithmException exce) {
+        } catch (NoSuchAlgorithmException exce) {
             log.error("No hashing algorithm found={}", exce);
-		}
-	}
+        }
+    }
+
+    private HashText() {
+        // Utility classes should always be final and have an private constructor
+    }
 
     public static String hashCodeSHA1(String text) {
-        return hashCode(text, MD1) ;
+        return hashCode(text, MD1);
     }
 
     public static String hashCodeSHA512(String text) {
-        return hashCode(text, MD5) ;
+        return hashCode(text, MD5);
     }
 
     public static String computeBCrypt(String text) {
@@ -61,35 +65,36 @@ public final class HashText {
         return BCrypt.checkpw(password_plaintext, stored_hash);
     }
 
-	private static String hashCode(String text, MessageDigest md) {
+    private static String hashCode(String text, MessageDigest md) {
         DateTime time = DateUtil.now();
-		if (md != null) {
-			md.update(text.getBytes());
+        if(md == null) {
+            log.info("Un-Initialized MessageDigest");
+            PerformanceProfiling.log(HashText.class, time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
+            return null;
+        } else {
+            md.update(text.getBytes());
 
-			byte byteData[] = md.digest();
+            byte byteData[] = md.digest();
 
-			// convert the byte to hex format method 1
-			StringBuilder sb = new StringBuilder();
+            // convert the byte to hex format method 1
+            StringBuilder sb = new StringBuilder();
             for(byte aByteData : byteData) {
-                sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
+                sb.append(Integer.toString(aByteData & 0xff + 0x100, 16).substring(1));
             }
 
-			// convert the byte to hex format method 2
-			StringBuilder hexString = new StringBuilder();
+            // convert the byte to hex format method 2
+            StringBuilder hexString = new StringBuilder();
             for(byte aByteData : byteData) {
                 String hex = Integer.toHexString(0xff & aByteData);
-                if(hex.length() == 1)
+                if(hex.length() == 1) {
                     hexString.append('0');
+                }
                 hexString.append(hex);
             }
             PerformanceProfiling.log(HashText.class, time, Thread.currentThread().getStackTrace()[1].getMethodName(), true);
-			return hexString.toString();
-		} else {
-			log.info("Un-Initialized MessageDigest");
-            PerformanceProfiling.log(HashText.class, time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
-            return null;
-		}
-	}
+            return hexString.toString();
+        }
+    }
 
     /**
      * This condition is used through Ajax call to validated if a receipt of similar value exist in db
@@ -104,7 +109,6 @@ public final class HashText {
     }
 
     /**
-     *
      * @param userProfileId
      * @param date
      * @param total
@@ -115,8 +119,8 @@ public final class HashText {
         //This is considered to be thread safe
         HashFunction hf = Hashing.md5();
         HashCode hc = hf.newHasher()
-                .putString(userProfileId,    Charsets.UTF_8)
-                .putString(date.toString(),  Charsets.UTF_8)
+                .putString(userProfileId, Charsets.UTF_8)
+                .putString(date.toString(), Charsets.UTF_8)
                 .putDouble(total)
                 .putBoolean(deleted)
                 .hash();

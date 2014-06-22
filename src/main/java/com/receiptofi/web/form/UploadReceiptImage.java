@@ -73,20 +73,30 @@ public final class UploadReceiptImage {
     }
 
     public String getOriginalFileName() {
-        if(!containsFile()) {
-            return this.fileData.getOriginalFilename();
+        if(containsFile()) {
+            return FilenameUtils.getBaseName(fileData.getOriginalFilename()) +
+                    SCALED +
+                    "." +
+                    FilenameUtils.getExtension(fileData.getOriginalFilename());
         } else {
-            return FilenameUtils.getBaseName(this.fileData.getOriginalFilename()) + SCALED + "." + FilenameUtils.getExtension(this.fileData.getOriginalFilename());
+            return fileData.getOriginalFilename();
         }
     }
 
 	public String getFileName() {
-        if(!containsFile()) {
-		    return getUserProfileId() + UNDER_SCORE + this.fileData.getOriginalFilename();
+        if(containsFile()) {
+            return getUserProfileId() +
+                    UNDER_SCORE +
+                    FilenameUtils.getBaseName(fileData.getOriginalFilename()) +
+                    SCALED +
+                    "." +
+                    FilenameUtils.getExtension(fileData.getOriginalFilename());
         } else {
-            return getUserProfileId() + UNDER_SCORE + FilenameUtils.getBaseName(this.fileData.getOriginalFilename()) + SCALED + "." + FilenameUtils.getExtension(this.fileData.getOriginalFilename());
+		    return getUserProfileId() +
+                    UNDER_SCORE +
+                    fileData.getOriginalFilename();
         }
-	}
+    }
 
     public String getUserProfileId() {
         return userProfileId;

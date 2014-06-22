@@ -40,10 +40,10 @@ public final class AppendAdditionalFields {
      * @return
      */
     public static Update entityUpdate(Update update) {
-        if(update != null) {
-            return update.set("U", DateUtil.nowTime()).inc("V", 1);
-        } else {
+        if(update == null) {
             log.error("Update cannot be null");
+        } else {
+            return update.set("U", DateUtil.nowTime()).inc("V", 1);
         }
         return null;
     }

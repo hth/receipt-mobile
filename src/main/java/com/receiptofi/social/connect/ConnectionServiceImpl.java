@@ -102,13 +102,10 @@ public class ConnectionServiceImpl implements ConnectionService {
             mongoTemplate.save(userAccountFromConnection);
         }
 
-        switch(ProviderEnum.valueOf(userConn.getKey().getProviderId().toUpperCase())) {
-            case FACEBOOK:
-                processFacebook(userAccountFromConnection, userAccount);
-                break;
-            case GOOGLE:
-                processGoogle(userAccountFromConnection, userAccount);
-                break;
+        if(ProviderEnum.valueOf(userConn.getKey().getProviderId().toUpperCase()) == ProviderEnum.FACEBOOK) {
+            processFacebook(userAccountFromConnection, userAccount);
+        } else {
+            processGoogle(userAccountFromConnection, userAccount);
         }
     }
 

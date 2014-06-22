@@ -61,23 +61,24 @@ public final class ReceiptController extends BaseController {
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ReceiptEntity receiptEntity = receiptService.findReceipt(receiptId, receiptUser.getRid());
-        if(receiptEntity != null) {
+        if(receiptEntity == null) {
+            //TODO check all get methods that can result in display sensitive data of other users to someone else fishing
+            //Possible condition of bookmark or trying to gain access to some unknown receipt
+            log.warn("User={}, tried submitting an invalid receipt={}", receiptUser.getRid(), receiptId);
+        } else {
             List<ItemEntity> items = receiptService.findItems(receiptEntity);
             List<ExpenseTagEntity> expenseTypes = userProfilePreferenceService.activeExpenseTypes(receiptUser.getRid());
 
             receiptForm.setReceipt(receiptEntity);
             receiptForm.setItems(items);
             receiptForm.setExpenseTags(expenseTypes);
-        } else {
-            //TODO check all get methods that can result in display sensitive data of other users to someone else fishing
-            //Possible condition of bookmark or trying to gain access to some unknown receipt
-            log.warn("User " + receiptUser.getRid() + ", tried submitting an invalid receipt id: " + receiptId);
         }
 
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return new ModelAndView(NEXT_PAGE);
 	}
 
+    //@SuppressWarnings("PMD.EmptyIfStmt")
 	@RequestMapping(method = RequestMethod.POST, params="delete")
 	public String delete(@ModelAttribute("receiptForm") ReceiptForm receiptForm) {
         DateTime time = DateUtil.now();
@@ -92,7 +93,7 @@ public final class ReceiptController extends BaseController {
                 //TODO in case of failure to delete send message to USER
             }
         } catch(Exception exce) {
-            log.error("Error occurred during receipt delete: Receipt Id: " + receiptForm.getReceipt().getId() + ", error message: " + exce.getLocalizedMessage());
+            log.error("Error occurred during receipt delete: Receipt={}, reason={}", receiptForm.getReceipt().getId(), exce.getLocalizedMessage());
         }
 
         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), task);
@@ -131,9 +132,7 @@ public final class ReceiptController extends BaseController {
             try {
                 receiptService.updateItemWithExpenseType(item);
             } catch (Exception e) {
-                log.error("Error updating ExpenseType '" + item.getExpenseTag().getId() + "', " +
-                        "for ItemEntity '" + item.getId() + "'. Error Message: " + e.getLocalizedMessage());
-
+                log.error("Error updating ExpenseType={}, for ItemEntity={}, reason={}", item.getExpenseTag().getId(), item.getId(), e.getLocalizedMessage(), e);
                 //TODO send error message back saying update unsuccessful.
             }
         }

@@ -51,9 +51,16 @@ public final class ValidateEmailController {
     @RequestMapping(method = RequestMethod.GET)
     public String validateEmail(@RequestParam("authenticationKey") String key, RedirectAttributes redirectAttrs, HttpServletResponse httpServletResponse) throws IOException {
         EmailValidateEntity emailValidate = emailValidateService.findByAuthenticationKey(key);
-        if(emailValidate != null) {
+        if(emailValidate == null) {
+            log.info("authentication failed for invalid auth={}", key);
+            httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        } else {
             UserAccountEntity userAccount = accountService.findByReceiptUserId(emailValidate.getReceiptUserId());
-            if(!userAccount.isAccountValidated()) {
+            if(userAccount.isAccountValidated()) {
+                redirectAttrs.addFlashAttribute("success", "false");
+                log.info("authentication failed for user={}", userAccount.getReceiptUserId());
+            } else {
                 userAccount.setAccountValidated(true);
                 userAccount.active();
                 accountService.saveUserAccount(userAccount);
@@ -62,15 +69,8 @@ public final class ValidateEmailController {
                 emailValidateService.saveEmailValidateEntity(emailValidate);
                 redirectAttrs.addFlashAttribute("success", "true");
                 log.info("authentication success for user={}", userAccount.getReceiptUserId());
-            } else {
-                redirectAttrs.addFlashAttribute("success", "false");
-                log.info("authentication failed for user={}", userAccount.getReceiptUserId());
             }
             return validateResult;
-        } else {
-            log.info("authentication failed for invalid auth={}", key);
-            httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return null;
         }
     }
 

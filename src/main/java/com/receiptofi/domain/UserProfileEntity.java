@@ -153,9 +153,6 @@ public final class UserProfileEntity extends BaseEntity {
     @Field("USER_LEVEL_ENUM")
     private UserLevelEnum level = UserLevelEnum.USER;
 
-    @Field("TAG")
-    private String etag; // used to check if the profile has been modified
-
     /** To make bean happy */
     public UserProfileEntity() {}
 
@@ -471,13 +468,5 @@ public final class UserProfileEntity extends BaseEntity {
 
     public void setLevel(UserLevelEnum level) {
         this.level = level;
-    }
-
-    public String getEtag() {
-        return etag;
-    }
-
-    public void setEtag(String etag) {
-        this.etag = etag;
     }
 }

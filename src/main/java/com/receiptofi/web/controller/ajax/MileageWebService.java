@@ -136,7 +136,9 @@ public final class MileageWebService {
                         map.get("id"),
                         ((ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRid()
                 );
-                if(mileageEntity != null) {
+                if(mileageEntity == null) {
+                    return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip start date as record below no longer exists. Please hit browser refresh.");
+                } else {
                     boolean status = mileageService.updateStartDate(
                             map.get("id"),
                             StringUtils.remove(map.get("msd"), "\""),
@@ -147,8 +149,6 @@ public final class MileageWebService {
                     } else {
                         return createJSONUsingMileageDateUpdateResponse(status, "Failed to update trip start date");
                     }
-                } else {
-                    return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip start date as record below no longer exists. Please hit browser refresh.");
                 }
             } catch(RuntimeException re) {
                 return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip start date");
@@ -176,7 +176,9 @@ public final class MileageWebService {
                         map.get("id"),
                         ((ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRid()
                 );
-                if(mileageEntity != null) {
+                if(mileageEntity == null) {
+                    return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip end date as record below no longer exists. Please hit browser refresh.");
+                } else {
                     if(mileageEntity.isComplete()) {
                         boolean status = mileageService.updateEndDate(
                                 map.get("id"),
@@ -191,8 +193,6 @@ public final class MileageWebService {
                     } else {
                         return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip end date. Record no longer represent mileage driven. Please hit browser refresh.");
                     }
-                } else {
-                    return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip end date as record below no longer exists. Please hit browser refresh.");
                 }
             } catch(RuntimeException re) {
                 return createJSONUsingMileageDateUpdateResponse(false, "Failed to update trip end date");
