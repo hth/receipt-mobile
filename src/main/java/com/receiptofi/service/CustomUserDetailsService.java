@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -73,7 +75,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             UserAuthenticationEntity userAuthenticate = userAccountEntity.getUserAuthentication();
 
             return new ReceiptUser(
-                    userProfile.getUserId(),
+                    StringUtils.isBlank(userAccountEntity.getUserId()) ? userProfile.getUserId() : userAccountEntity.getUserId(),
                     userAuthenticate == null ?
                             "$2a$12$Ce0mzNSijSvhAjGqfMKvx.SCQUqLHRQnTeOsKH9sphjC0XF3TA4Ge" :
                             userAuthenticate.getPassword(),

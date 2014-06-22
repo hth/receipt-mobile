@@ -19,6 +19,8 @@ import org.springframework.social.facebook.api.EducationEntry;
 import org.springframework.social.facebook.api.Reference;
 import org.springframework.social.facebook.api.WorkEntry;
 
+import com.google.common.collect.Lists;
+
 /**
  * User: hitender
  * Date: 4/13/14 2:19 AM
@@ -63,7 +65,7 @@ public final class UserProfileEntity extends BaseEntity {
     private Locale locale;
 
     @Field("URL")
-    private String link;
+    private String link; //profile URL
 
     @Field("WS")
     private String website;
@@ -150,6 +152,9 @@ public final class UserProfileEntity extends BaseEntity {
     @NotNull
     @Field("USER_LEVEL_ENUM")
     private UserLevelEnum level = UserLevelEnum.USER;
+
+    @Field("TAG")
+    private String etag; // used to check if the profile has been modified
 
     /** To make bean happy */
     public UserProfileEntity() {}
@@ -445,6 +450,13 @@ public final class UserProfileEntity extends BaseEntity {
         this.work = work;
     }
 
+    public void addWork(WorkEntry work) {
+        if(this.work == null) {
+            this.work = Lists.newArrayList();
+        }
+        this.work.add(work);
+    }
+
     public List<EducationEntry> getEducation() {
         return education;
     }
@@ -459,5 +471,13 @@ public final class UserProfileEntity extends BaseEntity {
 
     public void setLevel(UserLevelEnum level) {
         this.level = level;
+    }
+
+    public String getEtag() {
+        return etag;
+    }
+
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 }

@@ -64,6 +64,7 @@ public final class ExpensofiController {
     @Autowired private FileDBService fileDBService;
     @Autowired private ItemAnalyticService itemAnalyticService;
     @Autowired private FileSystemProcessor fileSystemProcessor;
+    @Autowired private ExpensofiExcelView expensofiExcelView;
 
     @RequestMapping(value = "/items", method = RequestMethod.POST)
     public @ResponseBody
@@ -98,9 +99,7 @@ public final class ExpensofiController {
             try {
                 String filename = CreateTempFile.createRandomFilename();
                 model.addAttribute("file-name", filename);
-
-                ExpensofiExcelView.newInstance().generateExcel(model.asMap(), new HSSFWorkbook());
-
+                expensofiExcelView.generateExcel(model.asMap(), new HSSFWorkbook());
                 updateReceiptWithExcelFilename(receiptEntity, filename);
                 notificationService.addNotification(receiptEntity.getBizName().getBusinessName() + " expense report created", NotificationTypeEnum.EXPENSE_REPORT, receiptEntity);
 

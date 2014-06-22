@@ -7,6 +7,7 @@ import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.domain.types.RoleEnum;
 import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
+import com.receiptofi.social.annotation.Social;
 import com.receiptofi.utils.RandomString;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -33,9 +34,16 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.FacebookProfile;
+import org.springframework.social.facebook.api.Reference;
+import org.springframework.social.facebook.api.WorkEntry;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Organization;
+import org.springframework.social.google.api.plus.Person;
 import org.springframework.util.MultiValueMap;
 
+@Social
 public class ConnectionServiceImpl implements ConnectionService {
     private static final Logger log = LoggerFactory.getLogger(ConnectionServiceImpl.class);
 
@@ -65,6 +73,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         );
         UserAuthenticationEntity userAuthentication = accountService.getUserAuthenticationEntity(RandomString.newInstance().nextString());
         userAccount.setUserAuthentication(userAuthentication);
+        log.info("new account created user={} provider={}", userAccount.getReceiptUserId(), userAccount.getProviderId());
         mongoTemplate.insert(userAccount);
     }
 
@@ -93,9 +102,29 @@ public class ConnectionServiceImpl implements ConnectionService {
             mongoTemplate.save(userAccountFromConnection);
         }
 
+        switch(ProviderEnum.valueOf(userConn.getKey().getProviderId().toUpperCase())) {
+            case FACEBOOK:
+                processFacebook(userAccountFromConnection, userAccount);
+                break;
+            case GOOGLE:
+                processGoogle(userAccountFromConnection, userAccount);
+                break;
+        }
+    }
+
+    private void processGoogle(UserAccountEntity userAccountFromConnection, UserAccountEntity userAccount) {
+        Google google = new GoogleTemplate(userAccountFromConnection.getAccessToken());
+        Person googleUserProfile = google.plusOperations().getGoogleProfile();
+        copyAndSaveGoogleToUserProfile(googleUserProfile, userAccount);
+
+        // XXX TODO page Circle to get all the users in the circle
+        log.info("Google Id={}", googleUserProfile.getId());
+    }
+
+    private void processFacebook(UserAccountEntity userAccountFromConnection, UserAccountEntity userAccount) {
         Facebook facebook = new FacebookTemplate(userAccountFromConnection.getAccessToken(), "notfoundexception");
         FacebookProfile userProfile = facebook.userOperations().getUserProfile();
-        saveUserProfile(userProfile, userAccount);
+        copyAndSaveFacebookToUserProfile(userProfile, userAccount);
 
         List<FacebookProfile> profiles = facebook.friendOperations().getFriendProfiles();
         for(FacebookProfile facebookUserProfile : profiles) {
@@ -117,6 +146,8 @@ public class ConnectionServiceImpl implements ConnectionService {
                         RandomString.newInstance().nextString()
                 );
                 userAccountEntity.setUserAuthentication(userAuthentication);
+
+                log.info("new account created user={} provider={}", userAccountEntity.getReceiptUserId(), ProviderEnum.FACEBOOK);
             } else {
                 userAccountEntity.setUpdated();
             }
@@ -125,14 +156,16 @@ public class ConnectionServiceImpl implements ConnectionService {
             userAccountEntity.setProviderUserId(facebookUserProfile.getId());
 
             mongoTemplate.save(userAccountEntity);
-            saveUserProfile(facebookUserProfile, userAccountEntity);
+            copyAndSaveFacebookToUserProfile(facebookUserProfile, userAccountEntity);
         }
         log.info("Facebook Id={}", userProfile.getId());
     }
 
-    private void saveUserProfile(FacebookProfile facebookUserProfile, UserAccountEntity userAccount) {
+    private void copyAndSaveFacebookToUserProfile(FacebookProfile facebookUserProfile, UserAccountEntity userAccount) {
+        log.debug("copying facebookUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
         UserProfileEntity userProfile = mongoTemplate.findOne(
-                query(where("UID").is(facebookUserProfile.getId())), UserProfileEntity.class
+                query(where("UID").is(facebookUserProfile.getId())),
+                UserProfileEntity.class
         );
         if(userProfile == null) {
             userProfile = new UserProfileEntity();
@@ -156,8 +189,89 @@ public class ConnectionServiceImpl implements ConnectionService {
                 userProfile.inActive();
             }
             mongoTemplate.save(userProfile);
+
+            //XXX TODO think about moving this up in previous method call
+            updateUserIdWithEmailWhenPresent(userAccount, userProfile);
         } catch (IllegalAccessException | InvocationTargetException e) {
             log.error(e.getLocalizedMessage());
+        }
+    }
+
+    private void copyAndSaveGoogleToUserProfile(Person googleUserProfile, UserAccountEntity userAccount) {
+        log.debug("copying googleUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
+        UserProfileEntity userProfile = mongoTemplate.findOne(
+                query(where("UID").is(googleUserProfile.getId())),
+                UserProfileEntity.class
+        );
+        if(userProfile == null) {
+            userProfile = new UserProfileEntity();
+        } else {
+            userProfile.setUpdated();
+        }
+
+        String id = userProfile.getId();
+
+        userProfile.setFirstName(googleUserProfile.getGivenName());
+        userProfile.setLastName(googleUserProfile.getFamilyName());
+        userProfile.setName(googleUserProfile.getDisplayName());
+        userProfile.setLink(googleUserProfile.getUrl());
+        //skipped thumbnailURL; this can be found in user account entity
+        userProfile.setBirthday(googleUserProfile.getBirthday() == null ? null : googleUserProfile.getBirthday().toString());
+        userProfile.setGender(googleUserProfile.getGender() == null ? null : googleUserProfile.getGender());
+        //skipped occupation
+        userProfile.setAbout(googleUserProfile.getAboutMe() == null ? null : googleUserProfile.getAboutMe());
+        userProfile.setRelationshipStatus(googleUserProfile.getRelationshipStatus() == null ? null : googleUserProfile.getRelationshipStatus());
+        //skipped urls
+        if(googleUserProfile.getOrganizations() != null) {
+            for(Organization organization : googleUserProfile.getOrganizations()) {
+                Reference reference  = new Reference(organization.getName());
+                WorkEntry workEntry = new WorkEntry(
+                        reference,
+                        organization.getStartDate(),
+                        organization.getEndDate()
+                );
+                userProfile.addWork(workEntry);
+            }
+        }
+
+        if(googleUserProfile.getPlacesLived() != null) {
+            for (String value : googleUserProfile.getPlacesLived().keySet()) {
+                if(googleUserProfile.getPlacesLived().get(value)) {
+                    Reference reference  = new Reference(value);
+                    userProfile.setLocation(reference);
+                }
+            }
+        }
+        userProfile.setEmail(googleUserProfile.getAccountEmail());
+
+        //same as facebook from here
+        userProfile.setUserId(googleUserProfile.getId());
+        userProfile.setProviderId(ProviderEnum.GOOGLE);
+        userProfile.setReceiptUserId(userAccount.getReceiptUserId());
+        userProfile.setId(id);
+        if(userAccount.isActive()) {
+            userProfile.active();
+        }
+
+        if(!userAccount.isActive()) {
+            userProfile.inActive();
+        }
+        mongoTemplate.save(userProfile);
+
+        //XXX TODO think about moving this up in previous method call
+        updateUserIdWithEmailWhenPresent(userAccount, userProfile);
+    }
+
+    /**
+     * Replaces userId number with email if exists. Social providers provides Id when email is not shared.
+     * @param userAccount
+     * @param userProfile
+     */
+    private void updateUserIdWithEmailWhenPresent(UserAccountEntity userAccount, UserProfileEntity userProfile) {
+        if(StringUtils.isNotBlank(userProfile.getEmail())) {
+            log.debug("about to update userId={} with email={}", userAccount.getUserId(), userProfile.getEmail());
+            userAccount.setUserId(userProfile.getEmail());
+            mongoTemplate.save(userAccount);
         }
     }
 
@@ -193,14 +307,12 @@ public class ConnectionServiceImpl implements ConnectionService {
         // select where userId = ? order by providerId, role
         Query q = query(where("UID").is(userId));
         Sort sort = new Sort(Sort.Direction.ASC, "PID").and(new Sort(Sort.Direction.ASC, "RE"));
-
         return runQuery(q.with(sort));
     }
 
     public List<Connection<?>> getConnections(String userId, ProviderEnum providerId) {
         Query q = query(where("userId").is(userId).and("PID").is(providerId));
         Sort sort = new Sort(Sort.Direction.ASC, "RE");
-
         return runQuery(q.with(sort));
     }
 
@@ -229,7 +341,6 @@ public class ConnectionServiceImpl implements ConnectionService {
         for(UserAccountEntity mc : results) {
             userIds.add(mc.getUserId());
         }
-
         return userIds;
     }
 
@@ -242,7 +353,6 @@ public class ConnectionServiceImpl implements ConnectionService {
         for(UserAccountEntity mc : results) {
             userIds.add(mc.getUserId());
         }
-
         return userIds;
     }
 
@@ -252,7 +362,6 @@ public class ConnectionServiceImpl implements ConnectionService {
         for(UserAccountEntity mc : results) {
             l.add(connectionConverter.convert(mc));
         }
-
         return l;
     }
 }

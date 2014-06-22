@@ -3,6 +3,7 @@ package com.receiptofi.social.connect;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.domain.types.ProviderEnum;
+import com.receiptofi.social.annotation.Social;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.stereotype.Component;
 
 @Component
+@Social
 public class ConnectionConverter {
     private final ConnectionFactoryLocator connectionFactoryLocator;
     private final TextEncryptor textEncryptor;
