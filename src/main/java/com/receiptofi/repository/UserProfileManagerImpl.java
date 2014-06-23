@@ -72,9 +72,14 @@ public final class UserProfileManagerImpl implements UserProfileManager {
 		return mongoTemplate.findOne(query(where("USER_AUTHENTICATION.$id").is(new ObjectId(object.getId()))), UserProfileEntity.class, TABLE);
 	}
 
+    /**
+     * Find any user matching with email; ignore active or not active
+     * @param email
+     * @return
+     */
 	@Override
-	public UserProfileEntity findByEmail(String emailId) {
-		return mongoTemplate.findOne(query(where("EM").is(emailId).andOperator(isActive())), UserProfileEntity.class, TABLE);
+	public UserProfileEntity findByEmail(String email) {
+		return mongoTemplate.findOne(query(where("EM").is(email)), UserProfileEntity.class, TABLE);
 	}
 
     @Override
@@ -95,9 +100,14 @@ public final class UserProfileManagerImpl implements UserProfileManager {
         }
     }
 
+    /**
+     * Find any user matching with email; ignore active or not active
+     * @param email
+     * @return
+     */
     @Override
     public UserProfileEntity findByUserId(String email) {
-        return mongoTemplate.findOne(query(where("UID").is(email).andOperator(isActive())), UserProfileEntity.class, TABLE);
+        return mongoTemplate.findOne(query(where("UID").is(email)), UserProfileEntity.class, TABLE);
     }
 
 	@Override

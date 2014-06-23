@@ -4,6 +4,7 @@ import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.service.EmailValidateService;
+import com.receiptofi.web.util.Registration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public final class ValidateEmailController {
     private static final Logger log = LoggerFactory.getLogger(ValidateEmailController.class);
 
+    private final EmailValidateService emailValidateService;
+    private final AccountService accountService;
+    private final Registration registration;
+
     @Value("${emailValidate:redirect:/open/validate/result.htm}")
     private String validateResult;
 
@@ -39,13 +44,11 @@ public final class ValidateEmailController {
     @Value("${emailValidatePage:validate/failure}")
     private String validateFailurePage;
 
-    private final EmailValidateService emailValidateService;
-    private final AccountService accountService;
-
     @Autowired
-    public ValidateEmailController(EmailValidateService emailValidateService, AccountService accountService) {
+    public ValidateEmailController(EmailValidateService emailValidateService, AccountService accountService, Registration registration) {
         this.emailValidateService = emailValidateService;
         this.accountService = accountService;
+        this.registration  = registration;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -62,10 +65,11 @@ public final class ValidateEmailController {
                 log.info("authentication failed for user={}", userAccount.getReceiptUserId());
             } else {
                 userAccount.setAccountValidated(true);
-                userAccount.active();
+                registration.isRegistrationAllowed(userAccount);
                 accountService.saveUserAccount(userAccount);
 
                 emailValidate.inActive();
+                emailValidate.setUpdated();
                 emailValidateService.saveEmailValidateEntity(emailValidate);
                 redirectAttrs.addFlashAttribute("success", "true");
                 log.info("authentication success for user={}", userAccount.getReceiptUserId());
