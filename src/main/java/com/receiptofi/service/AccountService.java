@@ -47,9 +47,6 @@ public final class AccountService {
     @Value("${domain}")
     private String domain;
 
-    @Value("${registrationAllowed}")
-    private boolean registrationAllowed;
-
     @Autowired
     public AccountService(
             UserAccountManager userAccountManager,
@@ -140,13 +137,6 @@ public final class AccountService {
         }
 
         return userAccount;
-    }
-
-    private void isRegistrationAllowed(UserAccountEntity userAccount) {
-        if(!registrationAllowed) {
-            //TODO For now de-activate all registration. Currently registration is by invitation only.
-            userAccount.inActive();
-        }
     }
 
     /**

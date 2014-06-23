@@ -9,6 +9,7 @@ import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.social.annotation.Social;
 import com.receiptofi.utils.RandomString;
+import com.receiptofi.web.util.Registration;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,9 @@ public class ConnectionServiceImpl implements ConnectionService {
     private final AccountService accountService;
 
     @Autowired
+    private Registration registration;
+
+    @Autowired
     public ConnectionServiceImpl(
             MongoTemplate mongoTemplate,
             ConnectionConverter connectionConverter,
@@ -73,6 +77,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         );
         UserAuthenticationEntity userAuthentication = accountService.getUserAuthenticationEntity(RandomString.newInstance().nextString());
         userAccount.setUserAuthentication(userAuthentication);
+        registration.changeUserAccountActiveState(userAccount);
         log.info("new account created user={} provider={}", userAccount.getReceiptUserId(), userAccount.getProviderId());
         mongoTemplate.insert(userAccount);
     }
@@ -143,7 +148,7 @@ public class ConnectionServiceImpl implements ConnectionService {
                         RandomString.newInstance().nextString()
                 );
                 userAccountEntity.setUserAuthentication(userAuthentication);
-
+                registration.changeUserAccountActiveState(userAccount);
                 log.info("new account created user={} provider={}", userAccountEntity.getReceiptUserId(), ProviderEnum.FACEBOOK);
             } else {
                 userAccountEntity.setUpdated();
@@ -180,9 +185,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             userProfile.setId(id);
             if(userAccount.isActive()) {
                 userProfile.active();
-            }
-
-            if(!userAccount.isActive()) {
+            } else {
                 userProfile.inActive();
             }
             mongoTemplate.save(userProfile);
@@ -248,9 +251,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         userProfile.setId(id);
         if(userAccount.isActive()) {
             userProfile.active();
-        }
-
-        if(!userAccount.isActive()) {
+        } else {
             userProfile.inActive();
         }
         mongoTemplate.save(userProfile);

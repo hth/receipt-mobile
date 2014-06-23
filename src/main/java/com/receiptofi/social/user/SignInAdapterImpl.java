@@ -3,6 +3,7 @@ package com.receiptofi.social.user;
 import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.service.CustomUserDetailsService;
 import com.receiptofi.social.annotation.Social;
+import com.receiptofi.web.util.Registration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,13 +40,14 @@ public final class SignInAdapterImpl implements SignInAdapter {
     private static final String completeProfileController = "/access/completeprofile.htm";
 
     private final RequestCache myRequestCache;
-
-    private CustomUserDetailsService myUserAccountService;
+    private final CustomUserDetailsService myUserAccountService;
+    private final Registration registration;
 
     @Inject
-    public SignInAdapterImpl(RequestCache requestCache, CustomUserDetailsService service) {
+    public SignInAdapterImpl(RequestCache requestCache, CustomUserDetailsService service, Registration registration) {
         myRequestCache = requestCache;
         myUserAccountService = service;
+        this.registration = registration;
     }
 
     public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
@@ -77,6 +79,10 @@ public final class SignInAdapterImpl implements SignInAdapter {
         HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse nativeRes = request.getNativeResponse(HttpServletResponse.class);
         SavedRequest saved = myRequestCache.getRequest(nativeReq, nativeRes);
+
+        if(registration.checkRegistrationIsTurnedOn(user)) {
+            return registration.getIndexController();
+        }
 
         if(isProfileNotComplete(user)) {
             log.info("profile not complete, user={}", user.getUsername());
