@@ -22,7 +22,7 @@
         <param-value>/WEB-INF/classes/conf/config.properties</param-value>
     </context-param>
 
-    <!-- Java Melody Start -->
+    <!-- Java Melody Start give out of memory exception when Java melody is turned on in another app -->
     <!--<filter>-->
         <!--<filter-name>monitoring</filter-name>-->
         <!--<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>-->
