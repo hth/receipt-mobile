@@ -23,24 +23,24 @@
     </context-param>
 
     <!-- Java Melody Start -->
-    <filter>
-        <filter-name>monitoring</filter-name>
-        <filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
-        <async-supported>true</async-supported>
-        <!--<init-param>-->
-        <!-- removed for because of spring security; only requires in one place -->
-        <!--<param-name>allowed-addr-pattern</param-name>-->
-        <!--&lt;!&ndash; Allows 192.168.1.* with mask 255.255.255.255, other wise add |123\.123\.123\.123 &ndash;&gt;-->
-        <!--<param-value>192\.168\.1\..*</param-value>-->
-        <!--</init-param>-->
-    </filter>
-    <filter-mapping>
-        <filter-name>monitoring</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <listener>
-        <listener-class>net.bull.javamelody.SessionListener</listener-class>
-    </listener>
+    <!--<filter>-->
+        <!--<filter-name>monitoring</filter-name>-->
+        <!--<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>-->
+        <!--<async-supported>true</async-supported>-->
+        <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+        <!--&lt;!&ndash; removed for because of spring security; only requires in one place &ndash;&gt;-->
+        <!--&lt;!&ndash;<param-name>allowed-addr-pattern</param-name>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash; Allows 192.168.1.* with mask 255.255.255.255, other wise add |123\.123\.123\.123 &ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;<param-value>192\.168\.1\..*</param-value>&ndash;&gt;-->
+        <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>monitoring</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--<listener>-->
+        <!--<listener-class>net.bull.javamelody.SessionListener</listener-class>-->
+    <!--</listener>-->
     <!-- Java Melody Ends -->
 
     <filter>
