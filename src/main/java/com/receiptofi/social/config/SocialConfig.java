@@ -39,16 +39,16 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 public class SocialConfig {
     private static final Logger logger = LoggerFactory.getLogger(SocialConfig.class);
 
-    @Value("${facebookClientId}")
+    @Value("${facebook.client.id}")
     private String facebookClientId;
 
-    @Value("${facebookClientSecret}")
+    @Value("${facebook.client.secret}")
     private String facebookClientSecret;
 
-    @Value("${googleClientId}")
+    @Value("${google.client.id}")
     private String googleClientId;
 
-    @Value("${googleClientSecret}")
+    @Value("${google.client.secret}")
     private String googleClientSecret;
 
     @Autowired
