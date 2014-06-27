@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -110,8 +111,7 @@ public final class FileDownloadController {
 
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(),  true);
         } catch (IOException e) {
-            log.error("Exception occurred during excel retrieval" + e.getLocalizedMessage());
-            log.error("Excel retrieval error occurred: " + receiptId + " for user : " + receiptUser.getRid());
+            log.error("Excel retrieval error occurred Receipt={} for user={} reason={}", receiptId, receiptUser.getRid(), e.getLocalizedMessage(), e);
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error fetching receipt");
         }
     }

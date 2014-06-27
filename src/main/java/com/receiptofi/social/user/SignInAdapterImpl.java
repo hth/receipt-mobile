@@ -39,14 +39,14 @@ public final class SignInAdapterImpl implements SignInAdapter {
 
     private static final String completeProfileController = "/access/completeprofile.htm";
 
-    private final RequestCache myRequestCache;
-    private final CustomUserDetailsService myUserAccountService;
+    private final RequestCache requestCache;
+    private final CustomUserDetailsService customUserDetailsService;
     private final Registration registration;
 
     @Inject
-    public SignInAdapterImpl(RequestCache requestCache, CustomUserDetailsService service, Registration registration) {
-        myRequestCache = requestCache;
-        myUserAccountService = service;
+    public SignInAdapterImpl(RequestCache requestCache, CustomUserDetailsService customUserDetailsService, Registration registration) {
+        this.requestCache = requestCache;
+        this.customUserDetailsService = customUserDetailsService;
         this.registration = registration;
     }
 
@@ -54,10 +54,10 @@ public final class SignInAdapterImpl implements SignInAdapter {
         UserDetails user;
         if(localUserId.contains("@")) {
             log.info("signin in user={} from receiptofi login page", localUserId);
-            user = myUserAccountService.loadUserByUsername(StringUtils.lowerCase(localUserId));
+            user = customUserDetailsService.loadUserByUsername(StringUtils.lowerCase(localUserId));
         } else {
             userSignedInUsingProvider(localUserId, request);
-            user = myUserAccountService.loadUserByUserId(localUserId);
+            user = customUserDetailsService.loadUserByUserId(localUserId);
         }
         Assert.notNull(user);
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
@@ -78,7 +78,7 @@ public final class SignInAdapterImpl implements SignInAdapter {
     private String extractOriginalUrl(NativeWebRequest request, UserDetails user) {
         HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse nativeRes = request.getNativeResponse(HttpServletResponse.class);
-        SavedRequest saved = myRequestCache.getRequest(nativeReq, nativeRes);
+        SavedRequest saved = requestCache.getRequest(nativeReq, nativeRes);
 
         if(registration.checkRegistrationIsTurnedOn(user)) {
             return registration.getIndexController();
@@ -93,7 +93,7 @@ public final class SignInAdapterImpl implements SignInAdapter {
             return null;
         }
 
-        myRequestCache.removeRequest(nativeReq, nativeRes);
+        requestCache.removeRequest(nativeReq, nativeRes);
         removeAuthenticationAttributes(nativeReq.getSession(false));
         return saved.getRedirectUrl();
     }

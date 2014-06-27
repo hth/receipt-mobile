@@ -1,6 +1,7 @@
 package com.receiptofi.web.util;
 
 import com.receiptofi.domain.UserAccountEntity;
+import com.receiptofi.domain.site.ReceiptUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +41,8 @@ public class Registration {
 
     public boolean validateIfRegistrationIsAllowed(ModelMap map, Authentication authentication) {
         if(!((UserDetails) authentication.getPrincipal()).isEnabled()) {
+            ReceiptUser receiptUser = (ReceiptUser) authentication.getPrincipal();
+
             SecurityContextHolder.getContext().setAuthentication(
                     new AnonymousAuthenticationToken(
                             String.valueOf(System.currentTimeMillis()),
@@ -48,6 +51,8 @@ public class Registration {
                     )
             );
             map.addAttribute("deniedSignup", true);
+            map.addAttribute("user", receiptUser.getUsername());
+            map.addAttribute("pid", receiptUser.getPid());
             return true;
         }
         return false;

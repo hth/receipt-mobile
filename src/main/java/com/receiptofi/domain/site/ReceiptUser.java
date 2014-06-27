@@ -1,5 +1,6 @@
 package com.receiptofi.domain.site;
 
+import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.domain.types.UserLevelEnum;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 public final class ReceiptUser extends User {
 
     private String rid;
+    private ProviderEnum pid;
     private UserLevelEnum userLevel;
 
     public ReceiptUser(
@@ -29,11 +31,13 @@ public final class ReceiptUser extends User {
             String password,
             Collection<? extends GrantedAuthority> authorities,
             String rid,
+            ProviderEnum pid,
             UserLevelEnum userLevel,
             boolean active
     ) {
         super(username, password, active, true, true, true, authorities);
         this.rid = rid;
+        this.pid = pid;
         this.userLevel = userLevel;
     }
 
@@ -58,10 +62,12 @@ public final class ReceiptUser extends User {
             boolean accountNonLocked,
             Collection<? extends GrantedAuthority> authorities,
             String rid,
+            ProviderEnum pid,
             UserLevelEnum userLevel
     ) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.rid = rid;
+        this.pid = pid;
         this.userLevel = userLevel;
     }
 
@@ -71,5 +77,9 @@ public final class ReceiptUser extends User {
 
     public UserLevelEnum getUserLevel() {
         return userLevel;
+    }
+
+    public ProviderEnum getPid() {
+        return pid;
     }
 }

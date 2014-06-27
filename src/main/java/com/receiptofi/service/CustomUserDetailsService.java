@@ -57,6 +57,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     userAuthenticate.getPassword(),
                     getAuthorities(userAccountEntity.getRoles()),
                     userProfile.getReceiptUserId(),
+                    userProfile.getProviderId(),
                     userProfile.getLevel(),
                     userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
             );
@@ -81,6 +82,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                             userAuthenticate.getPassword(),
                     getAuthorities(userAccountEntity.getRoles()),
                     userProfile.getReceiptUserId(),
+                    userProfile.getProviderId(),
                     userProfile.getLevel(),
                     userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
             );
