@@ -31,7 +31,7 @@ public final class IsWorkingController {
             value = "/isWorking",
             method = RequestMethod.GET,
             produces = {
-                    MediaType.TEXT_HTML_VALUE + "; charset=utf-8",
+                    MediaType.TEXT_HTML_VALUE + ";charset=UTF-8",
             }
     )
     @ResponseStatus(HttpStatus.OK)
@@ -47,7 +47,7 @@ public final class IsWorkingController {
     @RequestMapping(
             value = "/healthCheck",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public @ResponseBody
     MobileApi healthCheck() {

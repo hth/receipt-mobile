@@ -35,7 +35,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/ytdReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
@@ -60,7 +60,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/allReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
@@ -85,7 +85,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/thisMonthReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
