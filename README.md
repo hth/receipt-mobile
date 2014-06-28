@@ -94,7 +94,7 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     X-XSS-Protection: 1; mode=block
     X-Frame-Options: DENY
     X-Content-Type-Options: nosniff
-    Content-Type: text/html;charset=utf-8
+    Content-Type: text/html;charset=UTF-8
     Content-Language: en
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
