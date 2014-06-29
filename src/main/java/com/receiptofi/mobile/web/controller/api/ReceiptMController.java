@@ -35,7 +35,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/ytdReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
@@ -48,7 +48,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
@@ -60,7 +60,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/allReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
@@ -73,7 +73,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceipts(rid);
@@ -85,7 +85,7 @@ public class ReceiptMController {
     @RequestMapping(
             value = "/thisMonthReceipts",
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
@@ -98,7 +98,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
@@ -106,5 +106,4 @@ public class ReceiptMController {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
-
 }
