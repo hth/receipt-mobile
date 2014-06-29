@@ -49,7 +49,7 @@ public class UtilityController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         if(authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
         }

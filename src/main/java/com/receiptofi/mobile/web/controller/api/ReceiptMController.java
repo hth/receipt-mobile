@@ -48,7 +48,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
@@ -73,7 +73,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceipts(rid);
@@ -98,7 +98,7 @@ public class ReceiptMController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("email={}, auth={}", mail, "*********");
+        log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
             return landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
@@ -106,5 +106,4 @@ public class ReceiptMController {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
-
 }
