@@ -30,18 +30,26 @@ public class SocialAuthenticationController {
 
     /**
      * Supports Social provider call
+     * Example localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+     * pid.json
+     *  {
+     *      "pid": "FACEBOOK",
+     *      "at": "XXXXXXXXX"
+     *  }
+     *
      * @return
      */
     @RequestMapping(
             value = "/authenticate.json",
             method = RequestMethod.POST,
+            headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public @ResponseBody
     String authenticateUser(@RequestBody String authenticationJson) {
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
-            return socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at")).asJson();
+            return socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
         } catch (IOException e) {
             log.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
         }

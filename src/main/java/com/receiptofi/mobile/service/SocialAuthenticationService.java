@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.service;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
-import com.receiptofi.mobile.domain.SocialAuthenticationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -56,7 +54,6 @@ public class SocialAuthenticationService {
 
     private HttpClient httpClient;
 
-
     /**
      * call this on terminal
      * http localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
@@ -65,7 +62,7 @@ public class SocialAuthenticationService {
      * @param accessToken
      * @return
      */
-    public SocialAuthenticationResponse authenticateWeb(String providerId, String accessToken) {
+    public String authenticateWeb(String providerId, String accessToken) {
         log.info("providerId={} accessToken={} webApiAccessToken={}", providerId, accessToken, "*******");
         httpClient = HttpClientBuilder.create().build();
 
@@ -78,30 +75,35 @@ public class SocialAuthenticationService {
         httpPost.addHeader(header);
 
         populateEntity(providerId, accessToken, httpPost);
+        HttpResponse response = null;
         try {
-            HttpResponse response = httpClient.execute(httpPost);
+            response = httpClient.execute(httpPost);
+        } catch (IOException e) {
+            log.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
+        }
+
+        if(null != response) {
             int status = response.getStatusLine().getStatusCode();
             if(status >= 200 && status < 300) {
                 HttpEntity entity = response.getEntity();
-                if(entity != null) {
+                if(null != entity) {
                     long len = entity.getContentLength();
                     if(len != -1 && len < 2048) {
                         try {
-                            log.info(EntityUtils.toString(entity));
+                            return EntityUtils.toString(entity);
                         } catch (IOException e) {
-                            log.error(e.getLocalizedMessage());
+                            log.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
                         }
                     } else {
-                        // Stream content out
+                        // Stream too big
+                        log.warn("stream size bigger than 2048");
+                        return "{}";
                     }
                 }
             }
-        } catch (ClientProtocolException e) {
-            log.error(e.getLocalizedMessage());
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
         }
-        return SocialAuthenticationResponse.newInstance();
+
+        return "{}";
     }
 
     /**
@@ -122,7 +124,6 @@ public class SocialAuthenticationService {
 
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
-     *
      * call this on terminal
      * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
