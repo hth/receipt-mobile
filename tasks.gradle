@@ -15,7 +15,9 @@ task copyConfiguration << {
 
     copy {
         from "src/main/environment/$environment"
-        into "src/webapp/WEB-INF"
+        into "src/main/webapp/WEB-INF"
         include "receipt-mobile-servlet.xml"
     }
 }
+
+//http://codebrickie.com/blog/2011/04/16/building-for-different-environments-with-gradle/
