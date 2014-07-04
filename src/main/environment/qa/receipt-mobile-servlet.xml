@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+		  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		  http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/task
+          http://www.springframework.org/schema/task/spring-task-3.2.xsd
+          http://www.springframework.org/schema/jms
+          http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
+
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+    <context:component-scan base-package="com.receiptofi" />
+
+    <!-- Currently not being used -->
+    <!--suppress SpringModelInspection -->
+    <context:property-placeholder location="classpath:/conf/config.properties"                  order="1" ignore-unresolvable="true" />
+    <!--suppress SpringModelInspection -->
+    <context:property-placeholder location="classpath:/conf/qa.properties"                      order="2" ignore-unresolvable="true" />
+
+    <!-- Configures the @Controller programming model -->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters>
+            <!-- We configure the Jackson mapper to output dates in ISO801 format. This requires adding our
+            customized Jackson mapper to the list of Spring MVC message converters. But, if we just add our bean here
+            all by itself, it will handle requests it should not handle, e.g. encoding strings.  So we need to add the
+            other standard message converters here too, and make sure to put the customized Jackson converter AFTER the
+            string converter. -->
+
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+            <ref bean="jacksonConverter"/>
+            <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+            <!-- atom feed requires com.sun.syndication package ...   -->
+            <!--<bean class="org.springframework.http.converter.feed.AtomFeedHttpMessageConverter"/>-->
+            <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.xml.Jaxb2CollectionHttpMessageConverter"/>
+            <!-- marshalling converter requires spring oxm -->
+            <!--<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"/>-->
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json"/>
+    </bean>
+
+    <!-- turn on declarative caching -->
+    <!--<cache:annotation-driven />-->
+
+    <!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+
+    <!-- for setting up scheduling of task -->
+    <task:executor id="taskExecutor" pool-size="100" />
+    <task:scheduler id="scheduler" pool-size="5" />
+    <task:annotation-driven executor="taskExecutor" scheduler="scheduler"/>
+    <!-- for setting up scheduling of task ends -->
+
+    <!-- Forwards requests to the "/" resource to the "welcome" view -->
+    <!--suppress SpringModelInspection -->
+    <!--<mvc:view-controller path="/" view-name="login"/>-->
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+        <property name="favorParameter"     value="true" />
+        <!--<property name="defaultContentType" value="application/json" />-->
+        <property name="useJaf"             value="false"/>
+        <property name="ignoreAcceptHeader" value="true"/>
+
+        <property name="mediaTypes">
+            <map>
+                <entry key="json"   value="application/json" />
+                <entry key="html"   value="text/html" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- the application context definition for the receipt DispatcherServlet -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+        <!--<property name="cacheSeconds" value="0" />-->
+    </bean>
+
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <!--&lt;!&ndash; one of the properties available; the maximum file size in bytes; supports 10MB &ndash;&gt;-->
+    <!--<property name="maxUploadSize" value="10485760"/>-->
+    <!--</bean>-->
+
+    <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--https://stackoverflow.com/questions/21397939/spring-security-3-2-csrf-support-for-multipart-requests-->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="port"               value="${sslMailPort}"/>
+        <property name="defaultEncoding"    value="${mailEncoding}"/>
+        <property name="host"               value="${goDaddyMailHost}"/>
+        <property name="username"           value="${goDaddyUsername}"/>
+        <property name="password"           value="${goDaddy}"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">${smtpProtocol}</prop>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- Use TLS to encrypt communication with SMTP server, May be just for GMAIL-->
+                <!--<prop key="mail.smtp.starttls.enable">true</prop>-->
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.port">${sslMailPort}</prop>
+                <prop key="mail.smtp.socketFactory.port">${sslMailPort}</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- this is a template message that we can pre-load with default state -->
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${goDaddyUsername}"/>
+    </bean>
+
+    <!-- ===================================== -->
+    <!-- JMS configuration                     -->
+    <!-- ===================================== -->
+    <!-- JMS connection factory for ActiveMQ connecting to a remote broker on a specific host name and port. -->
+    <!-- CachingConnectionFactory -->
+    <!-- preferred way of doing it -->
+    <!-- <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>tcp://localhost:61616</value>
+        </property>
+    </bean>
+
+    <bean id="jmsFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="destination" />
+    </bean>
+
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="${queue-name}"/>
+    </bean>
+
+    <jms:listener-container connection-factory="connectionFactory">
+        <jms:listener destination="${queue-name}" ref="fileUploadListenerJMS" method="receive" />
+    </jms:listener-container>
+
+    <bean id="fileUploadDocumentSenderJMS" class="com.tholix.service.routes.FileUploadDocumentSenderJMS" />
+    <bean id="fileUploadDocumentListenerJMS" class="com.tholix.service.routes.FileUploadDocumentListenerJMS" />    -->
+    <!-- ===================================== -->
+    <!-- JMS configuration end                 -->
+    <!-- ===================================== -->
+
+
+    <!-- ====================== -->
+    <!-- JMS                    -->
+    <!-- ====================== -->
+    <!--<amq:topic id="eventTopic" name="topic.events" />-->
+
+    <!--<amq:queue id="processingQueue" name="queue.process" />-->
+    <!--<amq:queue id="${queue-name}" name="${queue-name}"/>-->
+
+    <!-- http://sourceforge.net/projects/activemqbrowser/files/ -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL">
+            <value>${activemq-URL}</value>
+        </property>
+    </bean>
+
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="${queue-name}"/>
+        <!--<constructor-arg ref="${queue-name}" />-->
+    </bean>
+
+    <!--http://briansjavablog.blogspot.com/2012/09/spring-jms-tutorial-with-activemq.html-->
+    <!-- JMSTemplate is a Spring template that allows us to communicate with
+         a message broker via JMS. JMSTemplate takes care of boiler plate code such as exception handling
+         and resource management such as connection pooling. This allows us concentrate on solving the 'business'
+         problem. We supply the JMS template with the connection factory mentioned above
+     -->
+    <bean id="jmsSenderTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="destination" />
+    </bean>
+
+    <bean id="fileUploadDocumentSenderJMS" class="com.receiptofi.service.routes.FileUploadDocumentSenderJMS" />
+    <bean id="fileUploadDocumentListenerJMS" class="com.receiptofi.service.routes.FileUploadDocumentListenerJMS" />
+
+    <jms:listener-container connection-factory="connectionFactory">
+        <!--suppress SpringModelInspection -->
+        <jms:listener destination="${queue-name}" ref="fileUploadDocumentListenerJMS" method="receive" />
+    </jms:listener-container>
+    <!-- ===================================== -->
+    <!-- JSM bean End                          -->
+    <!-- ===================================== -->
+
+    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+        <property name="cache"  value="true" />
+        <property name="order"  value="1" />
+    </bean>
+
+    <!--
+    If a compatible view cannot be supplied by the ViewResolver chain, then the list of views specified through the
+    DefaultViews property will be consulted
+    http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/mvc.html 17.5.4
+    -->
+    <!--<bean id="defaultViews" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />-->
+
+    <!-- For Date format and matching annotation above -->
+    <!-- set JSON date format to ISO-8601 e.g. 1970-01-01T00:00:00.000+0000 -->
+    <bean id="sourceObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+    <bean id="objectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="sourceObjectMapper"/>
+        <property name="targetMethod" value="disable"/>
+        <property name="arguments" value="WRITE_DATES_AS_TIMESTAMPS"/>
+    </bean>
+    <bean id="jacksonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="objectMapper"/>
+    </bean>
+</beans>

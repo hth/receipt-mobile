@@ -1,0 +1,21 @@
+task copyConfiguration << {
+    println "Target environment: $environment"
+
+    copy {
+        from "src/main/environment/$environment"
+        into "src/main/resources/conf"
+        include "*.properties"
+    }
+
+    copy {
+        from "src/main/environment/$environment"
+        into "src/main/resources"
+        include "logback.xml"
+    }
+
+    copy {
+        from "src/main/environment/$environment"
+        into "src/webapp/WEB-INF"
+        include "receipt-mobile-servlet.xml"
+    }
+}
