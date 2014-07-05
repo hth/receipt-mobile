@@ -99,7 +99,7 @@ Different scenarios when user tries to login again
 
 - If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was before logout. Account remains as is with all the receipts information in the APP.
 
-- If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code<X-R-AUTH</code>
+- If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code><X-R-AUTH</code>
 
 ###Check if user has access###
 
