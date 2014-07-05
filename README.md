@@ -95,12 +95,12 @@ Successful response when credentials are validated. <code>X-R-AUTH</code> is enc
 
 When user logs out, <code>X-R-AUTH</code> should be deleted. And user should be re-directed towards login page.
 
-Scenario 1
+- Scenario 1
 
 If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was
 before logout.
 
-Scenario 2
+- Scenario 2
 
 If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate
 as if the user is login for first time.
