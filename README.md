@@ -64,11 +64,11 @@ If there is no response then site is not working. This call should return a resp
 
 ###Signup And Login using social###
 
-API call <code>/receipt-mobile/authenticate.json</code> to signup or login through social
+API call <code>POST</code> <code>/receipt-mobile/authenticate.json</code> to signup or login through social
 
 	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
 
-Sample pid.json file
+Sample <code>pid.json</code> file
 
 	{
       "pid": "FACEBOOK",
