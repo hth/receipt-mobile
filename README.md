@@ -60,7 +60,50 @@ HTTP Body
 
     {"working":true}
 
-If there is no response then site is not working. This call should return a response very quickly. 
+If there is no response then site is not working. This call should return a response very quickly.
+
+###Signup And Login using social###
+
+API call <code>/receipt-mobile/authenticate.json</code> to signup or login through social
+
+	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+
+Sample pid.json file
+
+	{
+      "pid": "FACEBOOK",
+      "at": "XXXX-SOME-ACCESS-TOKEN-XXXX"
+    }
+
+When login or signup fails for invalid token, which probably results in <code>401</code> HTTP error
+
+	{
+        "error": {
+            "httpStatus": 401,
+            "httpStatusReason": "UNAUTHORIZED"
+        }
+    }
+
+Successful response when credentials are validated. <code>X-R-AUTH</code> is encoded string.
+
+    {
+        "X-R-AUTH": "%242a%2415%24y%CCCCCC-XXXXXXXXXXXXXXX",
+        "X-R-MAIL": "100007981713206"
+    }
+
+###Logout user###
+
+When user logs out, <code>X-R-AUTH</code> should be deleted. And user should be re-directed towards login page.
+
+Scenario 1
+
+If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was
+before logout.
+
+Scenario 2
+
+If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate
+as if the user is login for first time.
 
 ###Check if user has access###
 
