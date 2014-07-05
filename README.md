@@ -91,15 +91,15 @@ Successful response when credentials are validated. <code>X-R-AUTH</code> is enc
         "X-R-MAIL": "100007981713206"
     }
 
-###Logout user###
+###Logout user and login again###
 
-When user logs out, <code>X-R-AUTH</code> should be deleted. And user should be re-directed towards login page.
+Upon log out, <code>X-R-AUTH</code> should be deleted and <code>X-R-MAIL</code> remains intact. Logout action complete by re-directing user to login page.
 
-Different scenarios below
+Different scenarios when user tries to login again
 
-- If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was before logout.
+- If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was before logout. Account remains as is with all the receipts information in the APP.
 
-- If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate as if the user is login for first time.
+- If user enters different credentials then existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code<X-R-AUTH</code>
 
 ###Check if user has access###
 
