@@ -44,6 +44,7 @@
 
     <logger name="org.apache.activemq" level="OFF"/>
     <logger name="org.springframework.jms.listener" level="OFF"/>
+    <logger name="net.bull.javamelody" level="OFF"/>
 
     <root level="all">
         <appender-ref ref="FILE" />
