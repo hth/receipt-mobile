@@ -70,6 +70,7 @@ public class SocialAuthenticationService {
         Assert.notNull(header);
 
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + "/receipt" + authCreate);
+        log.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -84,6 +85,7 @@ public class SocialAuthenticationService {
 
         if(null != response) {
             int status = response.getStatusLine().getStatusCode();
+            log.info("status={}", status);
             if(status >= 200 && status < 300) {
                 HttpEntity entity = response.getEntity();
                 if(null != entity) {
