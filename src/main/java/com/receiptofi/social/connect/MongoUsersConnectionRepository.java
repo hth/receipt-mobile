@@ -22,8 +22,8 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
 
     private String userId;
 
-    @Autowired
-    private ConnectionService connectionService;
+    @Autowired private ConnectionService connectionService;
+
     private ConnectionFactoryLocator connectionFactoryLocator;
     private TextEncryptor textEncryptor;
     private ConnectionSignUp connectionSignUp;
@@ -41,10 +41,10 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
     }
 
     public MongoUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator,
-                                          TextEncryptor noOpText) {
+                                          TextEncryptor textEncryptor) {
 
         this.connectionFactoryLocator = connectionFactoryLocator;
-        textEncryptor = noOpText;
+        this.textEncryptor = textEncryptor;
     }
 
     public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
@@ -83,5 +83,4 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
         }
         return new MongoConnectionRepository(userId, connectionService, connectionFactoryLocator, textEncryptor);
     }
-
 }

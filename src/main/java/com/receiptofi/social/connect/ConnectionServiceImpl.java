@@ -163,7 +163,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         log.info("Facebook Id={}", userProfile.getId());
     }
 
-    private void copyAndSaveFacebookToUserProfile(FacebookProfile facebookUserProfile, UserAccountEntity userAccount) {
+    public void copyAndSaveFacebookToUserProfile(FacebookProfile facebookUserProfile, UserAccountEntity userAccount) {
         log.debug("copying facebookUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
         UserProfileEntity userProfile = mongoTemplate.findOne(
                 query(where("UID").is(facebookUserProfile.getId())),
@@ -197,7 +197,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         }
     }
 
-    private void copyAndSaveGoogleToUserProfile(Person googleUserProfile, UserAccountEntity userAccount) {
+    public void copyAndSaveGoogleToUserProfile(Person googleUserProfile, UserAccountEntity userAccount) {
         log.debug("copying googleUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
         UserProfileEntity userProfile = mongoTemplate.findOne(
                 query(where("UID").is(googleUserProfile.getId())),
@@ -296,20 +296,32 @@ public class ConnectionServiceImpl implements ConnectionService {
         return connectionConverter.convert(mc);
     }
 
+    /**
+     * Find if UserAccount exits for PID and PUID. PUID has preference over UID as PUID comes from provider
+     *
+     * @param userId
+     * @param providerId
+     * @param providerUserId
+     * @return
+     */
     private UserAccountEntity getUserAccountEntity(String userId, ProviderEnum providerId, String providerUserId) {
-        Query q = query(where("UID").is(userId).and("PID").is(providerId).and("PUID").is(providerUserId));
+        Query q = query(where("UID").is(userId).and("PID").is(providerId));
+        if(StringUtils.isNotBlank(providerUserId)) {
+            q =  query(where("PUID").is(providerUserId).and("PID").is(providerId));
+        }
         return mongoTemplate.findOne(q, UserAccountEntity.class);
     }
 
     public List<Connection<?>> getConnections(String userId) {
         // select where userId = ? order by providerId, role
-        Query q = query(where("UID").is(userId));
+        Query q = query(where("PUID").is(userId));
         Sort sort = new Sort(Sort.Direction.ASC, "PID").and(new Sort(Sort.Direction.ASC, "RE"));
         return runQuery(q.with(sort));
     }
 
     public List<Connection<?>> getConnections(String userId, ProviderEnum providerId) {
-        Query q = query(where("userId").is(userId).and("PID").is(providerId));
+        log.info("PUID={} PID={}", userId, providerId);
+        Query q = query(where("PUID").is(userId).and("PID").is(providerId));
         Sort sort = new Sort(Sort.Direction.ASC, "RE");
         return runQuery(q.with(sort));
     }
