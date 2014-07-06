@@ -27,7 +27,7 @@ import com.google.common.collect.Lists;
  */
 @Document(collection = "USER_PROFILE")
 @CompoundIndexes({
-        @CompoundIndex(name = "user_profile_provider_uid_em_idx",   def = "{'RID': -1, 'UID': -1, 'P_E': 1, 'EM' : 1}", unique = true)
+        @CompoundIndex(name = "user_profile_provider_uid_em_idx",   def = "{'RID': -1, 'UID': -1, 'PID': 1, 'EM' : 1}", unique = true)
 })
 public final class UserProfileEntity extends BaseEntity {
 
@@ -40,7 +40,7 @@ public final class UserProfileEntity extends BaseEntity {
     private String userId;
 
     @NotNull
-    @Field("P_E")
+    @Field("PID")
     private ProviderEnum providerId;
 
     @Field("UN")

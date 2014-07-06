@@ -76,4 +76,9 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public UserAccountEntity findByUserId(String mail) {
         return mongoTemplate.findOne(query(where("UID").is(mail)), UserAccountEntity.class, TABLE);
     }
+
+    @Override
+    public UserAccountEntity findByProviderUserId(String providerUserId) {
+        return mongoTemplate.findOne(query(where("PUID").is(providerUserId)), UserAccountEntity.class, TABLE);
+    }
 }

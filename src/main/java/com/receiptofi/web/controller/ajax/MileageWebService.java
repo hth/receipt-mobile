@@ -166,7 +166,7 @@ public final class MileageWebService {
     String updateMileageEndDate(@RequestBody String mileageInfo, HttpServletResponse httpServletResponse) throws IOException {
 
 //        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.add("Content-Type", "application/json; charset=utf-8");
+//        responseHeaders.add("Content-Type", "application/json;charset=UTF-8");
 //        return new ResponseEntity<>(mileageDateUpdateResponse.asJson(), responseHeaders, HttpStatus.OK);
 
         if(mileageInfo.length() > 0) {

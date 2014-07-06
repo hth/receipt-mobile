@@ -18,16 +18,21 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "USER_ACCOUNT")
 @CompoundIndexes({
         @CompoundIndex(name = "user_account_role_idx", def = "{'UID': 1, 'PID': 1, 'RE': 1}", unique = true),
-        @CompoundIndex(name = "user_account_primary_idx", def = "{'UID': 1, 'PID': 1, 'PUID': 1}", unique = true)
+        @CompoundIndex(name = "user_account_primary_idx", def = "{'UID': 1, 'PID': 1, 'PUID': 1}", unique = true),
+        @CompoundIndex(name = "user_account_rid_idx", def = "{'RID': 1}", unique = true)
 })
 public final class UserAccountEntity extends BaseEntity {
 
+    /**
+     * Unique Id throughout the system. This will never change.
+     */
     @NotNull
     @Field("RID")
     private String receiptUserId;
 
     /**
      * This is set by third party and cannot be relied on
+     * It could be either matching provider's Id or email
      */
     @NotNull
     @Field("UID")
@@ -36,6 +41,9 @@ public final class UserAccountEntity extends BaseEntity {
     @Field("PID")
     private ProviderEnum providerId;
 
+    /**
+     * Provider User Id matches id's from social provider
+     */
     @Field("PUID")
     private String providerUserId;
 

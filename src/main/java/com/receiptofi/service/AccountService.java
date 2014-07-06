@@ -76,6 +76,10 @@ public final class AccountService {
         return userAccountManager.findByUserId(mail);
     }
 
+    public UserAccountEntity findByProviderUserId(String providerUserId) {
+        return  userAccountManager.findByProviderUserId(providerUserId);
+    }
+
     /**
      * Create a new account
      * @param email
