@@ -77,10 +77,11 @@ Sample <code>pid.json</code> file
 
 When login or signup fails for invalid token, which probably results in <code>401</code> HTTP error
 
-	{
+    {
         "error": {
-            "httpStatus": 401,
-            "httpStatusReason": "UNAUTHORIZED"
+            "httpStatus": "UNAUTHORIZED", 
+            "httpStatusCode": 401, 
+            "reason": "denied by provider GOOGLE"
         }
     }
 
