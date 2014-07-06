@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 public class SocialAuthenticationService {
     private static Logger log = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
-    @Value("${api.mobile.get:/api/mobile/get.htm}")
+    @Value("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
 
     @Value("${web.access.api.token}")
@@ -49,7 +49,7 @@ public class SocialAuthenticationService {
     @Value("${host}")
     private String host;
 
-    @Value("${auth.create:/api/mobile/auth-create.htm}")
+    @Value("${auth.create:/webapi/mobile/auth-create.htm}")
     private String authCreate;
 
     private HttpClient httpClient;
