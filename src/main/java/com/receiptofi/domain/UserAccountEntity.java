@@ -255,12 +255,23 @@ public final class UserAccountEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        if(StringUtils.isNoneBlank(firstName, lastName)) {
-            return firstName + " " + lastName;
-        }
-        if(StringUtils.isNotBlank(displayName)) {
-            return displayName;
-        }
-        return userId;
+        return "UserAccountEntity{" +
+                "receiptUserId='" + receiptUserId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", providerId=" + providerId +
+                ", providerUserId='" + providerUserId + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", profileUrl='" + profileUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", accessToken='" + accessToken + '\'' +
+                ", secret='" + secret + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", expireTime=" + expireTime +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", roles=" + roles +
+                ", userAuthentication=" + userAuthentication +
+                ", isAccountValidated=" + isAccountValidated +
+                '}';
     }
 }

@@ -8,6 +8,7 @@ import com.receiptofi.domain.types.RoleEnum;
 import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.social.annotation.Social;
+import com.receiptofi.social.config.ProviderConfig;
 import com.receiptofi.utils.RandomString;
 import com.receiptofi.web.util.Registration;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
@@ -28,6 +29,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mapping.model.MappingException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -57,6 +59,9 @@ public class ConnectionServiceImpl implements ConnectionService {
     private Registration registration;
 
     @Autowired
+    private ProviderConfig providerConfig;
+
+    @Autowired
     public ConnectionServiceImpl(
             MongoTemplate mongoTemplate,
             ConnectionConverter connectionConverter,
@@ -84,12 +89,14 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     public void update(String userId, Connection<?> userConn) {
         UserAccountEntity userAccountFromConnection = connectionConverter.convert(userId, userConn);
+        log.info("populated userAccountFromConnection={}", userAccountFromConnection);
 
         UserAccountEntity userAccount = getUserAccountEntity(
                 userId,
                 userAccountFromConnection.getProviderId(),
                 userAccountFromConnection.getProviderUserId()
         );
+        log.info("fetched userAccount={}", userAccount);
         if(userAccount != null) {
             userAccount.setExpireTime(userAccountFromConnection.getExpireTime());
             userAccount.setAccessToken(userAccountFromConnection.getAccessToken());
@@ -98,6 +105,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             userAccount.setDisplayName(userAccountFromConnection.getDisplayName());
             userAccount.setUpdated();
 
+            log.info("fetched before save userAccount={}", userAccount);
             mongoTemplate.save(userAccount);
         } else {
             UserAuthenticationEntity userAuthentication = accountService.getUserAuthenticationEntity(
@@ -118,16 +126,30 @@ public class ConnectionServiceImpl implements ConnectionService {
         Google google = new GoogleTemplate(userAccountFromConnection.getAccessToken());
         Person googleUserProfile = google.plusOperations().getGoogleProfile();
         copyAndSaveGoogleToUserProfile(googleUserProfile, userAccount);
+        log.info("Google Id={}", googleUserProfile.getId());
 
         // XXX TODO page Circle to get all the users in the circle
-        log.info("Google Id={}", googleUserProfile.getId());
     }
 
     private void processFacebook(UserAccountEntity userAccountFromConnection, UserAccountEntity userAccount) {
         Facebook facebook = new FacebookTemplate(userAccountFromConnection.getAccessToken(), "notfoundexception");
         FacebookProfile userProfile = facebook.userOperations().getUserProfile();
         copyAndSaveFacebookToUserProfile(userProfile, userAccount);
+        log.info("Facebook Id={}", userProfile.getId());
 
+        if(providerConfig.isPopulateSocialFriendOn()) {
+            populateFacebookFriends(userAccount, facebook);
+        }
+    }
+
+    /**
+     * //XXX TODO this method should be pushed down to cron job; as this consumes time
+     *
+     * Populates friends from Facebook
+     * @param userAccount
+     * @param facebook
+     */
+    private void populateFacebookFriends(UserAccountEntity userAccount, Facebook facebook) {
         List<FacebookProfile> profiles = facebook.friendOperations().getFriendProfiles();
         for(FacebookProfile facebookUserProfile : profiles) {
             UserAccountEntity userAccountEntity = mongoTemplate.findOne(
@@ -160,11 +182,10 @@ public class ConnectionServiceImpl implements ConnectionService {
             mongoTemplate.save(userAccountEntity);
             copyAndSaveFacebookToUserProfile(facebookUserProfile, userAccountEntity);
         }
-        log.info("Facebook Id={}", userProfile.getId());
     }
 
     public void copyAndSaveFacebookToUserProfile(FacebookProfile facebookUserProfile, UserAccountEntity userAccount) {
-        log.debug("copying facebookUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
+        log.info("copying facebookUserProfile to userProfile for userAccount={}", userAccount.getReceiptUserId());
         UserProfileEntity userProfile = mongoTemplate.findOne(
                 query(where("UID").is(facebookUserProfile.getId())),
                 UserProfileEntity.class
@@ -188,12 +209,22 @@ public class ConnectionServiceImpl implements ConnectionService {
             } else {
                 userProfile.inActive();
             }
-            mongoTemplate.save(userProfile);
+            try {
+                mongoTemplate.save(userProfile);
+            } catch (MappingException e) {
+                log.error("error found during updating userProfile from provider RID={} userId={} provider={} reason={}",
+                        userProfile.getReceiptUserId(),
+                        userProfile.getUserId(),
+                        userProfile.getProviderId(),
+                        e.getLocalizedMessage(),
+                        e);
+                throw e;
+            }
 
             //XXX TODO think about moving this up in previous method call
             updateUserIdWithEmailWhenPresent(userAccount, userProfile);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            log.error(e.getLocalizedMessage());
+            log.error(e.getLocalizedMessage(), e);
         }
     }
 
