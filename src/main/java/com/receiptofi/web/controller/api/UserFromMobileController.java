@@ -34,7 +34,7 @@ import com.google.gson.JsonObject;
  * Date: 6/29/14 7:56 PM
  */
 @Controller
-@RequestMapping(value = "/api/mobile")
+@RequestMapping(value = "/webapi/mobile")
 public class UserFromMobileController {
     private static Logger log = LoggerFactory.getLogger(UserFromMobileController.class);
 

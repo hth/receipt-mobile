@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Date: 7/2/14 11:54 PM
  */
 @Controller
-@RequestMapping(value = "/api/mobile/get")
+@RequestMapping(value = "/webapi/mobile/get")
 public class GetController {
     private static Logger log = LoggerFactory.getLogger(GetController.class);
 

@@ -94,35 +94,27 @@ public final class UserProfileEntity extends BaseEntity {
     @Field("BD")
     private String birthday;
 
-    @DBRef
     @Field("LK")
     private Reference location;
 
-    @DBRef
     @Field("HT")
     private Reference hometown;
 
-    @DBRef
     @Field("II")
     private List<String> interestedIn;
 
-    @DBRef
     @Field("IP")
     private List<Reference> inspirationalPeople;
 
-    @DBRef
     @Field("LA")
     private List<Reference> languages;
 
-    @DBRef
     @Field("SP")
     private List<Reference> sports;
 
-    @DBRef
     @Field("FT")
     private List<Reference> favoriteTeams;
 
-    @DBRef
     @Field("FA")
     private List<Reference> favoriteAthletes;
 
@@ -141,11 +133,9 @@ public final class UserProfileEntity extends BaseEntity {
     @Field("SO")
     private Reference significantOther;
 
-    @DBRef
     @Field("WE")
     private List<WorkEntry> work;
 
-    @DBRef
     @Field("EE")
     private List<EducationEntry> education;
 

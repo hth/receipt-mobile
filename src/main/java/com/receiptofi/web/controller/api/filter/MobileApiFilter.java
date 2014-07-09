@@ -22,7 +22,7 @@ import org.springframework.security.web.csrf.CsrfToken;
  * User: hitender
  * Date: 6/30/14 1:26 AM
  */
-@WebFilter(urlPatterns={"/api/mobile/*"})
+@WebFilter(urlPatterns={"/webapi/mobile/*"})
 public class MobileApiFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(MobileApiFilter.class);
 
