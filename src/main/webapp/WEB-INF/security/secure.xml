@@ -19,8 +19,8 @@
         <intercept-url pattern="/api/**"
                        access="permitAll"/>
 
-        <!--<intercept-url pattern="/monitoring/**"-->
-                       <!--access="hasIpAddress('192.168.1.*')" />-->
+        <intercept-url pattern="/monitoring/**"
+                       access="hasIpAddress('192.168.1.*')" />
 
         <form-login authentication-success-handler-ref="onLoginSuccessHandler"
                     authentication-failure-handler-ref="myFailureHandler"
