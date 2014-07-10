@@ -6,7 +6,7 @@ There two ways to test through command line
 - <code>httpie</code> on windows or mac. https://github.com/jakubroztocil/httpie and helpful command can be found  https://gist.github.com/BlakeGardner/5586954
 
 
-![Mobile Api Architecture](/blob/master/architecture/Mobile-Architecture.png?raw=true "Mobile Api Architecture")
+![Mobile Api Architecture](/architecture/Mobile-Architecture.png)
 
 ##User Authentication##
 ____________
