@@ -33,10 +33,12 @@ public class AuthenticateService {
 
     public UserAccountEntity findUserAccount(String mail, String auth) {
         UserAccountEntity userAccountEntity = userAccountManager.findByUserId(mail);
-        Assert.notNull(userAccountEntity);
-
         try {
-            return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8")) ? userAccountEntity : null;
+            if(userAccountEntity == null) {
+                return null;
+            } else {
+                return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8")) ? userAccountEntity : null;
+            }
         } catch (UnsupportedEncodingException e) {
             log.error("Auth decoding issue for user={}, reason={}", mail, e.getLocalizedMessage(), e);
             return null;
