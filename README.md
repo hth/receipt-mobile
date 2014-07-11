@@ -80,6 +80,9 @@ Sample <code>pid.json</code> file
 
 When login or signup fails for invalid token, which probably results in <code>401</code> HTTP error
 
+	HTTP/1.1 200 OK
+	...............
+
     {
         "error": {
             "httpStatus": "UNAUTHORIZED", 
@@ -89,6 +92,12 @@ When login or signup fails for invalid token, which probably results in <code>40
     }
 
 Successful response when credentials are validated. <code>X-R-AUTH</code> is encoded string.
+
+	HTTP/1.1 200 OK
+	...........
+    X-R-AUTH: %242fsdfsdfa%LtFxE8jVIijuHbm5r2b2m.fgdfgdfgdfg%2FiDvy
+    X-R-MAIL: realemailaddress@youknowho.com
+    X-XSS-Protection: 1; mode=block
 
     {
         "X-R-AUTH": "%242a%2415%24y%CCCCCC-XXXXXXXXXXXXXXX",

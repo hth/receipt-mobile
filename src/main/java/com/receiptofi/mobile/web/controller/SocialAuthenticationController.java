@@ -1,11 +1,11 @@
 package com.receiptofi.mobile.web.controller;
 
-import com.receiptofi.mobile.domain.SocialAuthenticationResponse;
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -28,12 +28,39 @@ public class SocialAuthenticationController {
     @Autowired SocialAuthenticationService socialAuthenticationService;
 
     /**
-     * Supports Social provider call
-     * Example localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+     * Social provider signup or login
+     *
+     * http http://localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
      * pid.json
      *  {
-     *      "pid": "FACEBOOK",
+     *      "pid": "SOCIAL",
      *      "at": "XXXXXXXXX"
+     *  }
+     *
+     *  On Success
+     *
+     *
+     *
+     *
+     *  On failure
+     *
+     *  Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+     *  Content-Length: 97
+     *  Content-Type: application/json;charset=UTF-8
+     *  Date: Fri, 11 Jul 2014 04:44:43 GMT
+     *  Expires: 0
+     *  Pragma: no-cache
+     *  Server: Apache-Coyote/1.1
+     *  X-Content-Type-Options: nosniff
+     *  X-Frame-Options: DENY
+     *  X-XSS-Protection: 1; mode=block
+     *
+     *  {
+     *      "error": {
+     *          "httpStatus": "UNAUTHORIZED",
+     *          "httpStatusCode": 401,
+     *          "reason": "denied by provider GOOGLE"
+     *      }
      *  }
      *
      * @return
@@ -45,13 +72,23 @@ public class SocialAuthenticationController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public @ResponseBody
-    String authenticateUser(@RequestBody String authenticationJson) {
+    String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
+        String credential = null;
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
-            return socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
+            credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
+            if(credential.length() == 0 || credential.contains("401")) {
+                return credential;
+            }
+
+            Map<String, String> credentialMap = ParseJsonStringToMap.jsonStringToMap(credential);
+            response.addHeader("X-R-AUTH", credentialMap.get("X-R-AUTH"));
+            response.addHeader("X-R-MAIL", credentialMap.get("X-R-MAIL"));
+
+            return credential;
         } catch (IOException e) {
             log.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
+            return credential;
         }
-        return SocialAuthenticationResponse.newInstance().asJson();
     }
 }
