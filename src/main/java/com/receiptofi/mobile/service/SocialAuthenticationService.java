@@ -1,10 +1,15 @@
 package com.receiptofi.mobile.service;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.util.SystemErrorCodeEnum;
+import com.receiptofi.mobile.util.SystemErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -22,7 +27,6 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import com.google.gson.Gson;
 
@@ -52,6 +56,9 @@ public class SocialAuthenticationService {
     @Value("${auth.create:/webapi/mobile/auth-create.htm}")
     private String authCreate;
 
+    @Value("${no.response.from.web.server:could not connect to server}")
+    private String noResponseFromWebServer;
+
     private HttpClient httpClient;
 
     /**
@@ -63,11 +70,13 @@ public class SocialAuthenticationService {
      * @return
      */
     public String authenticateWeb(String providerId, String accessToken) {
-        log.info("providerId={} accessToken={} webApiAccessToken={}", providerId, accessToken, "*******");
+        log.info("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
         httpClient = HttpClientBuilder.create().build();
 
         Header header = getCSRFToken(webApiAccessToken);
-        Assert.notNull(header);
+        if(header == null) {
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SystemErrorCodeEnum.SEVERE);
+        }
 
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + "/receipt" + authCreate);
         log.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
@@ -83,29 +92,35 @@ public class SocialAuthenticationService {
             log.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
         }
 
-        if(null != response) {
-            int status = response.getStatusLine().getStatusCode();
-            log.info("status={}", status);
-            if(status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                if(null != entity) {
-                    long len = entity.getContentLength();
-                    if(len != -1 && len < 2048) {
-                        try {
-                            return EntityUtils.toString(entity);
-                        } catch (IOException e) {
-                            log.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
-                        }
-                    } else {
-                        // Stream too big
-                        log.warn("stream size bigger than 2048");
-                        return "{}";
-                    }
-                }
-            }
+        if(response == null) {
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SystemErrorCodeEnum.SEVERE);
         }
 
-        return "{}";
+        int status = response.getStatusLine().getStatusCode();
+        log.info("status={}", status);
+        if(status >= 200 && status < 300) {
+            HttpEntity entity = response.getEntity();
+            if(entity != null) {
+                long len = entity.getContentLength();
+                if(len != -1 && len < 2048) {
+                    try {
+                        return EntityUtils.toString(entity);
+                    } catch (IOException e) {
+                        log.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
+                    }
+                } else {
+                    // Stream too big
+                    log.warn("stream size bigger than 2048");
+                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", SystemErrorCodeEnum.SEVERE);
+                }
+            }
+        } else {
+            log.error("not a valid status from server");
+            return ErrorEncounteredJson.toJson("not a valid status from server", SystemErrorCodeEnum.SEVERE);
+        }
+
+        log.error("could not find a reason, something is not right");
+        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", SystemErrorCodeEnum.SEVERE);
     }
 
     /**
@@ -148,7 +163,7 @@ public class SocialAuthenticationService {
             log.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
             return null;
         } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
+            log.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage());
         }
         return null;
     }

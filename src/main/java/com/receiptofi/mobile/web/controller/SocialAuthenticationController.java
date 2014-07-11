@@ -69,6 +69,7 @@ public class SocialAuthenticationController {
             value = "/authenticate.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public @ResponseBody
