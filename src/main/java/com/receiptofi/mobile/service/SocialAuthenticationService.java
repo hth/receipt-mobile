@@ -126,7 +126,8 @@ public class SocialAuthenticationService {
 
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
-     * call this on terminal
+     *
+     * Test via terminal
      * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
      * @param webApiAccessToken
