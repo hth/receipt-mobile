@@ -78,7 +78,7 @@ Sample <code>pid.json</code> file
       "at": "XXXX-SOME-ACCESS-TOKEN-XXXX"
     }
 
-When login or signup fails for invalid token, which probably results in <code>401</code> HTTP error
+When login or signup fails for invalid token, which probably results in <code>401</code> HTTP error in message
 
 	HTTP/1.1 200 OK
 	...............
@@ -90,6 +90,18 @@ When login or signup fails for invalid token, which probably results in <code>40
             "reason": "denied by provider GOOGLE"
         }
     }
+
+When there is some system issue. <code>Error</code> would be reported as below. Though these messages are not to be displayed to user, it could be used as reference by the APP.
+
+	HTTP/1.1 200 OK
+	................
+	{
+        "error": {
+            "reason": "could not connect to server",
+            "systemErrorCode": "SEVERE"
+        }
+    }
+
 
 Successful response when credentials are validated. <code>X-R-AUTH</code> is encoded string.
 
