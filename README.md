@@ -85,9 +85,11 @@ When login or signup fails for invalid token, which probably results in <code>40
 
     {
         "error": {
-            "httpStatus": "UNAUTHORIZED", 
-            "httpStatusCode": 401, 
-            "reason": "denied by provider GOOGLE"
+            "httpStatus": "UNAUTHORIZED",
+            "httpStatusCode": 401,
+            "reason": "denied by provider GOOGLE",
+            "systemError": "AUTHENTICATION",
+            "systemErrorCode": "400"
         }
     }
 
@@ -98,7 +100,8 @@ When there is some system issue. <code>Error</code> would be reported as below. 
 	{
         "error": {
             "reason": "could not connect to server",
-            "systemErrorCode": "SEVERE"
+            "systemError": "SEVERE",
+            "systemErrorCode": "500"
         }
     }
 

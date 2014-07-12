@@ -2,14 +2,11 @@ package com.receiptofi.mobile.service;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.util.SystemErrorCodeEnum;
-import com.receiptofi.mobile.util.SystemErrorCodeEnum;
+import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -75,7 +72,7 @@ public class SocialAuthenticationService {
 
         Header header = getCSRFToken(webApiAccessToken);
         if(header == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + "/receipt" + authCreate);
@@ -93,7 +90,7 @@ public class SocialAuthenticationService {
         }
 
         if(response == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
         int status = response.getStatusLine().getStatusCode();
@@ -111,16 +108,16 @@ public class SocialAuthenticationService {
                 } else {
                     // Stream too big
                     log.warn("stream size bigger than 2048");
-                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", SystemErrorCodeEnum.SEVERE);
+                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", MobileSystemErrorCodeEnum.SEVERE);
                 }
             }
         } else {
             log.error("not a valid status from server");
-            return ErrorEncounteredJson.toJson("not a valid status from server", SystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson("not a valid status from server", MobileSystemErrorCodeEnum.SEVERE);
         }
 
         log.error("could not find a reason, something is not right");
-        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", SystemErrorCodeEnum.SEVERE);
+        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", MobileSystemErrorCodeEnum.SEVERE);
     }
 
     /**
