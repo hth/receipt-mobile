@@ -78,6 +78,8 @@ API call <code>POST</code> <code>/receipt-mobile/authenticate.json</code> to sig
 
 	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
 
+Curl command gives connection refusal, prefer to use above <code>http</code> command
+
 	curl -ik -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' https://67.148.60.37:9443/receipt-mobile/authenticate.json
 
 	curl -i  -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' http://localhost:9090/receipt-mobile/authenticate.json
