@@ -5,6 +5,7 @@ package com.receiptofi.web.controller.access;
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.site.ReceiptUser;
+import com.receiptofi.domain.types.DocumentStatusEnum;
 import com.receiptofi.service.DocumentPendingService;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.utils.DateUtil;
@@ -87,7 +88,22 @@ public final class PendingDocumentController {
         //Check cannot delete a pending receipt which has been processed once, i.e. has receipt id
         //The check here is not required but its better to check before calling service method
         if(StringUtils.isEmpty(receiptDocumentForm.getReceiptDocument().getReceiptId())) {
-            documentUpdateService.deletePendingReceiptOCR(receiptDocumentForm.getReceiptDocument());
+            switch(receiptDocumentForm.getReceiptDocument().getDocumentStatus()) {
+                case TURK_RECEIPT_REJECT:
+                    documentUpdateService.deleteRejectedReceiptOCR(receiptDocumentForm.getReceiptDocument());
+                    break;
+                case TURK_RECEIPT_DUPLICATE:
+                    documentUpdateService.deleteRejectedReceiptOCR(receiptDocumentForm.getReceiptDocument());
+                    break;
+                default:
+                    log.warn("default condition, delete document={}, documentStatus={} receiptId={}",
+                            receiptDocumentForm.getReceiptDocument().getId(),
+                            receiptDocumentForm.getReceiptDocument().getDocumentStatus(),
+                            receiptDocumentForm.getReceiptDocument().getReceiptId()
+                    );
+                    documentUpdateService.deletePendingReceiptOCR(receiptDocumentForm.getReceiptDocument());
+                    break;
+            }
         }
         return "redirect:/access/pendingdocument.htm";
     }

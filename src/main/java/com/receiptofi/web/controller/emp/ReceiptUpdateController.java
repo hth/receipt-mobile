@@ -332,7 +332,7 @@ public final class ReceiptUpdateController {
         DocumentEntity receipt = documentUpdateService.loadActiveDocumentById(receiptOCRId);
         if(receipt == null || receipt.isDeleted()) {
             if(request.isUserInRole("ROLE_ADMIN") || request.isUserInRole("ROLE_TECHNICIAN") || request.isUserInRole("ROLE_SUPERVISOR")) {
-                log.info("Receipt could not be found. Looks like user deleted the receipt before technician could process it.");
+                log.warn("Receipt could not be found. Looks like user deleted the receipt before technician could process it.");
                 receiptDocumentForm.setErrorMessage("Receipt could not be found. Looks like user deleted the receipt before technician could process it.");
             } else {
                 log.warn("No such receipt exists. Request made by: " + receiptUser.getRid());

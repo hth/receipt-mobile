@@ -79,6 +79,12 @@ public final class DocumentManagerImpl implements DocumentManager {
         return mongoTemplate.findOne(query, DocumentEntity.class, TABLE);
     }
 
+    @Override
+    public DocumentEntity findRejectedOne(String id) {
+        Query query = query(where("id").is(id).and("DS_E").is(DocumentStatusEnum.TURK_RECEIPT_REJECT));
+        return mongoTemplate.findOne(query, DocumentEntity.class, TABLE);
+    }
+
 	@Override
 	public void deleteHard(DocumentEntity object) {
 		mongoTemplate.remove(object, TABLE);
