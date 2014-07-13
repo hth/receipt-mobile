@@ -16,6 +16,14 @@ Use following <code>curl</code> or <code>httpie</code> with your <code>username<
 
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
+	Curl command
+
+	-i include header
+	-k insecure call over ssl
+	-X request type
+	-H header
+	-d Data
+
     curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
 
 HTTP Response Header
@@ -31,7 +39,6 @@ HTTP Response Header
     X-Content-Type-Options: nosniff
     X-R-MAIL: test@receiptofi.com
     X-R-AUTH: $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
-    Set-Cookie: id="test@receiptofi.com|$2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C"; Version=1; Domain=localhost; Max-Age=1814400; Expires=Sun, 06-Jul-2014 04:09:38 GMT; Path=/receipt-mobile
     Content-Length: 0
     Date: Sun, 15 Jun 2014 04:09:38 GMT
 
@@ -70,6 +77,10 @@ If there is no response then site is not working. This call should return a resp
 API call <code>POST</code> <code>/receipt-mobile/authenticate.json</code> to signup or login through social
 
 	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+
+	curl -ik -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' https://67.148.60.37:9443/receipt-mobile/authenticate.json
+
+	curl -i  -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' http://localhost:9090/receipt-mobile/authenticate.json
 
 Sample <code>pid.json</code> file
 
@@ -137,8 +148,10 @@ To query use following <code>curl</code> or <code>httpie</code>. (replace XXX wi
 Check if user has access using <code>X-R-AUTH</code> code
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/hasAccess.json
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
-    http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
+
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
+
+    http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%241
     
 HTTP Header response when success
 
@@ -172,19 +185,19 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 
 API call <code>/receipt-mobile/api/allReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/allReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/allReceipts.json
     
 **To get Receipts from start of the year** 
 
 API call <code>/receipt-mobile/api/ytdReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/ytdReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/ytdReceipts.json
 
 **To get Receipts for this month**
 
 API call <code>/receipt-mobile/api/thisMonthReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C" https://67.148.60.37:9443/receipt-mobile/api/thisMonthReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/thisMonthReceipts.json
     
 HTTP Header response
 

@@ -72,6 +72,7 @@ public class SocialAuthenticationService {
 
         Header header = getCSRFToken(webApiAccessToken);
         if(header == null) {
+            log.error(noResponseFromWebServer);
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 

@@ -78,7 +78,7 @@ public class SocialAuthenticationController {
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
             credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
-            if(credential.length() == 0 || credential.contains("401") || credential.contains("systemError")) {
+            if(credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
                 return credential;
             }
 
