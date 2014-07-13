@@ -14,15 +14,15 @@ ____________
 Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>.<br>
 **Note**: Application should make secure <code>HTTPS</code> calls, only <code>HTTPS</code> calls will be supported and responded. Any other call will get exception.
 
+Curl command options used 
+
+    -i include header
+    -k insecure call over ssl
+    -X request type
+    -H header
+    -d Data
+
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
-
-	Curl command
-
-	-i include header
-	-k insecure call over ssl
-	-X request type
-	-H header
-	-d Data
 
     curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
 
