@@ -26,10 +26,11 @@ public final class ErrorEncounteredJson {
         return new Gson().toJson(result);
     }
 
-    public static String toJson(String reason, SystemErrorCodeEnum systemErrorCode) {
+    public static String toJson(String reason, MobileSystemErrorCodeEnum systemErrorCode) {
         Map<String, String> errors = new HashMap<>();
         errors.put("reason", reason);
-        errors.put("systemErrorCode", systemErrorCode.name());
+        errors.put("systemError", systemErrorCode.name());
+        errors.put("systemErrorCode", systemErrorCode.getCode());
         return toJson(errors);
     }
 }

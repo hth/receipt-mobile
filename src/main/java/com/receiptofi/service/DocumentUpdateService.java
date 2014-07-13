@@ -56,6 +56,10 @@ public final class DocumentUpdateService {
         return documentManager.findActiveOne(id);
     }
 
+    public DocumentEntity loadRejectedDocumentById(String id) {
+        return documentManager.findRejectedOne(id);
+    }
+
     public DocumentEntity findOne(String documentId, String userProfileId) {
         return documentManager.findOne(documentId, userProfileId);
     }
@@ -332,15 +336,36 @@ public final class DocumentUpdateService {
      */
     public void deletePendingReceiptOCR(DocumentEntity receiptOCR) {
         DocumentEntity documentEntity = loadActiveDocumentById(receiptOCR.getId());
-        if(StringUtils.isEmpty(documentEntity.getReceiptId())) {
-            documentManager.deleteHard(documentEntity);
-            itemOCRManager.deleteWhereReceipt(documentEntity);
-            messageManager.deleteAllForReceiptOCR(documentEntity.getId());
-            storageManager.deleteHard(documentEntity.getFileSystemEntities());
-            fileSystemService.deleteHard(documentEntity.getFileSystemEntities());
+        if(documentEntity == null || !StringUtils.isEmpty(documentEntity.getReceiptId())) {
+            log.warn("User trying to delete processed Document={}, Receipt={}", receiptOCR.getId(), receiptOCR.getReceiptId());
         } else {
-            log.warn("User trying to delete processed Document={}, Receipt={}",documentEntity.getId(), documentEntity.getReceiptId());
+            deleteReceiptOCR(documentEntity);
         }
+    }
+
+    /**
+     * Delete all the associated data with Document like Item OCR, and
+     * Message Receipt Entity OCR including deletion of with Document
+     * But cannot delete ReceiptOCR when the receipt has been processed once and now it pending for re-check
+     *
+     *
+     * @param receiptOCR
+     */
+    public void deleteRejectedReceiptOCR(DocumentEntity receiptOCR) {
+        DocumentEntity documentEntity = loadRejectedDocumentById(receiptOCR.getId());
+        if(documentEntity == null || !StringUtils.isEmpty(documentEntity.getReceiptId())) {
+            log.warn("User trying to delete processed Document={}, Receipt={}", receiptOCR.getId(), receiptOCR.getReceiptId());
+        } else {
+            deleteReceiptOCR(documentEntity);
+        }
+    }
+
+    private void deleteReceiptOCR(DocumentEntity documentEntity) {
+        documentManager.deleteHard(documentEntity);
+        itemOCRManager.deleteWhereReceipt(documentEntity);
+        messageManager.deleteAllForReceiptOCR(documentEntity.getId());
+        storageManager.deleteHard(documentEntity.getFileSystemEntities());
+        fileSystemService.deleteHard(documentEntity.getFileSystemEntities());
     }
 
     /**

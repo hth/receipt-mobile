@@ -1,4 +1,4 @@
-package com.receiptofi.web.controller.api;
+package com.receiptofi.web.controller.webapi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,9 @@
-package com.receiptofi.web.controller.api;
+package com.receiptofi.web.controller.webapi;
 
 import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.service.CustomUserDetailsService;
 import com.receiptofi.utils.ParseJsonStringToMap;
+import com.receiptofi.web.util.MobileSystemErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -72,6 +71,8 @@ public class UserFromMobileController {
                 error.addProperty("httpStatusCode", e.getStatusCode().value());
                 error.addProperty("httpStatus", e.getStatusCode().name());
                 error.addProperty("reason", "denied by provider" + (StringUtils.isBlank(map.get("pid")) ? StringUtils.EMPTY : " " + map.get("pid")));
+                error.addProperty("systemErrorCode", MobileSystemErrorCodeEnum.AUTHENTICATION.getCode());
+                error.addProperty("systemError", MobileSystemErrorCodeEnum.AUTHENTICATION.name());
 
                 JsonObject result = new JsonObject();
                 result.add("error", error);

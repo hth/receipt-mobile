@@ -27,6 +27,14 @@ public interface DocumentManager extends RepositoryManager<DocumentEntity> {
     DocumentEntity findActiveOne(String documentId);
 
     /**
+     * Mostly used by user to delete rejected documents
+     *
+     * @param documentId
+     * @return
+     */
+    DocumentEntity findRejectedOne(String documentId);
+
+    /**
      * Get all the pending receipts
      *
      * @param userProfileId
