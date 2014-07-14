@@ -182,6 +182,12 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
+###Upload Document
+
+API call <code>/receipt-mobile/api/upload.json</code>
+
+    curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "image=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
+
 ###Get receipts
 
 **To get all receipts** 
