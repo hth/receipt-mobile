@@ -184,7 +184,7 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 
 ###Upload Document
 
-API call <code<POST</code> path <code>/receipt-mobile/api/upload.json</code>
+API call <code>POST</code> path <code>/receipt-mobile/api/upload.json</code>
 
 Note: Max file upload size - 10 MB
 
