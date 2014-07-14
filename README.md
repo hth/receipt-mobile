@@ -188,7 +188,9 @@ API call <code<POST</code> path <code>/receipt-mobile/api/upload.json</code>
 
 Note: Max file upload size - 10 MB
 
-    curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
+    curl -i  -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
+
+    curl -ik -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Location/File.jpg" https://67.148.60.37:9443/receipt-mobile/api/upload.json
 
 Success
 
