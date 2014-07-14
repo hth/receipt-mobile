@@ -71,7 +71,7 @@ Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied i
 ##Social Authentication and Signup##
 ______________________
 
-API call <code>POST</code> <code>/receipt-mobile/authenticate.json</code> to signup or login through social
+API call <code>POST</code> path <code>/receipt-mobile/authenticate.json</code> to signup or login through social
 
 	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
 
@@ -103,7 +103,7 @@ When login or signup fails for invalid token, which probably results in <code>40
         }
     }
 
-When there is some system issue. <code>Error</code> would be reported as below. Though these messages are not to be displayed to user, it could be used as reference by the APP.
+When there is some system issue. <code>Error</code> would be reported as below. Though these messages are not to be displayed to user, it could be used as reference by the Mobile App.
 
 	HTTP/1.1 200 OK
 	................
@@ -139,9 +139,9 @@ Upon log out, <code>X-R-AUTH</code> should be deleted and <code>X-R-MAIL</code> 
 
 Different scenarios when user tries to login again
 
-- If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was before logout. Account remains as is with all the receipts information in the APP.
+- If user enters correct credentials then <code>X-R-AUTH</code> should be restored and everything is available as it was before logout. Account remains as is with all the receipts information in the Mobile App.
 
-- If user enters different credentials than existing <code>X-R-MAIL</code>, APP should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code><X-R-AUTH</code>
+- If user enters different credentials than existing <code>X-R-MAIL</code>, Mobile App should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code><X-R-AUTH</code>
 
 ###Check if user has access###
 
@@ -184,7 +184,7 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 
 ###Upload Document
 
-API call <code>/receipt-mobile/api/upload.json</code>
+API call <code<POST</code> path <code>/receipt-mobile/api/upload.json</code>
 
     curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "image=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
 
