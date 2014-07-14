@@ -21,8 +21,4 @@ public final class MobileApi {
     public static MobileApi newInstance(boolean working) {
         return new MobileApi(working);
     }
-
-    public boolean isWorking() {
-        return working;
-    }
 }

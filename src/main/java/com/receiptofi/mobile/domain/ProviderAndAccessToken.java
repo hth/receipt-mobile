@@ -22,20 +22,4 @@ public final class ProviderAndAccessToken {
     public static ProviderAndAccessToken newInstance(String provider, String accessToken) {
         return new ProviderAndAccessToken(provider, accessToken);
     }
-
-    public String getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
 }
