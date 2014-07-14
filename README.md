@@ -194,7 +194,7 @@ Note: Max file upload size - 10 MB
 
 Success
 
-	When document <code>File.jpg</code> is uploaded successfully, response returned with the name of the document uploaded
+When document <code>File.jpg</code> is uploaded successfully, response returned with the name of the document uploaded
 
 	{
       "document": "File.jpg"
