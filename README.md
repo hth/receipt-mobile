@@ -192,7 +192,7 @@ Note: Max file upload size - 10 MB
 
     curl -ik -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Location/File.jpg" https://67.148.60.37:9443/receipt-mobile/api/upload.json
 
-Success
+**Success**
 
 When document <code>File.jpg</code> is uploaded successfully, response returned with the name of the document uploaded
 
@@ -200,7 +200,7 @@ When document <code>File.jpg</code> is uploaded successfully, response returned 
       "document": "File.jpg"
     }
 
-Error
+**Error**
 
 If <code>qqfile</file> missing pr file is empty
 
