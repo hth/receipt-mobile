@@ -10,6 +10,7 @@ public enum MobileSystemErrorCodeEnum {
 
     USER_INPUT("100"),
     API_WARNING("200"),
+    DOCUMENT_UPLOAD("300"),
     AUTHENTICATION("400"),
     SEVERE("500");
 

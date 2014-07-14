@@ -186,7 +186,50 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 
 API call <code<POST</code> path <code>/receipt-mobile/api/upload.json</code>
 
-    curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "image=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
+Note: Max file upload size - 10 MB
+
+    curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
+
+Success
+
+	When document <code>File.jpg</code> is uploaded successfully, response returned with the name of the document uploaded
+
+	{
+      "document": "File.jpg"
+    }
+
+Error
+
+If <code>qqfile</file> missing pr file is empty
+
+	{
+      "error": {
+        "systemErrorCode": "300",
+        "systemError": "DOCUMENT_UPLOAD",
+        "reason": "qqfile name missing in request or no file uploaded"
+      }
+    }
+
+If failed to upload document will include which document failed to upload with error message
+
+	{
+	  "error": {
+		"systemErrorCode": "300",
+		"systemError": "DOCUMENT_UPLOAD",
+		"reason": "failed document upload",
+		"document": "File.jpg"
+	  }
+	}
+
+Other errors could be
+
+	{
+	  "error": {
+		"systemErrorCode": "300",
+		"systemError": "DOCUMENT_UPLOAD",
+		"reason": "multipart failure for document upload"
+	  }
+	}
 
 ###Get receipts
 
