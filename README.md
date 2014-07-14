@@ -8,6 +8,24 @@ There two ways to test through command line
 
 ![Mobile Api Architecture](/architecture/Mobile-Architecture.png)
 
+###Check if site is up and running###
+
+Following call will make sure if site is up and running
+
+    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
+
+HTTP Response success
+
+    HTTP/1.1 200 OK
+    Server: Apache-Coyote/1.1
+    ......
+
+HTTP Body
+
+    {"working":true}
+
+If there is no response then site is not working. This call should return a response very quickly.
+
 ##User Authentication##
 ____________
 
@@ -50,33 +68,14 @@ Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied i
     Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
 
-
-##API Call##
-________
-
-###Check if site is up and running###
-
-Following call will make sure if site is up and running
-
-    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
-    
-HTTP Response success
-
-    HTTP/1.1 200 OK
-    Server: Apache-Coyote/1.1
-    ......
-    
-HTTP Body
-
-    {"working":true}
-
-If there is no response then site is not working. This call should return a response very quickly.
-
-###Signup And Login using social###
+##Social Authentication and Signup##
+______________________
 
 API call <code>POST</code> <code>/receipt-mobile/authenticate.json</code> to signup or login through social
 
 	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+
+Curl command gives connection refusal, prefer to use above <code>http</code> command
 
 	curl -ik -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' https://67.148.60.37:9443/receipt-mobile/authenticate.json
 
@@ -130,6 +129,10 @@ Successful response when credentials are validated. <code>X-R-AUTH</code> is enc
         "X-R-MAIL": "100007981713206"
     }
 
+
+##API Calls##
+________
+
 ###Logout user and login again###
 
 Upon log out, <code>X-R-AUTH</code> should be deleted and <code>X-R-MAIL</code> remains intact. Logout action complete by re-directing user to login page.
@@ -178,6 +181,12 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Language: en
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
+
+###Upload Document
+
+API call <code>/receipt-mobile/api/upload.json</code>
+
+    curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "image=@/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
 
 ###Get receipts
 
