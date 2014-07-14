@@ -3,8 +3,6 @@
  */
 package com.receiptofi.web.controller.access;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.receiptofi.domain.MileageEntity;
 import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
@@ -22,7 +20,6 @@ import com.receiptofi.service.MailService;
 import com.receiptofi.service.MileageService;
 import com.receiptofi.service.NotificationService;
 import com.receiptofi.service.ReportService;
-import com.receiptofi.service.mobile.LandingViewService;
 import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.Maths;
 import com.receiptofi.utils.PerformanceProfiling;
@@ -70,6 +67,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 /**
  * @author hitender
  * @since Dec 17, 2012 3:19:01 PM
@@ -85,7 +85,6 @@ public final class LandingController extends BaseController {
     @Autowired AccountService accountService;
     @Autowired NotificationService notificationService;
     @Autowired ReportService reportService;
-    @Autowired LandingViewService landingViewService;
     @Autowired MileageService mileageService;
 
 	/**
@@ -246,9 +245,9 @@ public final class LandingController extends BaseController {
     public @ResponseBody
     String upload(HttpServletRequest httpServletRequest) throws IOException {
         DateTime time = DateUtil.now();
-        log.info("Upload a receipt");
+        log.info("uploading document");
 
-        ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String rid = ((ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRid();
         String outcome = "{\"success\" : false}";
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
@@ -263,16 +262,16 @@ public final class LandingController extends BaseController {
             for (MultipartFile multipartFile : files) {
                 UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
                 uploadReceiptImage.setFileData(multipartFile);
-                uploadReceiptImage.setUserProfileId(receiptUser.getRid());
+                uploadReceiptImage.setUserProfileId(rid);
                 uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                 try {
-                    landingService.uploadReceipt(receiptUser.getRid(), uploadReceiptImage);
+                    landingService.uploadReceipt(rid, uploadReceiptImage);
                     outcome = "{\"success\" : true, \"uploadMessage\" : \"File uploaded successfully\"}";
                     PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
                 } catch (Exception exce) {
                     outcome = "{\"success\" : false, \"uploadMessage\" : \"" + exce.getLocalizedMessage() + "\"}";
-                    log.error("Receipt upload reason={}, for rid={}", exce.getLocalizedMessage(), receiptUser.getRid(), exce);
-                    PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error in receipt save");
+                    log.error("document upload failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+                    PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error to save document");
                 }
             }
         } else {
@@ -375,22 +374,6 @@ public final class LandingController extends BaseController {
         }
 
         return json;
-    }
-
-    /**
-     * Provides user information of home page through a JSON URL
-     *
-     * @param profileId
-     * @param authKey
-     * @return
-     */
-    @RequestMapping(value = "/landing/user/{profileId}/auth/{authKey}.htm", method = RequestMethod.GET, produces="text/html")
-    public @ResponseBody
-    String loadHTML(@PathVariable String profileId, @PathVariable String authKey) {
-        DateTime time = DateUtil.now();
-        log.info("HTML : " + profileId);
-        LandingView landingView = landingView(profileId, authKey, time);
-        return landingViewService.landingViewHTMLString(landingView);
     }
 
     /**
