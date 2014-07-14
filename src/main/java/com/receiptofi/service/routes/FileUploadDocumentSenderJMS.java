@@ -17,12 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Component;
 
 /**
  * @author hitender
  * @since Mar 30, 2013 2:42:21 AM
  *
  */
+@Component
 public final class FileUploadDocumentSenderJMS {
 	private static final Logger log = LoggerFactory.getLogger(FileUploadDocumentSenderJMS.class);
 
