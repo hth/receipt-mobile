@@ -285,31 +285,32 @@ public final class DocumentUpdateService {
      */
     public void turkReject(DocumentEntity receiptOCR) throws Exception {
         try {
-            receiptOCR = loadActiveDocumentById(receiptOCR.getId());
-            receiptOCR.setDocumentStatus(DocumentStatusEnum.TURK_RECEIPT_REJECT);
-            receiptOCR.setBizName(null);
-            receiptOCR.setBizStore(null);
-            receiptOCR.inActive();
-            receiptOCR.markAsDeleted();
-            documentManager.save(receiptOCR);
+            DocumentEntity document = loadActiveDocumentById(receiptOCR.getId());
+            document.setDocumentStatus(DocumentStatusEnum.TURK_RECEIPT_REJECT);
+            document.setDocumentOfType(receiptOCR.getDocumentOfType());
+            document.setBizName(null);
+            document.setBizStore(null);
+            document.inActive();
+            document.markAsDeleted();
+            documentManager.save(document);
 
             try {
-                messageManager.updateObject(receiptOCR.getId(), DocumentStatusEnum.OCR_PROCESSED, DocumentStatusEnum.TURK_RECEIPT_REJECT);
+                messageManager.updateObject(document.getId(), DocumentStatusEnum.OCR_PROCESSED, DocumentStatusEnum.TURK_RECEIPT_REJECT);
             } catch(Exception exce) {
                 log.error(exce.getLocalizedMessage());
-                messageManager.undoUpdateObject(receiptOCR.getId(), false, DocumentStatusEnum.TURK_RECEIPT_REJECT, DocumentStatusEnum.OCR_PROCESSED);
+                messageManager.undoUpdateObject(document.getId(), false, DocumentStatusEnum.TURK_RECEIPT_REJECT, DocumentStatusEnum.OCR_PROCESSED);
                 throw exce;
             }
-            itemOCRManager.deleteWhereReceipt(receiptOCR);
+            itemOCRManager.deleteWhereReceipt(document);
 
-            fileSystemService.deleteSoft(receiptOCR.getFileSystemEntities());
-            storageManager.deleteSoft(receiptOCR.getFileSystemEntities());
-            GridFSDBFile gridFSDBFile = storageManager.get(receiptOCR.getFileSystemEntities().iterator().next().getBlobId());
+            fileSystemService.deleteSoft(document.getFileSystemEntities());
+            storageManager.deleteSoft(document.getFileSystemEntities());
+            GridFSDBFile gridFSDBFile = storageManager.get(document.getFileSystemEntities().iterator().next().getBlobId());
             DBObject dbObject =  gridFSDBFile.getMetaData();
 
             StringBuilder sb = new StringBuilder();
             sb.append("Could not process receipt '").append(dbObject.get("ORIGINAL_FILENAME")).append("'");
-            notificationService.addNotification(sb.toString(), NotificationTypeEnum.DOCUMENT, receiptOCR);
+            notificationService.addNotification(sb.toString(), NotificationTypeEnum.DOCUMENT, document);
 
         } catch(Exception exce) {
             log.error("Revert all the transaction for ReceiptOCR={}. Rejection of a receipt failed, reason={}", receiptOCR.getId(), exce.getLocalizedMessage(), exce);
