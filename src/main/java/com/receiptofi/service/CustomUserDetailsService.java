@@ -128,7 +128,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                     userProfile.getReceiptUserId(),
                     userProfile.getProviderId(),
                     userProfile.getLevel(),
-                    userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
+                    isUserActiveAndRegistrationTurnedOn(userAccountEntity)
             );
         }
     }
