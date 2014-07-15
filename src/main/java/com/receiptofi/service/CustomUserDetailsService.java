@@ -11,6 +11,7 @@ import com.receiptofi.social.annotation.Social;
 import com.receiptofi.social.config.SocialConfig;
 import com.receiptofi.social.connect.ConnectionService;
 import com.receiptofi.utils.RandomString;
+import com.receiptofi.web.util.Registration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +57,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired private AccountService accountService;
     @Autowired private ConnectionService connectionService;
     @Autowired private GenerateUserIdManager generateUserIdManager;
+    @Autowired private Registration registration;
 
     /**
      * @param email - lower case string
@@ -75,6 +77,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             UserAccountEntity userAccountEntity = loginService.findByReceiptUserId(userProfile.getReceiptUserId());
             UserAuthenticationEntity userAuthenticate = userAccountEntity.getUserAuthentication();
 
+            log.warn("user={} accountValidated={}", userAccountEntity.getReceiptUserId(), userAccountEntity.isAccountValidated());
+
             return new ReceiptUser(
                     userProfile.getEmail(),
                     userAuthenticate.getPassword(),
@@ -82,9 +86,24 @@ public class CustomUserDetailsService implements UserDetailsService {
                     userProfile.getReceiptUserId(),
                     userProfile.getProviderId(),
                     userProfile.getLevel(),
-                    userAccountEntity.isActive() && userAccountEntity.isAccountValidated()
+                    isUserActiveAndRegistrationTurnedOn(userAccountEntity)
             );
         }
+    }
+
+    /**
+     * If registration is turned on then check if the account is validated
+     * And, if registration is turned off then check is userAccount is active
+     *
+     * @param userAccount
+     * @return
+     */
+    private boolean isUserActiveAndRegistrationTurnedOn(UserAccountEntity userAccount) {
+        if(registration.isRegistrationTurnedOn()) {
+            return userAccount.isActive() && userAccount.isAccountValidated();
+        }
+
+        return userAccount.isActive();
     }
 
     @Social
