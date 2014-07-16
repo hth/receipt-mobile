@@ -22,6 +22,7 @@ import java.util.Map;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,11 @@ public class UploadDocumentController {
     @Autowired AuthenticateService authenticateService;
     @Autowired LandingService landingService;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/upload",
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
     public @ResponseBody
     String upload(
             @RequestHeader("X-R-MAIL")
