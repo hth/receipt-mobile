@@ -196,7 +196,7 @@ Note: Max file upload size - 10 MB
 
 When document <code>original.jpg</code> is uploaded successfully, response returned with the name of the document uploaded and number of unprocessed documents
 
-	<s>{
+<s>{
       "document": "File.jpg"
     }</s>
 
