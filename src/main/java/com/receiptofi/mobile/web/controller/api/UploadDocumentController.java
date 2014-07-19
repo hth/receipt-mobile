@@ -43,8 +43,8 @@ import org.joda.time.DateTime;
 public class UploadDocumentController {
     private static final Logger log = LoggerFactory.getLogger(UploadDocumentController.class);
 
-    @Autowired AuthenticateService authenticateService;
-    @Autowired LandingService landingService;
+    @Autowired private AuthenticateService authenticateService;
+    @Autowired private LandingService landingService;
 
     @RequestMapping(
             method = RequestMethod.POST,

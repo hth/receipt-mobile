@@ -11,27 +11,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * User: hitender
- * Date: 7/13/14 9:58 PM
+ * Date: 7/18/14 8:13 PM
  */
 @JsonPropertyOrder(alphabetic = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class DocumentUpload {
+public final class UnprocessedDocuments {
 
     @SuppressWarnings("unused")
-    @JsonProperty("uploadedDocumentName")
-    private String uploadedDocumentName;
+    @JsonProperty("unprocessedCount")
+    private long numberOfUnprocessedFiles;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("unprocessedDocuments")
-    private UnprocessedDocuments unprocessedDocuments;
-
-    private DocumentUpload(String uploadedDocumentName, long numberOfUnprocessedFiles) {
-        this.uploadedDocumentName = uploadedDocumentName;
-        this.unprocessedDocuments = UnprocessedDocuments.newInstance(numberOfUnprocessedFiles);
+    private UnprocessedDocuments(long numberOfUnprocessedFiles) {
+        this.numberOfUnprocessedFiles = numberOfUnprocessedFiles;
     }
 
-    public static DocumentUpload newInstance(String uploadedDocumentName, long numberOfUnprocessedFiles) {
-        return new DocumentUpload(uploadedDocumentName, numberOfUnprocessedFiles);
+    public static UnprocessedDocuments newInstance(long numberOfUnprocessedFiles) {
+        return new UnprocessedDocuments(numberOfUnprocessedFiles);
     }
 
     /** Converts this object to JSON representation; do not use annotation as this breaks and content length is set to -1 */
