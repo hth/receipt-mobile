@@ -13,15 +13,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public final class DocumentUpload {
 
+    @SuppressWarnings("unused")
     @JsonProperty("document")
     private String documentName;
 
-    private DocumentUpload(String documentName) {
+    @SuppressWarnings("unused")
+    @JsonProperty("unprocessed")
+    private long numberOfUnprocessedFiles;
+
+    private DocumentUpload(String documentName, long numberOfUnprocessedFiles) {
         this.documentName = documentName;
+        this.numberOfUnprocessedFiles = numberOfUnprocessedFiles;
     }
 
-    public static DocumentUpload newInstance(String documentName) {
-        return new DocumentUpload(documentName);
+    public static DocumentUpload newInstance(String documentName, long numberOfUnprocessedFiles) {
+        return new DocumentUpload(documentName, numberOfUnprocessedFiles);
     }
 
     /**

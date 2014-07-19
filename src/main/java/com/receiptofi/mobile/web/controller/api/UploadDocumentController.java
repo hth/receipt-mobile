@@ -85,7 +85,7 @@ public class UploadDocumentController {
                     try {
                         landingService.uploadReceipt(rid, uploadReceiptImage);
                         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
-                        return DocumentUpload.newInstance(multipartFile.getOriginalFilename()).asJson();
+                        return DocumentUpload.newInstance(multipartFile.getOriginalFilename(), landingService.pendingReceipt(rid)).asJson();
                     } catch (Exception exce) {
                         log.error("document upload failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
                         PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error to save document");
