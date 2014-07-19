@@ -194,10 +194,17 @@ Note: Max file upload size - 10 MB
 
 **Success**
 
-When document <code>File.jpg</code> is uploaded successfully, response returned with the name of the document uploaded
+When document <code>original.jpg</code> is uploaded successfully, response returned with the name of the document uploaded and number of unprocessed documents
 
-	{
+	<s>{
       "document": "File.jpg"
+    }</s>
+
+    {
+      "unprocessedDocuments": {
+        "unprocessedCount": 21
+      },
+      "uploadedDocumentName": "original.jpg"
     }
 
 **Error**
@@ -232,6 +239,16 @@ Other errors could be
 		"reason": "multipart failure for document upload"
 	  }
 	}
+
+###Get unprocessed file count
+
+API call <code>/receipt-mobile/api/unprocessed.json</code>
+
+	curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241"  http://localhost:9090/receipt-mobile/api/unprocessed.json
+
+	{
+      "unprocessedCount": 20
+    }
 
 ###Get receipts
 
