@@ -1,0 +1,26 @@
+package com.receiptofi.mobile.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+/**
+ * User: hitender
+ * Date: 7/18/14 8:13 PM
+ */
+@JsonPropertyOrder(alphabetic = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public final class UnprocessedDocuments extends AbstractDomain {
+
+    @SuppressWarnings("unused")
+    @JsonProperty("unprocessedCount")
+    private long numberOfUnprocessedFiles;
+
+    private UnprocessedDocuments(long numberOfUnprocessedFiles) {
+        this.numberOfUnprocessedFiles = numberOfUnprocessedFiles;
+    }
+
+    public static UnprocessedDocuments newInstance(long numberOfUnprocessedFiles) {
+        return new UnprocessedDocuments(numberOfUnprocessedFiles);
+    }
+}

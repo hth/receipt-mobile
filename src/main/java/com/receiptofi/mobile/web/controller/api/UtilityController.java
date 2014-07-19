@@ -1,7 +1,9 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.mobile.domain.UnprocessedDocuments;
 import com.receiptofi.mobile.domain.UserAccess;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.service.LandingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,10 +30,12 @@ public class UtilityController {
     private static final Logger log = LoggerFactory.getLogger(UtilityController.class);
 
     private AuthenticateService authenticateService;
+    private LandingService landingService;
 
     @Autowired
-    public UtilityController(AuthenticateService authenticateService) {
+    public UtilityController(AuthenticateService authenticateService, LandingService landingService) {
         this.authenticateService = authenticateService;
+        this.landingService = landingService;
     }
 
     @RequestMapping(
@@ -52,6 +56,30 @@ public class UtilityController {
         log.debug("mail={}, auth={}", mail, "*********");
         if(authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
+        }
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        return null;
+    }
+
+    @RequestMapping(
+            value = "/unprocessed",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public @ResponseBody
+    String unprocessedDocuments(
+            @RequestHeader("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            HttpServletResponse response
+    ) throws IOException {
+        log.debug("mail={}, auth={}", mail, "*********");
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if(rid != null) {
+            return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid)).asJson();
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
