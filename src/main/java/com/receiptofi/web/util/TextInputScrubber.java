@@ -1,4 +1,4 @@
-package com.receiptofi.utils;
+package com.receiptofi.web.util;
 
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;

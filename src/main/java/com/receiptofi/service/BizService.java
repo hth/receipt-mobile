@@ -6,13 +6,14 @@ import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.repository.BizNameManager;
 import com.receiptofi.repository.BizStoreManager;
-import com.receiptofi.web.form.BizForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -67,11 +68,13 @@ public final class BizService {
         return bizStoreEntities;
     }
 
-    public void countReceiptForBizStore(Set<BizStoreEntity> bizStoreEntities, BizForm bizForm) {
+    public Map<String, Long> countReceiptForBizStore(Set<BizStoreEntity> bizStoreEntities) {
+        Map<String, Long> bizReceiptCount = new HashMap<>();
         for(BizStoreEntity bizStoreEntity : bizStoreEntities) {
             long count = receiptService.countAllReceiptForAStore(bizStoreEntity);
-            bizForm.addReceiptCount(bizStoreEntity.getId(), count);
+            bizReceiptCount.put(bizStoreEntity.getId(), count);
         }
+        return bizReceiptCount;
     }
 
     public long countReceiptForBizName(BizNameEntity bizNameEntity) {

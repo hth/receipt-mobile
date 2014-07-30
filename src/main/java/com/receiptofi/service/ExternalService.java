@@ -1,8 +1,6 @@
 package com.receiptofi.service;
 
 import com.receiptofi.domain.BizStoreEntity;
-import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +13,6 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import org.springframework.stereotype.Service;
-
-import org.joda.time.DateTime;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -40,7 +36,6 @@ public final class ExternalService {
      * @throws Exception
      */
     public void decodeAddress(BizStoreEntity bizStoreEntity) throws IOException {
-        DateTime time = DateUtil.now();
         URL url = null;
         try {
             String encodeAddress = URLEncoder.encode(bizStoreEntity.getAddress(), "UTF-8");
@@ -55,15 +50,12 @@ public final class ExternalService {
             reader.close();
 
             populateBizStore(output, bizStoreEntity);
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         } catch (MalformedURLException e) {
             String result = (url == null) ? bizStoreEntity.getAddress() : url.toString() + ", " +  bizStoreEntity.getAddress();
             log.error("URL: " + result + ", " + e.getLocalizedMessage());
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             throw new MalformedURLException("URL: " + result + ", " + e.getLocalizedMessage());
         } catch (IOException e) {
             String result = (url == null) ? bizStoreEntity.getAddress() : url.toString() + ", " +  bizStoreEntity.getAddress();
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             throw new IOException("URL: " + result + ", " + e.getLocalizedMessage());
         }
     }

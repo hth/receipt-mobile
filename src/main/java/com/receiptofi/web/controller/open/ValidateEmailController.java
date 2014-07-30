@@ -4,7 +4,7 @@ import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.service.EmailValidateService;
-import com.receiptofi.web.util.Registration;
+import com.receiptofi.social.config.RegistrationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +33,7 @@ public final class ValidateEmailController {
 
     private final EmailValidateService emailValidateService;
     private final AccountService accountService;
-    private final Registration registration;
+    private final RegistrationConfig registrationConfig;
 
     @Value("${emailValidate:redirect:/open/validate/result.htm}")
     private String validateResult;
@@ -45,10 +45,10 @@ public final class ValidateEmailController {
     private String validateFailurePage;
 
     @Autowired
-    public ValidateEmailController(EmailValidateService emailValidateService, AccountService accountService, Registration registration) {
+    public ValidateEmailController(EmailValidateService emailValidateService, AccountService accountService, RegistrationConfig registrationConfig) {
         this.emailValidateService = emailValidateService;
         this.accountService = accountService;
-        this.registration  = registration;
+        this.registrationConfig = registrationConfig;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public final class ValidateEmailController {
                 log.info("authentication failed for user={}", userAccount.getReceiptUserId());
             } else {
                 userAccount.setAccountValidated(true);
-                registration.isRegistrationAllowed(userAccount);
+                registrationConfig.isRegistrationAllowed(userAccount);
                 accountService.saveUserAccount(userAccount);
 
                 emailValidate.inActive();

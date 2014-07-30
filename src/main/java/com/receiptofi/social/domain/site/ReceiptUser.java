@@ -1,4 +1,4 @@
-package com.receiptofi.domain.site;
+package com.receiptofi.social.domain.site;
 
 import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.domain.types.UserLevelEnum;

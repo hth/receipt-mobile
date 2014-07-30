@@ -1,6 +1,7 @@
-package com.receiptofi.utils;
+package com.receiptofi.service;
 
-import com.receiptofi.web.form.UploadReceiptImage;
+import com.receiptofi.domain.shared.UploadReceiptImage;
+import com.receiptofi.utils.CreateTempFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,29 +16,33 @@ import java.io.OutputStream;
 
 import org.apache.commons.io.FilenameUtils;
 
+import org.springframework.stereotype.Service;
+
 /**
  * User: hitender
  * Date: 10/18/13 10:58 PM
  */
-public final class ImageSplit {
-    private static final Logger log = LoggerFactory.getLogger(ImageSplit.class);
+@Service
+public final class ImageSplitService {
+    private static final Logger log = LoggerFactory.getLogger(ImageSplitService.class);
 
     //TODO remove main
     public static void main(String[] args) throws IOException {
+        ImageSplitService splitService = new ImageSplitService();
 
         File file = new File("/Users/hitender/Downloads/" + "20130429_171952.jpg"); // I have bear.jpg in my working directory
-        File image = decreaseResolution(file);
-        splitImage(image);
+        File image = splitService.decreaseResolution(file);
+        splitService.splitImage(image);
     }
 
-    public static void splitImage(File file) throws IOException {
+    public void splitImage(File file) throws IOException {
         BufferedImage image = bufferedImage(file);
         log.debug("W: " + image.getWidth() + ", " + "H: " + image.getHeight());
 
         splitImage(image);
     }
 
-    private static void splitImage(BufferedImage image) throws IOException {
+    private void splitImage(BufferedImage image) throws IOException {
         int rows = 4; //You should decide the values for rows and cols variables
         int cols = 4;
         int chunks = rows * cols;
@@ -73,7 +78,7 @@ public final class ImageSplit {
      * @return
      * @throws IOException
      */
-    public static File decreaseResolution(File file) throws IOException {
+    public File decreaseResolution(File file) throws IOException {
         BufferedImage image = bufferedImage(file);
 
         log.debug("W: " + image.getWidth() + ", " + "H: " + image.getHeight());
@@ -91,7 +96,7 @@ public final class ImageSplit {
      * @return
      * @throws IOException
      */
-    public static void decreaseResolution(InputStream is, OutputStream os) throws IOException {
+    public void decreaseResolution(InputStream is, OutputStream os) throws IOException {
         BufferedImage image = bufferedImage(is);
 
         log.debug("W: " + image.getWidth() + ", " + "H: " + image.getHeight());
@@ -108,11 +113,11 @@ public final class ImageSplit {
      * @return
      * @throws IOException
      */
-    public static BufferedImage bufferedImage(File file) throws IOException {
+    public BufferedImage bufferedImage(File file) throws IOException {
         return bufferedImage(new FileInputStream(file));
     }
 
-    public static BufferedImage bufferedImage(InputStream is) throws IOException {
+    public BufferedImage bufferedImage(InputStream is) throws IOException {
         return ImageIO.read(is);
     }
 

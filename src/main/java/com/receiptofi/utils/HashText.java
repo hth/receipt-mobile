@@ -69,7 +69,6 @@ public final class HashText {
         DateTime time = DateUtil.now();
         if(md == null) {
             log.info("Un-Initialized MessageDigest");
-            PerformanceProfiling.log(HashText.class, time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             return null;
         } else {
             md.update(text.getBytes());
@@ -91,7 +90,6 @@ public final class HashText {
                 }
                 hexString.append(hex);
             }
-            PerformanceProfiling.log(HashText.class, time, Thread.currentThread().getStackTrace()[1].getMethodName(), true);
             return hexString.toString();
         }
     }

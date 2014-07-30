@@ -7,9 +7,7 @@ import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.repository.BizNameManager;
 import com.receiptofi.repository.BizStoreManager;
 import com.receiptofi.repository.ItemManager;
-import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.Formatter;
-import com.receiptofi.utils.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +17,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.joda.time.DateTime;
 
 /**
  * User: hitender
@@ -43,11 +39,9 @@ public final class FetcherService {
      * @return
      */
     public Set<String> findDistinctBizName(String bizName) {
-        DateTime time = DateUtil.now();
         log.info("Search for Biz Name: " + bizName);
         Set<String> titles = bizNameManager.findAllDistinctBizStr(bizName);
         log.info("found business.. total size " + titles.size());
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return titles;
     }
 
@@ -58,7 +52,6 @@ public final class FetcherService {
      * @return
      */
     public Set<String> findDistinctBizAddress(String bizAddress, String bizName) {
-        DateTime time = DateUtil.now();
         log.info("Search for Biz address: " + bizAddress + ", within Biz Name: " + bizName);
         Set<String> address = new HashSet<>();
 
@@ -71,8 +64,6 @@ public final class FetcherService {
 
             log.info("found address(es).. total size " + list.size() + ", but unique items size: " + address.size());
         }
-
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return address;
     }
 
@@ -83,7 +74,6 @@ public final class FetcherService {
      * @return
      */
     public Set<String> findDistinctBizPhone(String bizPhone, String bizAddress, String bizName) {
-        DateTime time = DateUtil.now();
         log.info("Search for Biz address: " + bizAddress + ", within Biz Name: " + bizName);
         Set<String> phone = new HashSet<>();
 
@@ -97,8 +87,6 @@ public final class FetcherService {
 
             log.info("found item.. total size " + list.size() + ", but unique items size: " + phone.size());
         }
-
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return phone;
     }
 
@@ -111,7 +99,6 @@ public final class FetcherService {
      * @return
      */
     public Set<String> findDistinctItems(String itemName, String bizName) {
-        DateTime time = DateUtil.now();
         log.info("Search for item name: " + itemName + ", within Biz Name: " + bizName);
         List<ItemEntity> itemList = itemManager.findItems(itemName, bizName);
 
@@ -121,18 +108,15 @@ public final class FetcherService {
         }
 
         log.info("found item.. total size " + itemList.size() + ", but unique items size: " + items.size());
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
         return items;
     }
 
     public void changeFSImageOrientation(String fileSystemId, int imageOrientation, String blobId) throws Exception {
-        DateTime time = DateUtil.now();
         FileSystemEntity fileSystemEntity = fileSystemService.findById(fileSystemId);
         if(blobId.equalsIgnoreCase(fileSystemEntity.getBlobId())) {
             fileSystemEntity.setImageOrientation(fileSystemEntity.getImageOrientation() + imageOrientation);
             fileSystemEntity.switchHeightAndWidth();
             fileSystemService.save(fileSystemEntity);
         }
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
     }
 }

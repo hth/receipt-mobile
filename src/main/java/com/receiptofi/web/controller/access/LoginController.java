@@ -2,7 +2,7 @@ package com.receiptofi.web.controller.access;
 
 import com.receiptofi.service.LoginService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
+import com.receiptofi.web.util.PerformanceProfiling;
 import com.receiptofi.web.cache.CachedUserAgentStringParser;
 import com.receiptofi.web.form.UserLoginForm;
 import org.slf4j.Logger;

@@ -1,9 +1,5 @@
 package com.receiptofi.service;
 
-import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.utils.CreateTempFile;
-import com.receiptofi.web.rest.Header;
-import com.receiptofi.web.rest.ReportView;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -11,15 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.ui.freemarker.FreeMarkerTemplateUtils.processTemplateIntoString;
@@ -28,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
-
-import org.joda.time.DateTime;
 
 /**
  * User: hitender
@@ -62,30 +52,8 @@ public final class ReportService {
     @Value("${app.name}")
     private String appName;
 
-    public String monthlyReport(DateTime month, String profileId, String emailId, Header header) {
-        List<ReceiptEntity> receipts = landingService.getAllReceiptsForThisMonth(profileId, month);
-
-        ReportView reportView = ReportView.newInstance(profileId, emailId, header);
-        reportView.setReceipts(receipts);
-        reportView.setHeader(header);
-
-        return monthlyReport(reportView);
-    }
-
-    private String monthlyReport(ReportView reportView) {
+    public String monthlyReport(File file) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(ReportView.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            // output pretty printed
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
-
-            File file = CreateTempFile.file("XML-Report", ".xml");
-            jaxbMarshaller.marshal(reportView, file);
-
-            //Commenting console output
-            //jaxbMarshaller.marshal(reportView, System.out);
-
             Map rootMap = new HashMap();
             rootMap.put("doc", freemarker.ext.dom.NodeModel.parse(file));
 
@@ -99,7 +67,7 @@ public final class ReportService {
             rootMap.put("appname", appName);
 
             return freemarkerDo(rootMap);
-        } catch (JAXBException | SAXException | ParserConfigurationException | IOException | TemplateException e) {
+        } catch (SAXException | ParserConfigurationException | IOException | TemplateException e) {
             log.error("Error while processing reporting template: " + e.getLocalizedMessage());
         }
         return null;

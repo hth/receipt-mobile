@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.receiptofi.utils;
+package com.receiptofi.service;
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.ItemEntityOCR;
@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Parses the data from OCR
  *
@@ -23,12 +25,13 @@ import org.apache.commons.lang3.StringUtils;
  * @since Jan 6, 2013 9:49:59 AM
  *
  */
-public final class ReceiptParser {
-	private static final Logger log = LoggerFactory.getLogger(ReceiptParser.class);
+@Service
+public final class ReceiptParserService {
+	private static final Logger log = LoggerFactory.getLogger(ReceiptParserService.class);
 	private static Pattern item = Pattern.compile("[-+]?[$]?[-+]?[0-9]*\\.[0-9]{2}[\\s]?[\\w{1}]?$"); // PP I $246456.99 $2.99
 	private static Pattern date = Pattern.compile("[0-9]{1,2}[/|-|\\.][0-9]{1,2}[/|-|\\.][19|20]?[0-9]{2}"); // DATETIME: 12/26/2012 5:29:44 PM
 
-	public static void read(String receiptOCRTranslation, DocumentEntity documentEntity, List<ItemEntityOCR> items) {
+	public void read(String receiptOCRTranslation, DocumentEntity documentEntity, List<ItemEntityOCR> items) {
 		StringTokenizer st = new StringTokenizer(receiptOCRTranslation, "\n");
 		String save = StringUtils.EMPTY;
 		int sequence = 1;
@@ -45,7 +48,7 @@ public final class ReceiptParser {
 				// http://stackoverflow.com/questions/600733/using-java-to-find-substring-of-a-bigger-string-using-regular-expression
 				// String date = d.group(1);
 
-				log.debug("Found date - " + s);
+				log.debug("Found date - ", s);
 				documentEntity.setReceiptDate(s.trim());
 			}
 			save = s;

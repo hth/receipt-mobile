@@ -11,7 +11,7 @@ import com.receiptofi.service.EmailValidateService;
 import com.receiptofi.service.MailService;
 import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.ParseJsonStringToMap;
-import com.receiptofi.utils.PerformanceProfiling;
+import com.receiptofi.web.util.PerformanceProfiling;
 import com.receiptofi.web.form.UserRegistrationForm;
 import com.receiptofi.web.helper.AvailabilityStatus;
 import com.receiptofi.web.validator.UserRegistrationValidator;

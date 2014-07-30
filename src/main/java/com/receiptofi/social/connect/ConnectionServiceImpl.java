@@ -9,9 +9,8 @@ import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.social.annotation.Social;
 import com.receiptofi.social.config.ProviderConfig;
+import com.receiptofi.social.config.RegistrationConfig;
 import com.receiptofi.utils.RandomString;
-import com.receiptofi.web.util.Registration;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +25,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -56,7 +56,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     private final AccountService accountService;
 
     @Autowired
-    private Registration registration;
+    private RegistrationConfig registrationConfig;
 
     @Autowired
     private ProviderConfig providerConfig;
@@ -82,7 +82,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         );
         UserAuthenticationEntity userAuthentication = accountService.getUserAuthenticationEntity(RandomString.newInstance().nextString());
         userAccount.setUserAuthentication(userAuthentication);
-        registration.changeUserAccountActiveState(userAccount);
+        registrationConfig.changeUserAccountActiveState(userAccount);
         log.info("new account created user={} provider={}", userAccount.getReceiptUserId(), userAccount.getProviderId());
         mongoTemplate.insert(userAccount);
     }
@@ -170,7 +170,7 @@ public class ConnectionServiceImpl implements ConnectionService {
                         RandomString.newInstance().nextString()
                 );
                 userAccountEntity.setUserAuthentication(userAuthentication);
-                registration.changeUserAccountActiveState(userAccount);
+                registrationConfig.changeUserAccountActiveState(userAccount);
                 log.info("new account created user={} provider={}", userAccountEntity.getReceiptUserId(), ProviderEnum.FACEBOOK);
             } else {
                 userAccountEntity.setUpdated();

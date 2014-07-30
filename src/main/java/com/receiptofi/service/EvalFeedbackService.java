@@ -1,9 +1,9 @@
 package com.receiptofi.service;
 
 import com.receiptofi.domain.EvalFeedbackEntity;
+import com.receiptofi.domain.shared.UploadReceiptImage;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.repository.EvalFeedbackManager;
-import com.receiptofi.web.form.UploadReceiptImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

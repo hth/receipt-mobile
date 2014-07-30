@@ -2,9 +2,6 @@ package com.receiptofi.service;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.repository.UserProfileManager;
-import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
-import com.receiptofi.web.form.UserSearchForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +10,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.joda.time.DateTime;
 
 /**
  * User: hitender
@@ -34,13 +29,12 @@ public final class AdminLandingService {
      * @return
      */
     public List<String> findMatchingUsers(String name) {
-        DateTime time = DateUtil.now();
         List<String> users = new ArrayList<>();
-        for(UserSearchForm userSearchForm : findAllUsers(name)) {
-            users.add(userSearchForm.getUserName());
+        List<UserProfileEntity> userProfileEntities = userProfileManager.searchAllByName(name);
+        for(UserProfileEntity userProfile : userProfileEntities) {
+            users.add(userProfile.getFirstName() + ", " + userProfile.getLastName());
         }
-        log.debug("List of users: ", users);
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
+        log.debug("List of users={}", users);
         return users;
     }
 
@@ -50,16 +44,8 @@ public final class AdminLandingService {
      * @param name
      * @return
      */
-    public List<UserSearchForm> findAllUsers(String name) {
-        DateTime time = DateUtil.now();
-        log.info("Search string for user name: " + name);
-        List<UserSearchForm> userList = new ArrayList<>();
-        for(UserProfileEntity user : userProfileManager.searchAllByName(name)) {
-            UserSearchForm userForm = UserSearchForm.newInstance(user);
-            userList.add(userForm);
-        }
-        log.info("found users.. total size " + userList.size());
-        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName());
-        return userList;
+    public List<UserProfileEntity> findAllUsers(String name) {
+        log.info("Search string for user name={}", name);
+        return userProfileManager.searchAllByName(name);
     }
 }

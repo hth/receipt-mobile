@@ -1,7 +1,7 @@
-package com.receiptofi.web.util;
+package com.receiptofi.social.config;
 
 import com.receiptofi.domain.UserAccountEntity;
-import com.receiptofi.domain.site.ReceiptUser;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +24,8 @@ import org.springframework.ui.ModelMap;
  */
 @Component
 @Scope(BeanDefinition.SCOPE_SINGLETON)
-public class Registration {
-    private static final Logger log = LoggerFactory.getLogger(Registration.class);
+public class RegistrationConfig {
+    private static final Logger log = LoggerFactory.getLogger(RegistrationConfig.class);
 
     @Value("${registration.turned.on}")
     private boolean registrationTurnedOn;
