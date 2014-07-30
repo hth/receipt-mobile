@@ -102,10 +102,6 @@ public final class BizForm {
         this.receiptCount = receiptCount;
     }
 
-    public void addReceiptCount(String id, Long count) {
-        this.receiptCount.put(id, count);
-    }
-
     /** To be used in future for sending confirmation regarding adding Biz Name and Store success or failure */
     public String getBizError() {
         return bizError;

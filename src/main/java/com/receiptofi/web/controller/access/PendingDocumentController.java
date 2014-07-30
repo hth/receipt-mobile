@@ -4,16 +4,19 @@
 package com.receiptofi.web.controller.access;
 
 import com.receiptofi.domain.DocumentEntity;
-import com.receiptofi.domain.site.ReceiptUser;
-import com.receiptofi.domain.types.DocumentStatusEnum;
+import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.service.DocumentPendingService;
 import com.receiptofi.service.DocumentUpdateService;
+import com.receiptofi.service.FileDBService;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.web.form.PendingReceiptForm;
 import com.receiptofi.web.form.ReceiptDocumentForm;
+import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.joda.time.DateTime;
+
+import com.mongodb.gridfs.GridFSDBFile;
 
 /**
  * @author hitender
@@ -43,6 +48,7 @@ public final class PendingDocumentController {
 
 	@Autowired private DocumentPendingService documentPendingService;
     @Autowired private DocumentUpdateService documentUpdateService;
+    @Autowired private FileDBService fileDBService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView loadForm(@ModelAttribute("pendingReceiptForm") PendingReceiptForm pendingReceiptForm) {
@@ -50,8 +56,23 @@ public final class PendingDocumentController {
         DateTime time = DateUtil.now();
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        documentPendingService.getAllPending(receiptUser.getRid(), pendingReceiptForm);
-        documentPendingService.getAllRejected(receiptUser.getRid(), pendingReceiptForm);
+        List<DocumentEntity> pendingDocumentEntityList = documentPendingService.getAllPending(receiptUser.getRid());
+        for(DocumentEntity documentEntity : pendingDocumentEntityList) {
+            for(FileSystemEntity scaledId : documentEntity.getFileSystemEntities()) {
+                GridFSDBFile gridFSDBFile = fileDBService.getFile(scaledId.getBlobId());
+                String originalFileName = (String) gridFSDBFile.getMetaData().get("ORIGINAL_FILENAME");
+                pendingReceiptForm.addPending(originalFileName, gridFSDBFile.getLength(), documentEntity);
+            }
+        }
+
+        List<DocumentEntity> rejectedDocumentEntityList = documentPendingService.getAllRejected(receiptUser.getRid());
+        for(DocumentEntity documentEntity : rejectedDocumentEntityList) {
+            for(FileSystemEntity scaledId : documentEntity.getFileSystemEntities()) {
+                GridFSDBFile gridFSDBFile = fileDBService.getFile(scaledId.getBlobId());
+                String originalFileName = (String) gridFSDBFile.getMetaData().get("ORIGINAL_FILENAME");
+                pendingReceiptForm.addRejected(originalFileName, gridFSDBFile.getLength(), documentEntity);
+            }
+        }
 
 		ModelAndView modelAndView = new ModelAndView(LIST_PENDING_DOCUMENTS);
 		modelAndView.addObject("pendingReceiptForm", pendingReceiptForm);

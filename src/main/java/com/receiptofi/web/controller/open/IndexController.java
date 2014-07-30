@@ -1,16 +1,13 @@
 package com.receiptofi.web.controller.open;
 
-import com.receiptofi.web.util.Registration;
+import com.receiptofi.social.config.RegistrationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +22,7 @@ public final class IndexController {
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-    private Registration registration;
+    private RegistrationConfig registrationConfig;
 
     /**
      * isEnabled() false exists when properties registration.turned.on is false and user is trying to gain access
@@ -42,7 +39,7 @@ public final class IndexController {
             return "index";
         }
 
-        if(registration.validateIfRegistrationIsAllowed(map, authentication)) {
+        if(registrationConfig.validateIfRegistrationIsAllowed(map, authentication)) {
             return "index";
         }
 

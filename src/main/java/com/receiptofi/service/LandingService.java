@@ -8,6 +8,7 @@ import com.receiptofi.domain.ItemEntityOCR;
 import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.shared.UploadReceiptImage;
 import com.receiptofi.domain.types.DocumentStatusEnum;
 import com.receiptofi.domain.value.ReceiptGrouped;
 import com.receiptofi.domain.value.ReceiptGroupedByBizLocation;
@@ -21,12 +22,7 @@ import com.receiptofi.repository.UserProfileManager;
 import com.receiptofi.service.routes.FileUploadDocumentSenderJMS;
 import com.receiptofi.utils.CreateTempFile;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.ImageSplit;
 import com.receiptofi.utils.Maths;
-import com.receiptofi.utils.ReceiptParser;
-import com.receiptofi.web.form.UploadReceiptImage;
-import com.receiptofi.web.helper.ReceiptForMonth;
-import com.receiptofi.web.helper.ReceiptLandingView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,11 +42,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -77,6 +70,8 @@ public final class LandingService {
     @Autowired private ItemService itemService;
     @Autowired private NotificationService notificationService;
     @Autowired private FileSystemService fileSystemService;
+    @Autowired private ImageSplitService imageSplitService;
+    @Autowired private ReceiptParserService receiptParserService;
 
     static Ordering<ReceiptGrouped> descendingOrder = new Ordering<ReceiptGrouped>() {
         public int compare(ReceiptGrouped left, ReceiptGrouped right) {
@@ -226,25 +221,21 @@ public final class LandingService {
      * Computes all the expenses user has
      *
      * @param userProfileId
-     * @param modelAndView
      */
-    public void computeTotalExpense(String userProfileId, ModelAndView modelAndView) {
-        List<ReceiptEntity> receipts = getAllReceipts(userProfileId);
-        computeToDateExpense(modelAndView, receipts);
+    public Map<String, BigDecimal> computeTotalExpense(String userProfileId) {
+        return computeToDateExpense(getAllReceipts(userProfileId));
     }
 
     /**
      * Computes YTD expenses
      *
      * @param userProfileId
-     * @param modelAndView
      */
-    public void computeYearToDateExpense(String userProfileId, ModelAndView modelAndView) {
-        List<ReceiptEntity> receipts = getAllReceiptsForTheYear(userProfileId, DateUtil.startOfYear());
-        computeToDateExpense(modelAndView, receipts);
+    public Map<String, BigDecimal> computeYearToDateExpense(String userProfileId) {
+        return computeToDateExpense(getAllReceiptsForTheYear(userProfileId, DateUtil.startOfYear()));
     }
 
-    private void computeToDateExpense(ModelAndView modelAndView, List<ReceiptEntity> receipts) {
+    private Map<String, BigDecimal> computeToDateExpense(List<ReceiptEntity> receipts) {
         BigDecimal tax = BigDecimal.ZERO;
         BigDecimal total = BigDecimal.ZERO;
         for(ReceiptEntity receipt : receipts) {
@@ -252,9 +243,12 @@ public final class LandingService {
             total = Maths.add(total, receipt.getTotal());
         }
 
-        modelAndView.addObject("tax", tax);
-        modelAndView.addObject("totalWithoutTax", Maths.subtract(total, tax));
-        modelAndView.addObject("total", total);
+        Map<String, BigDecimal> map = new HashMap<>();
+        map.put("tax", tax);
+        map.put("totalWithoutTax", Maths.subtract(total, tax));
+        map.put("total", total);
+
+        return map;
     }
 
     /**
@@ -284,7 +278,7 @@ public final class LandingService {
             documentEntity = DocumentEntity.newInstance();
             documentEntity.setDocumentStatus(DocumentStatusEnum.OCR_PROCESSED);
 
-            fileSystemEntityUnScaled = new FileSystemEntity(receiptBlobId, ImageSplit.bufferedImage(scaled), 0, 0);
+            fileSystemEntityUnScaled = new FileSystemEntity(receiptBlobId, imageSplitService.bufferedImage(scaled), 0, 0);
             fileSystemService.save(fileSystemEntityUnScaled);
             documentEntity.addReceiptBlobId(fileSystemEntityUnScaled);
 
@@ -295,7 +289,7 @@ public final class LandingService {
             setEmptyBiz(documentEntity);
 
             items = new LinkedList<>();
-            ReceiptParser.read(receiptOCRTranslation, documentEntity, items);
+            receiptParserService.read(receiptOCRTranslation, documentEntity, items);
 
             //Save Document, Items and the Send JMS
             documentManager.save(documentEntity);
@@ -357,7 +351,7 @@ public final class LandingService {
         );
 
         commonsMultipartFile.transferTo(original);
-        return ImageSplit.decreaseResolution(original);
+        return imageSplitService.decreaseResolution(original);
     }
 
 
@@ -385,23 +379,5 @@ public final class LandingService {
 
     public List<NotificationEntity> notifications(String userProfileId) {
         return notificationService.notifications(userProfileId);
-    }
-
-    /**
-     *
-     * @param allReceiptsForThisMonth
-     * @param monthYear
-     * @return
-     */
-    public ReceiptForMonth getReceiptForMonth(List<ReceiptEntity> allReceiptsForThisMonth, DateTime monthYear) {
-        String pattern = "MMM, yyyy";
-        DateTimeFormatter dtf = DateTimeFormat.forPattern(pattern);
-
-        ReceiptForMonth receiptForMonth = ReceiptForMonth.newInstance();
-        receiptForMonth.setMonthYear(dtf.print(monthYear));
-        for(ReceiptEntity receiptEntity : allReceiptsForThisMonth) {
-            receiptForMonth.addReceipt(ReceiptLandingView.newInstance(receiptEntity));
-        }
-        return receiptForMonth;
     }
 }

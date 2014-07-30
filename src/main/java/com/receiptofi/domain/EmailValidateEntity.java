@@ -1,7 +1,5 @@
 package com.receiptofi.domain;
 
-import org.hibernate.validator.constraints.Email;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -25,7 +23,6 @@ public final class EmailValidateEntity extends BaseEntity {
 
     @NotNull
     @Field("EM")
-    @Email
     private String email;
 
     @NotNull

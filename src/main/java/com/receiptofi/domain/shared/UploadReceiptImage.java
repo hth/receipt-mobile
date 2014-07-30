@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.receiptofi.web.form;
+package com.receiptofi.domain.shared;
 
 import com.receiptofi.domain.types.FileTypeEnum;
 

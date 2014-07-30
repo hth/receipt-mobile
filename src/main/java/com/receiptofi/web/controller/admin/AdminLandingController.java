@@ -3,14 +3,16 @@
  */
 package com.receiptofi.web.controller.admin;
 
+import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.service.AdminLandingService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.web.form.UserSearchForm;
+import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +66,13 @@ public final class AdminLandingController {
     @RequestMapping(value = "/landing", method = RequestMethod.POST)
     public String loadUser(@ModelAttribute("userLoginForm") UserSearchForm userSearchForm, RedirectAttributes redirectAttrs) {
         DateTime time = DateUtil.now();
-        List<UserSearchForm> userSearchForms = adminLandingService.findAllUsers(userSearchForm.getUserName());
+        List<UserProfileEntity> userProfileEntities = adminLandingService.findAllUsers(userSearchForm.getUserName());
+
+        List<UserSearchForm> userSearchForms = new ArrayList<>();
+        for(UserProfileEntity user : userProfileEntities) {
+            UserSearchForm userForm = UserSearchForm.newInstance(user);
+            userSearchForms.add(userForm);
+        }
 
         redirectAttrs.addFlashAttribute("users", userSearchForms);
         redirectAttrs.addFlashAttribute("userSearchForm", userSearchForm);

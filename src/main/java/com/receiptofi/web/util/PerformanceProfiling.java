@@ -1,5 +1,6 @@
-package com.receiptofi.utils;
+package com.receiptofi.web.util;
 
+import com.receiptofi.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

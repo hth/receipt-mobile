@@ -1,7 +1,7 @@
 package com.receiptofi.web.controller.webapi;
 
 import com.receiptofi.domain.types.ProviderEnum;
-import com.receiptofi.service.CustomUserDetailsService;
+import com.receiptofi.social.service.CustomUserDetailsService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.web.util.MobileSystemErrorCodeEnum;
 import org.slf4j.Logger;

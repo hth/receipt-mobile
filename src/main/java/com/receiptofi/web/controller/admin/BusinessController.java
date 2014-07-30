@@ -3,12 +3,12 @@ package com.receiptofi.web.controller.admin;
 import com.receiptofi.domain.BizNameEntity;
 import com.receiptofi.domain.BizStoreEntity;
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.service.BizService;
 import com.receiptofi.service.ExternalService;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.web.form.BizForm;
+import com.receiptofi.web.util.PerformanceProfiling;
 import com.receiptofi.web.validator.BizSearchValidator;
 import com.receiptofi.web.validator.BizValidator;
 import org.slf4j.Logger;
@@ -176,7 +176,7 @@ public final class BusinessController {
 
             Set<BizStoreEntity> bizStoreEntities = new HashSet<>();
             bizStoreEntities.add(bizStoreEntity);
-            bizService.countReceiptForBizStore(bizStoreEntities, bizForm);
+            bizForm.setReceiptCount(bizService.countReceiptForBizStore(bizStoreEntities));
             if(bizForm.getReceiptCount().get(bizStoreEntity.getId()) == 0) {
                 bizService.deleteBizStore(bizStoreEntity);
                 bizForm.setBizSuccess("Deleted store successfully");
@@ -310,7 +310,7 @@ public final class BusinessController {
         Set<BizStoreEntity> bizStoreEntities = bizService.bizSearch(businessName, address, phone);
         bizForm.setBizSuccess("Found '" + bizStoreEntities.size() + "' matching business(es).");
 
-        bizService.countReceiptForBizStore(bizStoreEntities, bizForm);
+        bizForm.setReceiptCount(bizService.countReceiptForBizStore(bizStoreEntities));
         return bizStoreEntities;
     }
 }

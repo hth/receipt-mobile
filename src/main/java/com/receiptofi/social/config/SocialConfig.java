@@ -2,14 +2,13 @@ package com.receiptofi.social.config;
 
 import com.receiptofi.repository.GenerateUserIdManager;
 import com.receiptofi.service.AccountService;
-import com.receiptofi.service.CustomUserDetailsService;
 import com.receiptofi.social.annotation.Social;
 import com.receiptofi.social.connect.ConnectionConverter;
 import com.receiptofi.social.connect.ConnectionServiceImpl;
 import com.receiptofi.social.connect.MongoUsersConnectionRepository;
+import com.receiptofi.social.service.CustomUserDetailsService;
 import com.receiptofi.social.user.SignInAdapterImpl;
 import com.receiptofi.social.user.SimpleConnectionSignUp;
-import com.receiptofi.web.util.Registration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +63,7 @@ public class SocialConfig {
     private AccountService accountService;
 
     @Autowired
-    private Registration registration;
+    private RegistrationConfig registrationConfig;
 
     /**
      * When a new provider is added to the app, register its {@link org.springframework.social.connect.ConnectionFactory} here.
@@ -99,7 +98,7 @@ public class SocialConfig {
         logger.info("Initializing ProviderSignInController");
         ConnectionFactoryLocator connFactLocator = connectionFactoryLocator();
         UsersConnectionRepository usrConnRepo = usersConnectionRepository();
-        SignInAdapterImpl signInAdapter = new SignInAdapterImpl(requestCache, customUserDetailsService, registration);
+        SignInAdapterImpl signInAdapter = new SignInAdapterImpl(requestCache, customUserDetailsService, registrationConfig);
         ProviderSignInController controller = new ProviderSignInController(connFactLocator, usrConnRepo, signInAdapter);
 
         controller.setSignUpUrl("/signup");

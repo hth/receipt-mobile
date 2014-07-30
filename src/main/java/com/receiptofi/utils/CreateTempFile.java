@@ -25,9 +25,9 @@ public final class CreateTempFile {
     public static File file(String name, String ext) throws IOException {
         try {
             if(name.startsWith(TEMP_FILE_START_WITH)) {
-                return File.createTempFile(name + "-", (ext.startsWith(".")) ? ext : "." + ext);
+                return File.createTempFile(name + "-", ext.startsWith(".") ? ext : "." + ext);
             } else {
-                return File.createTempFile(TEMP_FILE_START_WITH + "-" + name + "-", (ext.startsWith(".")) ? ext : "." + ext);
+                return File.createTempFile(TEMP_FILE_START_WITH + "-" + name + "-", ext.startsWith(".") ? ext : "." + ext);
             }
         } catch (IOException e) {
             log.error("Error creating temp file: " + e.getLocalizedMessage());

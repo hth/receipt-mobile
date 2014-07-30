@@ -1,10 +1,10 @@
 package com.receiptofi.web.controller.ajax;
 
-import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.service.MileageService;
 import com.receiptofi.service.ReceiptService;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.utils.ParseJsonStringToMap;
-import com.receiptofi.utils.TextInputScrubber;
+import com.receiptofi.web.util.TextInputScrubber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

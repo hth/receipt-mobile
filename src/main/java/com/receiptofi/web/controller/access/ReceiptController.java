@@ -8,15 +8,15 @@ import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.repository.BizNameManager;
 import com.receiptofi.service.ReceiptService;
 import com.receiptofi.service.UserProfilePreferenceService;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.web.form.ReceiptForm;
 import com.receiptofi.web.helper.ReceiptLandingView;
 import com.receiptofi.web.rest.Header;
+import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +78,7 @@ public final class ReceiptController extends BaseController {
         return new ModelAndView(NEXT_PAGE);
 	}
 
-    //@SuppressWarnings("PMD.EmptyIfStmt")
+    @SuppressWarnings("PMD.EmptyIfStmt")
 	@RequestMapping(method = RequestMethod.POST, params="delete")
 	public String delete(@ModelAttribute("receiptForm") ReceiptForm receiptForm) {
         DateTime time = DateUtil.now();
@@ -108,7 +108,7 @@ public final class ReceiptController extends BaseController {
         ReceiptUser receiptUser = (ReceiptUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         try {
-            receiptService.reopen(receiptForm, receiptUser.getRid());
+            receiptService.reopen(receiptForm.getReceipt().getId(), receiptUser.getRid());
         } catch(Exception exce) {
             PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), false);
             log.error(exce.getLocalizedMessage() + ", Receipt: " + receiptForm.getReceipt().getId());

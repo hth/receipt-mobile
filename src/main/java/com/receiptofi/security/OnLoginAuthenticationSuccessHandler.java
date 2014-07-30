@@ -1,6 +1,8 @@
 package com.receiptofi.security;
 
 import com.receiptofi.domain.types.RoleEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ import org.springframework.util.StringUtils;
  * Date: 5/28/14 12:42 AM
  */
 public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    private static final Logger log = LoggerFactory.getLogger(OnLoginAuthenticationSuccessHandler.class);
 
     private RequestCache requestCache = new HttpSessionRequestCache();
 
@@ -46,7 +49,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
             return;
         }
         final String targetUrlParameter = getTargetUrlParameter();
-        if(isAlwaysUseDefaultTargetUrl() || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
+        if(isAlwaysUseDefaultTargetUrl() || targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter))) {
             requestCache.removeRequest(request, response);
             clearAuthenticationAttributes(request);
             return;
@@ -59,7 +62,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         String targetUrl = determineTargetUrl(authentication);
 
         if(response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            log.debug("Response has already been committed. Unable to redirect to " + targetUrl);
             return;
         }
 

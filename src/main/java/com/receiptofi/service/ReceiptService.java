@@ -18,7 +18,6 @@ import com.receiptofi.repository.ReceiptManager;
 import com.receiptofi.repository.StorageManager;
 import com.receiptofi.repository.UserProfileManager;
 import com.receiptofi.service.routes.FileUploadDocumentSenderJMS;
-import com.receiptofi.web.form.ReceiptForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,11 +125,13 @@ public final class ReceiptService {
 
     /**
      * Inactive the receipt and active ReceiptOCR. Delete all the ItemOCR and recreate from Items. Then delete all the items.
-     * @param receiptForm
+     * @param receiptId
+     * @param userProfileId
+     * @throws Exception
      */
-    public void reopen(ReceiptForm receiptForm, String userProfileId) throws Exception {
+    public void reopen(String receiptId, String userProfileId) throws Exception {
         try {
-            ReceiptEntity receipt = receiptManager.findOne(receiptForm.getReceipt().getId(), userProfileId);
+            ReceiptEntity receipt = receiptManager.findOne(receiptId, userProfileId);
             if(receipt.getReceiptOCRId() == null) {
                 log.error("No receiptOCR id found in Receipt={}, aborting the reopen process", receipt.getId());
                 throw new Exception("Receipt could not be requested for Re-Check. Contact administrator with Receipt # " + receipt.getId() + ", contact Administrator with the Id");
@@ -169,7 +170,7 @@ public final class ReceiptService {
             //Need to send a well formatted error message to customer instead of jumbled mumbled exception stacktrace
             throw new Exception(
                     "Exception occurred during requesting receipt recheck operation for Receipt # " +
-                            receiptForm.getReceipt().getId() +
+                            receiptId +
                             ", contact Administrator with the Id"
             );
         }

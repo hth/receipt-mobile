@@ -1,6 +1,6 @@
 package com.receiptofi.web.controller.ajax;
 
-import com.receiptofi.domain.site.ReceiptUser;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FetcherService;
 import com.receiptofi.service.LandingService;

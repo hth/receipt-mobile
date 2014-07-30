@@ -1,10 +1,10 @@
 package com.receiptofi.web.controller.access;
 
-import com.receiptofi.domain.site.ReceiptUser;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.repository.NotificationManager;
 import com.receiptofi.service.NotificationService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
+import com.receiptofi.web.util.PerformanceProfiling;
 import com.receiptofi.web.form.NotificationForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

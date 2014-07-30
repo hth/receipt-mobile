@@ -1,11 +1,11 @@
 package com.receiptofi.web.controller.emp;
 
 import com.receiptofi.domain.MessageDocumentEntity;
-import com.receiptofi.domain.site.ReceiptUser;
+import com.receiptofi.social.domain.site.ReceiptUser;
 import com.receiptofi.domain.types.DocumentStatusEnum;
 import com.receiptofi.service.EmpLandingService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
+import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -13,9 +13,7 @@ import com.receiptofi.repository.UserAccountManager;
 import com.receiptofi.repository.UserAuthenticationManager;
 import com.receiptofi.repository.UserPreferenceManager;
 import com.receiptofi.repository.UserProfileManager;
-import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.HashText;
-import com.receiptofi.utils.PerformanceProfiling;
 import com.receiptofi.utils.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +23,6 @@ import java.util.LinkedHashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import org.joda.time.DateTime;
 
 /**
  * User: hitender
@@ -89,8 +85,6 @@ public final class AccountService {
      * @return
      */
     public UserAccountEntity executeCreationOfNewAccount(String email, String firstName, String lastName, String password) {
-        DateTime time = DateUtil.now();
-
         UserAccountEntity userAccount;
         UserAuthenticationEntity userAuthentication;
         UserProfileEntity userProfile;
@@ -99,7 +93,6 @@ public final class AccountService {
             userAuthentication = getUserAuthenticationEntity(password);
         } catch (Exception e) {
             log.error("During saving UserAuthenticationEntity={}", e.getLocalizedMessage(), e);
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error saving user authentication");
             throw new RuntimeException("error saving user authentication ", e);
         }
 
@@ -126,8 +119,6 @@ public final class AccountService {
 
             //Roll back
             userAuthenticationManager.deleteHard(userAuthentication);
-
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error saving user profile");
             throw new RuntimeException("error saving user profile ", e);
         }
 
@@ -136,7 +127,6 @@ public final class AccountService {
             userPreferenceManager.save(userPreferenceEntity);
         } catch (Exception e) {
             log.error("During saving UserPreferenceEntity={}", e.getLocalizedMessage(), e);
-            PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error saving user preference");
             throw new RuntimeException("error saving user preference ", e);
         }
 
