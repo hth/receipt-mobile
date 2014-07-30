@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.domain.shared.UploadReceiptImage;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -7,8 +8,7 @@ import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.utils.PerformanceProfiling;
-import com.receiptofi.web.form.UploadReceiptImage;
+import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
