@@ -1,136 +1,300 @@
-loadConfiguration()
-
-def loadConfiguration() {
-    def environment = hasProperty('env') ? env : 'dev'
-    setProperty 'environment', environment
+if (!hasProperty('env')) {
+    env = System.env['GRADLE_ENV']
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'war'
+ext {
+    webInf = file('/WEB-INF')
+    lib = file("$webInf/lib")
+    classes = file("$webInf/classes")
+    conf = file("$classes/conf")
+    images = file("$classes/images")
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+    warDir = file("$buildDir/explodedWar/$env")
+    warWebInfDir = file("$warDir$webInf")
+    warLibDir = file("$warDir$lib")
+    warClassesDir = file("$warDir$classes")
+    warConfDir = file("$warDir$conf")
+    warWebInfClassesImagesDir = file("$warDir$images")
 
-apply from: 'tasks.gradle'
+    unzipDir = file("${buildDir}/unpacked/dist")
+    unzipLibDir = file("$unzipDir$lib")
+}
 
-processResources.dependsOn copyConfiguration
+allprojects {
+    group = 'com.receiptofi.mobile'
+    version = '0.9.0'
+}
 
-war {
-    version = '' // no version
-    baseName="receipt-mobile"
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
 
-    webInf {
-        from('src/main/resources') {
-            include 'dev.properties'
-            include 'config.properties'
+    jar {
+        manifest {
+            attributes(
+                    "Implementation-Vendor": "Receiptofi Inc",
+                    "Implementation-Title": rootProject.name,
+                    "Implementation-Version": allprojects.version + " $env",
+                    "Copyright" : "2014, Receiptofi Inc"
+            )
         }
-        into 'classes/conf'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "http://repo.spring.io/libs-milestone" }
+        maven { url "http://repo1.maven.org/maven2/" }
+    }
+
+    dependencies {
+        compile files('../lib/spring-social-core-1.1.0.RELEASE.jar')
+        compile files('../lib/spring-social-facebook-1.1.1.RELEASE.jar')
+        compile files('../lib/spring-social-google-1.0.0.RELEASE.jar')
+        compile files('../lib/spring-social-security-1.1.0.RELEASE.jar')
+        compile files('../lib/spring-social-web-1.1.0.RELEASE.jar')
+        compile files('../lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar')
+        compile files('../lib/geronimo-jms_1.1_spec-1.1.1.jar')
+        compile files('../lib/receiptofi-common-0.9.0.jar')
+        compile files('../lib/receiptofi-domain-0.9.0.jar')
+        compile files('../lib/receiptofi-service-0.9.0.jar')
+
+        compile 'org.springframework:spring-aop:3.2.9.RELEASE'
+        compile 'org.springframework:spring-aspects:3.2.9.RELEASE'
+        compile 'org.springframework:spring-beans:3.2.9.RELEASE'
+        compile 'org.springframework:spring-context:3.2.9.RELEASE'
+        compile 'org.springframework:spring-context-support:3.2.9.RELEASE'
+        compile 'org.springframework:spring-core:3.2.9.RELEASE'
+        compile 'org.springframework:spring-expression:3.2.9.RELEASE'
+        compile 'org.springframework:spring-instrument:3.2.9.RELEASE'
+        compile 'org.springframework:spring-instrument-tomcat:3.2.9.RELEASE'
+        compile 'org.springframework:spring-jms:3.2.9.RELEASE'
+        compile 'org.springframework:spring-oxm:3.2.9.RELEASE'
+        compile 'org.springframework:spring-test:3.2.9.RELEASE'
+        compile 'org.springframework:spring-tx:3.2.9.RELEASE'
+        compile 'org.springframework:spring-web:3.2.9.RELEASE'
+        compile 'org.springframework:spring-webmvc:3.2.9.RELEASE'
+
+        compile 'org.springframework.security:spring-security-aspects:3.2.4.RELEASE'
+        compile 'org.springframework.security:spring-security-config:3.2.4.RELEASE'
+        compile 'org.springframework.security:spring-security-core:3.2.4.RELEASE'
+        compile 'org.springframework.security:spring-security-crypto:3.2.4.RELEASE'
+        compile 'org.springframework.security:spring-security-taglibs:3.2.4.RELEASE'
+        compile 'org.springframework.security:spring-security-web:3.2.4.RELEASE'
+
+        compile 'org.springframework.data:spring-data-mongodb:1.5.0.RELEASE'
+        compile 'org.springframework.data:spring-data-commons:1.8.0.RELEASE'
+        compile 'org.mongodb:mongo-java-driver:2.12.2'
+
+        compile 'org.apache.commons:commons-collections4:4.0'
+        compile 'org.apache.commons:commons-lang3:3.3.2'
+
+        compile 'aopalliance:aopalliance:1.0'
+        compile 'org.aspectj:aspectjrt:1.7.4'
+        compile 'com.fasterxml:classmate:1.0.0'
+        compile 'org.slf4j:slf4j-api:1.7.7'
+        compile 'org.hibernate:hibernate-validator:5.1.1.Final'
+        compile 'joda-time:joda-time:2.3'
+        compile 'com.google.guava:guava:17.0'
+        compile 'javax.mail:mail:1.4.7'
+        compile 'org.freemarker:freemarker:2.3.20'
+        compile 'commons-validator:commons-validator:1.4.0'
+        compile 'com.google.code.gson:gson:2.2.4'
+        compile 'commons-io:commons-io:2.4'
+        compile 'org.apache.poi:poi:3.10-FINAL'
+        compile 'commons-codec:commons-codec:1.9'
+        compile 'commons-logging:commons-logging:1.1.3'
+        compile 'com.googlecode.libphonenumber:libphonenumber:6.0'
+        compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+        compile 'com.fasterxml.jackson.core:jackson-core:2.4.0'
+        compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+        compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
+        compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r232'
+        compile 'javax.validation:validation-api:1.1.0.Final'
+        compile 'org.hibernate:hibernate-validator:5.1.1.Final'
+        compile 'commons-fileupload:commons-fileupload:1.3.1'
+        compile 'commons-io:commons-io:2.4'
+        compile 'javax.inject:javax.inject:1'
+        compile 'org.apache.activemq:activemq-client:5.9.0'
+        compile 'javax.mail:mail:1.4.7'
+        compile 'org.quartz-scheduler:quartz:2.2.1'
+        compile 'org.apache.commons:commons-lang3:3.3.2'
+
+        compile 'org.apache.httpcomponents:httpclient:4.3.4'
+
+        compile 'ch.qos.logback:logback-core:1.1.2'
+        compile 'ch.qos.logback:logback-classic:1.1.2'
+        compile 'net.logstash.logback:logstash-logback-encoder:2.7'
+        compile 'net.bull.javamelody:javamelody-core:1.+'
+
+        compile 'net.sf.uadetector:uadetector-core:0.9.16'
+        compile 'net.sf.uadetector:uadetector-resources:2014.04'
+
+        compile 'javax.validation:validation-api:1.1.0.Final'
+
+        testCompile group: 'junit', name: 'junit', version: '4.+'
     }
 }
 
-repositories {
-    mavenCentral()
-    maven { url "http://repo.spring.io/libs-milestone" }
-    maven { url "http://repo1.maven.org/maven2/" }
+project(':common') {
+    jar.baseName = 'receiptofi.mobile-common'
 }
 
-dependencies {
-    compile files('lib/spring-social-core-1.1.0.RELEASE.jar')
-    compile files('lib/spring-social-facebook-1.1.1.RELEASE.jar')
-    compile files('lib/spring-social-google-1.0.0.RELEASE.jar')
-    compile files('lib/spring-social-security-1.1.0.RELEASE.jar')
-    compile files('lib/spring-social-web-1.1.0.RELEASE.jar')
-    compile files('lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar')
-    compile files('lib/geronimo-jms_1.1_spec-1.1.1.jar')
+project(':domain') {
+    jar.baseName = 'receiptofi.mobile-domain'
 
-    compile 'org.springframework:spring-aop:3.2.9.RELEASE'
-    compile 'org.springframework:spring-aspects:3.2.9.RELEASE'
-    compile 'org.springframework:spring-beans:3.2.9.RELEASE'
-    compile 'org.springframework:spring-context:3.2.9.RELEASE'
-    compile 'org.springframework:spring-context-support:3.2.9.RELEASE'
-    compile 'org.springframework:spring-core:3.2.9.RELEASE'
-    compile 'org.springframework:spring-expression:3.2.9.RELEASE'
-    compile 'org.springframework:spring-instrument:3.2.9.RELEASE'
-    compile 'org.springframework:spring-instrument-tomcat:3.2.9.RELEASE'
-    compile 'org.springframework:spring-jms:3.2.9.RELEASE'
-    compile 'org.springframework:spring-oxm:3.2.9.RELEASE'
-    compile 'org.springframework:spring-test:3.2.9.RELEASE'
-    compile 'org.springframework:spring-tx:3.2.9.RELEASE'
-    compile 'org.springframework:spring-web:3.2.9.RELEASE'
-    compile 'org.springframework:spring-webmvc:3.2.9.RELEASE'
-
-    compile 'org.springframework.security:spring-security-aspects:3.2.4.RELEASE'
-    compile 'org.springframework.security:spring-security-config:3.2.4.RELEASE'
-    compile 'org.springframework.security:spring-security-core:3.2.4.RELEASE'
-    compile 'org.springframework.security:spring-security-crypto:3.2.4.RELEASE'
-    compile 'org.springframework.security:spring-security-taglibs:3.2.4.RELEASE'
-    compile 'org.springframework.security:spring-security-web:3.2.4.RELEASE'
-
-    compile 'org.springframework.data:spring-data-mongodb:1.5.0.RELEASE'
-    compile 'org.springframework.data:spring-data-commons:1.8.0.RELEASE'
-    compile 'org.mongodb:mongo-java-driver:2.12.2'
-
-    compile 'org.apache.commons:commons-collections4:4.0'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-
-    compile 'aopalliance:aopalliance:1.0'
-    compile 'org.aspectj:aspectjrt:1.7.4'
-    compile 'com.fasterxml:classmate:1.0.0'
-    compile 'org.slf4j:slf4j-api:1.7.7'
-    compile 'org.hibernate:hibernate-validator:5.1.1.Final'
-    compile 'joda-time:joda-time:2.3'
-    compile 'com.google.guava:guava:17.0'
-    compile 'javax.mail:mail:1.4.7'
-    compile 'org.freemarker:freemarker:2.3.20'
-    compile 'commons-validator:commons-validator:1.4.0'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'commons-io:commons-io:2.4'
-    compile 'org.apache.poi:poi:3.10-FINAL'
-    compile 'commons-codec:commons-codec:1.9'
-    compile 'commons-logging:commons-logging:1.1.3'
-    compile 'com.googlecode.libphonenumber:libphonenumber:6.0'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.4.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
-    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
-    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-
-    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r232'
-    compile 'javax.validation:validation-api:1.1.0.Final'
-    compile 'org.hibernate:hibernate-validator:5.1.1.Final'
-    compile 'commons-fileupload:commons-fileupload:1.3.1'
-    compile 'commons-io:commons-io:2.4'
-    compile 'javax.inject:javax.inject:1'
-    compile 'org.apache.activemq:activemq-client:5.9.0'
-    compile 'javax.mail:mail:1.4.7'
-    compile 'org.quartz-scheduler:quartz:2.2.1'
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-
-    compile 'org.apache.httpcomponents:httpclient:4.3.4'
-
-    compile 'ch.qos.logback:logback-core:1.1.2'
-    compile 'ch.qos.logback:logback-classic:1.1.2'
-    compile 'net.logstash.logback:logstash-logback-encoder:2.7'
-    compile 'net.bull.javamelody:javamelody-core:1.+'
-
-    compile 'net.sf.uadetector:uadetector-core:0.9.16'
-    compile 'net.sf.uadetector:uadetector-resources:2014.04'
-
-    compile 'javax.validation:validation-api:1.1.0.Final'
-
-    testCompile group: 'junit', name: 'junit', version: '4.+'
-
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.+'
-    runtime 'javax.servlet:jstl:1.+'
+    dependencies {
+        compile project(':common')
+    }
 }
 
-task showMeCache << {
-    configurations.compile.each { println it }
+project(':security') {
+    apply plugin: 'war'
+    jar.baseName = 'receiptofi.mobile-security'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile project(':common'), project(':domain')
+
+        providedCompile 'javax.servlet:javax.servlet-api:3.1.+'
+        runtime 'javax.servlet:jstl:1.+'
+    }
 }
+
+project(':service') {
+    jar.baseName = 'receiptofi.mobile-service'
+
+    dependencies {
+        compile project(':common'), project(':domain')
+    }
+}
+
+//project(':social') {
+//    jar.baseName = 'receiptofi.mobile-social'
+//
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        compile project(':common'), project(':domain'), project(':service')
+//    }
+//}
+
+project(':web') {
+    apply plugin: 'war'
+    jar.baseName = 'receiptofi.mobile-web'
+    war.baseName = 'receiptofi.mobile-web'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile project(':common'), project(':domain'), project(':security'), project(':service')
+
+        providedCompile 'javax.servlet:javax.servlet-api:3.1.+'
+        runtime 'javax.servlet:jstl:1.+'
+    }
+}
+
 
 task wrapper(type: Wrapper){
-    gradleVersion = '1.12'
+    gradleVersion = '2.0'
 }
 
-defaultTasks 'clean', 'build'
+task copyJars(type: Copy) {
+    from 'common/build/libs'
+    from 'domain/build/libs'
+    from 'security/build/libs'
+    from 'service/build/libs'
+//    from 'social/build/libs'
+    from 'web/build/libs'
+    into warLibDir
+    include '**/*.jar'
+}
+
+task unzip(type: Copy, dependsOn: [':web:war']) {
+    def zipFile = file('web/build/libs/receiptofi.mobile-web-0.9.0.war')
+
+    from zipTree(zipFile)
+    into unzipDir
+}
+
+task prepWar(dependsOn: [unzip, copyJars]) << {
+    warClassesDir.mkdirs()
+    warConfDir.mkdirs()
+
+    copy {
+        from 'web/web'
+        into warDir
+        exclude '**/*.classes'
+    }
+
+    copy {
+        from file("web/environment/$env/$env" + ".properties")
+        into warConfDir
+    }
+
+    copy {
+        from "web/environment/$env/logback.xml"
+        from 'web/resources/conf/messages.properties'
+        into warClassesDir
+    }
+
+    copy {
+        from "web/environment/$env/receipt-mobile-servlet.xml"
+        into warWebInfDir
+    }
+
+    copy {
+        from 'web/web/static/images'
+        into warWebInfClassesImagesDir
+    }
+
+    copy {
+        from unzipLibDir
+        into warLibDir
+    }
+}
+
+task clean(type: Delete) {
+    delete buildDir
+}
+
+task war(type: War, dependsOn: prepWar) {
+    doFirst {
+        if (env == 'test' || env == 'prod') {
+            // This adds escape character to message.properties; if you would like to avoid updating file at runtime
+            // then create a new file 'versionFile.name' in your favorite location and add the new file as below
+            //
+            // from(rootDir) {
+            //      include versionFile.name
+            // }
+
+            ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
+                entry(key: "build.version", value: System.getenv().BUILD_NUMBER?.toInteger())
+            }
+
+            baseName = "receipt-mobile-$env-" + System.getenv().BUILD_NUMBER?.toInteger()
+        }
+
+        if(env == 'dev') {
+            ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
+                entry(key: "build.version", value: 'dev')
+            }
+
+            baseName = "receipt-mobile-$env"
+        }
+    }
+
+    from warDir
+    version ""
+    destinationDir = file("$buildDir/war/$env")
+}
+
+defaultTasks 'clean', 'build', 'jar', 'war'
