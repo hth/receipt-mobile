@@ -8,7 +8,6 @@ import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
-import com.receiptofi.web.util.PerformanceProfiling;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,11 +83,9 @@ public class UploadDocumentController {
                     uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                     try {
                         landingService.uploadReceipt(rid, uploadReceiptImage);
-                        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "success");
                         return DocumentUpload.newInstance(multipartFile.getOriginalFilename(), landingService.pendingReceipt(rid)).asJson();
                     } catch (Exception exce) {
                         log.error("document upload failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
-                        PerformanceProfiling.log(this.getClass(), time, Thread.currentThread().getStackTrace()[1].getMethodName(), "error to save document");
 
                         Map<String, String> errors = new HashMap<>();
                         errors.put("reason", "failed document upload");

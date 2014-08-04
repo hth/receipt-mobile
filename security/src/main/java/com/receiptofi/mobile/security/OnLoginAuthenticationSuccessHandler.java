@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.security;
 
+import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.domain.types.RoleEnum;
-import com.receiptofi.social.domain.site.ReceiptUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
