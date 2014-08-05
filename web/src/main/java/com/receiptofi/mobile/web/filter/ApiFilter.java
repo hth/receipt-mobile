@@ -1,4 +1,4 @@
-package com.receiptofi.mobile.filter;
+package com.receiptofi.mobile.web.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @WebFilter(urlPatterns={"/api/*"})
 public class ApiFilter implements Filter {
-    private static final Logger log = LoggerFactory.getLogger(LogContextFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(ApiFilter.class);
 
     @Override
     public void init(FilterConfig config) throws ServletException {

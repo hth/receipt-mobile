@@ -32,6 +32,10 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
 
     private AuthenticatedToken authenticatedToken;
 
+    @SuppressWarnings("unused")
+    public OnLoginAuthenticationSuccessHandler() {
+    }
+
     @Autowired
     public OnLoginAuthenticationSuccessHandler(AuthenticatedToken authenticatedToken) {
         this.authenticatedToken = authenticatedToken;

@@ -17,11 +17,6 @@
         <param-value>/WEB-INF/classes/logback.xml</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>config.properties</param-name>
-        <param-value>/WEB-INF/classes/conf/config.properties</param-value>
-    </context-param>
-
     <!-- Java Melody Start give out of memory exception when Java melody is turned on in another app -->
     <filter>
         <filter-name>monitoring</filter-name>
@@ -66,7 +61,7 @@
 
     <filter>
         <filter-name>logContextFilter</filter-name>
-        <filter-class>com.receiptofi.mobile.filter.LogContextFilter</filter-class>
+        <filter-class>com.receiptofi.mobile.web.filter.LogContextFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>logContextFilter</filter-name>
@@ -89,9 +84,6 @@
     </listener>
     <listener>
         <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
-    </listener>
-    <listener>
-        <listener-class>com.receiptofi.mobile.listener.ReceiptofiServletContextListener</listener-class>
     </listener>
 
     <servlet>

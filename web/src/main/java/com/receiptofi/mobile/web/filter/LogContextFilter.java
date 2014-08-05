@@ -1,4 +1,4 @@
-package com.receiptofi.mobile.filter;
+package com.receiptofi.mobile.web.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

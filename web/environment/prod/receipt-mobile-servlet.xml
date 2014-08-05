@@ -4,26 +4,24 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:jms="http://www.springframework.org/schema/jms"
-       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
 		  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		  http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context-3.2.xsd
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-          http://www.springframework.org/schema/task
-          http://www.springframework.org/schema/task/spring-task-3.2.xsd
           http://www.springframework.org/schema/jms
           http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
 
     <!-- Scans the classpath of this application for @Components to deploy as beans -->
-    <context:component-scan base-package="com.receiptofi" />
+    <context:component-scan base-package="com.receiptofi">
+        <context:exclude-filter type="assignable" expression="com.receiptofi.service.MailService" />
+        <context:exclude-filter type="assignable" expression="com.receiptofi.service.ReportService" />
+    </context:component-scan>
 
     <!-- Currently not being used -->
     <!--suppress SpringModelInspection -->
-    <context:property-placeholder location="classpath:/conf/config.properties"                  order="1" ignore-unresolvable="true" />
-    <!--suppress SpringModelInspection -->
-    <context:property-placeholder location="classpath:/conf/prod.properties"                    order="2" ignore-unresolvable="true" />
+    <context:property-placeholder location="classpath:/conf/prod.properties"                    order="1" ignore-unresolvable="true" />
 
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
@@ -60,12 +58,6 @@
 
     <!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
 
-    <!-- for setting up scheduling of task -->
-    <task:executor id="taskExecutor" pool-size="100" />
-    <task:scheduler id="scheduler" pool-size="5" />
-    <task:annotation-driven executor="taskExecutor" scheduler="scheduler"/>
-    <!-- for setting up scheduling of task ends -->
-
     <!-- Forwards requests to the "/" resource to the "welcome" view -->
     <!--suppress SpringModelInspection -->
     <!--<mvc:view-controller path="/" view-name="login"/>-->
@@ -99,33 +91,6 @@
     <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--https://stackoverflow.com/questions/21397939/spring-security-3-2-csrf-support-for-multipart-requests-->
         <property name="maxUploadSize" value="10485760" />
-    </bean>
-
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="port"               value="${sslMailPort}"/>
-        <property name="defaultEncoding"    value="${mailEncoding}"/>
-        <property name="host"               value="${goDaddyMailHost}"/>
-        <property name="username"           value="${goDaddyUsername}"/>
-        <property name="password"           value="${goDaddy}"/>
-        <property name="javaMailProperties">
-            <props>
-                <!-- Use SMTP transport protocol -->
-                <prop key="mail.transport.protocol">${smtpProtocol}</prop>
-                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
-                <prop key="mail.smtp.auth">true</prop>
-                <!-- Use TLS to encrypt communication with SMTP server, May be just for GMAIL-->
-                <!--<prop key="mail.smtp.starttls.enable">true</prop>-->
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.port">${sslMailPort}</prop>
-                <prop key="mail.smtp.socketFactory.port">${sslMailPort}</prop>
-                <prop key="mail.debug">true</prop>
-            </props>
-        </property>
-    </bean>
-
-    <!-- this is a template message that we can pre-load with default state -->
-    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="${goDaddyUsername}"/>
     </bean>
 
     <!-- ===================================== -->
@@ -205,10 +170,6 @@
     <!-- ===================================== -->
     <!-- JSM bean End                          -->
     <!-- ===================================== -->
-
-    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
-        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
-    </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />

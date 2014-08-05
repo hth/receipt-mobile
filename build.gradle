@@ -57,6 +57,7 @@ subprojects {
         compile files('../lib/receiptofi-common-0.9.0.jar')
         compile files('../lib/receiptofi-domain-0.9.0.jar')
         compile files('../lib/receiptofi-service-0.9.0.jar')
+        compile files('../lib/receiptofi-social-0.9.0.jar')
 
         compile 'org.springframework:spring-aop:3.2.9.RELEASE'
         compile 'org.springframework:spring-aspects:3.2.9.RELEASE'
@@ -173,18 +174,6 @@ project(':service') {
     }
 }
 
-//project(':social') {
-//    jar.baseName = 'receiptofi.mobile-social'
-//
-//    repositories {
-//        mavenCentral()
-//    }
-//
-//    dependencies {
-//        compile project(':common'), project(':domain'), project(':service')
-//    }
-//}
-
 project(':web') {
     apply plugin: 'war'
     jar.baseName = 'receiptofi.mobile-web'
@@ -212,7 +201,6 @@ task copyJars(type: Copy) {
     from 'domain/build/libs'
     from 'security/build/libs'
     from 'service/build/libs'
-//    from 'social/build/libs'
     from 'web/build/libs'
     into warLibDir
     include '**/*.jar'
