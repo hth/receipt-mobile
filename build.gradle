@@ -76,7 +76,6 @@ subprojects {
                 "java-j2ee",
                 "java-javabeans",
                 "java-junit",
-                "java-logging-jakarta-commons",
                 "java-migrating",
                 "java-optimizations",
                 "java-strictexception",
