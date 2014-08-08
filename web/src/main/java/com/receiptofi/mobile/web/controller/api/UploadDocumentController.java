@@ -83,7 +83,11 @@ public class UploadDocumentController {
                     uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                     try {
                         landingService.uploadReceipt(rid, uploadReceiptImage);
-                        return DocumentUpload.newInstance(multipartFile.getOriginalFilename(), landingService.pendingReceipt(rid)).asJson();
+                        return DocumentUpload.newInstance(
+                                multipartFile.getOriginalFilename(),
+                                uploadReceiptImage.getBlobId(),
+                                landingService.pendingReceipt(rid)
+                        ).asJson();
                     } catch (Exception exce) {
                         log.error("document upload failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 

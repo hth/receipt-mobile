@@ -17,15 +17,20 @@ public final class DocumentUpload extends AbstractDomain {
     private String uploadedDocumentName;
 
     @SuppressWarnings("unused")
+    @JsonProperty("blobId")
+    private String blobId;
+
+    @SuppressWarnings("unused")
     @JsonProperty("unprocessedDocuments")
     private UnprocessedDocuments unprocessedDocuments;
 
-    private DocumentUpload(String uploadedDocumentName, long numberOfUnprocessedFiles) {
+    private DocumentUpload(String uploadedDocumentName, String blobId, long numberOfUnprocessedFiles) {
         this.uploadedDocumentName = uploadedDocumentName;
+        this.blobId = blobId;
         this.unprocessedDocuments = UnprocessedDocuments.newInstance(numberOfUnprocessedFiles);
     }
 
-    public static DocumentUpload newInstance(String uploadedDocumentName, long numberOfUnprocessedFiles) {
-        return new DocumentUpload(uploadedDocumentName, numberOfUnprocessedFiles);
+    public static DocumentUpload newInstance(String uploadedDocumentName, String blobId, long numberOfUnprocessedFiles) {
+        return new DocumentUpload(uploadedDocumentName, blobId, numberOfUnprocessedFiles);
     }
 }
