@@ -185,7 +185,6 @@ subprojects {
         compile 'javax.inject:javax.inject:1'
         compile 'org.apache.activemq:activemq-client:5.9.0'
         compile 'javax.mail:mail:1.4.7'
-        compile 'org.quartz-scheduler:quartz:2.2.1'
         compile 'org.apache.commons:commons-lang3:3.3.2'
 
         compile 'org.apache.httpcomponents:httpclient:4.3.4'
