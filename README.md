@@ -204,7 +204,7 @@ When document <code>original.jpg</code> is uploaded successfully, response retur
       "uploadedDocumentName": "original.jpg"
     }
 
-**Map image blobId with filename in App Gallery
+**Map image blobId with filename in App Gallery**
 
 * First scenario
 
@@ -215,9 +215,10 @@ When document <code>original.jpg</code> is uploaded successfully, response retur
 
     Make a entry and map blobId with Filenames in APP DB
 
-        blobId 					  | Filename in gallery
-        53e439597830a10417794f64	  | IMG_1425.JPG
-        53e439597830a10417794f55	  | 20140808_89897.PNG
+        blobId | Filename in gallery
+        -------|---------------------
+        53e439597830a10417794f64 | IMG_1425.JPG
+        53e439597830a10417794f55 | 20140808_89897.PNG
 
 * Second scenario
 
