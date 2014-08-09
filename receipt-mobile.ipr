@@ -120,12 +120,16 @@
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/security/secure.xml" />
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/receipt-mobile-servlet.xml" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/web.xml" />
         </element>
         <element id="file-copy" path="$PROJECT_DIR$/web/web/blank.html" />
         <element id="file-copy" path="$PROJECT_DIR$/web/web/robots.txt" />
         <element id="directory" name="static">
           <element id="directory" name="images">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/circle-leaf-sized_small.png" />
+          </element>
+          <element id="directory" name="css">
+            <element id="file-copy" path="$PROJECT_DIR$/web/web/static/css/receipt.css" />
           </element>
         </element>
       </root>
