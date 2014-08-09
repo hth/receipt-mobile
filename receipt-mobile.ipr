@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ArtifactManager">
-    <artifact type="exploded-war" name="web:war exploded">
-      <output-path>$PROJECT_DIR$/out/artifacts/web_war_exploded</output-path>
+    <artifact type="exploded-war" name="receipt-mobile exploded">
+      <output-path>$PROJECT_DIR$/out/artifacts/receipt_mobile_exploded</output-path>
       <root id="root">
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
@@ -76,7 +76,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/c621b54583719ac0310404463d6d99db27e1052c/commons-fileupload-1.3.1.jar" />
             <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/inject/javax.inject/1/javax.inject-1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.9.0/df009ac31252e2f7a00f863992628a5496a7c04d/activemq-client-5.9.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/2.2.1/2bd17ec0c66d0370a932e225f52c23f3dc7cc4ce/quartz-2.2.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.3.4/a9a1fef2faefed639ee0d0fba5b3b8e4eb2ff2d8/httpclient-4.3.4.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.2/2d23694879c2c12f125dac5076bdfd5d771cc4cb/logback-core-1.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.2/b316e9737eea25e9ddd6d88eaeee76878045c6b2/logback-classic-1.1.2.jar" />
@@ -122,7 +121,6 @@
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/receipt-mobile-servlet.xml" />
         </element>
-        <element id="javaee-facet-resources" facet="web/web/Web" />
         <element id="file-copy" path="$PROJECT_DIR$/web/web/blank.html" />
         <element id="file-copy" path="$PROJECT_DIR$/web/web/robots.txt" />
         <element id="directory" name="static">
