@@ -42,8 +42,14 @@ import org.joda.time.DateTime;
 public class UploadDocumentController {
     private static final Logger log = LoggerFactory.getLogger(UploadDocumentController.class);
 
-    @Autowired private AuthenticateService authenticateService;
-    @Autowired private LandingService landingService;
+    private AuthenticateService authenticateService;
+    private LandingService landingService;
+
+    @Autowired
+    public UploadDocumentController(LandingService landingService, AuthenticateService authenticateService) {
+        this.landingService = landingService;
+        this.authenticateService = authenticateService;
+    }
 
     @RequestMapping(
             method = RequestMethod.POST,
@@ -61,7 +67,6 @@ public class UploadDocumentController {
             HttpServletRequest httpServletRequest,
             HttpServletResponse response
     ) throws IOException {
-        DateTime time = DateUtil.now();
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
