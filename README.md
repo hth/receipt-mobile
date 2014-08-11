@@ -187,7 +187,7 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
 API call <code>GET</code> path <code>receipt-mobile/api/hasRecentUpdate/2014-08-07T10:47:32.173Z.json</code>
 
 Note: Date format is ISO 8601.
-Different types of updates supported
+Different types of updates supported are:
 
 	RECEIPT,
 	MILEAGE,
@@ -210,6 +210,23 @@ When there are updates avaliable, response will contain what updates are availab
 	    }
 	  ]
 	}
+	
+* First scenario
+
+	When APP installed for first time, and/or user logs in for first time
+
+	In this scenario there will be no last fetched data available. Hence the process to fetch would be 
+
+  		1. Create a variable containing Datetime before fetching data from server.
+  		2. Fetch receipts for the month, as we want the data to be available to user as soon as possible. 
+  		3. After that, fetch receipts for the year to date.
+  		4. Upon success update the cache holding information of last updated with Datetime in first bullet point. Now everytime, a request can check the last fetched date
+
+* Second scenario
+
+	If there is last fetched Datetime available, pass that value as ISO 8601 to the above URL. Before calling the above URL, hold the new Datetime. Upon successful response, replace the old fetch Datetime with new Datetime. 
+
+	Response will contain what all data has changed. As per the response, APP should make those calls to fetch the data. Above list shows the possible data set to look for.
 
 ###Upload Document
 
