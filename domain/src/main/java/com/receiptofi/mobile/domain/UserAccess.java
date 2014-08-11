@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class UserAccess {
 
+    @SuppressWarnings("unused")
     @JsonProperty("access")
     private String access;
 
@@ -22,9 +23,5 @@ public final class UserAccess {
 
     public static UserAccess newInstance(String access) {
         return new UserAccess(access);
-    }
-
-    public String getAccess() {
-        return this.access;
     }
 }

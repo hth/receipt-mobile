@@ -304,7 +304,7 @@ HTTP Header response
     HTTP/1.1 200 OK
     Server: Apache-Coyote/1.1
     
-HTTP Body when there is data
+HTTP Body when there is data. Note: Date format is ISO8601 format
 
     [
       {
@@ -325,7 +325,7 @@ HTTP Body when there is data
             "orientation": 90
           }
         ],
-        "date": 1402815600000,
+        "date": "2014-07-03T18:00:00.000+0000",
         "ptax": "0.0000",
         "rid": "10000000002",
         "expenseReport": "vhnyqRVKW0tTUiq6"
@@ -350,7 +350,7 @@ HTTP Body when there is data
             "orientation": 90
           }
         ],
-        "date": 1402786020000,
+          "date": "2014-06-28T04:00:00.000+0000",
         "ptax": "0.085610",
         "rid": "10000000002",
         "expenseReport": null

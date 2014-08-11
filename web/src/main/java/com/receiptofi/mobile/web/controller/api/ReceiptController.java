@@ -28,9 +28,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ReceiptController {
     private static final Logger log = LoggerFactory.getLogger(ReceiptController.class);
 
-    @Autowired LandingService landingService;
+    private LandingService landingService;
+    private AuthenticateService authenticateService;
 
-    @Autowired AuthenticateService authenticateService;
+    @Autowired
+    public ReceiptController(LandingService landingService, AuthenticateService authenticateService) {
+        this.landingService = landingService;
+        this.authenticateService = authenticateService;
+    }
 
     @RequestMapping(
             value = "/ytdReceipts",

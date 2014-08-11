@@ -13,9 +13,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class ProviderAndAccessToken {
 
+    @SuppressWarnings("unused")
     @SerializedName("pid")
     private String providerId;
 
+    @SuppressWarnings("unused")
     @SerializedName("at")
     private String accessToken;
 
