@@ -25,6 +25,12 @@ public final class RecentActivityService {
         this.recentActivityManager = recentActivityManager;
     }
 
+    /**
+     * Finds if there are new updates since last checked on server.
+     * @param rid
+     * @param since - since last checked on server
+     * @return
+     */
     public AvailableAccountUpdates hasRecentActivities(String rid, Date since) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         List<RecentActivityEntity> recentActivities = recentActivityManager.findAll(rid, since);
