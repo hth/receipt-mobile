@@ -182,6 +182,35 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     Content-Length: 975
     Date: Sun, 15 Jun 2014 04:29:39 GMT
 
+###Updates avaliable 
+
+API call <code>GET</code> path <code>receipt-mobile/api/hasRecentUpdate/2014-08-07T10:47:32.173Z.json</code>
+
+Note: Date format is ISO 8601.
+Different types of updates supported
+
+	RECEIPT,
+	MILEAGE,
+	PROFILE,
+	UPLOAD_DOCUMENT
+
+***Success***
+
+When there are updates avaliable, response will contain what updates are available
+
+	{
+	  "accountUpdates": [
+	    {
+	      "earliest": "2014-08-10T03:47:32.173-07:00",
+	      "update": "UPLOAD_DOCUMENT"
+	    },
+	    {
+	      "earliest": "2014-08-08T00:00:00.000-07:00",
+	      "update": "RECEIPT"
+	    }
+	  ]
+	}
+
 ###Upload Document
 
 API call <code>POST</code> path <code>/receipt-mobile/api/upload.json</code>
