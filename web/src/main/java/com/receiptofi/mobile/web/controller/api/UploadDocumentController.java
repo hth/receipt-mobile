@@ -70,7 +70,7 @@ public class UploadDocumentController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            log.info("uploading document");
+            log.info("uploading document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
             if(isMultipart) {
@@ -82,11 +82,16 @@ public class UploadDocumentController {
                 }
 
                 for (MultipartFile multipartFile : files) {
-                    UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
-                    uploadReceiptImage.setFileData(multipartFile);
-                    uploadReceiptImage.setUserProfileId(rid);
-                    uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                     try {
+                        if(multipartFile.getSize() <= 0) {
+                            log.error("empty uploaded document rid={} size={}", rid, multipartFile.getSize());
+                            throw new Exception("uploaded file is empty");
+                        }
+
+                        UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
+                        uploadReceiptImage.setFileData(multipartFile);
+                        uploadReceiptImage.setUserProfileId(rid);
+                        uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                         landingService.uploadReceipt(rid, uploadReceiptImage);
                         return DocumentUpload.newInstance(
                                 multipartFile.getOriginalFilename(),
@@ -103,6 +108,8 @@ public class UploadDocumentController {
                         errors.put("systemErrorCode", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.getCode());
 
                         return ErrorEncounteredJson.toJson(errors);
+                    } finally {
+                        log.info("uploading document ends rid={}", rid);
                     }
                 }
 
