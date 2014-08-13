@@ -70,7 +70,7 @@ public class UploadDocumentController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            log.info("uploading document");
+            log.info("uploading document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
             if(isMultipart) {
@@ -103,6 +103,8 @@ public class UploadDocumentController {
                         errors.put("systemErrorCode", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.getCode());
 
                         return ErrorEncounteredJson.toJson(errors);
+                    } finally {
+                        log.info("uploading document ends rid={}", rid);
                     }
                 }
 
