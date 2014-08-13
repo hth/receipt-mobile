@@ -82,11 +82,16 @@ public class UploadDocumentController {
                 }
 
                 for (MultipartFile multipartFile : files) {
-                    UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
-                    uploadReceiptImage.setFileData(multipartFile);
-                    uploadReceiptImage.setUserProfileId(rid);
-                    uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                     try {
+                        if(multipartFile.getSize() <= 0) {
+                            log.error("empty uploaded document rid={} size={}", rid, multipartFile.getSize());
+                            throw new Exception("uploaded file is empty");
+                        }
+
+                        UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
+                        uploadReceiptImage.setFileData(multipartFile);
+                        uploadReceiptImage.setUserProfileId(rid);
+                        uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                         landingService.uploadReceipt(rid, uploadReceiptImage);
                         return DocumentUpload.newInstance(
                                 multipartFile.getOriginalFilename(),
