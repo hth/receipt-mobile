@@ -45,7 +45,7 @@ public final class DeviceService {
                 availableAccountUpdates.addReceipts(receipts);
             }
         } else {
-            if(!isDeviceRegistered(rid, did)) {
+            if(!registerDevice(rid, did)) {
                 log.warn("device was not registered until now rid={} did={}", rid, did);
             } else {
                 log.error("could not find registered device rid={} did={}", rid, did);
@@ -60,13 +60,13 @@ public final class DeviceService {
      * @param did
      * @return
      */
-    public boolean isDeviceRegistered(String rid, String did) {
-        boolean registration = registeredDeviceManager.findOrRegisterWhenNotFound(rid, did);
-        if(!registration) {
+    public boolean registerDevice(String rid, String did) {
+        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did);
+        if(registeredDevice.getVersion() != null) {
             log.info("device registered successfully rid={} did={}", rid, did);
         } else {
             log.info("device already registered rid={} did={}", rid, did);
         }
-        return registration;
+        return true;
     }
 }
