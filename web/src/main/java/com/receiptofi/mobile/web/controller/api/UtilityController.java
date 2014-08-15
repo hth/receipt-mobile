@@ -67,7 +67,7 @@ public class UtilityController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public @ResponseBody
-    String unprocessedDocuments(
+    UnprocessedDocuments unprocessedDocuments(
             @RequestHeader("X-R-MAIL")
             String mail,
 
@@ -79,7 +79,7 @@ public class UtilityController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid)).asJson();
+            return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;

@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public abstract class AbstractDomain {
     private static final Logger log = LoggerFactory.getLogger(AbstractDomain.class);
 
+    /** This adds tons of accept-charset */
+    @Deprecated
     /** Converts this object to JSON representation; do not use annotation as this breaks and content length is set to -1 */
     public String asJson() {
         try {

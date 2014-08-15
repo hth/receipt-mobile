@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonPropertyOrder(alphabetic = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class UnprocessedDocuments extends AbstractDomain {
+public final class UnprocessedDocuments {
 
     @SuppressWarnings("unused")
     @JsonProperty("unprocessedCount")
