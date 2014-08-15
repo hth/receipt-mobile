@@ -49,7 +49,7 @@ public class DeviceController {
      */
     @RequestMapping (
             method = RequestMethod.GET,
-            value = "/hasUpdate",
+            value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
@@ -99,12 +99,12 @@ public class DeviceController {
      */
     @RequestMapping (
             method = RequestMethod.POST,
-            value = "/isDeviceRegistered",
+            value = "/register",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public
     @ResponseBody
-    DeviceRegistered isDeviceRegistered(
+    DeviceRegistered registerDevice(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -119,7 +119,7 @@ public class DeviceController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
-            return DeviceRegistered.newInstance(deviceService.isDeviceRegistered(rid, did));
+            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did));
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
