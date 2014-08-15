@@ -184,13 +184,15 @@ HTTP Header response when access denied **HTTP/1.1 401 Unauthorized**
     
 ###Register device 
 
-As soon as user logs in for first time and when APP has noticed there is no Device ID registered internally, APP should make a call to register the device
+As soon as user logs in for the first time and when APP has noticed there is no Device ID registered/saved internally, APP should make a call to register the device
 
 API call <code>POST</code> path <code>curl -i -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%" -H "X-R-DID: Unique-Device-Id" http://localhost:9090/receipt-mobile/api/register.json</code>
 
 ***Success***
 
-This call should always return the response below. If the device is not registered, it will register the device and then return the response below. If device is registered then it still returns the same response because device is registered.
+This call should always return the same response below. 
+- If the device is not registered, it will register the device and then return the response below. 
+- If device is registered then it still returns the same response because device is registered.
 
 	{"registered":true}
 
