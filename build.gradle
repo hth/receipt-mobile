@@ -365,7 +365,7 @@ task war(type: War, dependsOn: prepWar) {
                 entry(key: "build.version", value: 'dev')
             }
 
-            baseName = "receipt-mobile-$env"
+            baseName = "receipt-mobile.$env"
         }
     }
 
