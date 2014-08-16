@@ -357,7 +357,7 @@ task war(type: War, dependsOn: prepWar) {
                 entry(key: "build.version", value: System.getenv().BUILD_NUMBER?.toInteger())
             }
 
-            baseName = "receipt-mobile-$env-" + System.getenv().BUILD_NUMBER?.toInteger()
+            baseName = "receipt-mobile-$env." + System.getenv().BUILD_NUMBER?.toInteger()
         }
 
         if(env == 'dev') {
@@ -365,7 +365,7 @@ task war(type: War, dependsOn: prepWar) {
                 entry(key: "build.version", value: 'dev')
             }
 
-            baseName = "receipt-mobile.$env"
+            baseName = "receipt-mobile-$env"
         }
     }
 
