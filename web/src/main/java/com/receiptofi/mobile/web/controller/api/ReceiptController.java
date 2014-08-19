@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/api")
-public class ReceiptController {
+public final class ReceiptController {
     private static final Logger log = LoggerFactory.getLogger(ReceiptController.class);
 
     private LandingService landingService;
