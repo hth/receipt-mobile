@@ -127,6 +127,7 @@
         <element id="directory" name="static">
           <element id="directory" name="images">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/circle-leaf-sized_small.png" />
+            <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/no_image.gif" />
           </element>
           <element id="directory" name="css">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/static/css/receipt.css" />

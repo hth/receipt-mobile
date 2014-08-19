@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/api")
-public class UtilityController {
+public final class UtilityController {
 
     private static final Logger log = LoggerFactory.getLogger(UtilityController.class);
 

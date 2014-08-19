@@ -39,7 +39,7 @@ import org.joda.time.DateTime;
  */
 @Controller
 @RequestMapping(value = "/api")
-public class UploadDocumentController {
+public final class UploadDocumentController {
     private static final Logger log = LoggerFactory.getLogger(UploadDocumentController.class);
 
     private AuthenticateService authenticateService;

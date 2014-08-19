@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping (value = "/api")
-public class DeviceController {
+public final class DeviceController {
     private static final Logger log = LoggerFactory.getLogger(DeviceController.class);
     private DeviceService deviceService;
     private AuthenticateService authenticateService;

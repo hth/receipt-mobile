@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Date: 6/27/14 1:03 AM
  */
 @Controller
-public class SocialAuthenticationController {
+public final class SocialAuthenticationController {
     private static Logger log = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
     @Autowired SocialAuthenticationService socialAuthenticationService;
