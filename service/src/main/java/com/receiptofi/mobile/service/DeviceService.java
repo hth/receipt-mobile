@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
+import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.service.UserProfilePreferenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +25,17 @@ public final class DeviceService {
 
     private RegisteredDeviceManager registeredDeviceManager;
     private LandingService landingService;
+    private UserProfilePreferenceService userProfilePreferenceService;
 
     @Autowired
-    public DeviceService(RegisteredDeviceManager registeredDeviceManager, LandingService landingService) {
+    public DeviceService(
+            RegisteredDeviceManager registeredDeviceManager,
+            LandingService landingService,
+            UserProfilePreferenceService userProfilePreferenceService
+    ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.landingService = landingService;
+        this.userProfilePreferenceService = userProfilePreferenceService;
     }
 
     /**
@@ -42,7 +50,12 @@ public final class DeviceService {
         if(registeredDevice != null) {
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, registeredDevice.getUpdated());
             if(!receipts.isEmpty()) {
-                availableAccountUpdates.addReceipts(receipts);
+                availableAccountUpdates.setReceipts(receipts);
+            }
+
+            UserProfileEntity userProfileEntity = userProfilePreferenceService.getProfileUpdateSince(rid, registeredDevice.getUpdated());
+            if(userProfileEntity != null) {
+                availableAccountUpdates.setProfile(userProfileEntity);
             }
         } else {
             if(!registerDevice(rid, did)) {

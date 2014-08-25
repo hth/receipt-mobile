@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ReceiptEntity;
+import com.receiptofi.mobile.domain.mapping.Receipt;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public final class ReceiptController {
     )
     public
     @ResponseBody
-    List<ReceiptEntity> ytdReceipts(
+    List<Receipt> ytdReceipts(
             @RequestHeader("X-R-MAIL")
             String mail,
 
@@ -56,7 +58,14 @@ public final class ReceiptController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            return landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
+            List<Receipt> receipts = new ArrayList<>();
+
+            List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
+            for(ReceiptEntity receiptEntity : receiptEntities) {
+                receipts.add(Receipt.newInstance(receiptEntity));
+            }
+
+            return receipts;
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
@@ -69,7 +78,7 @@ public final class ReceiptController {
     )
     public
     @ResponseBody
-    List<ReceiptEntity> allReceipts(
+    List<Receipt> allReceipts(
             @RequestHeader("X-R-MAIL")
             String mail,
 
@@ -81,7 +90,14 @@ public final class ReceiptController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            return landingService.getAllReceipts(rid);
+            List<Receipt> receipts = new ArrayList<>();
+
+            List<ReceiptEntity> receiptEntities = landingService.getAllReceipts(rid);
+            for(ReceiptEntity receiptEntity : receiptEntities) {
+                receipts.add(Receipt.newInstance(receiptEntity));
+            }
+
+            return receipts;
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
@@ -94,7 +110,7 @@ public final class ReceiptController {
     )
     public
     @ResponseBody
-    List<ReceiptEntity> thisMonthReceipts(
+    List<Receipt> thisMonthReceipts(
             @RequestHeader("X-R-MAIL")
             String mail,
 
@@ -106,7 +122,14 @@ public final class ReceiptController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            return landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
+            List<Receipt> receipts = new ArrayList<>();
+
+            List<ReceiptEntity> receiptEntities =  landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
+            for(ReceiptEntity receiptEntity : receiptEntities) {
+                receipts.add(Receipt.newInstance(receiptEntity));
+            }
+
+            return receipts;
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;

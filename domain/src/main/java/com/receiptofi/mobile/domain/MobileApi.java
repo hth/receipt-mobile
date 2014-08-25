@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class MobileApi {
 
+    @SuppressWarnings("unused")
     @JsonProperty("working")
     private boolean working;
 
