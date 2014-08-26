@@ -81,6 +81,7 @@ public final class UploadDocumentController {
                     return ErrorEncounteredJson.toJson("qqfile name missing in request or no file uploaded", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
                 }
 
+                boolean upload = false;
                 for (MultipartFile multipartFile : files) {
                     try {
                         if(multipartFile.getSize() <= 0) {
@@ -93,13 +94,15 @@ public final class UploadDocumentController {
                         uploadReceiptImage.setUserProfileId(rid);
                         uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
                         landingService.uploadReceipt(rid, uploadReceiptImage);
+                        upload = true;
+                        log.info("upload document ends rid={}", rid);
                         return DocumentUpload.newInstance(
                                 multipartFile.getOriginalFilename(),
                                 uploadReceiptImage.getBlobId(),
                                 landingService.pendingReceipt(rid)
                         ).asJson();
                     } catch (Exception exce) {
-                        log.error("document upload failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+                        log.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 
                         Map<String, String> errors = new HashMap<>();
                         errors.put("reason", "failed document upload");
@@ -109,7 +112,7 @@ public final class UploadDocumentController {
 
                         return ErrorEncounteredJson.toJson(errors);
                     } finally {
-                        log.info("uploading document ends rid={}", rid);
+                        log.info("upload document processed {} rid={}", upload, rid);
                     }
                 }
 
