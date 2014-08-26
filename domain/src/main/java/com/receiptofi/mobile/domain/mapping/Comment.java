@@ -4,6 +4,7 @@ import com.receiptofi.domain.CommentEntity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 )
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
+@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class Comment {
 
     @SuppressWarnings("unused")
@@ -25,7 +27,9 @@ public final class Comment {
     private String text;
 
     private Comment(CommentEntity commentEntity) {
-        this.text = commentEntity.getText();
+        if(commentEntity != null) {
+            this.text = commentEntity.getText();
+        }
     }
 
     public static Comment newInstance(CommentEntity commentEntity) {
