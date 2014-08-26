@@ -56,21 +56,20 @@ public final class ReceiptController {
             HttpServletResponse response
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
-        try {
-            String rid = authenticateService.getReceiptUserId(mail, auth);
-            if(rid != null) {
-                List<Receipt> receipts = new ArrayList<>();
-
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if(rid != null) {
+            List<Receipt> receipts = new ArrayList<>();
+            try {
                 List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
                 for(ReceiptEntity receiptEntity : receiptEntities) {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
-
-                return receipts;
+            } catch(Exception e) {
+                log.error("found error message={}", e.getLocalizedMessage(), e);
             }
-        } catch(Exception e) {
-            log.error("found error message={}", e.getLocalizedMessage(), e);
+            return receipts;
         }
+
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
@@ -92,21 +91,20 @@ public final class ReceiptController {
             HttpServletResponse response
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
-        try {
-            String rid = authenticateService.getReceiptUserId(mail, auth);
-            if(rid != null) {
-                List<Receipt> receipts = new ArrayList<>();
-
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if(rid != null) {
+            List<Receipt> receipts = new ArrayList<>();
+            try {
                 List<ReceiptEntity> receiptEntities = landingService.getAllReceipts(rid);
                 for(ReceiptEntity receiptEntity : receiptEntities) {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
-
-                return receipts;
+            } catch(Exception e) {
+                log.error("found error message={}", e.getLocalizedMessage(), e);
             }
-        } catch(Exception e) {
-            log.error("found error message={}", e.getLocalizedMessage(), e);
+            return receipts;
         }
+
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
@@ -128,21 +126,20 @@ public final class ReceiptController {
             HttpServletResponse response
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
-        try {
-            String rid = authenticateService.getReceiptUserId(mail, auth);
-            if(rid != null) {
-                List<Receipt> receipts = new ArrayList<>();
-
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if(rid != null) {
+            List<Receipt> receipts = new ArrayList<>();
+            try {
                 List<ReceiptEntity> receiptEntities =  landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
                 for(ReceiptEntity receiptEntity : receiptEntities) {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
-
-                return receipts;
+            } catch(Exception e) {
+                log.error("found error message={}", e.getLocalizedMessage(), e);
             }
-        } catch(Exception e) {
-            log.error("found error message={}", e.getLocalizedMessage(), e);
+            return receipts;
         }
+
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
