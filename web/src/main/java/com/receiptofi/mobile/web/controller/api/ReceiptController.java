@@ -69,7 +69,7 @@ public final class ReceiptController {
                 return receipts;
             }
         } catch(Exception e) {
-            log.error(e.getLocalizedMessage(), e);
+            log.error("found error message={}", e.getLocalizedMessage(), e);
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
@@ -105,7 +105,7 @@ public final class ReceiptController {
                 return receipts;
             }
         } catch(Exception e) {
-            log.error(e.getLocalizedMessage(), e);
+            log.error("found error message={}", e.getLocalizedMessage(), e);
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
@@ -141,7 +141,7 @@ public final class ReceiptController {
                 return receipts;
             }
         } catch(Exception e) {
-            log.error(e.getLocalizedMessage(), e);
+            log.error("found error message={}", e.getLocalizedMessage(), e);
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
