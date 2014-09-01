@@ -7,7 +7,6 @@ import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
-import com.receiptofi.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
-
-import org.joda.time.DateTime;
 
 /**
  * User: hitender
@@ -70,7 +67,7 @@ public final class UploadDocumentController {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if(rid != null) {
-            log.info("uploading document begins rid={}", rid);
+            log.info("upload document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
             if(isMultipart) {
@@ -85,8 +82,8 @@ public final class UploadDocumentController {
                 for (MultipartFile multipartFile : files) {
                     try {
                         if(multipartFile.getSize() <= 0) {
-                            log.error("empty uploaded document rid={} size={}", rid, multipartFile.getSize());
-                            throw new Exception("uploaded file is empty");
+                            log.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
+                            throw new Exception("upload document is empty");
                         }
 
                         UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
