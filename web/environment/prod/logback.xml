@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="log_home" value="/var/log/receiptofi" />
+    <property name="log_home" value="/var/logs/receiptofi" />
     <property name="log_name" value="receiptofi-mobile" />
     <property name="log_ext" value="log" />
 
