@@ -1,6 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
-import com.receiptofi.domain.shared.UploadReceiptImage;
+import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -86,16 +86,16 @@ public final class UploadDocumentController {
                             throw new Exception("upload document is empty");
                         }
 
-                        UploadReceiptImage uploadReceiptImage = UploadReceiptImage.newInstance();
-                        uploadReceiptImage.setFileData(multipartFile);
-                        uploadReceiptImage.setUserProfileId(rid);
-                        uploadReceiptImage.setFileType(FileTypeEnum.RECEIPT);
-                        landingService.uploadReceipt(rid, uploadReceiptImage);
+                        UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
+                        uploadDocumentImage.setFileData(multipartFile);
+                        uploadDocumentImage.setRid(rid);
+                        uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
+                        landingService.uploadDocument(uploadDocumentImage);
                         upload = true;
                         log.info("upload document ends rid={}", rid);
                         return DocumentUpload.newInstance(
                                 multipartFile.getOriginalFilename(),
-                                uploadReceiptImage.getBlobId(),
+                                uploadDocumentImage.getBlobId(),
                                 landingService.pendingReceipt(rid)
                         ).asJson();
                     } catch (Exception exce) {

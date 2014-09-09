@@ -22,7 +22,7 @@ ext {
 
 allprojects {
     group = 'com.receiptofi.mobile'
-    version = '0.9.0.1'
+    version = '0.9.0'
 }
 
 subprojects {
@@ -112,10 +112,10 @@ subprojects {
     }
 
     dependencies {
-        compile 'com.receiptofi:common:0.9.0.1'
-        compile 'com.receiptofi:domain:0.9.0.1'
-        compile 'com.receiptofi:service:0.9.0.1'
-        compile 'com.receiptofi:social:0.9.0.1'
+        compile 'com.receiptofi:common:0.9.0'
+        compile 'com.receiptofi:domain:0.9.0'
+        compile 'com.receiptofi:service:0.9.0'
+        compile 'com.receiptofi:social:0.9.0'
 
         compile files('../lib/spring-social-core-1.1.0.RELEASE.jar')
         compile files('../lib/spring-social-facebook-1.1.1.RELEASE.jar')
