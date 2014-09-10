@@ -1,11 +1,8 @@
 package com.receiptofi.mobile.web.controller;
 
 import com.receiptofi.mobile.domain.MobileApi;
-import com.receiptofi.mobile.domain.UserAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,5 +1,10 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.mobile.domain.mapping.Receipt;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -7,11 +12,6 @@ import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

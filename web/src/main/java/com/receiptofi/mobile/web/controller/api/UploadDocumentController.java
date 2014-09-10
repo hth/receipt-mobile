@@ -1,5 +1,12 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
@@ -9,13 +16,6 @@ import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 

@@ -1,13 +1,13 @@
 package com.receiptofi.mobile.web.controller;
 
+import java.io.IOException;
+import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
