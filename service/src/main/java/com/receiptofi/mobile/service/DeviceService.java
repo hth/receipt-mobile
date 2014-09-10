@@ -40,6 +40,7 @@ public final class DeviceService {
 
     /**
      * Finds if there are new updates since last checked on server.
+     *
      * @param rid
      * @param did - Device Id
      * @return
@@ -47,18 +48,18 @@ public final class DeviceService {
     public AvailableAccountUpdates hasUpdate(String rid, String did) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
-        if(registeredDevice != null) {
+        if (registeredDevice != null) {
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, registeredDevice.getUpdated());
-            if(!receipts.isEmpty()) {
+            if (!receipts.isEmpty()) {
                 availableAccountUpdates.setReceipts(receipts);
             }
 
             UserProfileEntity userProfileEntity = userProfilePreferenceService.getProfileUpdateSince(rid, registeredDevice.getUpdated());
-            if(userProfileEntity != null) {
+            if (userProfileEntity != null) {
                 availableAccountUpdates.setProfile(userProfileEntity);
             }
         } else {
-            if(!registerDevice(rid, did)) {
+            if (!registerDevice(rid, did)) {
                 log.warn("device was not registered until now rid={} did={}", rid, did);
             } else {
                 log.error("could not find registered device rid={} did={}", rid, did);
@@ -69,13 +70,14 @@ public final class DeviceService {
 
     /**
      * Checks if the device is registered, if not registered then it registers the device
+     *
      * @param rid
      * @param did
      * @return
      */
     public boolean registerDevice(String rid, String did) {
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did);
-        if(registeredDevice.getVersion() != null) {
+        if (registeredDevice.getVersion() != null) {
             log.info("device registered successfully rid={} did={}", rid, did);
         } else {
             log.info("device already registered rid={} did={}", rid, did);

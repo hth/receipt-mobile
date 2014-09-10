@@ -21,15 +21,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class FileSystem {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("blobId")
     private String blobId;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("orientation")
     private int imageOrientation = 0;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("sequence")
     private int sequence;
 

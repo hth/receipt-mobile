@@ -30,44 +30,44 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public final class Receipt {
     private static final DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("id")
     private String id;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("total")
     private Double total;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("bizName")
     private BizName bizName;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("bizStore")
     private BizStore bizStore;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("notes")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("notes")
     private Comment notes;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("files")
     private Collection<FileSystem> fileSystems = new LinkedList<>();
 
-    @SuppressWarnings("unused")
-    @JsonProperty("date")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("date")
     private String receiptDate;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("ptax")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("ptax")
     private String percentTax;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("rid")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("rid")
     private String userProfileId;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("expenseReport")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("expenseReport")
     private String expenseReportInFS;
 
     private Receipt(ReceiptEntity receiptEntity) {
@@ -77,7 +77,7 @@ public final class Receipt {
         this.bizStore = BizStore.newInstance(receiptEntity.getBizStore());
         this.notes = Comment.newInstance(receiptEntity.getNotes());
 
-        for(FileSystemEntity fileSystemEntity : receiptEntity.getFileSystemEntities()) {
+        for (FileSystemEntity fileSystemEntity : receiptEntity.getFileSystemEntities()) {
             this.fileSystems.add(FileSystem.newInstance(fileSystemEntity));
         }
 
