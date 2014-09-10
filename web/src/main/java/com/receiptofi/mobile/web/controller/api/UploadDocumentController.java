@@ -35,7 +35,7 @@ import org.springframework.web.util.WebUtils;
  * Date: 7/13/14 4:35 PM
  */
 @Controller
-@RequestMapping(value = "/api")
+@RequestMapping (value = "/api")
 public final class UploadDocumentController {
     private static final Logger log = LoggerFactory.getLogger(UploadDocumentController.class);
 
@@ -48,14 +48,15 @@ public final class UploadDocumentController {
         this.authenticateService = authenticateService;
     }
 
-    @RequestMapping(
+    @RequestMapping (
             method = RequestMethod.POST,
             value = "/upload",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public @ResponseBody
+    public
+    @ResponseBody
     String upload(
-            @RequestHeader("X-R-MAIL")
+            @RequestHeader ("X-R-MAIL")
             String mail,
 
             @RequestHeader ("X-R-AUTH")
@@ -66,22 +67,22 @@ public final class UploadDocumentController {
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if(rid != null) {
+        if (rid != null) {
             log.info("upload document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
-            if(isMultipart) {
+            if (isMultipart) {
                 MultipartHttpServletRequest multipartHttpRequest = WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
                 final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
 
-                if(files.isEmpty()) {
+                if (files.isEmpty()) {
                     return ErrorEncounteredJson.toJson("qqfile name missing in request or no file uploaded", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
                 }
 
                 boolean upload = false;
                 for (MultipartFile multipartFile : files) {
                     try {
-                        if(multipartFile.getSize() <= 0) {
+                        if (multipartFile.getSize() <= 0) {
                             log.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
                             throw new Exception("upload document is empty");
                         }

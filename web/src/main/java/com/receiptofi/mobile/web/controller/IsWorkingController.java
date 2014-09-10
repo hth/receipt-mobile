@@ -21,32 +21,35 @@ public final class IsWorkingController {
     private static final Logger log = LoggerFactory.getLogger(IsWorkingController.class);
 
     /**
-     * Supports HTML call
+     * Supports HTML call.
+     *
      * @return
      */
-    @RequestMapping(
+    @RequestMapping (
             value = "/isWorking",
             method = RequestMethod.GET,
             produces = {
                     MediaType.TEXT_HTML_VALUE + ";charset=UTF-8",
             }
     )
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus (HttpStatus.OK)
     public String isWorking() {
         log.info("isWorking");
         return "isWorking";
     }
 
     /**
-     * Supports JSON call
+     * Supports JSON call.
+     *
      * @return
      */
-    @RequestMapping(
+    @RequestMapping (
             value = "/healthCheck",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public @ResponseBody
+    public
+    @ResponseBody
     MobileApi healthCheck() {
         //TODO should perform some kind of health check like connecting to mongo
         return MobileApi.newInstance(true);

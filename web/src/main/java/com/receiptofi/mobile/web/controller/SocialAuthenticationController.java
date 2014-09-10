@@ -28,7 +28,7 @@ public final class SocialAuthenticationController {
     @Autowired SocialAuthenticationService socialAuthenticationService;
 
     /**
-     * Social provider signup or login
+     * Social provider signup or login.
      *
      * http http://localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
      * pid.json
@@ -65,20 +65,21 @@ public final class SocialAuthenticationController {
      *
      * @return
      */
-    @RequestMapping(
+    @RequestMapping (
             value = "/authenticate.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public @ResponseBody
+    public
+    @ResponseBody
     String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
         String credential = null;
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
             credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
-            if(credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
+            if (credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
                 return credential;
             }
 

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Date: 6/8/14 2:31 PM
  */
 @Controller
-@RequestMapping(value = "/api")
+@RequestMapping (value = "/api")
 public final class UtilityController {
 
     private static final Logger log = LoggerFactory.getLogger(UtilityController.class);
@@ -37,14 +37,15 @@ public final class UtilityController {
         this.landingService = landingService;
     }
 
-    @RequestMapping(
+    @RequestMapping (
             value = "/hasAccess",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public @ResponseBody
+    public
+    @ResponseBody
     UserAccess hasAccess(
-            @RequestHeader("X-R-MAIL")
+            @RequestHeader ("X-R-MAIL")
             String mail,
 
             @RequestHeader ("X-R-AUTH")
@@ -53,21 +54,22 @@ public final class UtilityController {
             HttpServletResponse response
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
-        if(authenticateService.hasAccess(mail, auth)) {
+        if (authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return null;
     }
 
-    @RequestMapping(
+    @RequestMapping (
             value = "/unprocessed",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public @ResponseBody
+    public
+    @ResponseBody
     UnprocessedDocuments unprocessedDocuments(
-            @RequestHeader("X-R-MAIL")
+            @RequestHeader ("X-R-MAIL")
             String mail,
 
             @RequestHeader ("X-R-AUTH")
@@ -77,7 +79,7 @@ public final class UtilityController {
     ) throws IOException {
         log.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if(rid != null) {
+        if (rid != null) {
             return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

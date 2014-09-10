@@ -39,7 +39,8 @@ public final class DetailedReceipt {
     }
 
     /**
-     * Gets detailed receipt
+     * Gets detailed receipt.
+     *
      * @param mail
      * @param auth
      * @param receiptId

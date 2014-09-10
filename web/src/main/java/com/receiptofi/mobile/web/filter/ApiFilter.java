@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
  * User: hitender
  * Date: 6/9/14 11:28 PM
  */
-@WebFilter(urlPatterns={"/api/*"})
+@WebFilter (urlPatterns = {"/api/*"})
 public class ApiFilter implements Filter {
     private static final Logger log = LoggerFactory.getLogger(ApiFilter.class);
 

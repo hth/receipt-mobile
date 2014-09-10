@@ -39,10 +39,11 @@ public final class DeviceController {
     }
 
     /**
-     * For a device, find all available updates on server
+     * For a device, find all available updates on server.
+     *
      * @param mail
      * @param auth
-     * @param deviceId   - Device id
+     * @param deviceId - Device id
      * @param response
      * @return
      * @throws IOException
@@ -88,7 +89,7 @@ public final class DeviceController {
     }
 
     /**
-     * Finds if device exists or saves the device when does not exists. Most likely this call would not be required
+     * Finds if device exists or saves the device when does not exists. Most likely this call would not be required.
      *
      * @param mail
      * @param auth

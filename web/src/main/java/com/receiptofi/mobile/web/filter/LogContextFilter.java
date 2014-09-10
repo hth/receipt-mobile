@@ -73,7 +73,11 @@ public class LogContextFilter implements Filter {
         return map;
     }
 
-    public void init(FilterConfig filterConfig) {}
+    public void init(FilterConfig filterConfig) {
+        log.info("initialized");
+    }
 
-    public void destroy() {}
+    public void destroy() {
+        log.info("deleted");
+    }
 }
