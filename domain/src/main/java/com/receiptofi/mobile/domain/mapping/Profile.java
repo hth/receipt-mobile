@@ -21,24 +21,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class Profile {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("rid")
     private String receiptUserId;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("name")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("name")
     private String name;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("firstName")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("firstName")
     private String firstName;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("lastName")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("lastName")
     private String lastName;
 
-    @SuppressWarnings("unused")
-    @JsonProperty("mail")
+    @SuppressWarnings ("unused")
+    @JsonProperty ("mail")
     private String mail;
 
     private Profile(String receiptUserId, String name, String firstName, String lastName, String mail) {

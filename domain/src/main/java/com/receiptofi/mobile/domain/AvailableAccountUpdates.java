@@ -21,11 +21,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class AvailableAccountUpdates extends AbstractDomain {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("receipts")
     private List<Receipt> receipts = new LinkedList<>();
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("profile")
     private Profile profile;
 
@@ -34,7 +34,7 @@ public final class AvailableAccountUpdates extends AbstractDomain {
     }
 
     public void setReceipts(List<ReceiptEntity> receipts) {
-        for(ReceiptEntity receiptEntity : receipts) {
+        for (ReceiptEntity receiptEntity : receipts) {
             this.receipts.add(Receipt.newInstance(receiptEntity));
         }
     }

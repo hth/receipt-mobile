@@ -9,17 +9,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * User: hitender
  * Date: 7/1/14 2:18 AM
  */
-@JsonPropertyOrder(alphabetic = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder (alphabetic = true)
+@JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class ProviderAndAccessToken {
 
-    @SuppressWarnings("unused")
-    @SerializedName("pid")
+    @SuppressWarnings ("unused")
+    @SerializedName ("pid")
     private String providerId;
 
-    @SuppressWarnings("unused")
-    @SerializedName("at")
+    @SuppressWarnings ("unused")
+    @SerializedName ("at")
     private String accessToken;
 
     private ProviderAndAccessToken(String providerId, String accessToken) {

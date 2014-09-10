@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public final class BizName {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("name")
     private String businessName;
 

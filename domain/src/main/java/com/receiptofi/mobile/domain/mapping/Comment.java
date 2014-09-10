@@ -21,12 +21,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class Comment {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     @JsonProperty ("text")
     private String text;
 
     private Comment(CommentEntity commentEntity) {
-        if(commentEntity != null) {
+        if (commentEntity != null) {
             this.text = commentEntity.getText();
         }
     }

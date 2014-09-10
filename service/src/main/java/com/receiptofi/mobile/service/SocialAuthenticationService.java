@@ -1,12 +1,12 @@
 package com.receiptofi.mobile.service;
 
+import java.io.IOException;
+
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -35,25 +35,25 @@ import com.google.gson.Gson;
 public class SocialAuthenticationService {
     private static Logger log = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
-    @Value("${api.mobile.get:/webapi/mobile/get.htm}")
+    @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
 
-    @Value("${web.access.api.token}")
+    @Value ("${web.access.api.token}")
     private String webApiAccessToken;
 
-    @Value("${secure.port}")
+    @Value ("${secure.port}")
     private String securePort;
 
-    @Value("${https}")
+    @Value ("${https}")
     private String protocol;
 
-    @Value("${host}")
+    @Value ("${host}")
     private String host;
 
-    @Value("${auth.create:/webapi/mobile/auth-create.htm}")
+    @Value ("${auth.create:/webapi/mobile/auth-create.htm}")
     private String authCreate;
 
-    @Value("${no.response.from.web.server:could not connect to server}")
+    @Value ("${no.response.from.web.server:could not connect to server}")
     private String noResponseFromWebServer;
 
     private HttpClient httpClient;
@@ -71,7 +71,7 @@ public class SocialAuthenticationService {
         httpClient = HttpClientBuilder.create().build();
 
         Header header = getCSRFToken(webApiAccessToken);
-        if(header == null) {
+        if (header == null) {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
@@ -89,17 +89,17 @@ public class SocialAuthenticationService {
             log.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
         }
 
-        if(response == null) {
+        if (response == null) {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
         int status = response.getStatusLine().getStatusCode();
         log.info("status={}", status);
-        if(status >= 200 && status < 300) {
+        if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
-            if(entity != null) {
+            if (entity != null) {
                 long len = entity.getContentLength();
-                if(len != -1 && len < 2048) {
+                if (len != -1 && len < 2048) {
                     try {
                         return EntityUtils.toString(entity);
                     } catch (IOException e) {
@@ -138,7 +138,6 @@ public class SocialAuthenticationService {
 
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
-     *
      * Test via terminal
      * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
@@ -154,7 +153,7 @@ public class SocialAuthenticationService {
         try {
             response = httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
-            if(status >= 200 && status < 300) {
+            if (status >= 200 && status < 300) {
                 return response.getFirstHeader("X-CSRF-TOKEN");
             }
             log.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
