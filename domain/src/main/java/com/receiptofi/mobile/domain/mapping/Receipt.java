@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class Receipt {
-    private static final DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+    private static final DateTimeFormatter FMT = ISODateTimeFormat.dateTime();
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("id")
@@ -81,7 +81,7 @@ public final class Receipt {
             this.fileSystems.add(FileSystem.newInstance(fileSystemEntity));
         }
 
-        this.receiptDate = fmt.print(new DateTime(receiptEntity.getReceiptDate()));
+        this.receiptDate = FMT.print(new DateTime(receiptEntity.getReceiptDate()));
         this.percentTax = receiptEntity.getPercentTax();
         this.userProfileId = receiptEntity.getUserProfileId();
         this.expenseReportInFS = receiptEntity.getExpenseReportInFS();
