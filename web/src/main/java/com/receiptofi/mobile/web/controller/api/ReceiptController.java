@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping (value = "/api")
 public final class ReceiptController {
-    private static final Logger log = LoggerFactory.getLogger(ReceiptController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReceiptController.class);
 
     private LandingService landingService;
     private AuthenticateService authenticateService;
@@ -55,7 +55,7 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             List<Receipt> receipts = new ArrayList<>();
@@ -65,7 +65,7 @@ public final class ReceiptController {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
             } catch (Exception e) {
-                log.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("found error message={}", e.getLocalizedMessage(), e);
             }
             return receipts;
         }
@@ -90,7 +90,7 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             List<Receipt> receipts = new ArrayList<>();
@@ -100,7 +100,7 @@ public final class ReceiptController {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
             } catch (Exception e) {
-                log.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("found error message={}", e.getLocalizedMessage(), e);
             }
             return receipts;
         }
@@ -125,7 +125,7 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             List<Receipt> receipts = new ArrayList<>();
@@ -135,7 +135,7 @@ public final class ReceiptController {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
             } catch (Exception e) {
-                log.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("found error message={}", e.getLocalizedMessage(), e);
             }
             return receipts;
         }

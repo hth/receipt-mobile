@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public final class SocialAuthenticationController {
-    private static Logger log = LoggerFactory.getLogger(SocialAuthenticationController.class);
+    private static Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
     @Autowired SocialAuthenticationService socialAuthenticationService;
 
@@ -89,7 +89,7 @@ public final class SocialAuthenticationController {
 
             return credential;
         } catch (IOException e) {
-            log.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
+            LOG.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
             return credential;
         }
     }

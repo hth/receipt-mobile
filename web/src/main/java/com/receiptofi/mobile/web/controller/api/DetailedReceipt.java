@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping (value = "/api")
 public final class DetailedReceipt {
-    private static final Logger log = LoggerFactory.getLogger(DetailedReceipt.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DetailedReceipt.class);
     private DeviceService deviceService;
     private AuthenticateService authenticateService;
 
@@ -67,13 +67,13 @@ public final class DetailedReceipt {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             try {
                 return "";
             } catch (Exception e) {
-                log.error("fetching update for receipt={} failed reason={}", receiptId, e.getLocalizedMessage(), e);
+                LOG.error("fetching update for receipt={} failed reason={}", receiptId, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put("reason", "something went wrong");
