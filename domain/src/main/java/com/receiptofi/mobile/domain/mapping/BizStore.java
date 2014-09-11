@@ -21,11 +21,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class BizStore {
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("address")
     private String address;
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("phone")
     private String phone;
 
