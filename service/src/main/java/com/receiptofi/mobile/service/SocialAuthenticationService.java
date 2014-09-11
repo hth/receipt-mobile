@@ -32,34 +32,28 @@ import com.google.gson.Gson;
  * Date: 6/27/14 1:00 AM
  */
 @Component
+@SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
 public class SocialAuthenticationService {
     private static Logger log = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${web.access.api.token}")
     private String webApiAccessToken;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${secure.port}")
     private String securePort;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${https}")
     private String protocol;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${host}")
     private String host;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${auth.create:/webapi/mobile/auth-create.htm}")
     private String authCreate;
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${no.response.from.web.server:could not connect to server}")
     private String noResponseFromWebServer;
 
