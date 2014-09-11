@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
  * Date: 6/7/14 1:12 AM
  */
 @Component
+@SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
 public class AuthenticatedToken {
 
     private final AccountService accountService;

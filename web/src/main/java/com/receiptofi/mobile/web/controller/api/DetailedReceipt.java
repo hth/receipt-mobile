@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.DeviceService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import org.slf4j.Logger;
@@ -29,12 +28,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping (value = "/api")
 public final class DetailedReceipt {
     private static final Logger LOG = LoggerFactory.getLogger(DetailedReceipt.class);
-    private DeviceService deviceService;
+
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
 
     @Autowired
-    public DetailedReceipt(DeviceService deviceService, AuthenticateService authenticateService) {
-        this.deviceService = deviceService;
+    public DetailedReceipt(AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

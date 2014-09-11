@@ -35,7 +35,10 @@ import com.mongodb.gridfs.GridFSDBFile;
 public final class FileDownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired private FileDBService fileDBService;
+
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired private AuthenticateService authenticateService;
 
     @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})

@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping (value = "/api")
 public final class UtilityController {
-
     private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
+
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private LandingService landingService;
 
     @Autowired

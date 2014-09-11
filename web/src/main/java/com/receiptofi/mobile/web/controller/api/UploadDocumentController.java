@@ -39,7 +39,10 @@ import org.springframework.web.util.WebUtils;
 public final class UploadDocumentController {
     private static final Logger LOG = LoggerFactory.getLogger(UploadDocumentController.class);
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
+
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private LandingService landingService;
 
     @Autowired
@@ -80,7 +83,8 @@ public final class UploadDocumentController {
                 }
 
                 boolean upload = false;
-                for (MultipartFile multipartFile : files) {
+                if (files.isEmpty()) {
+                    MultipartFile multipartFile = files.iterator().next();
                     try {
                         if (multipartFile.getSize() <= 0) {
                             LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
