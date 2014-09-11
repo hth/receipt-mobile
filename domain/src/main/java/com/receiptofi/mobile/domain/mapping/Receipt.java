@@ -27,46 +27,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
+@SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
 public final class Receipt {
     private static final DateTimeFormatter FMT = ISODateTimeFormat.dateTime();
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("id")
     private String id;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("total")
     private Double total;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("bizName")
     private BizName bizName;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("bizStore")
     private BizStore bizStore;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("notes")
     private Comment notes;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("files")
     private Collection<FileSystem> fileSystems = new LinkedList<>();
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("date")
     private String receiptDate;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("ptax")
     private String percentTax;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("rid")
     private String userProfileId;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("expenseReport")
     private String expenseReportInFS;
 
