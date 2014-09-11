@@ -103,7 +103,7 @@ public final class ReceiptController {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
             } catch (Exception e) {
-                LOG.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("reason={}", e.getLocalizedMessage(), e);
             }
             return receipts;
         }
@@ -138,7 +138,7 @@ public final class ReceiptController {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }
             } catch (Exception e) {
-                LOG.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("reason={}", e.getLocalizedMessage(), e);
             }
             return receipts;
         }
