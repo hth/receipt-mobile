@@ -38,6 +38,7 @@ public final class FileDownloadController {
     @Autowired private FileDBService fileDBService;
     @Autowired private AuthenticateService authenticateService;
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${imageNotFoundPlaceHolder:/static/images/no_image.gif}")
     private String imageNotFound;
 
