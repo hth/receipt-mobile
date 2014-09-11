@@ -23,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public final class SocialAuthenticationController {
-    private static Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired SocialAuthenticationService socialAuthenticationService;
 
     /**

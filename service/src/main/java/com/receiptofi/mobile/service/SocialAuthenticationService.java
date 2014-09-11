@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 @Component
 @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
 public class SocialAuthenticationService {
-    private static Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
     @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;

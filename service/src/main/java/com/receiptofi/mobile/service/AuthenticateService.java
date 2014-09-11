@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticateService {
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticateService.class);
 
+    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private final UserAccountManager userAccountManager;
 
     @Autowired
