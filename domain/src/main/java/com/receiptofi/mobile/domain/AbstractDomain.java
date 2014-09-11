@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Date: 7/19/14 12:42 AM
  */
 public abstract class AbstractDomain {
-    private static final Logger log = LoggerFactory.getLogger(AbstractDomain.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractDomain.class);
 
     /** This adds tons of accept-charset */
     @Deprecated
@@ -26,7 +26,7 @@ public abstract class AbstractDomain {
             mapper.writeValue(writer, this);
             return writer.toString();
         } catch (IOException e) {
-            log.error("transforming object error={}", e.getLocalizedMessage(), e);
+            LOG.error("transforming object error={}", e.getLocalizedMessage(), e);
             return "{}";
         }
     }

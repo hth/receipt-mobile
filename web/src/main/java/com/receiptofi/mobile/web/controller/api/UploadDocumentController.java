@@ -37,7 +37,7 @@ import org.springframework.web.util.WebUtils;
 @Controller
 @RequestMapping (value = "/api")
 public final class UploadDocumentController {
-    private static final Logger log = LoggerFactory.getLogger(UploadDocumentController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UploadDocumentController.class);
 
     private AuthenticateService authenticateService;
     private LandingService landingService;
@@ -65,10 +65,10 @@ public final class UploadDocumentController {
             HttpServletRequest httpServletRequest,
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
-            log.info("upload document begins rid={}", rid);
+            LOG.info("upload document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
             if (isMultipart) {
@@ -83,7 +83,7 @@ public final class UploadDocumentController {
                 for (MultipartFile multipartFile : files) {
                     try {
                         if (multipartFile.getSize() <= 0) {
-                            log.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
+                            LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
                             throw new Exception("upload document is empty");
                         }
 
@@ -93,14 +93,14 @@ public final class UploadDocumentController {
                         uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
                         landingService.uploadDocument(uploadDocumentImage);
                         upload = true;
-                        log.info("upload document ends rid={}", rid);
+                        LOG.info("upload document ends rid={}", rid);
                         return DocumentUpload.newInstance(
                                 multipartFile.getOriginalFilename(),
                                 uploadDocumentImage.getBlobId(),
                                 landingService.pendingReceipt(rid)
                         ).asJson();
                     } catch (Exception exce) {
-                        log.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+                        LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 
                         Map<String, String> errors = new HashMap<>();
                         errors.put("reason", "failed document upload");
@@ -110,7 +110,7 @@ public final class UploadDocumentController {
 
                         return ErrorEncounteredJson.toJson(errors);
                     } finally {
-                        log.info("upload document processed {} rid={}", upload, rid);
+                        LOG.info("upload document processed {} rid={}", upload, rid);
                     }
                 }
 

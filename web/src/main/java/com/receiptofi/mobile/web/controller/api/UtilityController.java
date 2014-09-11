@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping (value = "/api")
 public final class UtilityController {
 
-    private static final Logger log = LoggerFactory.getLogger(UtilityController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
     private AuthenticateService authenticateService;
     private LandingService landingService;
@@ -53,7 +53,7 @@ public final class UtilityController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         if (authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
         }
@@ -77,7 +77,7 @@ public final class UtilityController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping (value = "/api")
 public final class DeviceController {
-    private static final Logger log = LoggerFactory.getLogger(DeviceController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeviceController.class);
     private DeviceService deviceService;
     private AuthenticateService authenticateService;
 
@@ -67,13 +67,13 @@ public final class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             try {
                 return deviceService.hasUpdate(rid, deviceId).asJson();
             } catch (Exception e) {
-                log.error("fetching update for device failed deviceId={} reason={}", deviceId, e.getLocalizedMessage(), e);
+                LOG.error("fetching update for device failed deviceId={} reason={}", deviceId, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put("reason", "something went wrong");
@@ -117,7 +117,7 @@ public final class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        log.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid != null) {
             return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did));

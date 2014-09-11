@@ -33,7 +33,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 @Controller
 @RequestMapping (value = "/api")
 public final class FileDownloadController {
-    private static final Logger log = LoggerFactory.getLogger(FileDownloadController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 
     @Autowired private FileDBService fileDBService;
     @Autowired private AuthenticateService authenticateService;
@@ -73,7 +73,7 @@ public final class FileDownloadController {
                 GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
 
                 if (gridFSDBFile == null) {
-                    log.warn("GridFSDBFile failed to find image={}", imageId);
+                    LOG.warn("GridFSDBFile failed to find image={}", imageId);
                     File file = FileUtils.getFile(request.getServletContext().getRealPath(File.separator) + imageNotFound);
                     BufferedImage bi = ImageIO.read(file);
                     setContentType(file, response);
@@ -81,12 +81,12 @@ public final class FileDownloadController {
                     ImageIO.write(bi, getFormatForFile(file), out);
                     out.close();
                 } else {
-                    log.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
+                    LOG.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
                     response.setContentType(gridFSDBFile.getContentType());
                     gridFSDBFile.writeTo(response.getOutputStream());
                 }
             } catch (IOException e) {
-                log.error("Image retrieval error occurred for imageId={} rid={} reason={}", imageId, rid, e.getLocalizedMessage(), e);
+                LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}", imageId, rid, e.getLocalizedMessage(), e);
             }
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

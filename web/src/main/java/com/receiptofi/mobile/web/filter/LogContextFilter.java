@@ -27,7 +27,7 @@ import org.springframework.util.CollectionUtils;
  * Date: 6/1/14 3:38 PM
  */
 public class LogContextFilter implements Filter {
-    private static final Logger log = LoggerFactory.getLogger(LogContextFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
 
     private static final Pattern EXTRACT_ENDPOINT_PATTERN = Pattern.compile("\\A((?:/[a-z][a-zA-Z]{2,}+|/v1)+).*\\z");
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
@@ -40,7 +40,7 @@ public class LogContextFilter implements Filter {
         String url = ((HttpServletRequest) req).getRequestURL().toString();
         String query = ((HttpServletRequest) req).getQueryString();
 
-        log.info("Request received:"
+        LOG.info("Request received:"
                 + " Host=\"" + getHeader(headerMap, "host") + "\""
                 + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
                 + " Accept=\"" + getHeader(headerMap, "accept") + "\""
@@ -74,10 +74,10 @@ public class LogContextFilter implements Filter {
     }
 
     public void init(FilterConfig filterConfig) {
-        log.info("initialized");
+        LOG.info("initialized");
     }
 
     public void destroy() {
-        log.info("deleted");
+        LOG.info("deleted");
     }
 }

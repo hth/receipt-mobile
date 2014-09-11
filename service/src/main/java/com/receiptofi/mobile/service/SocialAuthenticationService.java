@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 @Component
 @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
 public class SocialAuthenticationService {
-    private static Logger log = LoggerFactory.getLogger(SocialAuthenticationService.class);
+    private static Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
     @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
@@ -68,7 +68,7 @@ public class SocialAuthenticationService {
      * @return
      */
     public String authenticateWeb(String providerId, String accessToken) {
-        log.info("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
+        LOG.info("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
 
         Header header = getCSRFToken(webApiAccessToken);
         if (header == null) {
@@ -76,7 +76,7 @@ public class SocialAuthenticationService {
         }
 
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + "/receipt" + authCreate);
-        log.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -86,7 +86,7 @@ public class SocialAuthenticationService {
         try {
             response = httpClient.execute(httpPost);
         } catch (IOException e) {
-            log.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
+            LOG.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
         }
 
         if (response == null) {
@@ -94,7 +94,7 @@ public class SocialAuthenticationService {
         }
 
         int status = response.getStatusLine().getStatusCode();
-        log.info("status={}", status);
+        LOG.info("status={}", status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
@@ -103,20 +103,20 @@ public class SocialAuthenticationService {
                     try {
                         return EntityUtils.toString(entity);
                     } catch (IOException e) {
-                        log.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
+                        LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
                     }
                 } else {
                     // Stream too big
-                    log.warn("stream size bigger than 2048");
+                    LOG.warn("stream size bigger than 2048");
                     return ErrorEncounteredJson.toJson("stream size bigger than 2048", MobileSystemErrorCodeEnum.SEVERE);
                 }
             }
         } else {
-            log.error("not a valid status from server");
+            LOG.error("not a valid status from server");
             return ErrorEncounteredJson.toJson("not a valid status from server", MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        log.error("could not find a reason, something is not right");
+        LOG.error("could not find a reason, something is not right");
         return ErrorEncounteredJson.toJson("could not find a reason, something is not right", MobileSystemErrorCodeEnum.SEVERE);
     }
 
@@ -156,10 +156,10 @@ public class SocialAuthenticationService {
             if (status >= 200 && status < 300) {
                 return response.getFirstHeader("X-CSRF-TOKEN");
             }
-            log.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
+            LOG.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
             return null;
         } catch (IOException e) {
-            log.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage());
+            LOG.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage());
         }
         return null;
     }

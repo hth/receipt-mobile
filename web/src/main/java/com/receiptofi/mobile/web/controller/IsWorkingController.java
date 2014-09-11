@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 public final class IsWorkingController {
-    private static final Logger log = LoggerFactory.getLogger(IsWorkingController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IsWorkingController.class);
 
     /**
      * Supports HTML call.
@@ -34,7 +34,7 @@ public final class IsWorkingController {
     )
     @ResponseStatus (HttpStatus.OK)
     public String isWorking() {
-        log.info("isWorking");
+        LOG.info("isWorking");
         return "isWorking";
     }
 
