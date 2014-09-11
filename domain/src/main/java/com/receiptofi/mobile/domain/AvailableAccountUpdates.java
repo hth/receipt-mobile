@@ -21,11 +21,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public final class AvailableAccountUpdates extends AbstractDomain {
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("receipts")
     private List<Receipt> receipts = new LinkedList<>();
 
-    @SuppressWarnings ("unused")
+    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("profile")
     private Profile profile;
 
