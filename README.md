@@ -8,7 +8,7 @@ There two ways to test through command line
 
 ![Mobile Api Architecture](/architecture/Mobile-Architecture.png)
 
-###Check if site is up and running###
+### Check if site is up and running ###
 
 Following call will make sure if site is up and running
 
@@ -26,7 +26,7 @@ HTTP Body
 
 If there is no response then site is not working. This call should return a response very quickly.
 
-##User Authentication##
+## User Authentication ##
 ____________
 
 Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>.<br>
@@ -68,7 +68,7 @@ Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied i
     Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
 
-##Social Authentication and Signup##
+## Social Authentication and Signup ##
 ______________________
 
 API call <code>POST</code> path <code>/receipt-mobile/authenticate.json</code> to signup or login through social
@@ -130,10 +130,10 @@ Successful response when credentials are validated. <code>X-R-AUTH</code> is enc
     }
 
 
-##API Calls##
+## API Calls ##
 ________
 
-###Logout user and login again###
+### Logout user and login again ###
 
 Upon log out, <code>X-R-AUTH</code> should be deleted and <code>X-R-MAIL</code> remains intact. Logout action complete by re-directing user to login page.
 
@@ -143,7 +143,7 @@ Different scenarios when user tries to login again
 
 - If user enters different credentials than existing <code>X-R-MAIL</code>, Mobile App should drop all the tables and recreate as if the user is login for first time. Start with saving new <code>X-R-MAIL</code> and <code><X-R-AUTH</code>
 
-###Check if user has access###
+### Check if user has access###
 
 All API call should have the <code>X-R-MAIL</code> and <code>X-R-AUTH</code> in http header.<br>
 To query use following <code>curl</code> or <code>httpie</code>. (replace XXX with valid User Id and AUTH code)<br>
@@ -196,7 +196,7 @@ This call should always return the same response below.
 
 	{"registered":true}
 
-###Updates available 
+### Updates available 
 
 API below will get all the updates available. Currently it just gets "Receipt" updates, but in future it will get "Profile", "Mileage", "Uploaded Document" updates. When device is not registred, this API will register the device too. It would be better not to use this API for registering the device.
 
@@ -267,7 +267,7 @@ When there are updates avaliable, response will contain receipts list ordered by
   }
 	
 
-###Upload Document
+### Upload Document
 
 API call <code>POST</code> path <code>/receipt-mobile/api/upload.json</code>
 
@@ -364,7 +364,7 @@ API call <code>/receipt-mobile/api/unprocessed.json</code>
       "unprocessedCount": 20
     }
     
-###Download document
+### Download document
 
 API call <code>GET</code> path <code>/receipt-mobile/api/image/53e95c153004693f770e656a.json</code>    
 Replace <code>blobId</code> with <code>53e95c153004693f770e656a</code>
@@ -378,7 +378,7 @@ HTTP Header response
     Transfer-Encoding: chunked
     Date: Tue, 19 Aug 2014 06:22:11 GMT
 
-###Get receipts
+### Get receipts
 
 **To get all receipts** 
 
@@ -390,13 +390,13 @@ API call <code>/receipt-mobile/api/allReceipts.json</code>
 
 API call <code>/receipt-mobile/api/ytdReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/ytdReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://test.receiptofi.com/receipt-mobile/api/ytdReceipts.json
 
 **To get Receipts for this month**
 
 API call <code>/receipt-mobile/api/thisMonthReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/thisMonthReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://test.receiptofi.com/receipt-mobile/api/thisMonthReceipts.json
     
 HTTP Header response
 
@@ -459,3 +459,56 @@ HTTP Body when there is data. Note: Date format is ISO8601 format
 HTTP Body when there is **No** data
 
     []
+
+### Receipt Items
+
+To get details of receipt, invoke API call with <code>receiptId</code>.
+
+API call <code>/receipt-mobile/api/receiptDetail/53e714b303646c5236d45c84.json</code>
+
+	curl -i -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242" http://site/receipt-mobile/api/receiptDetail/53e714b303646c5236d45c84.json
+	
+HTTP body response when there is data
+
+Field explaination
+- <code>quant</code>, Quantity
+- <code>id</code>, record id
+- <code>seq</code>, position of the item in receipt
+
+		[
+		  {
+		    "quant": "1.0",
+		    "id": "53e714b303646c5236d45c85",
+		    "name": "Organic Fuji",
+		    "price": "9.99",
+		    "receiptId": "53e714b303646c5236d45c84",
+		    "seq": "1",
+		    "tax": "0.0"
+		  },
+		  {
+		    "quant": "1.0",
+		    "id": "53e714b303646c5236d45c86",
+		    "name": "Homogen Milk",
+		    "price": "6.59",
+		    "receiptId": "53e714b303646c5236d45c84",
+		    "seq": "2",
+		    "tax": "0.0"
+		  }
+		]
+
+HTTP Header response
+
+Possible header response from the call
+
+	HTTP/1.1 200 OK
+	Server: Apache-Coyote/1.1
+
+When **No** receipt exists or when user provides incorrect receipt id	
+	
+	HTTP/1.1 404 Not Found
+	Server: Apache-Coyote/1.1
+	
+When **Authorization** fails	
+	
+	HTTP/1.1 401 Unauthorized
+	Server: Apache-Coyote/1.1
