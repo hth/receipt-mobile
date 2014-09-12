@@ -26,7 +26,11 @@ import org.springframework.util.StringUtils;
  * User: hitender
  * Date: 5/28/14 12:42 AM
  */
-@SuppressWarnings ({"PMD.LocalVariableCouldBeFinal", "PMD.BeanMembersShouldSerialize"})
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private static final Logger LOG = LoggerFactory.getLogger(OnLoginAuthenticationSuccessHandler.class);
     private final RequestCache requestCache = new HttpSessionRequestCache();

@@ -32,16 +32,16 @@ import com.mongodb.gridfs.GridFSDBFile;
  */
 @Controller
 @RequestMapping (value = "/api")
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 public final class FileDownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired private FileDBService fileDBService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired private AuthenticateService authenticateService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Value ("${imageNotFoundPlaceHolder:/static/images/no_image.gif}")
     private String imageNotFound;
 
