@@ -26,9 +26,8 @@ import org.springframework.util.StringUtils;
  */
 public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RequestCache requestCache = new HttpSessionRequestCache();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     private AuthenticatedToken authenticatedToken;
 
