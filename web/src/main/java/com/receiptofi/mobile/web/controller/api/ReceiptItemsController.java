@@ -83,7 +83,10 @@ public final class ReceiptItemsController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
+        } else {
             List<ReceiptItem> receiptItems = new LinkedList<>();
             try {
                 ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
@@ -101,9 +104,6 @@ public final class ReceiptItemsController {
                 LOG.error("reason={}", e.getLocalizedMessage(), e);
             }
             return receiptItems;
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return null;
         }
     }
 }

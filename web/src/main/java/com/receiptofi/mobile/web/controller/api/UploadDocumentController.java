@@ -70,7 +70,10 @@ public final class UploadDocumentController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
+        } else {
             LOG.info("upload document begins rid={}", rid);
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
@@ -121,7 +124,5 @@ public final class UploadDocumentController {
             }
             return ErrorEncounteredJson.toJson("multipart failure for document upload", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        return null;
     }
 }

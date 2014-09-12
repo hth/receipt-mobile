@@ -58,9 +58,10 @@ public final class UtilityController {
         LOG.debug("mail={}, auth={}", mail, "*********");
         if (authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        return null;
     }
 
     @RequestMapping (
@@ -81,10 +82,11 @@ public final class UtilityController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
+        } else {
             return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        return null;
     }
 }
