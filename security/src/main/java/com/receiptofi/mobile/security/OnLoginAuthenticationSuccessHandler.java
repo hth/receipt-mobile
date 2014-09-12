@@ -26,6 +26,7 @@ import org.springframework.util.StringUtils;
  * User: hitender
  * Date: 5/28/14 12:42 AM
  */
+@SuppressWarnings({"PMD.LocalVariableCouldBeFinal"})
 public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private static final Logger LOG = LoggerFactory.getLogger(OnLoginAuthenticationSuccessHandler.class);
 
@@ -60,7 +61,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         }
 
         final String targetUrlParameter = getTargetUrlParameter();
-        if(isAlwaysUseDefaultTargetUrl() || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
+        if(isAlwaysUseDefaultTargetUrl() || targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter))) {
             requestCache.removeRequest(request, response);
             clearAuthenticationAttributes(request);
             return;
