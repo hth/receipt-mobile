@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * User: hitender
  * Date: 6/27/14 1:03 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Controller
 public final class SocialAuthenticationController {
     private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     @Autowired SocialAuthenticationService socialAuthenticationService;
 
     /**
