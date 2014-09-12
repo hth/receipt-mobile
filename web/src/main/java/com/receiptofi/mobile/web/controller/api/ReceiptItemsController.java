@@ -27,13 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * User: hitender
  * Date: 9/9/14 11:37 PM
  */
-@Controller
-@RequestMapping (value = "/api")
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
         "PMD.MethodArgumentCouldBeFinal"
 })
+@Controller
+@RequestMapping (value = "/api")
 public final class ReceiptItemsController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptItemsController.class);
     private AuthenticateService authenticateService;
