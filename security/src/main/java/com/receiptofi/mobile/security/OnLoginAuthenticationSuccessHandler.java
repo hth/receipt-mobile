@@ -2,6 +2,8 @@ package com.receiptofi.mobile.security;
 
 import com.receiptofi.domain.site.ReceiptUser;
 import com.receiptofi.domain.types.RoleEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +27,12 @@ import org.springframework.util.StringUtils;
  * Date: 5/28/14 12:42 AM
  */
 public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(OnLoginAuthenticationSuccessHandler.class);
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RequestCache requestCache = new HttpSessionRequestCache();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     private AuthenticatedToken authenticatedToken;
-
-    @SuppressWarnings("unused")
-    public OnLoginAuthenticationSuccessHandler() {
-    }
 
     @Autowired
     public OnLoginAuthenticationSuccessHandler(AuthenticatedToken authenticatedToken) {
@@ -49,8 +47,6 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         } else {
             response.addHeader("X-R-MAIL", ((ReceiptUser) authentication.getPrincipal()).getUsername());
             response.addHeader("X-R-AUTH", authenticatedToken.getUserAuthenticationKey(((ReceiptUser) authentication.getPrincipal()).getUsername()));
-            //response.addHeader("X-R-ROLE", authentication.getAuthorities().toString());
-            //response.addCookie(authenticatedToken.createAuthenticatedCookie(((ReceiptUser) authentication.getPrincipal()).getUsername()));
         }
 
         /**
@@ -58,11 +54,11 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
          * To execute: curl -i -X POST -d emailId=some@mail.com -d password=realPassword http://localhost:8080/receipt/j_spring_security_check
          */
         final SavedRequest savedRequest = requestCache.getRequest(request, response);
-
         if(savedRequest == null) {
             clearAuthenticationAttributes(request);
             return;
         }
+
         final String targetUrlParameter = getTargetUrlParameter();
         if(isAlwaysUseDefaultTargetUrl() || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))) {
             requestCache.removeRequest(request, response);
@@ -77,7 +73,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         String targetUrl = determineTargetUrl(authentication);
 
         if(response.isCommitted()) {
-            logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+            LOG.debug("Response has already been committed. Unable to redirect to {}", targetUrl);
             return;
         }
 
