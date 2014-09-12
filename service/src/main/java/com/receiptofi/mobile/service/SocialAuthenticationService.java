@@ -57,7 +57,7 @@ public class SocialAuthenticationService {
     @Value ("${no.response.from.web.server:could not connect to server}")
     private String noResponseFromWebServer;
 
-    private static final HttpClient httpClient = HttpClientBuilder.create().build();
+    private static final HttpClient CLIENT = HttpClientBuilder.create().build();
 
     /**
      * call this on terminal
@@ -84,7 +84,7 @@ public class SocialAuthenticationService {
         populateEntity(providerId, accessToken, httpPost);
         HttpResponse response = null;
         try {
-            response = httpClient.execute(httpPost);
+            response = CLIENT.execute(httpPost);
         } catch (IOException e) {
             LOG.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
         }
@@ -151,7 +151,7 @@ public class SocialAuthenticationService {
 
         HttpResponse response;
         try {
-            response = httpClient.execute(httpGet);
+            response = CLIENT.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
                 return response.getFirstHeader("X-CSRF-TOKEN");
