@@ -34,15 +34,17 @@ import org.springframework.web.util.WebUtils;
  * User: hitender
  * Date: 7/13/14 4:35 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Controller
 @RequestMapping (value = "/api")
 public final class UploadDocumentController {
     private static final Logger LOG = LoggerFactory.getLogger(UploadDocumentController.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private LandingService landingService;
 
     @Autowired
