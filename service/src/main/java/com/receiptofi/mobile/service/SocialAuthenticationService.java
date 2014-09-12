@@ -75,6 +75,7 @@ public class SocialAuthenticationService {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
+        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
         LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
@@ -145,6 +146,7 @@ public class SocialAuthenticationService {
      * @return
      */
     private Header getCSRFToken(String webApiAccessToken) {
+        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
         HttpGet httpGet = new HttpGet(protocol + "://" + host + computePort() + apiMobileGetPath);
         httpGet.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpGet.setHeader("Accepts", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
