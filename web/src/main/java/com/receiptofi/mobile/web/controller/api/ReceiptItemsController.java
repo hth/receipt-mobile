@@ -29,16 +29,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping (value = "/api")
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 public final class ReceiptItemsController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptItemsController.class);
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private ItemService itemService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private ReceiptService receiptService;
 
     @Autowired
@@ -90,9 +89,9 @@ public final class ReceiptItemsController {
             List<ReceiptItem> receiptItems = new LinkedList<>();
             try {
                 ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
-                if(receipt != null && receipt.getId().equals(receiptId)) {
+                if (receipt != null && receipt.getId().equals(receiptId)) {
                     List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
-                    for(ItemEntity item : items) {
+                    for (ItemEntity item : items) {
                         receiptItems.add(ReceiptItem.newInstance(item));
                     }
                     return receiptItems;
