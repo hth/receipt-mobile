@@ -73,7 +73,10 @@ public final class DeviceController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
+        } else {
             try {
                 return deviceService.hasUpdate(rid, deviceId).asJson();
             } catch (Exception e) {
@@ -88,8 +91,6 @@ public final class DeviceController {
                 return ErrorEncounteredJson.toJson(errors);
             }
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        return null;
     }
 
     /**
@@ -123,10 +124,11 @@ public final class DeviceController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, "*********");
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            return null;
+        } else {
             return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did));
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-        return null;
     }
 }

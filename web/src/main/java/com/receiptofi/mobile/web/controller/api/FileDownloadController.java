@@ -71,7 +71,9 @@ public final class FileDownloadController {
             HttpServletResponse response
     ) throws IOException {
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid != null) {
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        } else {
             try {
                 GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
 
@@ -91,8 +93,6 @@ public final class FileDownloadController {
             } catch (IOException e) {
                 LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}", imageId, rid, e.getLocalizedMessage(), e);
             }
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         }
     }
 
