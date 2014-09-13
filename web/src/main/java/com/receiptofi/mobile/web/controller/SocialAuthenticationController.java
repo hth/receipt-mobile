@@ -94,6 +94,8 @@ public final class SocialAuthenticationController {
             response.addHeader("X-R-AUTH", credentialMap.get("X-R-AUTH"));
             response.addHeader("X-R-MAIL", credentialMap.get("X-R-MAIL"));
 
+            //TODO(hth) remove or set as debug
+            LOG.info("credential={}", credential);
             return credential;
         } catch (IOException e) {
             LOG.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
