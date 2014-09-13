@@ -80,9 +80,11 @@ public final class SocialAuthenticationController {
     public
     @ResponseBody
     String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
-        String credential = null;
+        String credential = "{}";
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
+            //TODO(hth) remove this log or set to debug
+            LOG.info("pid={} at={}", map.get("pid"), map.get("at"));
             credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
             if (credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
                 return credential;
