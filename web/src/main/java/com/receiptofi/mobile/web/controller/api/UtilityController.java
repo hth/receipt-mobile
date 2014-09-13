@@ -33,7 +33,7 @@ public final class UtilityController {
     private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
     private AuthenticateService authenticateService;
-    private LandingService landingService
+    private LandingService landingService;
 
     @Autowired
     public UtilityController(AuthenticateService authenticateService, LandingService landingService) {
