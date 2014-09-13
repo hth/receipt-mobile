@@ -15,11 +15,15 @@ import org.springframework.stereotype.Service;
  * User: hitender
  * Date: 6/9/14 11:16 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Service
 public class AuthenticateService {
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticateService.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private final UserAccountManager userAccountManager;
 
     @Autowired

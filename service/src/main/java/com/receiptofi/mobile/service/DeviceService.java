@@ -19,17 +19,17 @@ import org.springframework.stereotype.Service;
  * User: hitender
  * Date: 8/10/14 1:32 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Service
 public final class DeviceService {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceService.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private RegisteredDeviceManager registeredDeviceManager;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private LandingService landingService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private UserProfilePreferenceService userProfilePreferenceService;
 
     @Autowired

@@ -31,8 +31,12 @@ import com.google.gson.Gson;
  * User: hitender
  * Date: 6/27/14 1:00 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Component
-@SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
 public class SocialAuthenticationService {
     private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
