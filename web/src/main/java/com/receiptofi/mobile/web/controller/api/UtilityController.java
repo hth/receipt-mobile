@@ -22,16 +22,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * User: hitender
  * Date: 6/8/14 2:31 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Controller
 @RequestMapping (value = "/api")
 public final class UtilityController {
     private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
     private AuthenticateService authenticateService;
-
-    @SuppressWarnings ({"PMD.BeanMembersShouldSerialize"})
-    private LandingService landingService;
+    private LandingService landingService
 
     @Autowired
     public UtilityController(AuthenticateService authenticateService, LandingService landingService) {
