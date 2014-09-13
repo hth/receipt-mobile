@@ -99,14 +99,20 @@ public class SocialAuthenticationService {
         }
 
         int status = response.getStatusLine().getStatusCode();
+        //TODO(hth) remove or set to debug
         LOG.info("status={}", status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 long len = entity.getContentLength();
+                //TODO(hth) remove or set to debug
+                LOG.info("response length={}", len);
                 if (len != -1 && len < 2048) {
                     try {
-                        return EntityUtils.toString(entity);
+                        String data = EntityUtils.toString(entity);
+                        //TODO(hth) remove or set to debug
+                        LOG.info("data={}", data);
+                        return data;
                     } catch (IOException e) {
                         LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
                     }
