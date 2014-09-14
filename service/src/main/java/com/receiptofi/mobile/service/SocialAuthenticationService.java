@@ -79,9 +79,9 @@ public class SocialAuthenticationService {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
+        LOG.debug("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.debug("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -99,19 +99,16 @@ public class SocialAuthenticationService {
         }
 
         int status = response.getStatusLine().getStatusCode();
-        //TODO(hth) remove or set to debug
-        LOG.info("status={}", status);
+        LOG.debug("status={}", status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 long len = entity.getContentLength();
-                //TODO(hth) remove or set to debug
-                LOG.info("response length={}", len);
+                LOG.debug("response length={}", len);
                 if (len != -1 && len < 2048) {
                     try {
                         String data = EntityUtils.toString(entity);
-                        //TODO(hth) remove or set to debug
-                        LOG.info("data={}", data);
+                        LOG.debug("data={}", data);
                         return data;
                     } catch (IOException e) {
                         LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
