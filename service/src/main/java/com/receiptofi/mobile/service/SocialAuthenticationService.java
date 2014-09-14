@@ -82,7 +82,7 @@ public class SocialAuthenticationService {
         HttpPost httpPost = null;
         try {
             LOG.info("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
-            httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
+            httpPost = new HttpPost("http" + "://" + "localhost:9090" + authCreate);
             LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
             httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
             httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
