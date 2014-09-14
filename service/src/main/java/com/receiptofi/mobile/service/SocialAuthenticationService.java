@@ -153,7 +153,7 @@ public class SocialAuthenticationService {
      * @return
      */
     private Header getCSRFToken(String webApiAccessToken) {
-        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
+        LOG.debug("invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
         HttpGet httpGet = new HttpGet(protocol + "://" + host + computePort() + apiMobileGetPath);
         httpGet.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpGet.setHeader("Accepts", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
