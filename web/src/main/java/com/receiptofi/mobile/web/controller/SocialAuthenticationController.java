@@ -83,8 +83,7 @@ public final class SocialAuthenticationController {
         String credential = "{}";
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
-            //TODO(hth) remove this log or set to debug
-            LOG.info("pid={} at={}", map.get("pid"), map.get("at"));
+            LOG.debug("pid={} at={}", map.get("pid"), map.get("at"));
             credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
             if (credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
                 return credential;
@@ -94,8 +93,7 @@ public final class SocialAuthenticationController {
             response.addHeader("X-R-AUTH", credentialMap.get("X-R-AUTH"));
             response.addHeader("X-R-MAIL", credentialMap.get("X-R-MAIL"));
 
-            //TODO(hth) remove or set as debug
-            LOG.info("credential={}", credential);
+            LOG.debug("credential={}", credential);
             return credential;
         } catch (IOException e) {
             LOG.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
