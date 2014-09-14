@@ -177,6 +177,9 @@ public class SocialAuthenticationService {
     }
 
     private String computePort() {
+        if(securePort.equals("443") && protocol.equals("https")) {
+            return "";
+        }
         return StringUtils.isEmpty(securePort) ? "" : (":" + securePort);
     }
 }
