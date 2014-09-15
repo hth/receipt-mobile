@@ -46,13 +46,13 @@ public class SocialAuthenticationService {
     @Value ("${web.access.api.token}")
     private String webApiAccessToken;
 
-    @Value ("${secure.port}")
+    @Value ("${secure.port:9090}")
     private String securePort;
 
-    @Value ("${https}")
+    @Value ("${https:http}")
     private String protocol;
 
-    @Value ("${host}")
+    @Value ("${host:localhost}")
     private String host;
 
     @Value ("${auth.create:/webapi/mobile/auth-create.htm}")
