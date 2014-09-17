@@ -48,7 +48,7 @@
     <logger name="org.apache.activemq" level="OFF"/>
     <logger name="org.springframework.jms.listener" level="OFF"/>
 
-    <root level="all">
+    <root level="DEBUG">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
