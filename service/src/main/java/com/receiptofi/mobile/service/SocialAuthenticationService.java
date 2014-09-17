@@ -79,9 +79,9 @@ public class SocialAuthenticationService {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        LOG.debug("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
+        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.debug("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
