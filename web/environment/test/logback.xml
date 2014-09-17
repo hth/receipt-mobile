@@ -6,7 +6,7 @@
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>info</level>
+            <level>INFO</level>
         </filter>
 
         <file>${log_home}/${log_name}.${log_ext}</file>
@@ -38,9 +38,9 @@
         </encoder>
     </appender>
 
-    <logger name="com.receiptofi" level="debug" />
-    <logger name="com.receiptofi.mobile.web.controller.SocialAuthenticationController" level="INFO" />
-    <logger name="com.receiptofi.mobile.service.SocialAuthenticationService" level="INFO" />
+    <logger name="com.receiptofi" level="DEBUG" />
+    <logger name="com.receiptofi.mobile.web.controller.SocialAuthenticationController" level="DEBUG" />
+    <logger name="com.receiptofi.mobile.service.SocialAuthenticationService" level="DEBUG" />
     <logger name="com.receiptofi.mobile.web.filter.LogContextFilter" level="ON" />
     <logger name="org.springframework" level="OFF" />
 
@@ -48,7 +48,7 @@
     <logger name="org.apache.activemq" level="OFF"/>
     <logger name="org.springframework.jms.listener" level="OFF"/>
 
-    <root level="DEBUG">
+    <root level="ALL">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
