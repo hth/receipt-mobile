@@ -470,7 +470,7 @@ API call <code>/receipt-mobile/api/receiptDetail/53e714b303646c5236d45c84.json</
 	
 HTTP body response when there is data
 
-Field explaination
+Field explanation
 - <code>quant</code>, Quantity
 - <code>id</code>, record id
 - <code>seq</code>, position of the item in receipt
