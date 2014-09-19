@@ -72,7 +72,7 @@ public class SocialAuthenticationService {
      * @return
      */
     public String authenticateWeb(String providerId, String accessToken) {
-        LOG.info("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
+        LOG.debug("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -80,19 +80,19 @@ public class SocialAuthenticationService {
         }
 
         Header header = getCSRFToken(webApiAccessToken);
-        LOG.info("CSRF received from Web header={}", header);
+        LOG.info("2 CSRF received from Web header={}", header);
         if (header == null) {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        LOG.info("calling URL={}", protocol + "://" + host + computePort() + authCreate);
+        LOG.info("3 calling URL={}", protocol + "://" + host + computePort() + authCreate);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
             LOG.error(e.getLocalizedMessage());
         }
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.info("complete call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("4 complete call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -164,7 +164,7 @@ public class SocialAuthenticationService {
      * @return
      */
     private Header getCSRFToken(String webApiAccessToken) {
-        LOG.info("CSRF for mobile by invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
+        LOG.info("1 CSRF for mobile by invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
         HttpGet httpGet = new HttpGet(protocol + "://" + host + computePort() + apiMobileGetPath);
         httpGet.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpGet.setHeader("Accepts", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
