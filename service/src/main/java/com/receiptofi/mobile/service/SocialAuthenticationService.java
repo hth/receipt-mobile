@@ -73,6 +73,11 @@ public class SocialAuthenticationService {
      */
     public String authenticateWeb(String providerId, String accessToken) {
         LOG.info("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            LOG.error(e.getLocalizedMessage());
+        }
 
         Header header = getCSRFToken(webApiAccessToken);
         LOG.info("CSRF received from Web header={}", header);
@@ -80,9 +85,14 @@ public class SocialAuthenticationService {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        LOG.info("invoking URL={}", protocol + "://" + host + computePort() + authCreate);
+        LOG.info("calling URL={}", protocol + "://" + host + computePort() + authCreate);
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            LOG.error(e.getLocalizedMessage());
+        }
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.info("URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("complete call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
