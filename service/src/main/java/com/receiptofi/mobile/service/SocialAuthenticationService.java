@@ -73,11 +73,6 @@ public class SocialAuthenticationService {
      */
     public String authenticateWeb(String providerId, String accessToken) {
         LOG.debug("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            LOG.error(e.getLocalizedMessage());
-        }
 
         Header header = getCSRFToken(webApiAccessToken);
         LOG.info("2 CSRF received from Web header={}", header);
@@ -86,11 +81,6 @@ public class SocialAuthenticationService {
         }
 
         LOG.info("3 calling URL={}", protocol + "://" + host + computePort() + authCreate);
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            LOG.error(e.getLocalizedMessage());
-        }
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
         LOG.info("4 complete call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
