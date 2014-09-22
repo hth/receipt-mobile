@@ -76,14 +76,14 @@ public class SocialAuthenticationService {
         httpClient = HttpClientBuilder.create().build();
 
         Header header = getCSRFToken(webApiAccessToken);
-        LOG.info("2 CSRF received from Web header={}", header);
+        LOG.debug("CSRF received from Web header={}", header);
         if (header == null) {
             return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
         }
 
-        LOG.info("3 calling URL={}", protocol + "://" + host + computePort() + authCreate);
+        LOG.info("calling external URL={}", protocol + "://" + host + computePort() + authCreate);
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.info("4 complete call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("complete external call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -101,7 +101,7 @@ public class SocialAuthenticationService {
         }
 
         int status = response.getStatusLine().getStatusCode();
-        LOG.debug("status={}", status);
+        LOG.info("status={}", status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
@@ -148,6 +148,7 @@ public class SocialAuthenticationService {
 
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
+     *
      * Test via terminal
      * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
@@ -155,7 +156,7 @@ public class SocialAuthenticationService {
      * @return
      */
     private Header getCSRFToken(String webApiAccessToken) {
-        LOG.info("1 CSRF for mobile by invoking URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
+        LOG.info("CSRF for mobile external call URL={}", protocol + "://" + host + computePort() + apiMobileGetPath);
         HttpGet httpGet = new HttpGet(protocol + "://" + host + computePort() + apiMobileGetPath);
         httpGet.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpGet.setHeader("Accepts", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
@@ -170,7 +171,7 @@ public class SocialAuthenticationService {
             LOG.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
             return null;
         } catch (IOException e) {
-            LOG.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage());
+            LOG.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage(), e);
         }
         return null;
     }
