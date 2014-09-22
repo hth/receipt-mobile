@@ -35,7 +35,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
     private static final Logger LOG = LoggerFactory.getLogger(OnLoginAuthenticationSuccessHandler.class);
     private final RequestCache requestCache = new HttpSessionRequestCache();
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-    private final AuthenticatedToken authenticatedToken;
+    private AuthenticatedToken authenticatedToken;
 
     @SuppressWarnings("unused")
     public OnLoginAuthenticationSuccessHandler() {
