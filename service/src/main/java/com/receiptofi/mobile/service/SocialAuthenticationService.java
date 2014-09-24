@@ -101,7 +101,7 @@ public class SocialAuthenticationService {
         }
 
         int status = response.getStatusLine().getStatusCode();
-        LOG.info("status={}", status);
+        LOG.debug("status={}", status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
