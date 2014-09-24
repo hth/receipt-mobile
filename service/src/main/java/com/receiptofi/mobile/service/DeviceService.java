@@ -8,11 +8,11 @@ import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
