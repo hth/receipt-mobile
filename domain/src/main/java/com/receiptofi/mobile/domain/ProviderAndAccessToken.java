@@ -1,9 +1,9 @@
 package com.receiptofi.mobile.domain;
 
-import com.google.gson.annotations.SerializedName;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * User: hitender

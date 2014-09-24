@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.service;
 
-import java.util.List;
-
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
@@ -9,11 +7,14 @@ import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * User: hitender

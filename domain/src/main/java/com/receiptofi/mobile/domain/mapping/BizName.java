@@ -1,11 +1,11 @@
 package com.receiptofi.mobile.domain.mapping;
 
-import com.receiptofi.domain.BizNameEntity;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.receiptofi.domain.BizNameEntity;
 
 /**
  * User: hitender
