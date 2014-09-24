@@ -1,11 +1,11 @@
 package com.receiptofi.mobile.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Used to GET or POST data from/to another application

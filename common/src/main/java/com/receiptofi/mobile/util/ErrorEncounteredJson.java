@@ -1,10 +1,10 @@
 package com.receiptofi.mobile.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Helps create JSON error messages
