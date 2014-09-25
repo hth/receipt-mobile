@@ -86,6 +86,7 @@ public final class UploadDocumentController {
                 final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
 
                 if (files.isEmpty()) {
+                    LOG.error("qqfile name missing in request or no file uploaded");
                     return ErrorEncounteredJson.toJson("qqfile name missing in request or no file uploaded", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
                 }
 
@@ -103,7 +104,7 @@ public final class UploadDocumentController {
                     uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
                     landingService.uploadDocument(uploadDocumentImage);
                     upload = true;
-                    LOG.info("upload document ends rid={}", rid);
+                    LOG.info("upload document successfully complete for rid={}", rid);
                     return DocumentUpload.newInstance(
                             multipartFile.getOriginalFilename(),
                             uploadDocumentImage.getBlobId(),
