@@ -90,41 +90,38 @@ public final class UploadDocumentController {
                 }
 
                 boolean upload = false;
-                if (files.isEmpty()) {
-                    MultipartFile multipartFile = files.iterator().next();
-                    try {
-                        if (multipartFile.getSize() <= 0) {
-                            LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
-                            throw new Exception("upload document is empty");
-                        }
-
-                        UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
-                        uploadDocumentImage.setFileData(multipartFile);
-                        uploadDocumentImage.setRid(rid);
-                        uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
-                        landingService.uploadDocument(uploadDocumentImage);
-                        upload = true;
-                        LOG.info("upload document ends rid={}", rid);
-                        return DocumentUpload.newInstance(
-                                multipartFile.getOriginalFilename(),
-                                uploadDocumentImage.getBlobId(),
-                                landingService.pendingReceipt(rid)
-                        ).asJson();
-                    } catch (Exception exce) {
-                        LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
-
-                        Map<String, String> errors = new HashMap<>();
-                        errors.put("reason", "failed document upload");
-                        errors.put("document", multipartFile.getOriginalFilename());
-                        errors.put("systemError", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.name());
-                        errors.put("systemErrorCode", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.getCode());
-
-                        return ErrorEncounteredJson.toJson(errors);
-                    } finally {
-                        LOG.info("upload document processed {} rid={}", upload, rid);
+                MultipartFile multipartFile = files.iterator().next();
+                try {
+                    if (multipartFile.getSize() <= 0) {
+                        LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
+                        throw new Exception("upload document is empty");
                     }
-                }
 
+                    UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
+                    uploadDocumentImage.setFileData(multipartFile);
+                    uploadDocumentImage.setRid(rid);
+                    uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
+                    landingService.uploadDocument(uploadDocumentImage);
+                    upload = true;
+                    LOG.info("upload document ends rid={}", rid);
+                    return DocumentUpload.newInstance(
+                            multipartFile.getOriginalFilename(),
+                            uploadDocumentImage.getBlobId(),
+                            landingService.pendingReceipt(rid)
+                    ).asJson();
+                } catch (Exception exce) {
+                    LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put("reason", "failed document upload");
+                    errors.put("document", multipartFile.getOriginalFilename());
+                    errors.put("systemError", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.name());
+                    errors.put("systemErrorCode", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                } finally {
+                    LOG.info("upload document processed with success={} rid={}", upload, rid);
+                }
             }
             return ErrorEncounteredJson.toJson("multipart failure for document upload", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
         }

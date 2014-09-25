@@ -123,7 +123,7 @@ public class SocialAuthenticationService {
                 }
             }
         } else {
-            LOG.error("not a valid status from server");
+            LOG.error("server responded with response code={}", status);
             return ErrorEncounteredJson.toJson("not a valid status from server", MobileSystemErrorCodeEnum.SEVERE);
         }
 
