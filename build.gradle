@@ -20,7 +20,7 @@ ext {
     unzipLibDir = file("$unzipDir$lib")
 
     springGroup = 'org.springframework'
-    springVersion = '3.2.11.RELEASE'
+    springVersion = '4.0.7.RELEASE'
 
     springSecurityGroup = 'org.springframework.security'
     springSecurityVersion = '3.2.5.RELEASE'
@@ -180,9 +180,9 @@ subprojects {
         compile 'commons-codec:commons-codec:1.9'
         compile 'commons-logging:commons-logging:1.1.3'
         compile 'com.googlecode.libphonenumber:libphonenumber:6.0'
-        compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
-        compile 'com.fasterxml.jackson.core:jackson-core:2.4.0'
-        compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+        compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
+        compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
+        compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
         compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
         compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
@@ -290,7 +290,7 @@ project(':web') {
 
 
 task wrapper(type: Wrapper){
-    gradleVersion = '2.0'
+    gradleVersion = '2.1'
 }
 
 task copyJars(type: Copy) {
@@ -368,7 +368,7 @@ task war(type: War, dependsOn: prepWar) {
             baseName = "receipt-mobile-$env." + System.getenv().BUILD_NUMBER?.toInteger()
         }
 
-        if(env == 'dev') {
+        if (env == 'dev') {
             ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
                 entry(key: "build.version", value: 'dev')
             }
