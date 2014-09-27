@@ -368,7 +368,7 @@ task war(type: War, dependsOn: prepWar) {
             baseName = "receipt-mobile-$env." + System.getenv().BUILD_NUMBER?.toInteger()
         }
 
-        if(env == 'dev') {
+        if (env == 'dev') {
             ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
                 entry(key: "build.version", value: 'dev')
             }
