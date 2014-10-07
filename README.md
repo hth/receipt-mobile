@@ -12,7 +12,7 @@ There two ways to test through command line
 
 Following call will make sure if site is up and running
 
-    curl -ik -X GET https://67.148.60.37:9443/receipt-mobile/healthCheck.json
+    curl -ik -X GET https://test.receiptofi.com/receipt-mobile/healthCheck.json
 
 HTTP Response success
 
@@ -42,7 +42,7 @@ Curl command options used
 
 QA Secure login for getting <code>X-R-AUTH</code> code from user's account
 
-    curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://67.148.60.37:9443/receipt-mobile/j_spring_security_check
+    curl -ik -X POST -d mail=test@receiptofi.com -d password=test https://test.receiptofi.com/receipt-mobile/j_spring_security_check
 
 HTTP Response Header
 
@@ -73,11 +73,11 @@ ______________________
 
 API call <code>POST</code> path <code>/receipt-mobile/authenticate.json</code> to signup or login through social
 
-	http https://67.148.60.37:9443/receipt-mobile/authenticate.json < ~/Downloads/pid.json
+	http https://test.receiptofi.com/receipt-mobile/authenticate.json < ~/Downloads/pid.json
 
 Curl command gives connection refusal, prefer to use above <code>http</code> command
 
-	curl -ik -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' https://67.148.60.37:9443/receipt-mobile/authenticate.json
+	curl -ik -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' https://test.receiptofi.com/receipt-mobile/authenticate.json
 
 	curl -i  -X POST -H "Content-Type: application/json" -d '{"pid": "GOOGLE","at": "ya29"}' http://localhost:9090/receipt-mobile/authenticate.json
 
@@ -152,7 +152,7 @@ Check if user has access using <code>X-R-AUTH</code> code
 
     curl -i -X GET -H "X-R-MAIL: XXX" -H "X-R-AUTH: XXX" http://localhost:9090/receipt-mobile/api/hasAccess.json
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/hasAccess.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://test.receiptofi.com/receipt-mobile/api/hasAccess.json
 
     http GET http://localhost:9090/receipt-mobile/api/hasAccess.json X-R-MAIL:test@receiptofi.com X-R-AUTH:%242a%241
     
@@ -275,7 +275,7 @@ Note: Max file upload size - 10 MB
 
     curl -i  -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Absolute/Location/File.jpg" http://localhost:9090/receipt-mobile/api/upload.json
 
-    curl -ik -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Absolute/Location/File.jpg" https://67.148.60.37:9443/receipt-mobile/api/upload.json
+    curl -ik -X POST -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" -F "qqfile=@/Absolute/Location/File.jpg" https://test.receiptofi.com/receipt-mobile/api/upload.json
 
 **Success**
 
@@ -384,7 +384,7 @@ HTTP Header response
 
 API call <code>/receipt-mobile/api/allReceipts.json</code>
 
-    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://67.148.60.37:9443/receipt-mobile/api/allReceipts.json
+    curl -ik -X GET -H "X-R-MAIL: test@receiptofi.com" -H "X-R-AUTH: %242a%241" https://test.receiptofi.com/receipt-mobile/api/allReceipts.json
     
 **To get Receipts from start of the year** 
 
