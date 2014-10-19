@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.service;
 
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,6 +34,8 @@ import java.util.List;
  * <!-- Configure bean to convert JSON to POJO and vice versa -->
  * <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
  *
+ * In Spring 4.0.x ‘MappingJacksonHttpMessageConverter’ is deprecated. You should use ‘MappingJackson2HttpMessageConverter’ instead
+ *
  * User: hitender
  * Date: 6/12/14 11:53 PM
  */
@@ -41,7 +44,7 @@ public class RestServiceToAnotherApplication {
 
     //Create a list for the message converters
     private final List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>() {{
-        add(new MappingJacksonHttpMessageConverter());
+        add(new MappingJackson2HttpMessageConverter());
     }};
 
     //Create a Rest template
