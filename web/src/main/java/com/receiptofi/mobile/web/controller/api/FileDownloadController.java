@@ -83,13 +83,17 @@ public final class FileDownloadController {
                     LOG.warn("GridFSDBFile failed to find image={}", imageId);
                     File file = FileUtils.getFile(request.getServletContext().getRealPath(File.separator) + imageNotFound);
                     BufferedImage bi = ImageIO.read(file);
-                    setContentType(file, response);
+                    setContentType(file.getName(), response);
+                    response.setHeader("Content-Length", String.valueOf(file.length()));
+                    response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
                     OutputStream out = response.getOutputStream();
-                    ImageIO.write(bi, getFormatForFile(file), out);
+                    ImageIO.write(bi, getFormatForImageIO(file.getName()), out);
                     out.close();
                 } else {
                     LOG.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
-                    response.setContentType(gridFSDBFile.getContentType());
+                    setContentType(gridFSDBFile.getFilename(), response);
+                    response.setHeader("Content-Length", String.valueOf(gridFSDBFile.getLength()));
+                    response.setHeader("Content-Disposition", "inline; filename=" + imageId + "." + FilenameUtils.getExtension(gridFSDBFile.getFilename()));
                     gridFSDBFile.writeTo(response.getOutputStream());
                 }
             } catch (IOException e) {
@@ -98,27 +102,25 @@ public final class FileDownloadController {
         }
     }
 
-    private void setContentType(File file, HttpServletResponse response) {
-        String extension = FilenameUtils.getExtension(file.getName());
+    private void setContentType(String filename, HttpServletResponse response) {
+        String extension = FilenameUtils.getExtension(filename);
         if (extension.endsWith("jpg") || extension.endsWith("jpeg")) {
             response.setContentType("image/jpeg");
-            return;
-        }
-        if (extension.endsWith("gif")) {
+        } else if (extension.endsWith("gif")) {
             response.setContentType("image/gif");
-            return;
+        } else {
+            response.setContentType("image/png");
         }
-        response.setContentType("image/png");
     }
 
-    private String getFormatForFile(File file) {
-        String extension = FilenameUtils.getExtension(file.getName());
+    private String getFormatForImageIO(String filename) {
+        String extension = FilenameUtils.getExtension(filename);
         if (extension.endsWith("jpg") || extension.endsWith("jpeg")) {
             return "jpg";
-        }
-        if (extension.endsWith("gif")) {
+        } else if (extension.endsWith("gif")) {
             return "gif";
+        } else {
+            return "png";
         }
-        return "png";
     }
 }
