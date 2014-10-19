@@ -115,12 +115,9 @@ public final class FileDownloadController {
 
     private String getFormatForImageIO(String filename) {
         String extension = FilenameUtils.getExtension(filename);
-        if (extension.endsWith("jpg") || extension.endsWith("jpeg")) {
+        if (extension.endsWith("jpeg")) {
             return "jpg";
-        } else if (extension.endsWith("gif")) {
-            return "gif";
-        } else {
-            return "png";
         }
+        return extension;
     }
 }
