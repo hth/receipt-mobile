@@ -1,5 +1,5 @@
 if (!hasProperty('env')) {
-    env = System.env['GRADLE_ENV']
+    ext.env = System.env['GRADLE_ENV']
 }
 
 ext {
