@@ -98,7 +98,8 @@ public final class SocialAuthenticationController {
             LOG.info("credential={}", credential);
             return credential;
         } catch (IOException e) {
-            LOG.error("could not parse authenticationJson={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
+            LOG.error("could not parse authenticationJson={} reason={}",
+                    authenticationJson, e.getLocalizedMessage(), e);
             return credential;
         }
     }

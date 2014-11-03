@@ -60,7 +60,8 @@ public final class DeviceService {
                 availableAccountUpdates.setReceipts(receipts);
             }
 
-            UserProfileEntity userProfileEntity = userProfilePreferenceService.getProfileUpdateSince(rid, registeredDevice.getUpdated());
+            UserProfileEntity userProfileEntity =
+                    userProfilePreferenceService.getProfileUpdateSince(rid, registeredDevice.getUpdated());
             if (userProfileEntity != null) {
                 availableAccountUpdates.setProfile(userProfileEntity);
             }
