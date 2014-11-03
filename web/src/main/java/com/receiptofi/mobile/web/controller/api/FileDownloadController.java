@@ -49,7 +49,7 @@ public final class FileDownloadController {
 
     /**
      * Serve images. There is no authentication here other than loading an image for a valid user.
-     * TODO Should image belonging to specific user be allowed to load? Or no Auth required
+     * TODO(hth) Should image belonging to specific user be allowed to load? Or no Auth required
      *
      * @param mail
      * @param auth
