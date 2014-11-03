@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.service;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
@@ -25,8 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 /**
  * User: hitender
@@ -149,7 +149,6 @@ public class SocialAuthenticationService {
 
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
-     *
      * Test via terminal
      * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
@@ -178,7 +177,7 @@ public class SocialAuthenticationService {
     }
 
     private String computePort() {
-        if(securePort.equals("443") && protocol.equals("https")) {
+        if (securePort.equals("443") && protocol.equals("https")) {
             return "";
         }
         return StringUtils.isEmpty(securePort) ? "" : (":" + securePort);
