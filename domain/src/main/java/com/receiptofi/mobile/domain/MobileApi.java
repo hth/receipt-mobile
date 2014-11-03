@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Response shown when mobile application is working.
  * User: hitender
  * Date: 6/9/14 12:37 PM
  */
