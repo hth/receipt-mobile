@@ -62,7 +62,7 @@ public class LogContextFilter implements Filter {
     }
 
     private String getHeader(Map<String, String> headers, String header) {
-        return (CollectionUtils.isEmpty(headers) && !headers.containsKey(header)) ? "" : headers.get(header);
+        return CollectionUtils.isEmpty(headers) && !headers.containsKey(header) ? "" : headers.get(header);
     }
 
     private String extractEndpoint(String uri) {

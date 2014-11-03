@@ -5,7 +5,6 @@ import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
