@@ -49,9 +49,8 @@ public final class IsWorkingController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public
     @ResponseBody
-    MobileApi healthCheck() {
+    public MobileApi healthCheck() {
         //TODO(hth) should perform some kind of health check like connecting to mongo
         return MobileApi.newInstance(true);
     }

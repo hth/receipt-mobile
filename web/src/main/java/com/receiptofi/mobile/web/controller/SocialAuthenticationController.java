@@ -79,9 +79,8 @@ public final class SocialAuthenticationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public
     @ResponseBody
-    String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
+    public String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
         String credential = "{}";
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
