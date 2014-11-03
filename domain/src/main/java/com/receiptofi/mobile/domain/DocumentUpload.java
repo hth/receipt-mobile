@@ -32,7 +32,11 @@ public final class DocumentUpload extends AbstractDomain {
         this.unprocessedDocuments = UnprocessedDocuments.newInstance(numberOfUnprocessedFiles);
     }
 
-    public static DocumentUpload newInstance(String uploadedDocumentName, String blobId, long numberOfUnprocessedFiles) {
+    public static DocumentUpload newInstance(
+            String uploadedDocumentName,
+            String blobId,
+            long numberOfUnprocessedFiles
+    ) {
         return new DocumentUpload(uploadedDocumentName, blobId, numberOfUnprocessedFiles);
     }
 }

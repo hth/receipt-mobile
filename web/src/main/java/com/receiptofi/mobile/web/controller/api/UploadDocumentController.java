@@ -32,6 +32,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.*;
+
 /**
  * User: hitender
  * Date: 7/13/14 4:35 PM
@@ -82,12 +84,15 @@ public final class UploadDocumentController {
 
             boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
             if (isMultipart) {
-                MultipartHttpServletRequest multipartHttpRequest = WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
+                MultipartHttpServletRequest multipartHttpRequest =
+                        WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
+
                 final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
 
                 if (files.isEmpty()) {
                     LOG.error("qqfile name missing in request or no file uploaded");
-                    return ErrorEncounteredJson.toJson("qqfile name missing in request or no file uploaded", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
+                    return ErrorEncounteredJson.toJson(
+                            "qqfile name missing in request or no file uploaded", DOCUMENT_UPLOAD);
                 }
 
                 boolean upload = false;
@@ -116,15 +121,15 @@ public final class UploadDocumentController {
                     Map<String, String> errors = new HashMap<>();
                     errors.put("reason", "failed document upload");
                     errors.put("document", multipartFile.getOriginalFilename());
-                    errors.put("systemError", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.name());
-                    errors.put("systemErrorCode", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD.getCode());
+                    errors.put("systemError", DOCUMENT_UPLOAD.name());
+                    errors.put("systemErrorCode", DOCUMENT_UPLOAD.getCode());
 
                     return ErrorEncounteredJson.toJson(errors);
                 } finally {
                     LOG.info("upload document processed with success={} rid={}", upload, rid);
                 }
             }
-            return ErrorEncounteredJson.toJson("multipart failure for document upload", MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD);
+            return ErrorEncounteredJson.toJson("multipart failure for document upload", DOCUMENT_UPLOAD);
         }
     }
 }

@@ -84,7 +84,8 @@ public final class DeviceController {
             try {
                 return deviceService.hasUpdate(rid, deviceId).asJson();
             } catch (Exception e) {
-                LOG.error("fetching update for device failed deviceId={} reason={}", deviceId, e.getLocalizedMessage(), e);
+                LOG.error("fetching update for device failed deviceId={} reason={}",
+                        deviceId, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put("reason", "something went wrong");

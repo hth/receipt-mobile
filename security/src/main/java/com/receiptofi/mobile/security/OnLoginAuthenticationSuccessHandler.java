@@ -49,18 +49,27 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
     }
 
     @Override
-    public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws ServletException, IOException {
+    public void onAuthenticationSuccess(
+            final HttpServletRequest request,
+            final HttpServletResponse response,
+            final Authentication authentication
+    ) throws ServletException, IOException {
         if (request.getHeader("cookie") != null) {
             handle(request, response, authentication);
             clearAuthenticationAttributes(request);
         } else {
-            response.addHeader("X-R-MAIL", ((ReceiptUser) authentication.getPrincipal()).getUsername());
-            response.addHeader("X-R-AUTH", authenticatedToken.getUserAuthenticationKey(((ReceiptUser) authentication.getPrincipal()).getUsername()));
+            String username = ((ReceiptUser) authentication.getPrincipal()).getUsername();
+            response.addHeader("X-R-MAIL", username);
+            response.addHeader("X-R-AUTH", authenticatedToken.getUserAuthenticationKey(username));
         }
 
         /**
          * Refer: http://www.baeldung.com/2011/10/31/securing-a-restful-web-service-with-spring-security-3-1-part-3/
-         * To execute: curl -i -X POST -d emailId=some@mail.com -d password=realPassword http://localhost:8080/receipt/j_spring_security_check
+         * To execute:
+         * curl -i -X POST
+         * -d emailId=some@mail.com
+         * -d password=realPassword
+         * http://localhost:8080/receipt/j_spring_security_check
          */
         final SavedRequest savedRequest = requestCache.getRequest(request, response);
         if (savedRequest == null) {
@@ -69,7 +78,8 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         }
 
         final String targetUrlParameter = getTargetUrlParameter();
-        if (isAlwaysUseDefaultTargetUrl() || targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter))) {
+        if (isAlwaysUseDefaultTargetUrl() || targetUrlParameter != null &&
+                StringUtils.hasText(request.getParameter(targetUrlParameter))) {
             requestCache.removeRequest(request, response);
             clearAuthenticationAttributes(request);
             return;
@@ -78,7 +88,11 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    protected void handle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Authentication authentication
+    ) throws IOException {
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {

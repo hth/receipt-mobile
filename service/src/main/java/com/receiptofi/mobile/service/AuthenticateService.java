@@ -42,7 +42,8 @@ public class AuthenticateService {
             if (userAccountEntity == null) {
                 return null;
             } else {
-                return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(URLDecoder.decode(auth, "UTF-8")) ? userAccountEntity : null;
+                return userAccountEntity.getUserAuthentication().getAuthenticationKey().equals(
+                        URLDecoder.decode(auth, "UTF-8")) ? userAccountEntity : null;
             }
         } catch (UnsupportedEncodingException e) {
             LOG.error("Auth decoding issue for user={}, reason={}", mail, e.getLocalizedMessage(), e);

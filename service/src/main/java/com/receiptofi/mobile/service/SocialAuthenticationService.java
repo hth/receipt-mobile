@@ -2,6 +2,8 @@ package com.receiptofi.mobile.service;
 
 import java.io.IOException;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.*;
+
 import com.google.gson.Gson;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
@@ -79,12 +81,13 @@ public class SocialAuthenticationService {
         Header header = getCSRFToken(webApiAccessToken);
         LOG.debug("CSRF received from Web header={}", header);
         if (header == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SEVERE);
         }
 
         LOG.info("calling external URL={}", protocol + "://" + host + computePort() + authCreate);
         HttpPost httpPost = new HttpPost(protocol + "://" + host + computePort() + authCreate);
-        LOG.info("complete external call for URI={} webApiAccessToken={}", httpPost.getURI().toString(), webApiAccessToken);
+        LOG.info("complete external call for URI={} webApiAccessToken={}",
+                httpPost.getURI().toString(), webApiAccessToken);
         httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
@@ -94,11 +97,12 @@ public class SocialAuthenticationService {
         try {
             response = httpClient.execute(httpPost);
         } catch (IOException e) {
-            LOG.error("error occurred while executing request path={} reason={}", httpPost.getURI(), e.getLocalizedMessage(), e);
+            LOG.error("error occurred while executing request path={} reason={}",
+                    httpPost.getURI(), e.getLocalizedMessage(), e);
         }
 
         if (response == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, MobileSystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SEVERE);
         }
 
         int status = response.getStatusLine().getStatusCode();
@@ -119,16 +123,16 @@ public class SocialAuthenticationService {
                 } else {
                     // Stream too big
                     LOG.warn("stream size bigger than 2048");
-                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", MobileSystemErrorCodeEnum.SEVERE);
+                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", SEVERE);
                 }
             }
         } else {
             LOG.error("server responded with response code={}", status);
-            return ErrorEncounteredJson.toJson("not a valid status from server", MobileSystemErrorCodeEnum.SEVERE);
+            return ErrorEncounteredJson.toJson("not a valid status from server", SEVERE);
         }
 
         LOG.error("could not find a reason, something is not right");
-        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", MobileSystemErrorCodeEnum.SEVERE);
+        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", SEVERE);
     }
 
     /**
@@ -150,7 +154,10 @@ public class SocialAuthenticationService {
     /**
      * Used in populating request and setting CSRF. Without this you get forbidden exception.
      * Test via terminal
-     * http --verbose localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json X-R-API-MOBILE:1234567890 X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
+     * http --verbose
+     * localhost:8080/receipt/api/mobile/auth-create.htm Accept:application/json
+     * X-R-API-MOBILE:1234567890
+     * X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
      * @param webApiAccessToken
      * @return

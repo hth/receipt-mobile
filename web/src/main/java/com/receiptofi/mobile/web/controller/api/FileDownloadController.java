@@ -54,8 +54,8 @@ public final class FileDownloadController {
      * @param mail
      * @param auth
      * @param imageId
-     * @param request
-     * @param response
+     * @param req
+     * @param res
      */
     @RequestMapping (method = RequestMethod.GET, value = "/image/{imageId}")
     public void getDocumentImage(
@@ -68,36 +68,40 @@ public final class FileDownloadController {
             @PathVariable
             String imageId,
 
-            HttpServletRequest request,
+            HttpServletRequest req,
 
-            HttpServletResponse response
+            HttpServletResponse res
     ) throws IOException {
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         } else {
             try {
                 GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
 
                 if (gridFSDBFile == null) {
                     LOG.warn("GridFSDBFile failed to find image={}", imageId);
-                    File file = FileUtils.getFile(request.getServletContext().getRealPath(File.separator) + imageNotFound);
+                    File file = FileUtils.getFile(req.getServletContext().getRealPath(File.separator) + imageNotFound);
                     BufferedImage bi = ImageIO.read(file);
-                    setContentType(file.getName(), response);
-                    response.setHeader("Content-Length", String.valueOf(file.length()));
-                    response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
-                    OutputStream out = response.getOutputStream();
+                    setContentType(file.getName(), res);
+                    res.setHeader("Content-Length", String.valueOf(file.length()));
+                    res.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+                    OutputStream out = res.getOutputStream();
                     ImageIO.write(bi, getFormatForImageIO(file.getName()), out);
                     out.close();
                 } else {
                     LOG.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
-                    setContentType(gridFSDBFile.getFilename(), response);
-                    response.setHeader("Content-Length", String.valueOf(gridFSDBFile.getLength()));
-                    response.setHeader("Content-Disposition", "inline; filename=" + imageId + "." + FilenameUtils.getExtension(gridFSDBFile.getFilename()));
-                    gridFSDBFile.writeTo(response.getOutputStream());
+                    setContentType(gridFSDBFile.getFilename(), res);
+                    res.setHeader("Content-Length", String.valueOf(gridFSDBFile.getLength()));
+                    res.setHeader(
+                            "Content-Disposition",
+                            "inline; filename=" + imageId + "." + FilenameUtils.getExtension(gridFSDBFile.getFilename())
+                    );
+                    gridFSDBFile.writeTo(res.getOutputStream());
                 }
             } catch (IOException e) {
-                LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}", imageId, rid, e.getLocalizedMessage(), e);
+                LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}",
+                        imageId, rid, e.getLocalizedMessage(), e);
             }
         }
     }
