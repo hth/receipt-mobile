@@ -1,5 +1,8 @@
 package com.receiptofi.mobile.domain.mapping;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,9 +14,6 @@ import com.receiptofi.domain.ReceiptEntity;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-
-import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * User: hitender
