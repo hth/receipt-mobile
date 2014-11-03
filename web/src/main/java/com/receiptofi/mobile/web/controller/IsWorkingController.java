@@ -52,7 +52,7 @@ public final class IsWorkingController {
     public
     @ResponseBody
     MobileApi healthCheck() {
-        //TODO should perform some kind of health check like connecting to mongo
+        //TODO(hth) should perform some kind of health check like connecting to mongo
         return MobileApi.newInstance(true);
     }
 }
