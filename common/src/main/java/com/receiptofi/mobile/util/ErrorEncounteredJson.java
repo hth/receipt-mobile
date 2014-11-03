@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Helps create JSON error messages
+ * Converts error message to JSON.
  * User: hitender
  * Date: 7/10/14 11:04 PM
  */

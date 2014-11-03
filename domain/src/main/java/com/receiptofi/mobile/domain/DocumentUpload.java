@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Details of document uploaded.
  * User: hitender
  * Date: 7/13/14 9:58 PM
  */

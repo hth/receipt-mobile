@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Information on registered device.
  * User: hitender
  * Date: 8/14/14 11:03 PM
  */

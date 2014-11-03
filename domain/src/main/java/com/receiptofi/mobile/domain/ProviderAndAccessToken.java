@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * Hold pid and access token.
  * User: hitender
  * Date: 7/1/14 2:18 AM
  */

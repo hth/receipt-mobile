@@ -13,6 +13,7 @@ import com.receiptofi.mobile.domain.mapping.Profile;
 import com.receiptofi.mobile.domain.mapping.Receipt;
 
 /**
+ * All account updates available.
  * User: hitender
  * Date: 8/10/14 3:57 PM
  */

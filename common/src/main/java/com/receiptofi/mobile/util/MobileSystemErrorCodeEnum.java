@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.util;
 
 /**
- * Error code to share between APP and Mobile API
+ * Error code to share between APP and Mobile API.
  * User: hitender
  * Date: 7/10/14 11:28 PM
  */

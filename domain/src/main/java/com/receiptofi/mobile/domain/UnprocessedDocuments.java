@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
+ * Shows count of unprocessed files.
  * User: hitender
  * Date: 7/18/14 8:13 PM
  */

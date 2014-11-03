@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Converts domain object to string.
  * User: hitender
  * Date: 7/19/14 12:42 AM
  */
