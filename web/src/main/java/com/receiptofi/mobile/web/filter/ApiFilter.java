@@ -33,8 +33,14 @@ public class ApiFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        if (StringUtils.isBlank(((HttpServletRequest) req).getHeader("X-R-MAIL")) || StringUtils.isBlank(((HttpServletRequest) req).getHeader("X-R-AUTH"))) {
+    public void doFilter(
+            ServletRequest req,
+            ServletResponse res,
+            FilterChain chain
+    ) throws IOException, ServletException {
+        if (StringUtils.isBlank(((HttpServletRequest) req).getHeader("X-R-MAIL")) ||
+                StringUtils.isBlank(((HttpServletRequest) req).getHeader("X-R-AUTH"))) {
+
             ((HttpServletResponse) res).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
             return;
         }

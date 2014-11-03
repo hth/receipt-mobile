@@ -70,7 +70,9 @@ public final class ReceiptController {
         } else {
             List<Receipt> receipts = new ArrayList<>();
             try {
-                List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
+                List<ReceiptEntity> receiptEntities =
+                        landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
+
                 for (ReceiptEntity receiptEntity : receiptEntities) {
                     receipts.add(Receipt.newInstance(receiptEntity));
                 }

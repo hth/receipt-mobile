@@ -31,9 +31,11 @@ import java.util.List;
  * </bean>
  *
  * <!-- Configure bean to convert JSON to POJO and vice versa -->
- * <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+ * <bean id="jsonMessageConverter"
+ * class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
  *
- * In Spring 4.0.x ‘MappingJacksonHttpMessageConverter’ is deprecated. You should use ‘MappingJackson2HttpMessageConverter’ instead
+ * In Spring 4.0.x ‘MappingJacksonHttpMessageConverter’ is deprecated.
+ * You should use ‘MappingJackson2HttpMessageConverter’ instead
  *
  * User: hitender
  * Date: 6/12/14 11:53 PM

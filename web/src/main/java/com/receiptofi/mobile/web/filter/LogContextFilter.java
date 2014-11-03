@@ -38,7 +38,11 @@ public class LogContextFilter implements Filter {
     private static final Pattern EXTRACT_ENDPOINT_PATTERN = Pattern.compile("\\A((?:/[a-z][a-zA-Z]{2,}+|/v1)+).*\\z");
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
 
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(
+            ServletRequest req,
+            ServletResponse res,
+            FilterChain chain
+    ) throws IOException, ServletException {
         String uuid = UUID.randomUUID().toString();
         MDC.put(REQUEST_ID_MDC_KEY, uuid);
 
@@ -57,8 +61,8 @@ public class LogContextFilter implements Filter {
         chain.doFilter(req, res);
     }
 
-    private String getHeader(Map<String, String> allHeadersMap, String header) {
-        return (CollectionUtils.isEmpty(allHeadersMap) && !allHeadersMap.containsKey(header)) ? "" : allHeadersMap.get(header);
+    private String getHeader(Map<String, String> headers, String header) {
+        return (CollectionUtils.isEmpty(headers) && !headers.containsKey(header)) ? "" : headers.get(header);
     }
 
     private String extractEndpoint(String uri) {
