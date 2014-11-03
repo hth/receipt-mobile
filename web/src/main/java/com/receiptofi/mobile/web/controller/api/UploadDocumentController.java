@@ -62,9 +62,8 @@ public final class UploadDocumentController {
             value = "/upload",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public
     @ResponseBody
-    String upload(
+    public String upload(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
