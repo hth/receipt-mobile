@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 
 import com.receiptofi.mobile.domain.ProviderAndAccessToken;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -187,6 +186,6 @@ public class SocialAuthenticationService {
         if (securePort.equals("443") && protocol.equals("https")) {
             return "";
         }
-        return StringUtils.isEmpty(securePort) ? "" : (":" + securePort);
+        return StringUtils.isEmpty(securePort) ? "" : ":" + securePort;
     }
 }
