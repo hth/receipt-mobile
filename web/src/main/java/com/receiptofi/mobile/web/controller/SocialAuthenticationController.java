@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 public final class SocialAuthenticationController {
     private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
-    @Autowired SocialAuthenticationService socialAuthenticationService;
+    @Autowired private SocialAuthenticationService socialAuthenticationService;
 
     /**
      * Social provider signup or login.

@@ -34,6 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 public final class UtilityController {
     private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
+    public static final String AUTH_KEY_HIDDEN = "*********";
+    public static final String UNAUTHORIZED = "Unauthorized";
+
     private AuthenticateService authenticateService;
     private LandingService landingService;
 
@@ -58,11 +61,11 @@ public final class UtilityController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, AUTH_KEY_HIDDEN);
         if (authenticateService.hasAccess(mail, auth)) {
             return UserAccess.newInstance("granted");
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED);
             return null;
         }
     }
@@ -82,10 +85,10 @@ public final class UtilityController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED);
             return null;
         } else {
             return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));

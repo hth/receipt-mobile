@@ -74,10 +74,10 @@ public final class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
             try {
@@ -125,10 +125,10 @@ public final class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
             return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did));
