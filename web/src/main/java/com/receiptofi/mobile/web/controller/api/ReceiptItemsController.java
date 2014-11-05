@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,11 +82,11 @@ public final class ReceiptItemsController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return null;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return Collections.emptyList();
         } else {
             List<ReceiptItem> receiptItems = new LinkedList<>();
             try {
@@ -98,7 +99,7 @@ public final class ReceiptItemsController {
                     return receiptItems;
                 } else {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
-                    return null;
+                    return Collections.emptyList();
                 }
             } catch (Exception e) {
                 LOG.error("reason={}", e.getLocalizedMessage(), e);

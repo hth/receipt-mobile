@@ -74,7 +74,7 @@ public final class FileDownloadController {
     ) throws IOException {
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
         } else {
             try {
                 GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);

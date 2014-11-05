@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -61,11 +62,11 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return null;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return Collections.emptyList();
         } else {
             List<Receipt> receipts = new ArrayList<>();
             try {
@@ -97,11 +98,11 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return null;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return Collections.emptyList();
         } else {
             List<Receipt> receipts = new ArrayList<>();
             try {
@@ -131,11 +132,11 @@ public final class ReceiptController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, "*********");
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return null;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return Collections.emptyList();
         } else {
             List<Receipt> receipts = new ArrayList<>();
             try {

@@ -14,7 +14,8 @@ import java.util.Map;
 public final class ErrorEncounteredJson {
 
     @SuppressWarnings("unused")
-    private ErrorEncounteredJson() {}
+    private ErrorEncounteredJson() {
+    }
 
     public static String toJson(Map<String, String> errors) {
         JsonObject error = new JsonObject();
