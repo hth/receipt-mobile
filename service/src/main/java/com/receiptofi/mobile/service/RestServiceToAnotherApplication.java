@@ -44,7 +44,7 @@ import java.util.List;
 public class RestServiceToAnotherApplication {
 
     /** Create a Rest template */
-    public RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     public RestServiceToAnotherApplication() {
         /** Create a list for the message converters */
