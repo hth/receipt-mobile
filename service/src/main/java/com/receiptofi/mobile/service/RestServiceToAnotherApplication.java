@@ -42,18 +42,17 @@ import java.util.List;
  */
 @SuppressWarnings ("unused")
 public class RestServiceToAnotherApplication {
-
-    /** Create a list for the message converters */
     private List<HttpMessageConverter<?>> messageConverters;
 
-    public RestServiceToAnotherApplication() {
-        messageConverters = new ArrayList<HttpMessageConverter<?>>() {{
-            add(new MappingJackson2HttpMessageConverter());
-        }};
-    }
+    /** Create a Rest template */
+    public RestTemplate restTemplate;
 
-    //Create a Rest template
-    public final RestTemplate restTemplate = new RestTemplate() {{
-        setMessageConverters(messageConverters);
-    }};
+    public RestServiceToAnotherApplication() {
+        /** Create a list for the message converters */
+        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+        messageConverters.add(new MappingJackson2HttpMessageConverter());
+
+        restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(messageConverters);
+    }
 }
