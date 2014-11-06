@@ -42,7 +42,6 @@ import java.util.List;
  */
 @SuppressWarnings ("unused")
 public class RestServiceToAnotherApplication {
-    private List<HttpMessageConverter<?>> messageConverters;
 
     /** Create a Rest template */
     public RestTemplate restTemplate;
@@ -54,5 +53,9 @@ public class RestServiceToAnotherApplication {
 
         restTemplate = new RestTemplate();
         restTemplate.setMessageConverters(messageConverters);
+    }
+
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
     }
 }
