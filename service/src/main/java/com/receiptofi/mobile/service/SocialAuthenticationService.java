@@ -71,7 +71,7 @@ public class SocialAuthenticationService {
     private HttpClient httpClient;
 
     /**
-     * call this on terminal
+     * Call this on terminal as below.
      * http localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
      *
      * @param providerId
@@ -112,28 +112,36 @@ public class SocialAuthenticationService {
         int status = response.getStatusLine().getStatusCode();
         LOG.debug("status={}", status);
         if (status >= HTTP_STATUS_200 && status < HTTP_STATUS_300) {
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                long len = entity.getContentLength();
-                LOG.debug("response length={}", len);
-                if (len != MIN_RESPONSE_SIZE && len < MAX_RESPONSE_SIZE) {
-                    try {
-                        String data = EntityUtils.toString(entity);
-                        LOG.debug("data={}", data);
-                        return data;
-                    } catch (IOException e) {
-                        LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
-                    }
-                }
-
-                /** Stream too big */
-                LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
-                return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
-            }
+            return responseString(response.getEntity());
         }
 
         LOG.error("server responded with response code={}", status);
         return ErrorEncounteredJson.toJson("not a valid status from server", SEVERE);
+    }
+
+    /**
+     * Returns response.
+     * @param entity
+     * @return
+     */
+    private String responseString(HttpEntity entity) {
+        if (entity != null) {
+            long len = entity.getContentLength();
+            LOG.debug("response length={}", len);
+            if (len != MIN_RESPONSE_SIZE && len < MAX_RESPONSE_SIZE) {
+                try {
+                    String data = EntityUtils.toString(entity);
+                    LOG.debug("data={}", data);
+                    return data;
+                } catch (IOException e) {
+                    LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
+                }
+            }
+        }
+
+        /** Stream too big */
+        LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
+        return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
     }
 
     /**
