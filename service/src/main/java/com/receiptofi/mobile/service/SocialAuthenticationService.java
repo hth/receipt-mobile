@@ -42,6 +42,11 @@ import org.springframework.stereotype.Component;
 public class SocialAuthenticationService {
     private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
+    public static final int HTTP_STATUS_200 = 200;
+    public static final int HTTP_STATUS_300 = 300;
+    public static final int MAX_RESPONSE_SIZE = 2048;
+    public static final int MIN_RESPONSE_SIZE = -1;
+
     @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
 
@@ -106,12 +111,12 @@ public class SocialAuthenticationService {
 
         int status = response.getStatusLine().getStatusCode();
         LOG.debug("status={}", status);
-        if (status >= 200 && status < 300) {
+        if (status >= HTTP_STATUS_200 && status < HTTP_STATUS_300) {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 long len = entity.getContentLength();
                 LOG.debug("response length={}", len);
-                if (len != -1 && len < 2048) {
+                if (len != MIN_RESPONSE_SIZE && len < MAX_RESPONSE_SIZE) {
                     try {
                         String data = EntityUtils.toString(entity);
                         LOG.debug("data={}", data);
@@ -121,8 +126,8 @@ public class SocialAuthenticationService {
                     }
                 } else {
                     // Stream too big
-                    LOG.warn("stream size bigger than 2048");
-                    return ErrorEncounteredJson.toJson("stream size bigger than 2048", SEVERE);
+                    LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
+                    return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
                 }
             }
         } else {
@@ -171,7 +176,7 @@ public class SocialAuthenticationService {
         try {
             response = httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
+            if (status >= HTTP_STATUS_200 && status < HTTP_STATUS_300) {
                 return response.getFirstHeader("X-CSRF-TOKEN");
             }
             LOG.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
@@ -183,7 +188,7 @@ public class SocialAuthenticationService {
     }
 
     private String computePort() {
-        if (securePort.equals("443") && protocol.equals("https")) {
+        if ("443".equals(securePort) && "https".equals(protocol)) {
             return "";
         }
         return StringUtils.isEmpty(securePort) ? "" : ":" + securePort;
