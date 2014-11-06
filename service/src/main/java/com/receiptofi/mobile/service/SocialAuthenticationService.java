@@ -124,19 +124,16 @@ public class SocialAuthenticationService {
                     } catch (IOException e) {
                         LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
                     }
-                } else {
-                    // Stream too big
-                    LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
-                    return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
                 }
+
+                /** Stream too big */
+                LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
+                return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
             }
-        } else {
-            LOG.error("server responded with response code={}", status);
-            return ErrorEncounteredJson.toJson("not a valid status from server", SEVERE);
         }
 
-        LOG.error("could not find a reason, something is not right");
-        return ErrorEncounteredJson.toJson("could not find a reason, something is not right", SEVERE);
+        LOG.error("server responded with response code={}", status);
+        return ErrorEncounteredJson.toJson("not a valid status from server", SEVERE);
     }
 
     /**
