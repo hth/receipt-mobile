@@ -18,9 +18,10 @@ public abstract class AbstractDomain {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDomain.class);
 
     /**
-     * This adds tons of accept-charset.
+     * @deprecated (This adds tons of accept charset.)
      * Converts this object to JSON representation;
-     * do not use annotation as this breaks and content length is set to -1 */
+     * do not use annotation as this breaks and content length is set to -1
+     * */
     @Deprecated
     public String asJson() {
         try {
