@@ -38,6 +38,7 @@ public class LogContextFilter implements Filter {
     private static final Pattern EXTRACT_ENDPOINT_PATTERN = Pattern.compile("\\A((?:/[a-z][a-zA-Z]{2,}+|/v1)+).*\\z");
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
 
+    @Override
     public void doFilter(
             ServletRequest req,
             ServletResponse res,
@@ -83,10 +84,12 @@ public class LogContextFilter implements Filter {
         return map;
     }
 
+    @Override
     public void init(FilterConfig filterConfig) {
         LOG.info("initialized");
     }
 
+    @Override
     public void destroy() {
         LOG.info("deleted");
     }
