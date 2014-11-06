@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Used to GET or POST data from/to another application
+ * Used to GET or POST data from/to another application.
  *
  * //A simple GET request, the response will be mapped to Example.class
  * Example result = restTemplate.getForObject(url, Example.class);
@@ -43,10 +43,14 @@ import java.util.List;
 @SuppressWarnings ("unused")
 public class RestServiceToAnotherApplication {
 
-    //Create a list for the message converters
-    private final List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>() {{
-        add(new MappingJackson2HttpMessageConverter());
-    }};
+    /** Create a list for the message converters */
+    private final List<HttpMessageConverter<?>> messageConverters;
+
+    public RestServiceToAnotherApplication() {
+        messageConverters = new ArrayList<HttpMessageConverter<?>>() {{
+            add(new MappingJackson2HttpMessageConverter());
+        }};
+    }
 
     //Create a Rest template
     public final RestTemplate restTemplate = new RestTemplate() {{
