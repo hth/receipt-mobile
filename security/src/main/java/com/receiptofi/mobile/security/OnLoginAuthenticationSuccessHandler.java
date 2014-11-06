@@ -88,19 +88,15 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Authentication authentication
-    ) throws IOException {
-        String targetUrl = determineTargetUrl(authentication);
+    protected void handle(HttpServletRequest req, HttpServletResponse res, Authentication auth) throws IOException {
+        String targetUrl = determineTargetUrl(auth);
 
-        if (response.isCommitted()) {
+        if (res.isCommitted()) {
             LOG.debug("Response has already been committed. Unable to redirect to {}", targetUrl);
             return;
         }
 
-        redirectStrategy.sendRedirect(request, response, targetUrl);
+        redirectStrategy.sendRedirect(req, res, targetUrl);
     }
 
     /**
@@ -108,33 +104,27 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
      * Refer: http://www.baeldung.com/spring_redirect_after_login
      */
     protected String determineTargetUrl(Authentication authentication) {
-        boolean isUser = false, isSup = false, isEmp = false, isAdmin = false;
+        String targetURL;
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals(RoleEnum.ROLE_USER.name())) {
-                isUser = true;
+        GrantedAuthority grantedAuthority = authorities.iterator().next();
+        switch (RoleEnum.valueOf(grantedAuthority.getAuthority())) {
+            case ROLE_USER:
+                targetURL = "/access/landing.htm";
                 break;
-            } else if (grantedAuthority.getAuthority().equals(RoleEnum.ROLE_SUPERVISOR.name())) {
-                isSup = true;
+            case ROLE_SUPERVISOR:
+                targetURL = "/emp/landing.htm";
                 break;
-            } else if (grantedAuthority.getAuthority().equals(RoleEnum.ROLE_TECHNICIAN.name())) {
-                isEmp = true;
+            case ROLE_TECHNICIAN:
+                targetURL = "/emp/landing.htm";
                 break;
-            } else if (grantedAuthority.getAuthority().equals(RoleEnum.ROLE_ADMIN.name())) {
-                isAdmin = true;
+            case ROLE_ADMIN:
+                targetURL = "/admin/landing.htm";
                 break;
-            }
+            default:
+                throw new IllegalStateException("Role set is not defined");
         }
 
-        if (isAdmin) {
-            return "/admin/landing.htm";
-        } else if (isSup || isEmp) {
-            return "/emp/landing.htm";
-        } else if (isUser) {
-            return "/access/landing.htm";
-        } else {
-            throw new IllegalStateException();
-        }
+        return targetURL;
     }
 }
