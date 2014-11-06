@@ -44,7 +44,7 @@ import java.util.List;
 public class RestServiceToAnotherApplication {
 
     /** Create a list for the message converters */
-    private final List<HttpMessageConverter<?>> messageConverters;
+    private List<HttpMessageConverter<?>> messageConverters;
 
     public RestServiceToAnotherApplication() {
         messageConverters = new ArrayList<HttpMessageConverter<?>>() {{
