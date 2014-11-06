@@ -87,24 +87,24 @@ public final class ReceiptItemsController {
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
-        } else {
-            List<ReceiptItem> receiptItems = new LinkedList<>();
-            try {
-                ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
-                if (receipt != null && receipt.getId().equals(receiptId)) {
-                    List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
-                    for (ItemEntity item : items) {
-                        receiptItems.add(ReceiptItem.newInstance(item));
-                    }
-                    return receiptItems;
-                } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
-                    return Collections.emptyList();
-                }
-            } catch (Exception e) {
-                LOG.error("reason={}", e.getLocalizedMessage(), e);
-            }
-            return receiptItems;
         }
+
+        List<ReceiptItem> receiptItems = new LinkedList<>();
+        try {
+            ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
+            if (receipt != null && receipt.getId().equals(receiptId)) {
+                List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
+                for (ItemEntity item : items) {
+                    receiptItems.add(ReceiptItem.newInstance(item));
+                }
+                return receiptItems;
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            LOG.error("reason={}", e.getLocalizedMessage(), e);
+        }
+        return receiptItems;
     }
 }

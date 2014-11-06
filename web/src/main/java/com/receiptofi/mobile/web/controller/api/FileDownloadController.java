@@ -75,34 +75,34 @@ public final class FileDownloadController {
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
-        } else {
-            try {
-                GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
+        }
 
-                if (gridFSDBFile == null) {
-                    LOG.warn("GridFSDBFile failed to find image={}", imageId);
-                    File file = FileUtils.getFile(req.getServletContext().getRealPath(File.separator) + imageNotFound);
-                    BufferedImage bi = ImageIO.read(file);
-                    setContentType(file.getName(), res);
-                    res.setHeader("Content-Length", String.valueOf(file.length()));
-                    res.setHeader("Content-Disposition", "inline; filename=" + file.getName());
-                    OutputStream out = res.getOutputStream();
-                    ImageIO.write(bi, getFormatForImageIO(file.getName()), out);
-                    out.close();
-                } else {
-                    LOG.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
-                    setContentType(gridFSDBFile.getFilename(), res);
-                    res.setHeader("Content-Length", String.valueOf(gridFSDBFile.getLength()));
-                    res.setHeader(
-                            "Content-Disposition",
-                            "inline; filename=" + imageId + "." + FilenameUtils.getExtension(gridFSDBFile.getFilename())
-                    );
-                    gridFSDBFile.writeTo(res.getOutputStream());
-                }
-            } catch (IOException e) {
-                LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}",
-                        imageId, rid, e.getLocalizedMessage(), e);
+        try {
+            GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
+
+            if (gridFSDBFile == null) {
+                LOG.warn("GridFSDBFile failed to find image={}", imageId);
+                File file = FileUtils.getFile(req.getServletContext().getRealPath(File.separator) + imageNotFound);
+                BufferedImage bi = ImageIO.read(file);
+                setContentType(file.getName(), res);
+                res.setHeader("Content-Length", String.valueOf(file.length()));
+                res.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+                OutputStream out = res.getOutputStream();
+                ImageIO.write(bi, getFormatForImageIO(file.getName()), out);
+                out.close();
+            } else {
+                LOG.debug("Length={} MetaData={}", gridFSDBFile.getLength(), gridFSDBFile.getMetaData());
+                setContentType(gridFSDBFile.getFilename(), res);
+                res.setHeader("Content-Length", String.valueOf(gridFSDBFile.getLength()));
+                res.setHeader(
+                        "Content-Disposition",
+                        "inline; filename=" + imageId + "." + FilenameUtils.getExtension(gridFSDBFile.getFilename())
+                );
+                gridFSDBFile.writeTo(res.getOutputStream());
             }
+        } catch (IOException e) {
+            LOG.error("Image retrieval error occurred for imageId={} rid={} reason={}",
+                    imageId, rid, e.getLocalizedMessage(), e);
         }
     }
 

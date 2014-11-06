@@ -90,8 +90,7 @@ public final class UtilityController {
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED);
             return null;
-        } else {
-            return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));
         }
+        return UnprocessedDocuments.newInstance(landingService.pendingReceipt(rid));
     }
 }

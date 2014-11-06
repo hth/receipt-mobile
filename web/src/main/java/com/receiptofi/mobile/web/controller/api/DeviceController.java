@@ -79,21 +79,21 @@ public final class DeviceController {
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
-        } else {
-            try {
-                return deviceService.hasUpdate(rid, deviceId).asJson();
-            } catch (Exception e) {
-                LOG.error("fetching update for device failed deviceId={} reason={}",
-                        deviceId, e.getLocalizedMessage(), e);
+        }
 
-                Map<String, String> errors = new HashMap<>();
-                errors.put("reason", "something went wrong");
-                errors.put("did", deviceId);
-                errors.put("systemError", MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put("systemErrorCode", MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+        try {
+            return deviceService.hasUpdate(rid, deviceId).asJson();
+        } catch (Exception e) {
+            LOG.error("fetching update for device failed deviceId={} reason={}",
+                    deviceId, e.getLocalizedMessage(), e);
 
-                return ErrorEncounteredJson.toJson(errors);
-            }
+            Map<String, String> errors = new HashMap<>();
+            errors.put("reason", "something went wrong");
+            errors.put("did", deviceId);
+            errors.put("systemError", MobileSystemErrorCodeEnum.USER_INPUT.name());
+            errors.put("systemErrorCode", MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+            return ErrorEncounteredJson.toJson(errors);
         }
     }
 
