@@ -77,57 +77,56 @@ public final class UploadDocumentController {
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
-        } else {
-            LOG.info("upload document begins rid={}", rid);
-
-            boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
-            if (isMultipart) {
-                MultipartHttpServletRequest multipartHttpRequest =
-                        WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
-
-                final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
-
-                if (files.isEmpty()) {
-                    LOG.error("qqfile name missing in request or no file uploaded");
-                    return ErrorEncounteredJson.toJson(
-                            "qqfile name missing in request or no file uploaded", DOCUMENT_UPLOAD);
-                }
-
-                boolean upload = false;
-                MultipartFile multipartFile = files.iterator().next();
-                try {
-                    if (multipartFile.getSize() <= 0) {
-                        LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
-                        throw new Exception("upload document is empty");
-                    }
-
-                    UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
-                    uploadDocumentImage.setFileData(multipartFile);
-                    uploadDocumentImage.setRid(rid);
-                    uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
-                    landingService.uploadDocument(uploadDocumentImage);
-                    upload = true;
-                    LOG.info("upload document successfully complete for rid={}", rid);
-                    return DocumentUpload.newInstance(
-                            multipartFile.getOriginalFilename(),
-                            uploadDocumentImage.getBlobId(),
-                            landingService.pendingReceipt(rid)
-                    ).asJson();
-                } catch (Exception exce) {
-                    LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
-
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put("reason", "failed document upload");
-                    errors.put("document", multipartFile.getOriginalFilename());
-                    errors.put("systemError", DOCUMENT_UPLOAD.name());
-                    errors.put("systemErrorCode", DOCUMENT_UPLOAD.getCode());
-
-                    return ErrorEncounteredJson.toJson(errors);
-                } finally {
-                    LOG.info("upload document processed with success={} rid={}", upload, rid);
-                }
-            }
-            return ErrorEncounteredJson.toJson("multipart failure for document upload", DOCUMENT_UPLOAD);
         }
+        LOG.info("upload document begins rid={}", rid);
+
+        boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
+        if (isMultipart) {
+            MultipartHttpServletRequest multipartHttpRequest =
+                    WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
+
+            final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
+
+            if (files.isEmpty()) {
+                LOG.error("qqfile name missing in request or no file uploaded");
+                return ErrorEncounteredJson.toJson(
+                        "qqfile name missing in request or no file uploaded", DOCUMENT_UPLOAD);
+            }
+
+            boolean upload = false;
+            MultipartFile multipartFile = files.iterator().next();
+            try {
+                if (multipartFile.getSize() <= 0) {
+                    LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
+                    throw new Exception("upload document is empty");
+                }
+
+                UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
+                uploadDocumentImage.setFileData(multipartFile);
+                uploadDocumentImage.setRid(rid);
+                uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
+                landingService.uploadDocument(uploadDocumentImage);
+                upload = true;
+                LOG.info("upload document successfully complete for rid={}", rid);
+                return DocumentUpload.newInstance(
+                        multipartFile.getOriginalFilename(),
+                        uploadDocumentImage.getBlobId(),
+                        landingService.pendingReceipt(rid)
+                ).asJson();
+            } catch (Exception exce) {
+                LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put("reason", "failed document upload");
+                errors.put("document", multipartFile.getOriginalFilename());
+                errors.put("systemError", DOCUMENT_UPLOAD.name());
+                errors.put("systemErrorCode", DOCUMENT_UPLOAD.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
+            } finally {
+                LOG.info("upload document processed with success={} rid={}", upload, rid);
+            }
+        }
+        return ErrorEncounteredJson.toJson("multipart failure for document upload", DOCUMENT_UPLOAD);
     }
 }

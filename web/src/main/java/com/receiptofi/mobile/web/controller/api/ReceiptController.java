@@ -137,17 +137,17 @@ public final class ReceiptController {
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
-        } else {
-            List<Receipt> receipts = new ArrayList<>();
-            try {
-                List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
-                for (ReceiptEntity receiptEntity : receiptEntities) {
-                    receipts.add(Receipt.newInstance(receiptEntity));
-                }
-            } catch (Exception e) {
-                LOG.error("reason={}", e.getLocalizedMessage(), e);
-            }
-            return receipts;
         }
+
+        List<Receipt> receipts = new ArrayList<>();
+        try {
+            List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
+            for (ReceiptEntity receiptEntity : receiptEntities) {
+                receipts.add(Receipt.newInstance(receiptEntity));
+            }
+        } catch (Exception e) {
+            LOG.error("reason={}", e.getLocalizedMessage(), e);
+        }
+        return receipts;
     }
 }
