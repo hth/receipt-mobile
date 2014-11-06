@@ -122,6 +122,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
                 targetURL = "/admin/landing.htm";
                 break;
             default:
+                LOG.error("Role set is not defined");
                 throw new IllegalStateException("Role set is not defined");
         }
 
