@@ -86,6 +86,7 @@ public class WebConnectorService {
      * X-CSRF-TOKEN:9673034a-3791-40e4-abf0-3e2f9e2fb028
      *
      * @param webApiAccessToken
+     * @param httpClient
      * @return
      */
     private Header getCSRFToken(String webApiAccessToken, HttpClient httpClient) {
