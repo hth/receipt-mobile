@@ -33,7 +33,8 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
-        "PMD.MethodArgumentCouldBeFinal"
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
 })
 @Component
 public class SocialAuthenticationService {
@@ -48,8 +49,6 @@ public class SocialAuthenticationService {
     @Value ("${no.response.from.web.server:could not connect to server}")
     private String noResponseFromWebServer;
 
-    private HttpClient httpClient;
-
     @Autowired private WebConnectorService webConnectorService;
 
     /**
@@ -62,7 +61,7 @@ public class SocialAuthenticationService {
      */
     public String authenticateWeb(String providerId, String accessToken) {
         LOG.debug("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
-        httpClient = HttpClientBuilder.create().build();
+        HttpClient httpClient = HttpClientBuilder.create().build();
 
         HttpPost httpPost = webConnectorService.getHttpPost(authCreate, httpClient);
         if (httpPost == null) {

@@ -23,6 +23,12 @@ import org.springframework.stereotype.Component;
  * User: hitender
  * Date: 11/8/14 12:32 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @Component
 public class WebConnectorService {
     private static final Logger LOG = LoggerFactory.getLogger(WebConnectorService.class);
