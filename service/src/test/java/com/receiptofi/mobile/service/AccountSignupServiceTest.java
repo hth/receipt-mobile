@@ -59,14 +59,14 @@ public class AccountSignupServiceTest {
     }
 
     @Test (expected = RuntimeException.class)
-    public void testSignup_When_UserAccount_Is_Null() {
+    public void testSignupWhenUserAccountIsNull() {
         when(accountService.createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(null);
         accountSignupService.signup("", "", "", "", "");
     }
 
     @Test (expected = RuntimeException.class)
-    public void testSignup_When_UserAccount_Throws_Exception() throws Exception {
+    public void testSignupWhenUserAccountThrowsException() throws Exception {
         doThrow(new RuntimeException())
                 .when(accountService)
                 .createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString());
@@ -74,7 +74,7 @@ public class AccountSignupServiceTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testSignup_When_EmailValidate_Is_Null() {
+    public void testSignupWhenEmailValidateIsNull() {
         when(accountService.createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(UserAccountEntity.newInstance("", "", "", "", null));
 
@@ -83,7 +83,7 @@ public class AccountSignupServiceTest {
     }
 
     @Test
-    public void tesSignup_Success() {
+    public void tesSignupSuccess() {
         UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance("", "authKey");
         UserAccountEntity userAccount = UserAccountEntity.newInstance("", "", "", "", userAuthentication);
         when(accountService.createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString()))
@@ -96,13 +96,13 @@ public class AccountSignupServiceTest {
     }
 
     @Test
-    public void sendMailDuringSignup_HttpPost_Null() {
+    public void sendMailDuringSignupHttpPostNull() {
         when(webConnectorService.getHttpPost("", HttpClientBuilder.create().build())).thenReturn(null);
         assertNotNull(null, accountSignupService.sendMailDuringSignup("", "", "", httpClient));
     }
 
     @Test
-    public void sendMailDuringSignup_HttpResponse_Null() throws IOException {
+    public void sendMailDuringSignupHttpResponseNull() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(null);
 
@@ -110,7 +110,7 @@ public class AccountSignupServiceTest {
     }
 
     @Test
-    public void sendMailDuringSignup_Status_501() throws IOException {
+    public void sendMailDuringSignupStatus501() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
@@ -120,7 +120,7 @@ public class AccountSignupServiceTest {
     }
 
     @Test
-    public void sendMailDuringSignup_Success() throws IOException {
+    public void sendMailDuringSignupSuccess() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
