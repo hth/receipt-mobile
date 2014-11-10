@@ -8,10 +8,22 @@ package com.receiptofi.mobile.util;
 public enum MobileSystemErrorCodeEnum {
 
     USER_INPUT("100"),
-    API_WARNING("200"),
+
+    /** Mobile data submitted. */
+    MOBILE("200"),
+
+    MOBILE_JSON("210"),
+
     DOCUMENT_UPLOAD("300"),
+
     AUTHENTICATION("400"),
-    SEVERE("500");
+    EXISTING_USER("410"),
+
+    /** Mobile application related issue. */
+    SEVERE("500"),
+
+    /** Not mobile web application. */
+    WEB_APPLICATION("600");
 
     private String code;
 

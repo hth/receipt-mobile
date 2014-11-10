@@ -1,0 +1,126 @@
+package com.receiptofi.mobile.service;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicStatusLine;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith (MockitoJUnitRunner.class)
+public class SocialAuthenticationServiceTest {
+
+    @Mock private WebConnectorService webConnectorService;
+    private SocialAuthenticationService socialAuthenticationService;
+
+    private HttpPost httpPost;
+    private HttpClient httpClient;
+    private HttpResponse httpResponse;
+    private BasicStatusLine basicStatusLine;
+    private HttpEntity httpEntity;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        httpPost = mock(HttpPost.class);
+        httpClient = mock(HttpClient.class);
+        httpResponse = mock(HttpResponse.class);
+        basicStatusLine = mock(BasicStatusLine.class);
+        httpEntity = mock(HttpEntity.class);
+        socialAuthenticationService = new SocialAuthenticationService(webConnectorService);
+    }
+
+    @Test
+    public void testAuthenticateWeb_HttpPost_Null() {
+        when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(null);
+        when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
+        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
+        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
+        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+    }
+
+    @Test
+    public void testAuthenticateWeb_HttpClient_Throws_Exception() throws IOException {
+        when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
+        doThrow(new IOException()).when(httpClient).execute(httpPost);
+        when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
+
+        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
+        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
+        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+    }
+
+    @Test
+    public void testAuthenticateWeb_Response_Null() throws IOException {
+        when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
+        when(httpClient.execute(httpPost)).thenReturn(null);
+        when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
+
+        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
+        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
+        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+    }
+
+    @Test
+    public void testAuthenticateWeb_Status_501() throws IOException {
+        when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
+        when(httpClient.execute(httpPost)).thenReturn(httpResponse);
+        when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
+        when(basicStatusLine.getStatusCode()).thenReturn(501);
+
+        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
+        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
+        assertEquals("not a valid status from server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+    }
+
+    @Test
+    public void testAuthenticateWeb_Success() throws IOException {
+        when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
+        when(httpClient.execute(httpPost)).thenReturn(httpResponse);
+        when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
+        when(basicStatusLine.getStatusCode()).thenReturn(201);
+        when(httpResponse.getEntity()).thenReturn(httpEntity);
+        when(httpEntity.getContentLength()).thenReturn(10l);
+        InputStream stubInputStream = IOUtils.toInputStream("{\"X-R-AUTH\" : \"123\", \"X-R-MAIL\" : \"t@t.com\"}");
+        when(httpEntity.getContent()).thenReturn(stubInputStream);
+
+        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals("123", jo.get("X-R-AUTH").getAsString());
+        assertEquals("t@t.com", jo.get("X-R-MAIL").getAsString());
+    }
+}

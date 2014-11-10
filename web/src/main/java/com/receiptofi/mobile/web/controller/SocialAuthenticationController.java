@@ -19,6 +19,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.impl.client.HttpClientBuilder;
+
 /**
  * User: hitender
  * Date: 6/27/14 1:03 AM
@@ -29,10 +31,18 @@ import javax.servlet.http.HttpServletResponse;
         "PMD.MethodArgumentCouldBeFinal"
 })
 @Controller
-public final class SocialAuthenticationController {
+public class SocialAuthenticationController {
     private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationController.class);
 
-    @Autowired private SocialAuthenticationService socialAuthenticationService;
+    public static final String AUTH = "X-R-AUTH";
+    public static final String MAIL = "X-R-MAIL";
+
+    private SocialAuthenticationService socialAuthenticationService;
+
+    @Autowired
+    public SocialAuthenticationController(SocialAuthenticationService socialAuthenticationService) {
+        this.socialAuthenticationService = socialAuthenticationService;
+    }
 
     /**
      * Social provider signup or login.
@@ -85,20 +95,23 @@ public final class SocialAuthenticationController {
         try {
             Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
             LOG.info("pid={} at={}", map.get("pid"), map.get("at"));
-            credential = socialAuthenticationService.authenticateWeb(map.get("pid"), map.get("at"));
-            if (credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
+            credential = socialAuthenticationService.authenticateWeb(
+                    map.get("pid"),
+                    map.get("at"),
+                    HttpClientBuilder.create().build());
+
+            if (credential == null || credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
                 return credential;
             }
 
             Map<String, String> credentialMap = ParseJsonStringToMap.jsonStringToMap(credential);
-            response.addHeader("X-R-AUTH", credentialMap.get("X-R-AUTH"));
-            response.addHeader("X-R-MAIL", credentialMap.get("X-R-MAIL"));
+            response.addHeader(AUTH, credentialMap.get(AUTH));
+            response.addHeader(MAIL, credentialMap.get(MAIL));
 
             LOG.info("credential={}", credential);
             return credential;
         } catch (IOException e) {
-            LOG.error("could not parse authenticationJson={} reason={}",
-                    authenticationJson, e.getLocalizedMessage(), e);
+            LOG.error("could not parse json={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
             return credential;
         }
     }
