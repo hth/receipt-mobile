@@ -1,9 +1,8 @@
 package com.receiptofi.mobile.web.controller;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -16,17 +15,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.types.ProviderEnum;
-import com.receiptofi.mobile.service.AccountSignupService;
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 
 import org.apache.http.client.HttpClient;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith (MockitoJUnitRunner.class)
 public class SocialAuthenticationControllerTest {
 
     @Mock private SocialAuthenticationService socialAuthenticationService;

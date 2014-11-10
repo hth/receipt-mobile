@@ -15,7 +15,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import org.slf4j.Logger;
@@ -38,10 +37,9 @@ import org.springframework.stereotype.Component;
 })
 @Component
 public class SocialAuthenticationService {
-    private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
-
     public static final int MAX_RESPONSE_SIZE = 2048;
     public static final int MIN_RESPONSE_SIZE = -1;
+    private static final Logger LOG = LoggerFactory.getLogger(SocialAuthenticationService.class);
 
     @Value ("${auth.create:/webapi/mobile/auth-create.htm}")
     private String authCreateEndPoint;
@@ -93,6 +91,7 @@ public class SocialAuthenticationService {
 
     /**
      * Returns response.
+     *
      * @param entity
      * @return
      */

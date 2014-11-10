@@ -31,6 +31,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith (MockitoJUnitRunner.class)
 public class SocialAuthenticationServiceTest {
 
+    public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
+    public static final String SYSTEM_ERROR = "systemError";
+    public static final String REASON = "reason";
+    public static final String ERROR = "error";
+
     @Mock private WebConnectorService webConnectorService;
     private SocialAuthenticationService socialAuthenticationService;
 
@@ -58,9 +63,9 @@ public class SocialAuthenticationServiceTest {
         String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
-        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("could not connect to server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
@@ -72,9 +77,9 @@ public class SocialAuthenticationServiceTest {
         String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
-        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("could not connect to server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
@@ -86,9 +91,9 @@ public class SocialAuthenticationServiceTest {
         String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
-        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("could not connect to server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("could not connect to server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
@@ -96,14 +101,14 @@ public class SocialAuthenticationServiceTest {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
-        when(basicStatusLine.getStatusCode()).thenReturn(501);
+        when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_ERROR);
 
         String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
-        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("not a valid status from server", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("not a valid status from server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
@@ -111,9 +116,9 @@ public class SocialAuthenticationServiceTest {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
-        when(basicStatusLine.getStatusCode()).thenReturn(201);
+        when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_SUCCESS);
         when(httpResponse.getEntity()).thenReturn(httpEntity);
-        when(httpEntity.getContentLength()).thenReturn(10l);
+        when(httpEntity.getContentLength()).thenReturn(10L);
         InputStream stubInputStream = IOUtils.toInputStream("{\"X-R-AUTH\" : \"123\", \"X-R-MAIL\" : \"t@t.com\"}");
         when(httpEntity.getContent()).thenReturn(stubInputStream);
 

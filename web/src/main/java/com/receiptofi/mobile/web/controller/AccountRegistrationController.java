@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AccountRegistrationController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountRegistrationController.class);
+    public static final int MINIMUM_SIZE = 4;
 
     private AccountService accountService;
     private AccountSignupService accountSignupService;
@@ -73,22 +74,22 @@ public class AccountRegistrationController {
             String password = map.get(REGISTRATION.PW.name());
             String birthday = map.get(REGISTRATION.BD.name());
 
-            if (null == mail || mail.length() < 4 ||
-                    null == firstName || firstName.length() < 4 ||
-                    null == lastName || lastName.length() < 4 ||
-                    null == password || password.length() < 4) {
+            if (null == mail || mail.length() < MINIMUM_SIZE ||
+                    null == firstName || firstName.length() < MINIMUM_SIZE ||
+                    null == lastName || lastName.length() < MINIMUM_SIZE ||
+                    null == password || password.length() < MINIMUM_SIZE) {
                 Map<String, String> errors = new HashMap<>();
                 errors.put("reason", "failed data validation");
-                if (null == firstName || firstName.length() < 4) {
+                if (null == firstName || firstName.length() < MINIMUM_SIZE) {
                     errors.put(REGISTRATION.FN.name(), firstName == null ? "Empty" : firstName);
                 }
-                if (null == lastName || lastName.length() < 4) {
+                if (null == lastName || lastName.length() < MINIMUM_SIZE) {
                     errors.put(REGISTRATION.LN.name(), lastName == null ? "Empty" : lastName);
                 }
-                if (null == mail || mail.length() < 4) {
+                if (null == mail || mail.length() < MINIMUM_SIZE) {
                     errors.put(REGISTRATION.EM.name(), mail == null ? "Empty" : mail);
                 }
-                if (null == password || password.length() < 4) {
+                if (null == password || password.length() < MINIMUM_SIZE) {
                     errors.put(REGISTRATION.PW.name(), password == null ? "Empty" : password);
                 }
                 errors.put("systemError", USER_INPUT.name());
