@@ -49,7 +49,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUser_Json_Invalid() throws Exception {
+    public void testRegisterUserJsonInvalid() throws Exception {
         String jsonResponse = accountRegistrationController.registerUser("", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
@@ -61,7 +61,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUser_Map_Is_Null() throws Exception {
+    public void testRegisterUserMapIsNull() throws Exception {
         String jsonResponse = accountRegistrationController.registerUser("{}", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
@@ -78,7 +78,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUser_When_Exists() throws Exception {
+    public void testRegisterUserWhenExists() throws Exception {
         String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(new UserProfileEntity());
         String responseJson = accountRegistrationController.registerUser(json, response);
@@ -93,7 +93,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUser_When_Signup_Fails() throws Exception {
+    public void testRegisterUserWhenSignupFails() throws Exception {
         String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         doThrow(new RuntimeException())
@@ -112,7 +112,7 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUser_When_Not_Exists() throws Exception {
+    public void testRegisterUserWhenNotExists() throws Exception {
         String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");

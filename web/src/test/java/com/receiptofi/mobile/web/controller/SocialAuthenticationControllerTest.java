@@ -42,7 +42,7 @@ public class SocialAuthenticationControllerTest {
     }
 
     @Test
-    public void testAuthenticateUser_Json_Invalid() throws Exception {
+    public void testAuthenticateUserJsonInvalid() throws Exception {
         String jsonResponse = socialAuthenticationController.authenticateUser("", response);
         verify(socialAuthenticationService, never())
                 .authenticateWeb(any(String.class), any(String.class), any(HttpClient.class));
@@ -51,7 +51,7 @@ public class SocialAuthenticationControllerTest {
     }
 
     @Test
-    public void testAuthenticateUser_Credential_Fail() throws Exception {
+    public void testAuthenticateUserCredentialFail() throws Exception {
         String json = createJson(ProviderEnum.GOOGLE.name(), "1234");
         when(socialAuthenticationService.authenticateWeb(anyString(), anyString(), any(HttpClient.class)))
                 .thenReturn("{}");
@@ -61,7 +61,7 @@ public class SocialAuthenticationControllerTest {
     }
 
     @Test
-    public void testAuthenticateUser_Credential_Pass() throws Exception {
+    public void testAuthenticateUserCredentialPass() throws Exception {
         String json = createJson(ProviderEnum.GOOGLE.name(), "1234");
         when(socialAuthenticationService.authenticateWeb(anyString(), anyString(), any(HttpClient.class)))
                 .thenReturn(

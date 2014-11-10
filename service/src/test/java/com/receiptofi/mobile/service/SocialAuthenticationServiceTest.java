@@ -57,7 +57,7 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWeb_HttpPost_Null() {
+    public void testAuthenticateWebHttpPostNull() {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(null);
         when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
         String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
@@ -69,7 +69,7 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWeb_HttpClient_Throws_Exception() throws IOException {
+    public void testAuthenticateWebHttpClientThrowsException() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         doThrow(new IOException()).when(httpClient).execute(httpPost);
         when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
@@ -83,7 +83,7 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWeb_Response_Null() throws IOException {
+    public void testAuthenticateWebResponseNull() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(null);
         when(webConnectorService.getNoResponseFromWebServer()).thenReturn("could not connect to server");
@@ -97,7 +97,7 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWeb_Status_501() throws IOException {
+    public void testAuthenticateWebStatus501() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
@@ -112,7 +112,7 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWeb_Success() throws IOException {
+    public void testAuthenticateWebSuccess() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);

@@ -52,13 +52,13 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPost_getCSRFToken_IOException() throws Exception {
+    public void testGetHttpPostGetCSRFTokenIOException() throws Exception {
         doThrow(new IOException()).when(httpClient).execute(any(HttpGet.class));
         assertNull(webConnectorService.getHttpPost("/someLink", httpClient));
     }
 
     @Test
-    public void testGetHttpPost_getCSRFToken_Status_501() throws Exception {
+    public void testGetHttpPostGetCSRFTokenStatus501() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_ERROR);
@@ -66,7 +66,7 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPost_getCSRFToken_Header_Null() throws Exception {
+    public void testGetHttpPostGetCSRFTokenHeaderNull() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
@@ -75,7 +75,7 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPost_Pass() throws Exception {
+    public void testGetHttpPostPass() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
