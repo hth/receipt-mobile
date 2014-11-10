@@ -26,6 +26,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith (MockitoJUnitRunner.class)
 public class WebConnectorServiceTest {
+    public static final int HTTP_CODE_ERROR = 501;
+    public static final int HTTP_CODE_SUCCESS = 201;
+
     private WebConnectorService webConnectorService;
 
     @Mock private HttpClient httpClient;
@@ -58,7 +61,7 @@ public class WebConnectorServiceTest {
     public void testGetHttpPost_getCSRFToken_Status_501() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
-        when(response.getStatusLine().getStatusCode()).thenReturn(501);
+        when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_ERROR);
         assertNull(webConnectorService.getHttpPost("/someLink", httpClient));
     }
 
@@ -66,7 +69,7 @@ public class WebConnectorServiceTest {
     public void testGetHttpPost_getCSRFToken_Header_Null() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
-        when(response.getStatusLine().getStatusCode()).thenReturn(201);
+        when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
         when(response.getFirstHeader(anyString())).thenReturn(null);
         assertNull(webConnectorService.getHttpPost("/someLink", httpClient));
     }
@@ -75,7 +78,7 @@ public class WebConnectorServiceTest {
     public void testGetHttpPost_Pass() throws Exception {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
-        when(response.getStatusLine().getStatusCode()).thenReturn(201);
+        when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
         when(response.getFirstHeader(anyString())).thenReturn(header);
         HttpPost httpPost = webConnectorService.getHttpPost("/someLink", httpClient);
         assertNotNull(httpPost);

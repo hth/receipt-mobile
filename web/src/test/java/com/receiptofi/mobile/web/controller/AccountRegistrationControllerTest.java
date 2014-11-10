@@ -30,6 +30,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith (MockitoJUnitRunner.class)
 public class AccountRegistrationControllerTest {
 
+    public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
+    public static final String SYSTEM_ERROR = "systemError";
+    public static final String REASON = "reason";
+    public static final String ERROR = "error";
+
     @Mock private AccountService accountService;
     @Mock private AccountSignupService accountSignupService;
     private HttpServletResponse response;
@@ -48,9 +53,9 @@ public class AccountRegistrationControllerTest {
         String jsonResponse = accountRegistrationController.registerUser("", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
-        assertEquals(MOBILE_JSON.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(MOBILE_JSON.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("could not parse JSON", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(MOBILE_JSON.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("could not parse JSON", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).doesUserExists(any(String.class));
     }
@@ -60,14 +65,14 @@ public class AccountRegistrationControllerTest {
         String jsonResponse = accountRegistrationController.registerUser("{}", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
-        assertEquals(USER_INPUT.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(USER_INPUT.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("failed data validation", jo.get("error").getAsJsonObject().get("reason").getAsString());
+        assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
-        assertEquals("Empty", jo.get("error").getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
-        assertEquals("Empty", jo.get("error").getAsJsonObject().get(REGISTRATION.LN.name()).getAsString());
-        assertEquals("Empty", jo.get("error").getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
-        assertEquals("Empty", jo.get("error").getAsJsonObject().get(REGISTRATION.PW.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.LN.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.PW.name()).getAsString());
 
         verify(accountService, never()).doesUserExists(any(String.class));
     }
@@ -79,10 +84,10 @@ public class AccountRegistrationControllerTest {
         String responseJson = accountRegistrationController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
-        assertEquals(EXISTING_USER.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(EXISTING_USER.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("user already exists", jo.get("error").getAsJsonObject().get("reason").getAsString());
-        assertEquals("test@receiptofi.com", jo.get("error").getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+        assertEquals(EXISTING_USER.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(EXISTING_USER.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("user already exists", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
     }
@@ -98,10 +103,10 @@ public class AccountRegistrationControllerTest {
         String responseJson = accountRegistrationController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
-        assertEquals(SEVERE.getCode(), jo.get("error").getAsJsonObject().get("systemErrorCode").getAsString());
-        assertEquals(SEVERE.name(), jo.get("error").getAsJsonObject().get("systemError").getAsString());
-        assertEquals("failed creating account", jo.get("error").getAsJsonObject().get("reason").getAsString());
-        assertEquals("test@receiptofi.com", jo.get("error").getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("failed creating account", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
     }

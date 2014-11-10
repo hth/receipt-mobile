@@ -114,7 +114,7 @@ public class AccountSignupServiceTest {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
-        when(basicStatusLine.getStatusCode()).thenReturn(501);
+        when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_ERROR);
 
         assertFalse(accountSignupService.sendMailDuringSignup("", "", "", httpClient));
     }
@@ -124,7 +124,7 @@ public class AccountSignupServiceTest {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
-        when(basicStatusLine.getStatusCode()).thenReturn(201);
+        when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_SUCCESS);
 
         assertTrue(accountSignupService.sendMailDuringSignup("", "", "", httpClient));
     }
