@@ -78,24 +78,8 @@ public class AccountRegistrationController {
                     null == firstName || firstName.length() < MINIMUM_SIZE ||
                     null == lastName || lastName.length() < MINIMUM_SIZE ||
                     null == password || password.length() < MINIMUM_SIZE) {
-                Map<String, String> errors = new HashMap<>();
-                errors.put("reason", "failed data validation");
-                if (null == firstName || firstName.length() < MINIMUM_SIZE) {
-                    errors.put(REGISTRATION.FN.name(), firstName == null ? "Empty" : firstName);
-                }
-                if (null == lastName || lastName.length() < MINIMUM_SIZE) {
-                    errors.put(REGISTRATION.LN.name(), lastName == null ? "Empty" : lastName);
-                }
-                if (null == mail || mail.length() < MINIMUM_SIZE) {
-                    errors.put(REGISTRATION.EM.name(), mail == null ? "Empty" : mail);
-                }
-                if (null == password || password.length() < MINIMUM_SIZE) {
-                    errors.put(REGISTRATION.PW.name(), password == null ? "Empty" : password);
-                }
-                errors.put("systemError", USER_INPUT.name());
-                errors.put("systemErrorCode", USER_INPUT.getCode());
 
-                return ErrorEncounteredJson.toJson(errors);
+                return ErrorEncounteredJson.toJson(validate(mail, firstName, lastName, password));
             }
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
@@ -106,24 +90,44 @@ public class AccountRegistrationController {
                 errors.put("systemError", EXISTING_USER.name());
                 errors.put("systemErrorCode", EXISTING_USER.getCode());
                 return ErrorEncounteredJson.toJson(errors);
-            } else {
-                try {
-                    String auth = accountSignupService.signup(mail, firstName, lastName, password, birthday);
-                    response.addHeader("X-R-MAIL", mail);
-                    response.addHeader("X-R-AUTH", auth);
-                } catch(Exception e) {
-                    LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
+            }
 
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put("reason", "failed creating account");
-                    errors.put(REGISTRATION.EM.name(), mail);
-                    errors.put("systemError", SEVERE.name());
-                    errors.put("systemErrorCode", SEVERE.getCode());
-                    return ErrorEncounteredJson.toJson(errors);
-                }
+            try {
+                String auth = accountSignupService.signup(mail, firstName, lastName, password, birthday);
+                response.addHeader("X-R-MAIL", mail);
+                response.addHeader("X-R-AUTH", auth);
+            } catch(Exception e) {
+                LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put("reason", "failed creating account");
+                errors.put(REGISTRATION.EM.name(), mail);
+                errors.put("systemError", SEVERE.name());
+                errors.put("systemErrorCode", SEVERE.getCode());
+                return ErrorEncounteredJson.toJson(errors);
             }
         }
 
         return credential;
+    }
+
+    private Map<String, String> validate(String mail, String firstName, String lastName, String password) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("reason", "failed data validation");
+        if (null == firstName || firstName.length() < MINIMUM_SIZE) {
+            errors.put(REGISTRATION.FN.name(), firstName == null ? "Empty" : firstName);
+        }
+        if (null == lastName || lastName.length() < MINIMUM_SIZE) {
+            errors.put(REGISTRATION.LN.name(), lastName == null ? "Empty" : lastName);
+        }
+        if (null == mail || mail.length() < MINIMUM_SIZE) {
+            errors.put(REGISTRATION.EM.name(), mail == null ? "Empty" : mail);
+        }
+        if (null == password || password.length() < MINIMUM_SIZE) {
+            errors.put(REGISTRATION.PW.name(), password == null ? "Empty" : password);
+        }
+        errors.put("systemError", USER_INPUT.name());
+        errors.put("systemErrorCode", USER_INPUT.getCode());
+        return errors;
     }
 }
