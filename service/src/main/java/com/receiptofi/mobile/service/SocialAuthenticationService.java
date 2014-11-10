@@ -44,12 +44,14 @@ public class SocialAuthenticationService {
     public static final int MIN_RESPONSE_SIZE = -1;
 
     @Value ("${auth.create:/webapi/mobile/auth-create.htm}")
-    private String authCreate;
+    private String authCreateEndPoint;
 
-    @Value ("${no.response.from.web.server:could not connect to server}")
-    private String noResponseFromWebServer;
+    private WebConnectorService webConnectorService;
 
-    @Autowired private WebConnectorService webConnectorService;
+    @Autowired
+    public SocialAuthenticationService(WebConnectorService webConnectorService) {
+        this.webConnectorService = webConnectorService;
+    }
 
     /**
      * Call this on terminal as below.
@@ -59,13 +61,11 @@ public class SocialAuthenticationService {
      * @param accessToken
      * @return
      */
-    public String authenticateWeb(String providerId, String accessToken) {
+    public String authenticateWeb(String providerId, String accessToken, HttpClient httpClient) {
         LOG.debug("providerId={} accessToken={} webApiAccessToken={}", providerId, "*******", "*******");
-        HttpClient httpClient = HttpClientBuilder.create().build();
-
-        HttpPost httpPost = webConnectorService.getHttpPost(authCreate, httpClient);
+        HttpPost httpPost = webConnectorService.getHttpPost(authCreateEndPoint, httpClient);
         if (httpPost == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SEVERE);
+            return ErrorEncounteredJson.toJson(webConnectorService.getNoResponseFromWebServer(), SEVERE);
         }
 
         populateEntity(providerId, accessToken, httpPost);
@@ -78,7 +78,7 @@ public class SocialAuthenticationService {
         }
 
         if (response == null) {
-            return ErrorEncounteredJson.toJson(noResponseFromWebServer, SEVERE);
+            return ErrorEncounteredJson.toJson(webConnectorService.getNoResponseFromWebServer(), SEVERE);
         }
 
         int status = response.getStatusLine().getStatusCode();
@@ -117,7 +117,7 @@ public class SocialAuthenticationService {
     }
 
     /**
-     * Create Request Body with pid and at
+     * Create Request Body.
      *
      * @param providerId
      * @param accessToken

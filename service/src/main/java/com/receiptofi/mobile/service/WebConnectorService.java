@@ -13,6 +13,7 @@ import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -36,23 +37,40 @@ public class WebConnectorService {
     public static final int HTTP_STATUS_200 = 200;
     public static final int HTTP_STATUS_300 = 300;
 
-    @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
     private String apiMobileGetPath;
-
-    @Value ("${no.response.from.web.server:could not connect to server}")
     private String noResponseFromWebServer;
-
-    @Value ("${web.access.api.token}")
     private String webApiAccessToken;
-
-    @Value ("${secure.port}")
     private String securePort;
-
-    @Value ("${https}")
     private String protocol;
-
-    @Value ("${host}")
     private String host;
+
+    @Autowired
+    public WebConnectorService(
+            @Value ("${api.mobile.get:/webapi/mobile/get.htm}")
+            String apiMobileGetPath,
+
+            @Value ("${no.response.from.web.server:could not connect to server}")
+            String noResponseFromWebServer,
+
+            @Value ("${web.access.api.token}")
+            String webApiAccessToken,
+
+            @Value ("${secure.port}")
+            String securePort,
+
+            @Value ("${https}")
+            String protocol,
+
+            @Value ("${host}")
+            String host
+    ) {
+        this.apiMobileGetPath = apiMobileGetPath;
+        this.noResponseFromWebServer = noResponseFromWebServer;
+        this.webApiAccessToken = webApiAccessToken;
+        this.securePort = securePort;
+        this.protocol = protocol;
+        this.host = host;
+    }
 
     /**
      * Creates Http Post for supplied endpoint.
@@ -115,5 +133,9 @@ public class WebConnectorService {
             return "";
         }
         return StringUtils.isEmpty(securePort) ? "" : ":" + securePort;
+    }
+
+    public String getNoResponseFromWebServer() {
+        return noResponseFromWebServer;
     }
 }
