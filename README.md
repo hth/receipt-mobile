@@ -74,11 +74,12 @@ _________________
 API call <code>POST</code> path <code>/receipt-mobile/registration.json</code> to signup.
 
 JSON body should contain
-    EM - Email          - Valid email (example t@t.com) and at least four characters length.
-    FN - First Name     - Four characters length
-    LN - Last Name      - Four characters length
-    PW - Password       - Four characters length
-    DB - Optional       - (format MM/DD/YYYY)
+
+- EM - Email          - Valid email (example t@t.com) and at least four characters length.
+- FN - First Name     - Four characters length
+- LN - Last Name      - Four characters length
+- PW - Password       - Four characters length
+- DB - Optional       - (format MM/DD/YYYY)
 
 Below are responses for various input with respective Error Code. On success, response header with be same as Social
 login with X-R-AUTH and X-R-MAIL code.
