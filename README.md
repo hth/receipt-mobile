@@ -27,7 +27,7 @@ HTTP Body
 If there is no response then site is not working. This call should return a response very quickly.
 
 ## User Authentication ##
-____________
+_________________________
 
 Use following <code>curl</code> or <code>httpie</code> with your <code>username</code> and <code>password</code>.<br>
 **Note**: Application should make secure <code>HTTPS</code> calls, only <code>HTTPS</code> calls will be supported and responded. Any other call will get exception.
@@ -67,6 +67,61 @@ Values from <code>X-R-MAIL</code> and <code>X-R-AUTH</code> has to be supplied i
 
     Decoded X-R-AUTH code:  $2a$15$x9M5cc3mR24Ns4wgL47gaut/3.pM2tW9J.0SWeLroGbi2q8OU2k4C
     Encoded X-R-AUTH code:  %242a%2415%24x9M5cc3mR24Ns4wgL47gaut%2F3.pM2tW9J.0SWeLroGbi2q8OU2k4C
+
+## User Signup ##
+_________________
+
+API call <code>POST</code> path <code>/receipt-mobile/registration.json</code> to signup.
+
+JSON body should contain
+    EM - Email          - Valid email (example t@t.com) and at least four characters length.
+    FN - First Name     - Four characters length
+    LN - Last Name      - Four characters length
+    PW - Password       - Four characters length
+    DB - Optional       - (format MM/DD/YYYY)
+
+Below are responses for various input with respective Error Code. On success, response header with be same as Social
+login with X-R-AUTH and X-R-MAIL code.
+
+System Error code 410
+
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "LN": "last", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    HTTP/1.1 200 OK
+    {
+      "error": {
+        "systemErrorCode": "410",
+        "systemError": "EXISTING_USER",
+        "EM": "test2@receiptofi.com",
+        "reason": "user already exists"
+      }
+    }
+
+System Error Code 100
+
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "LN": "last", "PC":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    HTTP/1.1 200 OK
+    {
+      "error": {
+        "systemErrorCode": "100",
+        "systemError": "USER_INPUT",
+        "PW": "Empty",
+        "reason": "failed data validation"
+      }
+    }
+
+System Error Code 500
+
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "t@receiptofi.com", "FN": "first", "LN": "last", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    HTTP/1.1 200 OK
+
+    {
+      "error": {
+        "systemErrorCode": "500",
+        "systemError": "SEVERE",
+        "EM": "t@receiptofi.com",
+        "reason": "failed creating account"
+      }
+    }
 
 ## Social Authentication and Signup ##
 ______________________
