@@ -157,7 +157,7 @@ subprojects {
         compile "$springSecurityGroup:spring-security-web:$springSecurityVersion"
 
         //1.5.2 has a problem of loading object based on Id and requires new Object Id
-        compile "$springDataGroup:spring-data-mongodb:1.5.4.RELEASE"
+        compile "$springDataGroup:spring-data-mongodb:1.6.1.RELEASE"
         compile "$springDataGroup:spring-data-commons:1.9.1.RELEASE"
         compile 'org.mongodb:mongo-java-driver:2.12.4'
 
