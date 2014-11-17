@@ -52,7 +52,7 @@ public class AuthenticateService {
     }
 
     /**
-     * Finds authenticated receipt user id
+     * Finds authenticated receipt user id.
      *
      * @param mail
      * @param auth
