@@ -88,10 +88,10 @@ public final class DeviceController {
                     deviceId, e.getLocalizedMessage(), e);
 
             Map<String, String> errors = new HashMap<>();
-            errors.put("reason", "something went wrong");
+            errors.put(ErrorEncounteredJson.REASON, "something went wrong");
             errors.put("did", deviceId);
-            errors.put("systemError", MobileSystemErrorCodeEnum.USER_INPUT.name());
-            errors.put("systemErrorCode", MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
             return ErrorEncounteredJson.toJson(errors);
         }

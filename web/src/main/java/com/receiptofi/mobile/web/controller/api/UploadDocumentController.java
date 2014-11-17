@@ -117,10 +117,10 @@ public final class UploadDocumentController {
                 LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put("reason", "failed document upload");
+                errors.put(ErrorEncounteredJson.REASON, "failed document upload");
                 errors.put("document", multipartFile.getOriginalFilename());
-                errors.put("systemError", DOCUMENT_UPLOAD.name());
-                errors.put("systemErrorCode", DOCUMENT_UPLOAD.getCode());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, DOCUMENT_UPLOAD.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, DOCUMENT_UPLOAD.getCode());
 
                 return ErrorEncounteredJson.toJson(errors);
             } finally {
