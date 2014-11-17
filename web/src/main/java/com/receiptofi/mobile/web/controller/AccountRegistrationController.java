@@ -38,7 +38,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AccountRegistrationController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountRegistrationController.class);
-    public static final int MINIMUM_SIZE = 4;
+    private static final int MINIMUM_SIZE = 4;
+    private static final String EMPTY = "Empty";
 
     private AccountService accountService;
     private AccountSignupService accountSignupService;
@@ -115,19 +116,19 @@ public class AccountRegistrationController {
         Map<String, String> errors = new HashMap<>();
         errors.put("reason", "failed data validation");
         if (null == firstName || firstName.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.FN.name(), firstName == null ? "Empty" : firstName);
+            errors.put(REGISTRATION.FN.name(), firstName == null ? EMPTY : firstName);
         }
         if (null == lastName || lastName.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.LN.name(), lastName == null ? "Empty" : lastName);
+            errors.put(REGISTRATION.LN.name(), lastName == null ? EMPTY : lastName);
         }
         if (null == mail || mail.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.EM.name(), mail == null ? "Empty" : mail);
+            errors.put(REGISTRATION.EM.name(), mail == null ? EMPTY : mail);
         }
         if (null == password || password.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.PW.name(), password == null ? "Empty" : password);
+            errors.put(REGISTRATION.PW.name(), password == null ? EMPTY : password);
         }
-        errors.put("systemError", USER_INPUT.name());
-        errors.put("systemErrorCode", USER_INPUT.getCode());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         return errors;
     }
 }
