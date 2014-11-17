@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public final class ErrorEncounteredJson {
 
+    public static final String SYSTEM_ERROR = "systemError";
+    public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
+    public static final String REASON = "reason";
+
     @SuppressWarnings("unused")
     private ErrorEncounteredJson() {
     }

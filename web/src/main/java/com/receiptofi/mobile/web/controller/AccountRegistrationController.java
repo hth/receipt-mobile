@@ -85,10 +85,10 @@ public class AccountRegistrationController {
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
             if (userProfile != null) {
                 Map<String, String> errors = new HashMap<>();
-                errors.put("reason", "user already exists");
+                errors.put(ErrorEncounteredJson.REASON, "user already exists");
                 errors.put(REGISTRATION.EM.name(), mail);
-                errors.put("systemError", EXISTING_USER.name());
-                errors.put("systemErrorCode", EXISTING_USER.getCode());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, EXISTING_USER.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, EXISTING_USER.getCode());
                 return ErrorEncounteredJson.toJson(errors);
             }
 
@@ -100,10 +100,10 @@ public class AccountRegistrationController {
                 LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put("reason", "failed creating account");
+                errors.put(ErrorEncounteredJson.REASON, "failed creating account");
                 errors.put(REGISTRATION.EM.name(), mail);
-                errors.put("systemError", SEVERE.name());
-                errors.put("systemErrorCode", SEVERE.getCode());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
                 return ErrorEncounteredJson.toJson(errors);
             }
         }
