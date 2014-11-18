@@ -272,6 +272,32 @@ subprojects {
             html.enabled = true
         }
     }
+
+// Sonar run rests here. I could not run this using gradle but standalone is working well
+//    apply plugin: 'sonar'
+//    apply plugin: 'sonar-runner'
+//    sonarRunner {
+//        sonarProperties {
+//            property 'sonar.projectKey', 'receipt-mobile-application'
+//            property 'sonar.projectName', 'Receipt Mobile Application'
+//            property 'sonar.projectDescription', 'Receipt Mobile Application'
+//            property 'sonar.projectVersion', '1.0'
+//
+//            property 'sonar.language', 'java'
+//            property 'sonar.verbose', 'true'
+//            property 'sonar.sourceEncoding', 'UTF-8'
+//
+//            // sonar server and database
+//            property "sonar.host.url", "sonar.receiptofi.com"
+//            property "sonar.jdbc.url", 'jdbc:mysql://192.168.1.68:3306/sonar?useUnicode=true&amp;characterEncoding=utf8'
+//            //property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+//            property "sonar.jdbc.username", 'receiptofi'
+//            property "sonar.jdbc.password", 'r3f02\\!M'
+//
+//            property 'sonar.jacoco.reportPath', "${buildDir}/jacoco/test.exec"
+//            property 'sonar.junit.reportsPath', "${buildDir}/test-results"
+//        }
+//    }
 }
 
 project(':common') {
