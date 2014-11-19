@@ -1,16 +1,10 @@
 package com.receiptofi.mobile.web.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import static com.receiptofi.mobile.service.AccountSignupService.REGISTRATION;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.EXISTING_USER;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.AccountSignupService;
@@ -30,6 +24,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: hitender

@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.web.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import static com.receiptofi.mobile.service.AccountSignupService.REGISTRATION;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.EXISTING_USER;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
@@ -10,7 +8,12 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,6 +29,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RunWith (MockitoJUnitRunner.class)
 public class AccountRegistrationControllerTest {

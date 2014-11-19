@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.service;
 
-import java.io.IOException;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
@@ -23,6 +21,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.io.IOException;
 
 @RunWith (MockitoJUnitRunner.class)
 public class WebConnectorServiceTest {

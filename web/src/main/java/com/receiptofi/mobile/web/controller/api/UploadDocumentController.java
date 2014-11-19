@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
+
 import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
@@ -30,8 +32,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.*;
 
 /**
  * User: hitender

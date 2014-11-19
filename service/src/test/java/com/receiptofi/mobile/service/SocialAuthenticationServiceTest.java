@@ -1,8 +1,5 @@
 package com.receiptofi.mobile.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -27,6 +24,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @RunWith (MockitoJUnitRunner.class)
 public class SocialAuthenticationServiceTest {
