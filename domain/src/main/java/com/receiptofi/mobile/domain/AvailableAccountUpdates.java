@@ -1,8 +1,5 @@
 package com.receiptofi.mobile.domain;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,6 +8,9 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.mapping.Profile;
 import com.receiptofi.mobile.domain.mapping.Receipt;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * All account updates available.

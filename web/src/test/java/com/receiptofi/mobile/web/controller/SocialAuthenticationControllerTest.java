@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.web.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -25,6 +23,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RunWith (MockitoJUnitRunner.class)
 public class SocialAuthenticationControllerTest {

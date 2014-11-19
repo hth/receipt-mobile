@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.service;
 
-import java.io.IOException;
-
 import com.google.gson.Gson;
 
 import com.receiptofi.domain.EmailValidateEntity;
@@ -25,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+
+import java.io.IOException;
 
 /**
  * User: hitender

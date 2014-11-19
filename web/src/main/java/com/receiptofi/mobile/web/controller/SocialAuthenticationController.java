@@ -3,6 +3,8 @@ package com.receiptofi.mobile.web.controller;
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +20,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  * User: hitender

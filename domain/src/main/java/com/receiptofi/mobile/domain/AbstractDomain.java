@@ -1,13 +1,13 @@
 package com.receiptofi.mobile.domain;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Converts domain object to string.

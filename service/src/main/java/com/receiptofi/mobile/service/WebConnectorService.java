@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.service;
 
-import java.io.IOException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -17,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * Helper class to create connection to Web Application for provided endpoint.
