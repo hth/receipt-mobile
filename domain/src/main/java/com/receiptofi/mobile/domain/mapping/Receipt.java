@@ -56,7 +56,7 @@ public final class Receipt {
     private String percentTax;
 
     @JsonProperty ("rid")
-    private String userProfileId;
+    private String receiptUserId;
 
     @JsonProperty ("expenseReport")
     private String expenseReportInFS;
@@ -74,7 +74,7 @@ public final class Receipt {
 
         this.receiptDate = FMT.print(new DateTime(receiptEntity.getReceiptDate()));
         this.percentTax = receiptEntity.getPercentTax();
-        this.userProfileId = receiptEntity.getUserProfileId();
+        this.receiptUserId = receiptEntity.getReceiptUserId();
         this.expenseReportInFS = receiptEntity.getExpenseReportInFS();
     }
 
