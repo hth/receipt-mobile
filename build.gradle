@@ -112,6 +112,14 @@ subprojects {
         }
     }
 
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination "${buildDir}/reports/jacocoHtml"
+        }
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
