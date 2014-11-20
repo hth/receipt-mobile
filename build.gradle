@@ -465,4 +465,4 @@ task testReport(type: TestReport) {
     }
 }
 
-defaultTasks 'clean', 'build', 'jar', 'war', 'testReport'
+defaultTasks 'clean', 'build', 'jar', 'war', 'testReport', 'jacocoTestReport'
