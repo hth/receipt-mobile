@@ -78,7 +78,7 @@ public final class UploadDocumentController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
-        LOG.info("upload document begins rid={}", rid);
+        LOG.info("upload document begins rid={} content-type={}", rid, httpServletRequest.getContentType());
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
         if (isMultipart) {
