@@ -11,6 +11,7 @@ import com.receiptofi.mobile.service.AccountSignupService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.ParseJsonStringToMap;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,14 +45,31 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class AccountRegistrationController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountRegistrationController.class);
-    private static final int MINIMUM_SIZE = 4;
     private static final String EMPTY = "Empty";
 
+    private int mailLength;
+    private int nameLength;
+    private int passwordLength;
     private AccountService accountService;
     private AccountSignupService accountSignupService;
 
     @Autowired
-    public AccountRegistrationController(AccountService accountService, AccountSignupService accountSignupService) {
+    public AccountRegistrationController(
+            @Value ("${AccountRegistrationController.mailLength:5}")
+            int mailLength,
+
+            @Value ("${AccountRegistrationController.nameLength:2}")
+            int nameLength,
+
+            @Value ("${AccountRegistrationController.passwordLength:6}")
+            int passwordLength,
+
+            AccountService accountService,
+            AccountSignupService accountSignupService
+    ) {
+        this.mailLength = mailLength;
+        this.nameLength = nameLength;
+        this.passwordLength = passwordLength;
         this.accountService = accountService;
         this.accountSignupService = accountSignupService;
     }
@@ -63,9 +82,14 @@ public class AccountRegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     @ResponseBody
-    public String registerUser(@RequestBody String registrationJson, HttpServletResponse response) throws IOException {
+    public String registerUser(
+            @RequestBody
+            String registrationJson,
+
+            HttpServletResponse response
+    ) throws IOException {
         String credential = "{}";
-        Map<String, String> map;
+        Map<String, ScrubbedInput> map;
         try {
             map = ParseJsonStringToMap.jsonStringToMap(registrationJson);
         } catch (IOException e) {
@@ -73,19 +97,33 @@ public class AccountRegistrationController {
             return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
         }
 
-        if (map != null) {
-            String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()));
-            String firstName = map.get(REGISTRATION.FN.name());
-            String lastName = map.get(REGISTRATION.LN.name());
-            String password = map.get(REGISTRATION.PW.name());
-            String birthday = map.get(REGISTRATION.BD.name());
+        if(!map.isEmpty()) {
+            String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
+            String firstName = map.get(REGISTRATION.FN.name()).getText();
+            String lastName = null;
+            if (StringUtils.isNotEmpty(firstName)) {
+                String[] name = firstName.split(" ");
+                if (name.length > 1) {
+                    String fn = null;
+                    for (int i = 0; i < name.length - 1; i++) {
+                        if (fn == null) {
+                            fn = name[i] + " ";
+                        } else {
+                            fn = fn + name[i] + " ";
+                        }
+                    }
+                    firstName = StringUtils.trim(fn);
+                    lastName = name[nameLength - (nameLength - 1)];
+                }
+            }
+            String password = map.get(REGISTRATION.PW.name()).getText();
+            String birthday = map.get(REGISTRATION.BD.name()).getText();
 
-            if (null == mail || mail.length() < MINIMUM_SIZE ||
-                    null == firstName || firstName.length() < MINIMUM_SIZE ||
-                    null == lastName || lastName.length() < MINIMUM_SIZE ||
-                    null == password || password.length() < MINIMUM_SIZE) {
+            if (null == mail || mail.length() < mailLength ||
+                    null == firstName || firstName.length() < nameLength ||
+                    null == password || password.length() < passwordLength) {
 
-                return ErrorEncounteredJson.toJson(validate(mail, firstName, lastName, password));
+                return ErrorEncounteredJson.toJson(validate(mail, firstName, password));
             }
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
@@ -102,7 +140,7 @@ public class AccountRegistrationController {
                 String auth = accountSignupService.signup(mail, firstName, lastName, password, birthday);
                 response.addHeader("X-R-MAIL", mail);
                 response.addHeader("X-R-AUTH", auth);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
@@ -112,26 +150,28 @@ public class AccountRegistrationController {
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
                 return ErrorEncounteredJson.toJson(errors);
             }
+        } else {
+            /** Validation failure as there is not data in the map. */
+            return ErrorEncounteredJson.toJson(validate(null, null, null));
         }
 
         return credential;
     }
 
-    private Map<String, String> validate(String mail, String firstName, String lastName, String password) {
+    private Map<String, String> validate(String mail, String firstName, String password) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("reason", "failed data validation");
-        if (null == firstName || firstName.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.FN.name(), firstName == null ? EMPTY : firstName);
+        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
+
+        if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
+            errors.put(REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
         }
-        if (null == lastName || lastName.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.LN.name(), lastName == null ? EMPTY : lastName);
+        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
+            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
         }
-        if (null == mail || mail.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.EM.name(), mail == null ? EMPTY : mail);
+        if (StringUtils.isBlank(password) || password.length() < passwordLength) {
+            errors.put(REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
         }
-        if (null == password || password.length() < MINIMUM_SIZE) {
-            errors.put(REGISTRATION.PW.name(), password == null ? EMPTY : password);
-        }
+
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         return errors;

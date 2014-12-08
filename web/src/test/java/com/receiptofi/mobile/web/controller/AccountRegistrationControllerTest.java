@@ -32,7 +32,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RunWith (MockitoJUnitRunner.class)
 public class AccountRegistrationControllerTest {
 
     public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
@@ -50,7 +49,7 @@ public class AccountRegistrationControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         response = mock(HttpServletResponse.class);
-        accountRegistrationController = new AccountRegistrationController(accountService, accountSignupService);
+        accountRegistrationController = new AccountRegistrationController(5, 2 ,6, accountService, accountSignupService);
     }
 
     @Test
@@ -75,7 +74,23 @@ public class AccountRegistrationControllerTest {
         assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
-        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.LN.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.PW.name()).getAsString());
+
+        verify(accountService, never()).doesUserExists(any(String.class));
+    }
+
+    @Test
+    public void testRegisterUserMapIsBlank() throws Exception {
+        String json = createJson("", "", "", "");
+        String responseJson = accountRegistrationController.registerUser(json, response);
+
+        JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
+        assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+
+        assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.PW.name()).getAsString());
 
@@ -84,7 +99,7 @@ public class AccountRegistrationControllerTest {
 
     @Test
     public void testRegisterUserWhenExists() throws Exception {
-        String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
+        String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(new UserProfileEntity());
         String responseJson = accountRegistrationController.registerUser(json, response);
 
@@ -99,7 +114,7 @@ public class AccountRegistrationControllerTest {
 
     @Test
     public void testRegisterUserWhenSignupFails() throws Exception {
-        String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
+        String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         doThrow(new RuntimeException())
                 .when(accountSignupService)
@@ -117,8 +132,8 @@ public class AccountRegistrationControllerTest {
     }
 
     @Test
-    public void testRegisterUserWhenNotExists() throws Exception {
-        String json = createJson("first", "last", "test@receiptofi.com", "", "XXXX");
+    public void testRegisterUserWhenDoesNotExists() throws Exception {
+        String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
         String responseJson = accountRegistrationController.registerUser(json, response);
@@ -127,10 +142,37 @@ public class AccountRegistrationControllerTest {
         assertEquals("{}", responseJson);
     }
 
-    private String createJson(String firstName, String lastName, String mail, String birthday, String password) {
+    @Test
+    public void testRegisterUserWhenDoesNotExists_With_Lastname() throws Exception {
+        String jsonResponse = createJson("first last middle", " test@receiptofi.com", "", "XXXXXX");
+        when(accountService.doesUserExists(anyString())).thenReturn(null);
+        when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        String responseJson = accountRegistrationController.registerUser(jsonResponse, response);
+
+        verify(accountService, times(1)).doesUserExists(any(String.class));
+        assertEquals("{}", responseJson);
+    }
+
+
+    @Test
+    public void testRegisterValidation_Failure() throws Exception {
+        String json = createJson("f", "t@c", "", "XXXX");
+        when(accountService.doesUserExists(anyString())).thenReturn(null);
+        when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        String responseJson = accountRegistrationController.registerUser(json, response);
+
+        JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
+        assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("t@c", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+
+        verify(accountService, never()).doesUserExists(any(String.class));
+    }
+
+    private String createJson(String firstName, String mail, String birthday, String password) {
         JsonObject json = new JsonObject();
         json.addProperty(REGISTRATION.FN.name(), firstName);
-        json.addProperty(REGISTRATION.LN.name(), lastName);
         json.addProperty(REGISTRATION.EM.name(), mail);
         json.addProperty(REGISTRATION.BD.name(), birthday);
         json.addProperty(REGISTRATION.PW.name(), password);

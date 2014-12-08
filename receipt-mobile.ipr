@@ -1191,7 +1191,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/0.9.0/service-0.9.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.ideaLibSources/service-0.9.0-sources.jar!/" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.receiptofi:social:0.9.0">
       <CLASSES>

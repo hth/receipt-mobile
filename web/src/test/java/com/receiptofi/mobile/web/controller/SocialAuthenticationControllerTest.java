@@ -26,7 +26,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RunWith (MockitoJUnitRunner.class)
 public class SocialAuthenticationControllerTest {
 
     @Mock private SocialAuthenticationService socialAuthenticationService;
