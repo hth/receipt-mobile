@@ -104,16 +104,8 @@ public class AccountRegistrationController {
             if (StringUtils.isNotEmpty(firstName)) {
                 String[] name = firstName.split(" ");
                 if (name.length > 1) {
-                    String fn = null;
-                    for (int i = 0; i < name.length - 1; i++) {
-                        if (fn == null) {
-                            fn = name[i] + " ";
-                        } else {
-                            fn = fn + name[i] + " ";
-                        }
-                    }
-                    firstName = StringUtils.trim(fn);
-                    lastName = name[nameLength - (nameLength - 1)];
+                    lastName = name[name.length - 1];
+                    firstName = StringUtils.trim(firstName.substring(0, firstName.indexOf(lastName)));
                 }
             }
             String password = map.get(REGISTRATION.PW.name()).getText();
