@@ -2,6 +2,7 @@ package com.receiptofi.mobile.web.controller;
 
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.utils.ParseJsonStringToMap;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -96,11 +97,11 @@ public class SocialAuthenticationController {
     public String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
         String credential = "{}";
         try {
-            Map<String, String> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
             LOG.info("pid={} at={}", map.get("pid"), map.get("at"));
             credential = socialAuthenticationService.authenticateWeb(
-                    map.get("pid"),
-                    map.get("at"),
+                    map.get("pid").getText(),
+                    map.get("at").getText(),
                     HttpClientBuilder.create().build());
 
             if (credential == null ||
@@ -110,9 +111,9 @@ public class SocialAuthenticationController {
                 return credential;
             }
 
-            Map<String, String> credentialMap = ParseJsonStringToMap.jsonStringToMap(credential);
-            response.addHeader(AUTH, credentialMap.get(AUTH));
-            response.addHeader(MAIL, credentialMap.get(MAIL));
+            Map<String, ScrubbedInput> credentialMap = ParseJsonStringToMap.jsonStringToMap(credential);
+            response.addHeader(AUTH, credentialMap.get(AUTH).getText());
+            response.addHeader(MAIL, credentialMap.get(MAIL).getText());
 
             LOG.info("credential={}", credential);
             return credential;

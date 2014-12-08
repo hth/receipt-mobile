@@ -59,7 +59,7 @@ public class AccountSignupService {
     }
 
     /**
-     * Signup user and return authenticated key
+     * Signup user and return authenticated key.
      *
      * @param mail
      * @param firstName
@@ -107,7 +107,7 @@ public class AccountSignupService {
     public boolean sendMailDuringSignup(String userId, String name, String auth, HttpClient httpClient) {
         LOG.debug("userId={} name={} webApiAccessToken={}", userId, name, "*******");
         HttpPost httpPost = webConnectorService.getHttpPost(accountValidationEndPoint, httpClient);
-        if (httpPost == null) {
+        if (null == httpPost) {
             LOG.warn("failed connecting, reason={}", webConnectorService.getNoResponseFromWebServer());
             return false;
         }
@@ -121,14 +121,14 @@ public class AccountSignupService {
                     httpPost.getURI(), e.getLocalizedMessage(), e);
         }
 
-        if (response == null) {
+        if (null == response) {
             LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
             return false;
         }
 
         int status = response.getStatusLine().getStatusCode();
         LOG.debug("status={}", status);
-        if (status >= WebConnectorService.HTTP_STATUS_200 && status < WebConnectorService.HTTP_STATUS_300) {
+        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
             return true;
         }
 
@@ -155,7 +155,6 @@ public class AccountSignupService {
 
     public enum REGISTRATION {
         FN, //Firstname
-        LN, //Lastname
         EM, //Email
         BD, //Birthday
         PW  //Password
