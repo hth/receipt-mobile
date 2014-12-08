@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  * User: hitender
  * Date: 6/9/14 11:28 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @WebFilter (urlPatterns = {"/api/*"})
 public class ApiFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(ApiFilter.class);

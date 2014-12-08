@@ -35,6 +35,11 @@ import javax.servlet.http.HttpServletResponse;
  * User: hitender
  * Date: 11/2/14 1:08 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @RestController
 public class AccountRegistrationController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountRegistrationController.class);
