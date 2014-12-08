@@ -111,9 +111,9 @@ public class AccountRegistrationController {
             String password = map.get(REGISTRATION.PW.name()).getText();
             String birthday = map.get(REGISTRATION.BD.name()).getText();
 
-            if (null == mail || mail.length() < mailLength ||
-                    null == firstName || firstName.length() < nameLength ||
-                    null == password || password.length() < passwordLength) {
+            if (StringUtils.isBlank(mail) || mailLength > mail.length() ||
+                    StringUtils.isBlank(firstName) || nameLength > firstName.length() ||
+                    StringUtils.isBlank(password) || passwordLength > password.length()) {
 
                 return ErrorEncounteredJson.toJson(validate(mail, firstName, password));
             }
