@@ -17,8 +17,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * User: hitender
  * Date: 6/5/14 1:49 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 @Controller
-public final class IsWorkingController {
+public class IsWorkingController {
     private static final Logger LOG = LoggerFactory.getLogger(IsWorkingController.class);
 
     /**
