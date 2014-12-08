@@ -45,7 +45,10 @@ public class SocialAuthenticationController {
     }
 
     /**
-     * Social provider signup or login.
+     * Social provider signup or login supports.
+     * For Facebook, AccessToken token works as is to access user information.
+     * For Google, there is access code is fetched and it needs to be executed against the API to get
+     * access token and refresh token.
      *
      * http http://localhost:9090/receipt-mobile/authenticate.json < ~/Downloads/pid.json
      * pid.json
@@ -100,7 +103,10 @@ public class SocialAuthenticationController {
                     map.get("at"),
                     HttpClientBuilder.create().build());
 
-            if (credential == null || credential.length() == 0 || credential.contains("systemError") || credential.contains("401")) {
+            if (credential == null ||
+                    credential.length() <= credential.length() ||
+                    credential.contains("systemError") ||
+                    credential.contains("401")) {
                 return credential;
             }
 
