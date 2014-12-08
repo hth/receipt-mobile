@@ -79,14 +79,14 @@ JSON body should contain
 - FN - First Name     - Two characters length minimum. "John Doe would be treated as FN John and LN Doe"
 - LN - Last Name      - Optional
 - PW - Password       - Six characters length
-- DB - Optional       - Number (Range 18 - 99+)
+- DB - Date of Birth  - Optional       - Number (Range 18 - 99+)
 
 Below are responses for various input with respective Error Code. On success, response header with be same as Social
 login with X-R-AUTH and X-R-MAIL code.
 
 System Error code 410
 
-    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "LN": "last", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
     HTTP/1.1 200 OK
     {
       "error": {
@@ -99,7 +99,7 @@ System Error code 410
 
 System Error Code 100
 
-    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "LN": "last", "PC":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "test2@receiptofi.com", "FN": "first", "PC":"pass"}' http://localhost:9090/receipt-mobile/registration.json
     HTTP/1.1 200 OK
     {
       "error": {
@@ -112,7 +112,7 @@ System Error Code 100
 
 System Error Code 500
 
-    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "t@receiptofi.com", "FN": "first", "LN": "last", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
+    curl -i  -X POST -H "Content-Type: application/json" -d '{"EM": "t@receiptofi.com", "FN": "first", "PW":"pass"}' http://localhost:9090/receipt-mobile/registration.json
     HTTP/1.1 200 OK
 
     {
