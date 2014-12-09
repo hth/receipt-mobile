@@ -1,9 +1,9 @@
 package com.receiptofi.mobile.web.controller;
 
 import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
 
@@ -98,7 +98,7 @@ public class AccountController {
             return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
         }
 
-        if(!map.isEmpty()) {
+        if (!map.isEmpty()) {
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             String firstName = map.get(REGISTRATION.FN.name()).getText();
             String lastName = null;
@@ -194,7 +194,7 @@ public class AccountController {
             return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
         }
 
-        if(!map.isEmpty()) {
+        if (!map.isEmpty()) {
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             if (StringUtils.isBlank(mail) || mailLength > mail.length()) {
                 LOG.info("failed data validation={}", mail);
@@ -219,7 +219,7 @@ public class AccountController {
 
             try {
                 if (mobileAccountService.recoverAccount(mail)) {
-                   LOG.info("sent recovery mail={}", mail);
+                    LOG.info("sent recovery mail={}", mail);
                     response.sendError(HttpServletResponse.SC_OK);
                 } else {
                     LOG.warn("failed sending recovery email={}", mail);
