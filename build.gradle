@@ -123,6 +123,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
         maven { url "http://repo.spring.io/libs-milestone" }
         maven { url "http://repo1.maven.org/maven2/" }
     }
@@ -183,7 +184,7 @@ subprojects {
         compile 'commons-validator:commons-validator:1.4.0'
         compile 'com.google.code.gson:gson:2.2.4'
         compile 'commons-io:commons-io:2.4'
-        compile 'org.apache.poi:poi:3.10-FINAL'
+        compile 'org.apache.poi:poi:3.10.1'
         compile 'commons-codec:commons-codec:1.9'
         compile 'commons-logging:commons-logging:1.1.3'
         compile 'com.googlecode.libphonenumber:libphonenumber:6.0'
@@ -218,6 +219,10 @@ subprojects {
 
         compile 'javax.validation:validation-api:1.1.0.Final'
 
+        compile "com.mangofactory:swagger-springmvc:0.9.3"
+        compile "org.scala-lang:scala-library:2.10.4"
+        compile "org.ajar:swagger-spring-mvc-ui:0.2"
+
         testCompile group: 'junit', name: 'junit', version: '4.+'
         testCompile 'org.mockito:mockito-all:1.9.5'
         testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.46.1'
@@ -233,12 +238,12 @@ subprojects {
 
         // listen to events in the test execution lifecycle
         beforeTest { descriptor ->
-            logger.lifecycle("Running test: " + descriptor)
+            logger.lifecycle("Running test: $descriptor")
         }
 
         // listen to standard out and standard error of the test JVM(s)
         onOutput { descriptor, event ->
-            logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+            logger.lifecycle("Test: $descriptor produced standard out/err: $event.message")
         }
 
         testLogging {
@@ -397,7 +402,7 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
     }
 
     copy {
-        from file("web/environment/$env/$env" + ".properties")
+        from file("web/environment/$env/$env.properties")
         into warConfDir
     }
 

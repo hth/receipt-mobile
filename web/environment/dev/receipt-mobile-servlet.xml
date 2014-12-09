@@ -26,6 +26,11 @@
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
 
+    <!-- Swagger Initialization for Rest API Starts -->
+    <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+    <bean class="com.receiptofi.mobile.web.config.SwaggerConfig"/>
+    <!-- Swagger Initialization for Rest API Ends   -->
+
     <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes" value="application/json"/>
     </bean>

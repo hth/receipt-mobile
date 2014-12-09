@@ -41,6 +41,7 @@
     <logger name="com.receiptofi" level="DEBUG" />
     <logger name="com.receiptofi.mobile.web.filter.LogContextFilter" level="ON" />
     <logger name="org.springframework" level="WARN" />
+    <logger name="com.mangofactory" level="INFO" />
 
     <logger name="net.bull.javamelody" level="ON"/>
     <logger name="org.apache.activemq" level="OFF"/>
