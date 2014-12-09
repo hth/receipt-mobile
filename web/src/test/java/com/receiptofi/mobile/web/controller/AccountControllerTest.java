@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.web.controller;
 
-import static com.receiptofi.mobile.service.AccountSignupService.REGISTRATION;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.EXISTING_USER;
+import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
@@ -20,41 +20,39 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.mobile.service.AccountSignupService;
+import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.service.AccountService;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletResponse;
 
-public class AccountRegistrationControllerTest {
+public class AccountControllerTest {
 
     public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
     public static final String SYSTEM_ERROR = "systemError";
     public static final String REASON = "reason";
     public static final String ERROR = "error";
 
+    @Mock private MobileAccountService mobileAccountService;
     @Mock private AccountService accountService;
-    @Mock private AccountSignupService accountSignupService;
     private HttpServletResponse response;
 
-    private AccountRegistrationController accountRegistrationController;
+    private AccountController accountController;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         response = mock(HttpServletResponse.class);
-        accountRegistrationController = new AccountRegistrationController(5, 2 ,6, accountService, accountSignupService);
+        accountController = new AccountController(5, 2 ,6, accountService, mobileAccountService);
     }
 
     @Test
     public void testRegisterUserJsonInvalid() throws Exception {
-        String jsonResponse = accountRegistrationController.registerUser("", response);
+        String jsonResponse = accountController.registerUser("", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -66,7 +64,7 @@ public class AccountRegistrationControllerTest {
 
     @Test
     public void testRegisterUserMapIsNull() throws Exception {
-        String jsonResponse = accountRegistrationController.registerUser("{}", response);
+        String jsonResponse = accountController.registerUser("{}", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -83,7 +81,7 @@ public class AccountRegistrationControllerTest {
     @Test
     public void testRegisterUserMapIsBlank() throws Exception {
         String json = createJson("", "", "", "");
-        String responseJson = accountRegistrationController.registerUser(json, response);
+        String responseJson = accountController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -101,11 +99,11 @@ public class AccountRegistrationControllerTest {
     public void testRegisterUserWhenExists() throws Exception {
         String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(new UserProfileEntity());
-        String responseJson = accountRegistrationController.registerUser(json, response);
+        String responseJson = accountController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
-        assertEquals(EXISTING_USER.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
-        assertEquals(EXISTING_USER.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_EXISTING.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
         assertEquals("user already exists", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
@@ -117,10 +115,10 @@ public class AccountRegistrationControllerTest {
         String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         doThrow(new RuntimeException())
-                .when(accountSignupService)
+                .when(mobileAccountService)
                 .signup(anyString(), anyString(), anyString(), anyString(), anyString());
 
-        String responseJson = accountRegistrationController.registerUser(json, response);
+        String responseJson = accountController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -135,8 +133,8 @@ public class AccountRegistrationControllerTest {
     public void testRegisterUserWhenDoesNotExists() throws Exception {
         String json = createJson("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
-        String responseJson = accountRegistrationController.registerUser(json, response);
+        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        String responseJson = accountController.registerUser(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
         assertEquals("{}", responseJson);
@@ -146,8 +144,8 @@ public class AccountRegistrationControllerTest {
     public void testRegisterUserWhenDoesNotExists_With_Lastname() throws Exception {
         String jsonResponse = createJson("first last middle", " test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
-        String responseJson = accountRegistrationController.registerUser(jsonResponse, response);
+        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        String responseJson = accountController.registerUser(jsonResponse, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
         assertEquals("{}", responseJson);
@@ -158,8 +156,8 @@ public class AccountRegistrationControllerTest {
     public void testRegisterValidation_Failure() throws Exception {
         String json = createJson("f", "t@c", "", "XXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(accountSignupService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
-        String responseJson = accountRegistrationController.registerUser(json, response);
+        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        String responseJson = accountController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());

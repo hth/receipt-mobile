@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
+import com.receiptofi.mobile.domain.AccountRecover;
 import com.receiptofi.mobile.domain.SignupUserInfo;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.service.EmailValidateService;
@@ -37,22 +38,29 @@ import java.io.IOException;
         "PMD.LongVariable"
 })
 @Component
-public class AccountSignupService {
-    private static final Logger LOG = LoggerFactory.getLogger(AccountSignupService.class);
+public class MobileAccountService {
+    private static final Logger LOG = LoggerFactory.getLogger(MobileAccountService.class);
 
-    @Value ("${accountValidation:/webapi/mobile/mail/accountValidation.htm}")
     private String accountValidationEndPoint;
-
+    private String accountRecoverEndPoint;
     private WebConnectorService webConnectorService;
     private EmailValidateService emailValidateService;
     private AccountService accountService;
 
     @Autowired
-    public AccountSignupService(
+    public MobileAccountService(
+            @Value ("${accountSignupEndPoint:/webapi/mobile/mail/accountSignup.htm}")
+            String accountSignupEndPoint,
+
+            @Value ("${accountRecover:/webapi/mobile/mail/accountRecover.htm}")
+            String accountRecoverEndPoint,
+
             WebConnectorService webConnectorService,
             EmailValidateService emailValidateService,
             AccountService accountService
     ) {
+        this.accountValidationEndPoint = accountSignupEndPoint;
+        this.accountRecoverEndPoint = accountRecoverEndPoint;
         this.webConnectorService = webConnectorService;
         this.emailValidateService = emailValidateService;
         this.accountService = accountService;
@@ -104,7 +112,7 @@ public class AccountSignupService {
      * @param auth
      * @return
      */
-    public boolean sendMailDuringSignup(String userId, String name, String auth, HttpClient httpClient) {
+    protected boolean sendMailDuringSignup(String userId, String name, String auth, HttpClient httpClient) {
         LOG.debug("userId={} name={} webApiAccessToken={}", userId, name, "*******");
         HttpPost httpPost = webConnectorService.getHttpPost(accountValidationEndPoint, httpClient);
         if (null == httpPost) {
@@ -112,7 +120,44 @@ public class AccountSignupService {
             return false;
         }
 
-        populateEntity(userId, name, auth, httpPost);
+        setEntity(SignupUserInfo.newInstance(userId, name, auth), httpPost);
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(httpPost);
+        } catch (IOException e) {
+            LOG.error("error occurred while executing request path={} reason={}",
+                    httpPost.getURI(), e.getLocalizedMessage(), e);
+        }
+
+        if (null == response) {
+            LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        int status = response.getStatusLine().getStatusCode();
+        LOG.debug("status={}", status);
+        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
+            return true;
+        }
+
+        LOG.error("server responded with response code={}", status);
+        return false;
+    }
+
+    /**
+     * @param userId
+     * @return
+     */
+    public boolean recoverAccount(String userId) {
+        LOG.debug("userId={} webApiAccessToken={}", userId, "*******");
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = webConnectorService.getHttpPost(accountRecoverEndPoint, httpClient);
+        if (null == httpPost) {
+            LOG.warn("failed connecting, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        setEntity(AccountRecover.newInstance(userId), httpPost);
         HttpResponse response = null;
         try {
             response = httpClient.execute(httpPost);
@@ -139,15 +184,13 @@ public class AccountSignupService {
     /**
      * Create Request Body.
      *
-     * @param userId
-     * @param name
-     * @param auth
+     * @param object
      * @param httpPost
      */
-    private void populateEntity(String userId, String name, String auth, HttpPost httpPost) {
+    private void setEntity(Object object, HttpPost httpPost) {
         httpPost.setEntity(
                 new StringEntity(
-                        new Gson().toJson(SignupUserInfo.newInstance(userId, name, auth)),
+                        new Gson().toJson(object),
                         ContentType.create(MediaType.APPLICATION_JSON_VALUE, "UTF-8")
                 )
         );

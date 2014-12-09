@@ -17,7 +17,8 @@ public enum MobileSystemErrorCodeEnum {
     DOCUMENT_UPLOAD("300"),
 
     AUTHENTICATION("400"),
-    EXISTING_USER("410"),
+    USER_EXISTING("410"),
+    USER_NOT_FOUND("412"),
 
     /** Mobile application related issue. */
     SEVERE("500"),
