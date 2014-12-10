@@ -28,6 +28,11 @@ import org.mockito.MockitoAnnotations;
 
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 public class SocialAuthenticationControllerTest {
 
     @Mock private SocialAuthenticationService socialAuthenticationService;
