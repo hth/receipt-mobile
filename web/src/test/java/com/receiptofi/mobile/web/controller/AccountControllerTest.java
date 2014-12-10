@@ -1,9 +1,9 @@
 package com.receiptofi.mobile.web.controller;
 
 import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -42,12 +42,21 @@ public class AccountControllerTest {
     private HttpServletResponse response;
 
     private AccountController accountController;
+    private static final int mailLength = 5;
+    private static final int nameLength = 2;
+    private static final int passwordLength = 6;
+
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         response = mock(HttpServletResponse.class);
-        accountController = new AccountController(5, 2 ,6, accountService, mobileAccountService);
+        accountController = new AccountController(
+                mailLength,
+                nameLength,
+                passwordLength,
+                accountService,
+                mobileAccountService);
     }
 
     @Test

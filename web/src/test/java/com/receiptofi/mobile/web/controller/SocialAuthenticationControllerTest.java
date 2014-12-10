@@ -1,5 +1,9 @@
 package com.receiptofi.mobile.web.controller;
 
+import static com.receiptofi.mobile.web.controller.AccountControllerTest.ERROR;
+import static com.receiptofi.mobile.web.controller.AccountControllerTest.REASON;
+import static com.receiptofi.mobile.web.controller.AccountControllerTest.SYSTEM_ERROR;
+import static com.receiptofi.mobile.web.controller.AccountControllerTest.SYSTEM_ERROR_CODE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -19,10 +23,8 @@ import org.apache.http.client.HttpClient;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,7 +48,11 @@ public class SocialAuthenticationControllerTest {
         verify(socialAuthenticationService, never())
                 .authenticateWeb(any(String.class), any(String.class), any(HttpClient.class));
 
-        assertEquals("{\"error\":{\"systemErrorCode\":\"500\",\"systemError\":\"SEVERE\",\"reason\":\"Internal error, please try some time later.\"}}", jsonResponse);
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+
+        assertEquals("Internal error, please try some time later.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("SEVERE", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("500", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
     }
 
     @Test
@@ -64,15 +70,11 @@ public class SocialAuthenticationControllerTest {
                         "}");
 
         String jsonResponse = socialAuthenticationController.authenticateUser(json, response);
-        assertEquals("{\n" +
-                "    \"error\": {\n" +
-                "        \"httpStatus\": \"UNAUTHORIZED\",\n" +
-                "        \"httpStatusCode\": 401,\n" +
-                "        \"reason\": \"denied by provider GOOGLE\",\n" +
-                "        \"systemError\": \"AUTHENTICATION\",\n" +
-                "        \"systemErrorCode\": \"400\"\n" +
-                "    }\n" +
-                "}", jsonResponse);
+
+        JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
+        assertEquals("denied by provider GOOGLE", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("AUTHENTICATION", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("400", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
     }
 
     @Test

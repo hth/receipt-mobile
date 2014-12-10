@@ -20,7 +20,6 @@ import java.io.IOException;
 
 /**
  * Helper class to create connection to Web Application for provided endpoint.
- *
  * User: hitender
  * Date: 11/8/14 12:32 AM
  */
@@ -74,6 +73,7 @@ public class WebConnectorService {
 
     /**
      * Creates Http Post for supplied endpoint.
+     *
      * @param endPoint
      * @param httpClient
      * @return

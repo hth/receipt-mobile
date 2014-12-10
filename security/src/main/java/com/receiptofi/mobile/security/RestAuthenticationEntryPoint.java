@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * User: hitender
  * Date: 6/1/14 6:22 PM
  */
-@Component("restAuthenticationEntryPoint")
+@Component ("restAuthenticationEntryPoint")
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override

@@ -39,7 +39,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
     private AuthenticatedToken authenticatedToken;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     public OnLoginAuthenticationSuccessHandler() {
     }
 

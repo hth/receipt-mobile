@@ -29,12 +29,11 @@ public class SwaggerConfig {
     /**
      * Every SwaggerSpringMvcPlugin bean is picked up by the swagger-mvc framework - allowing for multiple
      * swagger groups i.e. same code base multiple swagger resource listings.
-     *
      * Include patterns from root - .*
      * Include specific pattern /api/* - .api.*
      */
     @Bean
-    public SwaggerSpringMvcPlugin customImplementation(){
+    public SwaggerSpringMvcPlugin customImplementation() {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiInfo(apiInfo())
                 .includePatterns(".*")

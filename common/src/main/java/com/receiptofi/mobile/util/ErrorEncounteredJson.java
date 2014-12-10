@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

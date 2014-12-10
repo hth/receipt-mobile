@@ -19,6 +19,7 @@ public class AccountRecover extends AbstractDomain {
     private String userId;
 
     private AccountRecover(String userId) {
+        super();
         this.userId = userId;
     }
 
