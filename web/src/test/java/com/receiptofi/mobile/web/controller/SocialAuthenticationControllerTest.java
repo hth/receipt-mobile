@@ -46,17 +46,33 @@ public class SocialAuthenticationControllerTest {
         verify(socialAuthenticationService, never())
                 .authenticateWeb(any(String.class), any(String.class), any(HttpClient.class));
 
-        assertEquals("{}", jsonResponse);
+        assertEquals("{\"error\":{\"systemErrorCode\":\"500\",\"systemError\":\"SEVERE\",\"reason\":\"Internal error, please try some time later.\"}}", jsonResponse);
     }
 
     @Test
     public void testAuthenticateUserCredentialFail() throws Exception {
         String json = createJson(ProviderEnum.GOOGLE.name(), "1234");
         when(socialAuthenticationService.authenticateWeb(anyString(), anyString(), any(HttpClient.class)))
-                .thenReturn("{}");
+                .thenReturn("{\n" +
+                        "    \"error\": {\n" +
+                        "        \"httpStatus\": \"UNAUTHORIZED\",\n" +
+                        "        \"httpStatusCode\": 401,\n" +
+                        "        \"reason\": \"denied by provider GOOGLE\",\n" +
+                        "        \"systemError\": \"AUTHENTICATION\",\n" +
+                        "        \"systemErrorCode\": \"400\"\n" +
+                        "    }\n" +
+                        "}");
 
         String jsonResponse = socialAuthenticationController.authenticateUser(json, response);
-        assertEquals("{}", jsonResponse);
+        assertEquals("{\n" +
+                "    \"error\": {\n" +
+                "        \"httpStatus\": \"UNAUTHORIZED\",\n" +
+                "        \"httpStatusCode\": 401,\n" +
+                "        \"reason\": \"denied by provider GOOGLE\",\n" +
+                "        \"systemError\": \"AUTHENTICATION\",\n" +
+                "        \"systemErrorCode\": \"400\"\n" +
+                "    }\n" +
+                "}", jsonResponse);
     }
 
     @Test
