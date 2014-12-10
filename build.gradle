@@ -402,7 +402,7 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
     }
 
     copy {
-        from file("web/environment/$env/$env.properties")
+        from file("web/environment/$env/$env" + ".properties")
         into warConfDir
     }
 
