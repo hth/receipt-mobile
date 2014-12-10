@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -11,13 +12,13 @@ import java.util.Map;
  * User: hitender
  * Date: 7/10/14 11:04 PM
  */
-public final class ErrorEncounteredJson {
+public class ErrorEncounteredJson {
 
     public static final String SYSTEM_ERROR = "systemError";
     public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
     public static final String REASON = "reason";
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings ("unused")
     private ErrorEncounteredJson() {
     }
 

@@ -1,9 +1,14 @@
 package com.receiptofi.mobile.web.controller;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+
+import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.service.SocialAuthenticationService;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.slf4j.Logger;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -94,18 +100,21 @@ public class SocialAuthenticationController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     @ResponseBody
-    public String authenticateUser(@RequestBody String authenticationJson, HttpServletResponse response) {
-        String credential = "{}";
+    public String authenticateUser(
+            @RequestBody
+            String authenticationJson,
+
+            HttpServletResponse response
+    ) throws IOException {
         try {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(authenticationJson);
             LOG.info("pid={} at={}", map.get("pid"), map.get("at"));
-            credential = socialAuthenticationService.authenticateWeb(
+            String credential = socialAuthenticationService.authenticateWeb(
                     map.get("pid").getText(),
                     map.get("at").getText(),
                     HttpClientBuilder.create().build());
 
-            if (credential == null ||
-                    credential.length() <= credential.length() ||
+            if (StringUtils.isBlank(credential) ||
                     credential.contains("systemError") ||
                     credential.contains("401")) {
                 return credential;
@@ -119,7 +128,13 @@ public class SocialAuthenticationController {
             return credential;
         } catch (IOException e) {
             LOG.error("could not parse json={} reason={}", authenticationJson, e.getLocalizedMessage(), e);
-            return credential;
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+            Map<String, String> errors = new HashMap<>();
+            errors.put(ErrorEncounteredJson.REASON, "Internal error, please try some time later.");
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
+            return ErrorEncounteredJson.toJson(errors);
         }
     }
 }
