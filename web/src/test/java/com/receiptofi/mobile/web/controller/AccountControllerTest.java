@@ -30,6 +30,11 @@ import org.mockito.MockitoAnnotations;
 
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal"
+})
 public class AccountControllerTest {
 
     public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
