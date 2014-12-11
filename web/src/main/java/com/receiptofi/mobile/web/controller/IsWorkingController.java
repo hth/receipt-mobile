@@ -38,7 +38,6 @@ public class IsWorkingController {
                     MediaType.TEXT_HTML_VALUE + ";charset=UTF-8",
             }
     )
-    @ResponseStatus (HttpStatus.OK)
     public String isWorking() {
         LOG.info("isWorking");
         return "isWorking";
@@ -54,6 +53,7 @@ public class IsWorkingController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
+    @ResponseStatus (HttpStatus.OK)
     @ResponseBody
     public MobileApi healthCheck() {
         //TODO(hth) should perform some kind of health check like connecting to mongo
