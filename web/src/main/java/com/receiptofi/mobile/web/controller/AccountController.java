@@ -220,7 +220,7 @@ public class AccountController {
             try {
                 if (mobileAccountService.recoverAccount(mail)) {
                     LOG.info("sent recovery mail={}", mail);
-                    response.sendError(HttpServletResponse.SC_OK);
+                    response.setStatus(HttpServletResponse.SC_OK);
                 } else {
                     LOG.warn("failed sending recovery email={}", mail);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
