@@ -245,7 +245,6 @@
         <options external-project-path="$PROJECT_DIR$/web" />
       </properties>
       <root id="root">
-        <element id="javaee-facet-resources" facet="web/web/Web Gradle : receiptofi.mobile-web-0.9.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="web" />
@@ -547,7 +546,6 @@
         <options external-project-path="$PROJECT_DIR$/security" />
       </properties>
       <root id="archive" name="security-0.9.0.war">
-        <element id="javaee-facet-resources" facet="security/web/Web Gradle : security-0.9.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="security" />
@@ -1041,7 +1039,6 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Gradle: ch.qos.logback:logback-classic:1.1.2">
