@@ -225,6 +225,7 @@
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/receipt-mobile-servlet.xml" />
           <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/web.xml" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/root-context.xml" />
         </element>
         <element id="file-copy" path="$PROJECT_DIR$/web/web/blank.html" />
         <element id="file-copy" path="$PROJECT_DIR$/web/web/robots.txt" />
