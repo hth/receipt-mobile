@@ -98,7 +98,6 @@ public class SocialAuthenticationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public String authenticateUser(
             @RequestBody
             String authenticationJson,

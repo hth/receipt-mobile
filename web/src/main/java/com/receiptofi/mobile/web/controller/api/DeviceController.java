@@ -61,7 +61,6 @@ public final class DeviceController {
             value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public String hasUpdate(
             @RequestHeader ("X-R-MAIL")
             String mail,
@@ -112,7 +111,6 @@ public final class DeviceController {
             value = "/register",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public DeviceRegistered registerDevice(
             @RequestHeader ("X-R-MAIL")
             String mail,

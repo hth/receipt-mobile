@@ -69,7 +69,6 @@ public final class ReceiptItemsController {
             value = "/receiptDetail/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public List<ReceiptItem> getDetailedReceipt(
             @RequestHeader ("X-R-MAIL")
             String mail,

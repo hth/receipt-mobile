@@ -51,7 +51,6 @@ public final class UtilityController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public UserAccess hasAccess(
             @RequestHeader ("X-R-MAIL")
             String mail,
@@ -75,7 +74,6 @@ public final class UtilityController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public UnprocessedDocuments unprocessedDocuments(
             @RequestHeader ("X-R-MAIL")
             String mail,
