@@ -32,13 +32,13 @@ import javax.servlet.http.HttpServletResponse;
  * User: hitender
  * Date: 8/18/14 10:11 PM
  */
-@Controller
-@RequestMapping (value = "/api")
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
         "PMD.MethodArgumentCouldBeFinal"
 })
+@Controller
+@RequestMapping (value = "/api")
 public final class FileDownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 

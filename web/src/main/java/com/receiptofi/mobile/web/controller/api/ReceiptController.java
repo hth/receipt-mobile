@@ -52,7 +52,6 @@ public final class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public List<Receipt> ytdReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
@@ -88,7 +87,6 @@ public final class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public List<Receipt> allReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
@@ -122,7 +120,6 @@ public final class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    @ResponseBody
     public List<Receipt> thisMonthReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
