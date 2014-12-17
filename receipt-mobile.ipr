@@ -282,21 +282,6 @@
             <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aspects:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument-tomcat:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-jms:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-test:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.1.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:3.2.5.RELEASE" />
@@ -316,8 +301,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.4.2" />
-            <element id="library" level="project" name="Gradle: org.codehaus.jackson:jackson-core-asl:1.9.13" />
-            <element id="library" level="project" name="Gradle: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r232" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.10.0" />
@@ -327,8 +310,6 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:3.1" />
             <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-core:0.9.16" />
             <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-resources:2014.04" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.3" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.1.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
@@ -602,21 +583,6 @@
             <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aspects:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument-tomcat:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-jms:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-test:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.1.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.1.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:3.2.5.RELEASE" />
@@ -636,8 +602,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.4.2" />
-            <element id="library" level="project" name="Gradle: org.codehaus.jackson:jackson-core-asl:1.9.13" />
-            <element id="library" level="project" name="Gradle: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r232" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.10.0" />
@@ -647,8 +611,6 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:3.1" />
             <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-core:0.9.16" />
             <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-resources:2014.04" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.3" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.1.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
@@ -1620,15 +1582,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.0/6922ad7eed511396a245f8e05aeacfdfeaacfaaf/aspectjrt-1.8.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.aspectj:aspectjweaver:1.8.3">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.3/cb2ab8ac997d9a31e441b6ae2de38979b2b844aa/aspectjweaver-1.8.3.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.3/b02cecd2bdc889f1005e451ef16aaa7b46a51260/aspectjweaver-1.8.3-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: org.bouncycastle:bcmail-jdk15:1.45">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcmail-jdk15/1.45/3aed7e642dd8d39dc14ed1dec3ff79e084637148/bcmail-jdk15-1.45.jar!/" />
@@ -1654,24 +1607,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ccil.cowan.tagsoup/tagsoup/1.2.1/31cbf81bece906e382034d2b04e2e5c47e864c17/tagsoup-1.2.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.codehaus.jackson:jackson-core-asl:1.9.13">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.13/3c304d70f42f832e0a86d45bd437f692129299a4/jackson-core-asl-1.9.13.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.13/6ed53c5ce78344e14296aa47769d67b10e1c7b2c/jackson-core-asl-1.9.13-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.codehaus.jackson:jackson-mapper-asl:1.9.13">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.13/1ee2f2bed0e5dd29d1cb155a166e6f8d50bbddb7/jackson-mapper-asl-1.9.13.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.13/83113901bc2a377d698ccea35ad842786f37c6ad/jackson-mapper-asl-1.9.13-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.freemarker:freemarker:2.3.21">
@@ -1845,87 +1780,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.5.RELEASE/5db78fb301d26b89c0063bb2a31b730a0e2f6c8d/spring-security-web-3.2.5.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.springframework:spring-aop:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.1.2.RELEASE/700d8435a0cbd0a8efc6a69e6cc886e0730e373f/spring-aop-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.1.2.RELEASE/bdcc6245f7ff4d4361e1bbec97840bbc9c180b0b/spring-aop-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-aspects:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.1.2.RELEASE/84b6dbda71d0fbc8340311fbadd1f9cbaf73429b/spring-aspects-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.1.2.RELEASE/5e43a202cf135190b3274ba40b2813542defc7c8/spring-aspects-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-beans:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.1.2.RELEASE/89faefb9324a5a0a3ce43ec385f105e45fc2fbed/spring-beans-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.1.2.RELEASE/a39a897ef455568a0d3ee85643bfd09747bac661/spring-beans-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-context-support:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context-support/4.1.2.RELEASE/8f79aa44de7946c18e09debea1b5a67d81329c5b/spring-context-support-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context-support/4.1.2.RELEASE/a1fa5cd19bff3a063ac7d5ea18a052bbae098491/spring-context-support-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-context:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.1.2.RELEASE/546f627d9904d6ea1511d208a7722589867e924e/spring-context-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.1.2.RELEASE/9cf2381acd55d99490bc4538f6742b2dc1a54637/spring-context-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-core:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.1.2.RELEASE/38428c53e7f1eb1cd2c028ffa17cb1e699083372/spring-core-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.1.2.RELEASE/edce2986504e72453300581bd9a679c02165b392/spring-core-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-expression:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.1.2.RELEASE/da7fc1ba3872802529926a1cbf02cf7176cf2e80/spring-expression-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.1.2.RELEASE/3803a5f22149a03b0407861b96c3f9feb298ac45/spring-expression-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-instrument-tomcat:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument-tomcat/4.1.2.RELEASE/88e77e68b470d0cffc4e609a11f986f6e8971f40/spring-instrument-tomcat-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument-tomcat/4.1.2.RELEASE/1c7d23bf08d7a1a02ebf0a7ba0977e48cddf190b/spring-instrument-tomcat-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-instrument:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument/4.1.2.RELEASE/69e84d8e21cb492072b50812291b6bc573779331/spring-instrument-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument/4.1.2.RELEASE/16ce28491b65def895a65bf5196880807618b8e7/spring-instrument-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: org.springframework:spring-jdbc:3.2.8.RELEASE">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/3.2.8.RELEASE/8fc09a51ca267726ffd284ab4de7c02f667da2ad/spring-jdbc-3.2.8.RELEASE.jar!/" />
@@ -1933,69 +1787,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/3.2.8.RELEASE/39c9d9ef5d942a28fb5c13492ac2c5a7f02da86d/spring-jdbc-3.2.8.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-jms:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/4.1.2.RELEASE/4fa31af2312c3aadab28488fd0f4fabe148afb85/spring-jms-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/4.1.2.RELEASE/4267e61ec4d61eaa36b59cfa9de90ef3e52b62af/spring-jms-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-messaging:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.1.2.RELEASE/b8404dabc32a1fa027be478d8db866306a5e96b0/spring-messaging-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.1.2.RELEASE/7486fcd02970b0dd590004b2960dc6e32eeb1b22/spring-messaging-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-oxm:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-oxm/4.1.2.RELEASE/e82eab27c0ce793650c5c12fc1dbaff3e402fd67/spring-oxm-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-oxm/4.1.2.RELEASE/1fc25376c6fc723f79e174b37736b074a3e1e8b7/spring-oxm-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-test:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.1.2.RELEASE/cdaa88735b66832be984713be024eba2150d5ec3/spring-test-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.1.2.RELEASE/1d14c6a0807312138c85e0ec526df190e6dfb0ec/spring-test-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-tx:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.1.2.RELEASE/c23a24c8c237efaaa4f369f4882a8a7d1cb9eeac/spring-tx-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.1.2.RELEASE/ec6580818af8666d512831539d2df33776882c0c/spring-tx-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-web:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.1.2.RELEASE/aff4040103cac2f87fd4d0a88d31d1b62f07fe69/spring-web-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.1.2.RELEASE/71128bbbd99add114d522efdd7739f8f2b2a8c95/spring-web-4.1.2.RELEASE-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.springframework:spring-webmvc:4.1.2.RELEASE">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.1.2.RELEASE/96ff2720edf5c61f09248ffd9ea8d86616f6fa80/spring-webmvc-4.1.2.RELEASE.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.1.2.RELEASE/acbfc78fb75c4a76b62faa2d30414c07c33e9f85/spring-webmvc-4.1.2.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.tukaani:xz:1.5">
