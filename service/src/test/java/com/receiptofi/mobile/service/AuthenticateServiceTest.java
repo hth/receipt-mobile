@@ -47,8 +47,6 @@ public class AuthenticateServiceTest {
     @Test
     public void testHasAccessFalse() throws Exception {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
-        when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
-        when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
         assertFalse(authenticateService.hasAccess(anyString(), "auth"));
     }
 
