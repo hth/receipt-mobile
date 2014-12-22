@@ -51,7 +51,7 @@ public class SocialAuthenticationServiceTest {
     private HttpEntity httpEntity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         httpPost = mock(HttpPost.class);
         httpClient = mock(HttpClient.class);

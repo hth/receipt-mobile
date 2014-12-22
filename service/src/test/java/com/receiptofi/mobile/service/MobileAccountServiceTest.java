@@ -50,7 +50,7 @@ public class MobileAccountServiceTest {
     private BasicStatusLine basicStatusLine;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         httpPost = mock(HttpPost.class);
         httpClient = mock(HttpClient.class);
