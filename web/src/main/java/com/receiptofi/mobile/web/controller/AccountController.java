@@ -96,7 +96,10 @@ public class AccountController {
             return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
         }
 
-        if (!map.isEmpty()) {
+        if (map.isEmpty()) {
+            /** Validation failure as there is not data in the map. */
+            return ErrorEncounteredJson.toJson(validate(null, null, null));
+        } else {
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             String firstName = map.get(REGISTRATION.FN.name()).getText();
             String lastName = null;
@@ -142,9 +145,6 @@ public class AccountController {
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
                 return ErrorEncounteredJson.toJson(errors);
             }
-        } else {
-            /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(validate(null, null, null));
         }
 
         return credential;
@@ -191,7 +191,10 @@ public class AccountController {
             return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
         }
 
-        if (!map.isEmpty()) {
+        if (map.isEmpty()) {
+            /** Validation failure as there is not data in the map. */
+            return ErrorEncounteredJson.toJson(validate(null, null, null));
+        } else {
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             if (StringUtils.isBlank(mail) || mailLength > mail.length()) {
                 LOG.info("failed data validation={}", mail);
@@ -232,9 +235,6 @@ public class AccountController {
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
                 return ErrorEncounteredJson.toJson(errors);
             }
-        } else {
-            /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(validate(null, null, null));
         }
 
         return credential;
