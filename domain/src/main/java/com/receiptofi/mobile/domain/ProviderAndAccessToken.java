@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public final class ProviderAndAccessToken {
+public class ProviderAndAccessToken {
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @SerializedName ("pid")

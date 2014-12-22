@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  */
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
-public final class SignupUserInfo {
+public class SignupUserInfo {
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @SerializedName ("userId")

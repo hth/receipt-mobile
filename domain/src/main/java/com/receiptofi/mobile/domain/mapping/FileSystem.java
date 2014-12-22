@@ -19,7 +19,7 @@ import com.receiptofi.domain.FileSystemEntity;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public final class FileSystem {
+public class FileSystem {
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("blobId")

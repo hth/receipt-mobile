@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public final class MobileApi {
+public class MobileApi {
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("working")

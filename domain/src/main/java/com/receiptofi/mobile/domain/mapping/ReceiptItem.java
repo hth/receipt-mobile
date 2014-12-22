@@ -20,7 +20,7 @@ import com.receiptofi.domain.ItemEntity;
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
-public final class ReceiptItem {
+public class ReceiptItem {
 
     @JsonProperty ("id")
     private String id;

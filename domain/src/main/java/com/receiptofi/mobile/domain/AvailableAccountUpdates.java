@@ -20,7 +20,7 @@ import java.util.List;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public final class AvailableAccountUpdates extends AbstractDomain {
+public class AvailableAccountUpdates extends AbstractDomain {
 
     @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("receipts")
@@ -34,10 +34,18 @@ public final class AvailableAccountUpdates extends AbstractDomain {
         return new AvailableAccountUpdates();
     }
 
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
     public void setReceipts(List<ReceiptEntity> receipts) {
         for (ReceiptEntity receiptEntity : receipts) {
             this.receipts.add(Receipt.newInstance(receiptEntity));
         }
+    }
+
+    public Profile getProfile() {
+        return profile;
     }
 
     public void setProfile(UserProfileEntity userProfile) {

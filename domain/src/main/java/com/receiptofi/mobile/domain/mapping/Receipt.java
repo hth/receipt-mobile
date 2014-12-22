@@ -28,7 +28,7 @@ import java.util.LinkedList;
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
-public final class Receipt {
+public class Receipt {
     private static final DateTimeFormatter FMT = ISODateTimeFormat.dateTime();
 
     @JsonProperty ("id")
