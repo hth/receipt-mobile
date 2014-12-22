@@ -88,4 +88,22 @@ public class WebConnectorServiceTest {
         HttpPost httpPost = webConnectorService.getHttpPost("/someLink", httpClient);
         assertNotNull(httpPost);
     }
+
+    @Test
+    public void testGetHttpPostPassWithSecureProtocol() throws Exception {
+        this.webConnectorService = new WebConnectorService(
+                "/webapi/mobile/get.htm",
+                "could not connect to server",
+                "1234567890",
+                "443",
+                "https",
+                "localhost");
+
+        when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
+        when(response.getStatusLine()).thenReturn(basicStatusLine);
+        when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
+        when(response.getFirstHeader(anyString())).thenReturn(header);
+        HttpPost httpPost = webConnectorService.getHttpPost("/someLink", httpClient);
+        assertNotNull(httpPost);
+    }
 }
