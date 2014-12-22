@@ -31,13 +31,13 @@ public class AuthenticateServiceTest {
     private AuthenticateService authenticateService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         authenticateService = new AuthenticateService(userAccountManager);
     }
 
     @Test
-    public void testHasAccessTrue() throws Exception {
+    public void testHasAccessTrue() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
@@ -45,19 +45,19 @@ public class AuthenticateServiceTest {
     }
 
     @Test
-    public void testHasAccessFalse() throws Exception {
+    public void testHasAccessFalse() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
         assertFalse(authenticateService.hasAccess(anyString(), "auth"));
     }
 
     @Test
-    public void testFindUserAccountNull() throws Exception {
+    public void testFindUserAccountNull() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
         assertEquals(null, authenticateService.findUserAccount("userId", anyString()));
     }
 
     @Test
-    public void testFindUserAccountWhenNotMatchingAuthenticationKey() throws Exception {
+    public void testFindUserAccountWhenNotMatchingAuthenticationKey() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
@@ -65,7 +65,7 @@ public class AuthenticateServiceTest {
     }
 
     @Test
-    public void testFindUserAccount() throws Exception {
+    public void testFindUserAccount() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
@@ -73,7 +73,7 @@ public class AuthenticateServiceTest {
     }
 
     @Test
-    public void testGetReceiptUserIdNull() throws Exception {
+    public void testGetReceiptUserIdNull() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
@@ -81,7 +81,7 @@ public class AuthenticateServiceTest {
     }
 
     @Test
-    public void testGetReceiptUserId() throws Exception {
+    public void testGetReceiptUserId() {
         when(userAccountManager.findByUserId(anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
