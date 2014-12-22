@@ -31,7 +31,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
-@RunWith (MockitoJUnitRunner.class)
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 public class MobileAccountServiceTest {
 
     @Mock private WebConnectorService webConnectorService;

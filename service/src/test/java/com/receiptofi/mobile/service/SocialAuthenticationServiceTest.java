@@ -28,7 +28,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.io.IOException;
 import java.io.InputStream;
 
-@RunWith (MockitoJUnitRunner.class)
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 public class SocialAuthenticationServiceTest {
 
     public static final String SYSTEM_ERROR_CODE = "systemErrorCode";
