@@ -27,7 +27,7 @@ import java.util.List;
         "PMD.MethodArgumentCouldBeFinal"
 })
 @Service
-public final class DeviceService {
+public class DeviceService {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceService.class);
 
     private RegisteredDeviceManager registeredDeviceManager;

@@ -24,7 +24,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
-@RunWith (MockitoJUnitRunner.class)
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 public class WebConnectorServiceTest {
     public static final int HTTP_CODE_ERROR = 501;
     public static final int HTTP_CODE_SUCCESS = 201;

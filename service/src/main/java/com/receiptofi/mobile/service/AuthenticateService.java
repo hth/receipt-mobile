@@ -25,7 +25,7 @@ import java.net.URLDecoder;
 public class AuthenticateService {
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticateService.class);
 
-    private final UserAccountManager userAccountManager;
+    private UserAccountManager userAccountManager;
 
     @Autowired
     public AuthenticateService(UserAccountManager userAccountManager) {
