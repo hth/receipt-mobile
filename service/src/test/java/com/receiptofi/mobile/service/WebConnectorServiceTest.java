@@ -17,10 +17,8 @@ import org.apache.http.message.BasicStatusLine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
@@ -42,7 +40,7 @@ public class WebConnectorServiceTest {
     private Header header;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         response = mock(HttpResponse.class);
         basicStatusLine = mock(BasicStatusLine.class);
@@ -57,13 +55,13 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPostGetCSRFTokenIOException() throws Exception {
+    public void testGetHttpPostGetCSRFTokenIOException() throws IOException {
         doThrow(new IOException()).when(httpClient).execute(any(HttpGet.class));
         assertNull(webConnectorService.getHttpPost("/someLink", httpClient));
     }
 
     @Test
-    public void testGetHttpPostGetCSRFTokenStatus501() throws Exception {
+    public void testGetHttpPostGetCSRFTokenStatus501() throws IOException {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_ERROR);
@@ -71,7 +69,7 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPostGetCSRFTokenHeaderNull() throws Exception {
+    public void testGetHttpPostGetCSRFTokenHeaderNull() throws IOException {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
@@ -80,7 +78,7 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPostPass() throws Exception {
+    public void testGetHttpPostPass() throws IOException {
         when(httpClient.execute(any(HttpGet.class))).thenReturn(response);
         when(response.getStatusLine()).thenReturn(basicStatusLine);
         when(response.getStatusLine().getStatusCode()).thenReturn(HTTP_CODE_SUCCESS);
@@ -90,7 +88,7 @@ public class WebConnectorServiceTest {
     }
 
     @Test
-    public void testGetHttpPostPassWithSecureProtocol() throws Exception {
+    public void testGetHttpPostPassWithSecureProtocol() throws IOException {
         this.webConnectorService = new WebConnectorService(
                 "/webapi/mobile/get.htm",
                 "could not connect to server",

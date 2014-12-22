@@ -24,10 +24,8 @@ import org.apache.http.message.BasicStatusLine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
@@ -50,7 +48,7 @@ public class MobileAccountServiceTest {
     private BasicStatusLine basicStatusLine;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         httpPost = mock(HttpPost.class);
         httpClient = mock(HttpClient.class);
