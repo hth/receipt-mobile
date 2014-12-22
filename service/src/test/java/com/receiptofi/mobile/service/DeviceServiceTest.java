@@ -1,9 +1,10 @@
 package com.receiptofi.mobile.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -14,8 +15,6 @@ import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.mobile.domain.mapping.BizName;
-import com.receiptofi.mobile.domain.mapping.BizStore;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
@@ -75,7 +74,6 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertFalse("Receipts not empty", deviceService.hasUpdate(anyString(), anyString()).getReceipts().isEmpty());
         assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
     }
 
@@ -86,16 +84,6 @@ public class DeviceServiceTest {
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<ReceiptEntity>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
         assertTrue("Receipts is empty", deviceService.hasUpdate(anyString(), anyString()).getReceipts().isEmpty());
-        assertNotNull("UserProfile not empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
-    }
-
-    @Test
-    public void testHasUpdate() {
-        when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
-        when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
-        when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
-        assertFalse("Receipts not empty", deviceService.hasUpdate(anyString(), anyString()).getReceipts().isEmpty());
     }
 
     @Test
