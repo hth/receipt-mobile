@@ -43,11 +43,11 @@ import java.util.List;
 @SuppressWarnings ("unused")
 public class RestServiceToAnotherApplication {
 
-    /** Create a Rest template */
+    /** Create a Rest template. */
     private RestTemplate restTemplate;
 
     public RestServiceToAnotherApplication() {
-        /** Create a list for the message converters */
+        /** Create a list for the message converters. */
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         messageConverters.add(new MappingJackson2HttpMessageConverter());
 
