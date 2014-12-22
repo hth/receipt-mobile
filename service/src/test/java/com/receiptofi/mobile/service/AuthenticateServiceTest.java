@@ -47,8 +47,6 @@ public class AuthenticateServiceTest {
     @Test
     public void testHasAccessFalse() throws Exception {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
-        when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
-        when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
         assertFalse(authenticateService.hasAccess(anyString(), "auth"));
     }
 
@@ -79,7 +77,7 @@ public class AuthenticateServiceTest {
         when(userAccountManager.findByUserId(anyString())).thenReturn(null);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
-        assertEquals(null, authenticateService.findUserAccount(anyString(), "auth"));
+        assertEquals(null, authenticateService.getReceiptUserId(anyString(), "auth"));
     }
 
     @Test
@@ -87,6 +85,7 @@ public class AuthenticateServiceTest {
         when(userAccountManager.findByUserId(anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getAuthenticationKey()).thenReturn("auth");
-        assertEquals(userAccountEntity, authenticateService.findUserAccount(anyString(), "auth"));
+        when(userAccountEntity.getReceiptUserId()).thenReturn("userId");
+        assertEquals("userId", authenticateService.getReceiptUserId(anyString(), "auth"));
     }
 }
