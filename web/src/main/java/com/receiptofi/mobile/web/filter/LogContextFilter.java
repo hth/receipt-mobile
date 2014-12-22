@@ -30,7 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
-        "PMD.MethodArgumentCouldBeFinal"
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
 })
 public class LogContextFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
