@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @RestController
 @RequestMapping (value = "/api")
-public final class DeviceController {
+public class DeviceController {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceController.class);
 
     private DeviceService deviceService;

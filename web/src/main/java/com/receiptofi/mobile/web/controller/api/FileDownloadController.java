@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @Controller
 @RequestMapping (value = "/api")
-public final class FileDownloadController {
+public class FileDownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 
     @Autowired private FileDBService fileDBService;

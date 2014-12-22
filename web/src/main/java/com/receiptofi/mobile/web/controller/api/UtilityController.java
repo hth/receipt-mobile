@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @RestController
 @RequestMapping (value = "/api")
-public final class UtilityController {
+public class UtilityController {
     private static final Logger LOG = LoggerFactory.getLogger(UtilityController.class);
 
     public static final String AUTH_KEY_HIDDEN = "*********";
