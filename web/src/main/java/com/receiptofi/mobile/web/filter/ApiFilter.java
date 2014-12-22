@@ -24,7 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
-        "PMD.MethodArgumentCouldBeFinal"
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
 })
 @WebFilter (urlPatterns = {"/api/*"})
 public class ApiFilter implements Filter {

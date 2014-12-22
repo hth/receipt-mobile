@@ -40,7 +40,13 @@ import java.util.List;
  * User: hitender
  * Date: 6/12/14 11:53 PM
  */
-@SuppressWarnings ("unused")
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 public class RestServiceToAnotherApplication {
 
     /** Create a Rest template. */
