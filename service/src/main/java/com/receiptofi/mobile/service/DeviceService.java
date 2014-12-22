@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,47 +49,47 @@ public final class DeviceService {
      * Finds if there are new updates since last checked on server.
      *
      * @param rid
-     * @param did - Device Id
+     * @param did Device Id
      * @return
      */
     public AvailableAccountUpdates hasUpdate(String rid, String did) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
-        if (registeredDevice != null) {
+        if (null == registeredDevice) {
+            registerDevice(rid, did);
+        } else {
+            Date updated = registeredDevice.getUpdated();
+            LOG.info("Device last updated date={}", updated);
+
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, registeredDevice.getUpdated());
             if (!receipts.isEmpty()) {
                 availableAccountUpdates.setReceipts(receipts);
             }
 
-            UserProfileEntity userProfileEntity =
-                    userProfilePreferenceService.getProfileUpdateSince(rid, registeredDevice.getUpdated());
-            if (userProfileEntity != null) {
-                availableAccountUpdates.setProfile(userProfileEntity);
-            }
-        } else {
-            if (!registerDevice(rid, did)) {
-                LOG.warn("device was not registered until now rid={} did={}", rid, did);
-            } else {
-                LOG.error("could not find registered device rid={} did={}", rid, did);
+            UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
+            if (null != userProfile) {
+                availableAccountUpdates.setProfile(userProfile);
             }
         }
         return availableAccountUpdates;
     }
 
     /**
-     * Checks if the device is registered, if not registered then it registers the device
+     * Checks if the device is registered, if not registered then it registers the device.
      *
      * @param rid
      * @param did
      * @return
      */
     public boolean registerDevice(String rid, String did) {
+        boolean registrationSuccess = false;
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did);
-        if (registeredDevice.getVersion() != null) {
-            LOG.info("device registered successfully rid={} did={}", rid, did);
+        if (null == registeredDevice) {
+            LOG.error("Failure device registration rid={} did={}", rid, did);
         } else {
-            LOG.info("device already registered rid={} did={}", rid, did);
+            LOG.info("Success device registration rid={} did={}", rid, registeredDevice.getDeviceId());
+            registrationSuccess = true;
         }
-        return true;
+        return registrationSuccess;
     }
 }
