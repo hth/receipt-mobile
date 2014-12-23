@@ -58,7 +58,7 @@ public class LogContextFilter implements Filter {
                         + " Accept=\"" + getHeader(headerMap, "accept") + "\""
                         + " ForwardedFor=\"" + getHeader(headerMap, "x-forwarded-for") + "\""
                         + " Endpoint=\"" + extractDataFromURL(url, "$5") + "\""
-                        + " Query=\"" + query + "\""
+                        + " Query=\"" + (query == null ? "none" : query) + "\""
                         + " URL=\"" + url + "\""
         );
         chain.doFilter(req, res);
