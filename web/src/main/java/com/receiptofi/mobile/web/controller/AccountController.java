@@ -208,7 +208,7 @@ public class AccountController {
             }
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
-            if (userProfile == null) {
+            if (null == userProfile) {
                 LOG.info("user does not exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "user does not exists");
