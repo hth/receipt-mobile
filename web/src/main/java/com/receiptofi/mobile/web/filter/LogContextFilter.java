@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.web.filter;
 
-import org.apache.commons.lang3.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -36,7 +34,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LogContextFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
 
-    private static final Pattern EXTRACT_ENDPOINT_PATTERN = Pattern.compile("\\A((?:/[a-z][a-zA-Z]{2,}+|/v1)+).*\\z");
+    /* https://stackoverflow.com/questions/24894093/ruby-regular-expression-extracting-part-of-url */
+    private static final Pattern EXTRACT_ENDPOINT_PATTERN =
+            Pattern.compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
 
     @Override
@@ -53,12 +53,13 @@ public class LogContextFilter implements Filter {
         String query = ((HttpServletRequest) req).getQueryString();
 
         LOG.info("Request received:"
-                + " Host=\"" + getHeader(headerMap, "host") + "\""
-                + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
-                + " Accept=\"" + getHeader(headerMap, "accept") + "\""
-                + " ForwardedFor=\"" + getHeader(headerMap, "x-forwarded-for") + "\""
-                + " Endpoint=\"" + extractEndpoint(url) + "\""
-                + " URL=\"" + url + (query == null ? "" : "?" + query) + "\""
+                        + " Host=\"" + getHeader(headerMap, "host") + "\""
+                        + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
+                        + " Accept=\"" + getHeader(headerMap, "accept") + "\""
+                        + " ForwardedFor=\"" + getHeader(headerMap, "x-forwarded-for") + "\""
+                        + " Endpoint=\"" + extractDataFromURL(url, "$5") + "\""
+                        + " Query=\"" + query + "\""
+                        + " URL=\"" + url + "\""
         );
         chain.doFilter(req, res);
     }
@@ -67,8 +68,8 @@ public class LogContextFilter implements Filter {
         return CollectionUtils.isEmpty(headers) && !headers.containsKey(header) ? "" : headers.get(header);
     }
 
-    private String extractEndpoint(String uri) {
-        return StringUtils.isEmpty(uri) ? uri : EXTRACT_ENDPOINT_PATTERN.matcher(uri).replaceFirst("$1");
+    private String extractDataFromURL(String uri, String group) {
+        return EXTRACT_ENDPOINT_PATTERN.matcher(uri).replaceFirst(group);
     }
 
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {

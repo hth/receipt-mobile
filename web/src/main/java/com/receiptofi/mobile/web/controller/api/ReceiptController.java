@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @RestController
 @RequestMapping (value = "/api")
-public final class ReceiptController {
+public class ReceiptController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptController.class);
 
     private LandingService landingService;

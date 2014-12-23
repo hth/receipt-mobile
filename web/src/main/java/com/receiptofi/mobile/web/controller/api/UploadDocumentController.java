@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @RestController
 @RequestMapping (value = "/api")
-public final class UploadDocumentController {
+public class UploadDocumentController {
     private static final Logger LOG = LoggerFactory.getLogger(UploadDocumentController.class);
 
     private AuthenticateService authenticateService;

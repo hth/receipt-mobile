@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 })
 @RestController
 @RequestMapping (value = "/api")
-public final class ReceiptItemsController {
+public class ReceiptItemsController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptItemsController.class);
     private AuthenticateService authenticateService;
     private ItemService itemService;
