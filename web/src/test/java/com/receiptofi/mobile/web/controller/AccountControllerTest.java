@@ -180,7 +180,7 @@ public class AccountControllerTest {
         assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("t@c", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
-        verify(accountService, never()).doesUserExists(any(String.class));
+        verify(accountService, never()).doesUserExists(anyString());
     }
 
     private String createJson(String firstName, String mail, String birthday, String password) {

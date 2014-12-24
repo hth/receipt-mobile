@@ -52,7 +52,7 @@ public class SocialAuthenticationControllerTest {
     public void testAuthenticateUserJsonInvalid() throws Exception {
         String jsonResponse = socialAuthenticationController.authenticateUser("", response);
         verify(socialAuthenticationService, never())
-                .authenticateWeb(any(String.class), any(String.class), any(HttpClient.class));
+                .authenticateWeb(anyString(), anyString(), any(HttpClient.class));
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
