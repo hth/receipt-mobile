@@ -26,4 +26,8 @@ public class UserAccess {
     public static UserAccess newInstance(String access) {
         return new UserAccess(access);
     }
+
+    public String getAccess() {
+        return access;
+    }
 }
