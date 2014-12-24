@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -27,7 +26,6 @@ public class LogContextFilterTest {
     @Mock (extraInterfaces = {HttpServletRequest.class}) private ServletRequest servletRequest;
     @Mock (extraInterfaces = {HttpServletResponse.class}) private ServletResponse servletResponse;
     @Mock private FilterChain filterChain;
-    @Mock private FilterConfig filterConfig;
 
     private LogContextFilter logContextFilter;
     private List<String> headers;

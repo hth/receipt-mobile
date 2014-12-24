@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -27,7 +26,6 @@ public class ApiFilterTest {
     @Mock (extraInterfaces = {HttpServletRequest.class}) private ServletRequest servletRequest;
     @Mock (extraInterfaces = {HttpServletResponse.class}) private ServletResponse servletResponse;
     @Mock private FilterChain filterChain;
-    @Mock private FilterConfig filterConfig;
 
     private ApiFilter apiFilter;
     private List<String> headers;

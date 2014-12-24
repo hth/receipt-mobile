@@ -25,4 +25,8 @@ public class DeviceRegistered {
     public static DeviceRegistered newInstance(boolean registered) {
         return new DeviceRegistered(registered);
     }
+
+    public boolean isRegistered() {
+        return registered;
+    }
 }
