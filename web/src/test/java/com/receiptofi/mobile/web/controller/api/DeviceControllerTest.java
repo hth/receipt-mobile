@@ -42,9 +42,9 @@ public class DeviceControllerTest {
     @Mock private DeviceService deviceService;
     @Mock private AuthenticateService authenticateService;
     @Mock private AvailableAccountUpdates availableAccountUpdates;
+    @Mock private HttpServletResponse httpServletResponse;
 
     private DeviceController deviceController;
-    @Mock private HttpServletResponse httpServletResponse;
 
     @Before
     public void setUp() throws Exception {
