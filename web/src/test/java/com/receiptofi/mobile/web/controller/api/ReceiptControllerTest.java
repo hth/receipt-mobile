@@ -67,7 +67,7 @@ public class ReceiptControllerTest {
     }
 
     @Test
-    public void testYtdReceiptsIsNull() throws Exception {
+    public void testYtdReceiptsWhenUserIsNotPresent() throws Exception {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceiptsForTheYear(anyString(), any(DateTime.class));
         assertTrue(receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
@@ -96,7 +96,7 @@ public class ReceiptControllerTest {
     }
 
     @Test
-    public void testAllReceiptsIsNull() throws IOException {
+    public void testAllReceiptsWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceipts(anyString());
         assertTrue(receiptController.allReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
@@ -125,7 +125,7 @@ public class ReceiptControllerTest {
     }
 
     @Test
-    public void testThisMonthReceiptsIsNull() throws IOException {
+    public void testThisMonthReceiptsWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceiptsForThisMonth(anyString(), any(DateTime.class));
         assertTrue(receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
