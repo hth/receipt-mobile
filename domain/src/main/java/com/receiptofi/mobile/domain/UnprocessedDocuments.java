@@ -25,4 +25,8 @@ public class UnprocessedDocuments {
     public static UnprocessedDocuments newInstance(long numberOfUnprocessedFiles) {
         return new UnprocessedDocuments(numberOfUnprocessedFiles);
     }
+
+    public long getNumberOfUnprocessedFiles() {
+        return numberOfUnprocessedFiles;
+    }
 }
