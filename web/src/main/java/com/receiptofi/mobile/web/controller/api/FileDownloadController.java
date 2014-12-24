@@ -43,11 +43,22 @@ import javax.servlet.http.HttpServletResponse;
 public class FileDownloadController {
     private static final Logger LOG = LoggerFactory.getLogger(FileDownloadController.class);
 
-    @Autowired private FileDBService fileDBService;
-    @Autowired private AuthenticateService authenticateService;
-
-    @Value ("${imageNotFoundPlaceHolder:/static/images/no_image.gif}")
     private String imageNotFound;
+    private FileDBService fileDBService;
+    private AuthenticateService authenticateService;
+
+    @Autowired
+    public FileDownloadController(
+            @Value ("${imageNotFoundPlaceHolder:/static/images/no_image.gif}")
+            String imageNotFound,
+
+            FileDBService fileDBService,
+            AuthenticateService authenticateService
+    ) {
+        this.imageNotFound = imageNotFound;
+        this.fileDBService = fileDBService;
+        this.authenticateService = authenticateService;
+    }
 
     /**
      * Serve images. There is no authentication here other than loading an image for a valid user.
@@ -77,6 +88,7 @@ public class FileDownloadController {
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return;
         }
 
         try {
