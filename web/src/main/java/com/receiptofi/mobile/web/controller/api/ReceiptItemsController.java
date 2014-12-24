@@ -96,7 +96,6 @@ public class ReceiptItemsController {
                 for (ItemEntity item : items) {
                     receiptItems.add(ReceiptItem.newInstance(item));
                 }
-                return receiptItems;
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                 return Collections.emptyList();
