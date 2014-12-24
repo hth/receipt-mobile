@@ -54,7 +54,7 @@ public class ReceiptControllerTest {
     private ReceiptController receiptController;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         receiptController = new ReceiptController(landingService, authenticateService);
 
