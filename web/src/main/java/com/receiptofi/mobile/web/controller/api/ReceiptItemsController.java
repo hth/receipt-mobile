@@ -83,7 +83,7 @@ public class ReceiptItemsController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         }
@@ -91,7 +91,7 @@ public class ReceiptItemsController {
         List<ReceiptItem> receiptItems = new LinkedList<>();
         try {
             ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
-            if (receipt != null && receipt.getId().equals(receiptId)) {
+            if (null != receipt && receipt.getId().equals(receiptId)) {
                 List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
                 for (ItemEntity item : items) {
                     receiptItems.add(ReceiptItem.newInstance(item));
