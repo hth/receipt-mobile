@@ -81,4 +81,44 @@ public class Receipt {
     public static Receipt newInstance(ReceiptEntity receiptEntity) {
         return new Receipt(receiptEntity);
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public BizName getBizName() {
+        return bizName;
+    }
+
+    public BizStore getBizStore() {
+        return bizStore;
+    }
+
+    public Comment getNotes() {
+        return notes;
+    }
+
+    public Collection<FileSystem> getFileSystems() {
+        return fileSystems;
+    }
+
+    public String getReceiptDate() {
+        return receiptDate;
+    }
+
+    public String getPercentTax() {
+        return percentTax;
+    }
+
+    public String getReceiptUserId() {
+        return receiptUserId;
+    }
+
+    public String getExpenseReportInFS() {
+        return expenseReportInFS;
+    }
 }

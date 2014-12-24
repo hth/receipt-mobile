@@ -63,6 +63,7 @@ public class FileDownloadControllerTest {
                 createdFile.getAbsolutePath(),
                 fileDBService,
                 authenticateService);
+
         when(servletContext.getRealPath(anyString())).thenReturn("");
         when(httpServletResponse.getOutputStream()).thenReturn(outputStream);
     }
