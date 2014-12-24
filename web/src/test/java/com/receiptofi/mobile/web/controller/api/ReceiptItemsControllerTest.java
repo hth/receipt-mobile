@@ -77,7 +77,7 @@ public class ReceiptItemsControllerTest {
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(receiptEntity);
         when(receiptEntity.getId()).thenReturn("id");
         doThrow(new RuntimeException()).when(itemService).getAllItemsOfReceipt("id");
-        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "", httpServletResponse).isEmpty());
+        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "id", httpServletResponse).isEmpty());
     }
 
 
