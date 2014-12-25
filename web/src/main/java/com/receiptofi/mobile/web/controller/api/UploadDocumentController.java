@@ -56,6 +56,16 @@ public class UploadDocumentController {
         this.authenticateService = authenticateService;
     }
 
+    /**
+     * TODO(hth) look into @RequestPart("meta-data") MetaData metadata, @RequestPart("file-data") MultipartFile file
+     * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+     * @param mail
+     * @param auth
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping (
             method = RequestMethod.POST,
             value = "/upload",
@@ -68,7 +78,7 @@ public class UploadDocumentController {
             @RequestHeader ("X-R-AUTH")
             String auth,
 
-            HttpServletRequest httpServletRequest,
+            HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -77,12 +87,12 @@ public class UploadDocumentController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
-        LOG.info("upload document begins rid={} content-type={}", rid, httpServletRequest.getContentType());
+        LOG.info("upload document begins rid={} content-type={}", rid, request.getContentType());
 
-        boolean isMultipart = ServletFileUpload.isMultipartContent(httpServletRequest);
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (isMultipart) {
             MultipartHttpServletRequest multipartHttpRequest =
-                    WebUtils.getNativeRequest(httpServletRequest, MultipartHttpServletRequest.class);
+                    WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
 
             final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
 
