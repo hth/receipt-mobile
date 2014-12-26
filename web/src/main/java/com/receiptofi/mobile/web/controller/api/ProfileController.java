@@ -96,7 +96,7 @@ public class ProfileController {
             userAccount.setUserId(map.get("UID").getText());
             accountService.saveUserAccount(userAccount);
 
-            response.addHeader(MAIL, mail);
+            response.addHeader(MAIL, map.get("UID").getText());
             response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
             return null;
         }
