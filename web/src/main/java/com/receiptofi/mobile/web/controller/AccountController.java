@@ -10,6 +10,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUN
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.web.controller.api.UtilityController;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
@@ -223,7 +224,7 @@ public class AccountController {
     }
 
     private Map<String, String> validate(String mail, String firstName, String password) {
-        LOG.info("failed validation mail={} firstName={} password={}", mail, firstName, "***");
+        LOG.info("failed validation mail={} firstName={} password={}", mail, firstName, UtilityController.AUTH_KEY_HIDDEN);
 
         Map<String, String> errors = new HashMap<>();
         errors.put(ErrorEncounteredJson.REASON, "failed data validation");
