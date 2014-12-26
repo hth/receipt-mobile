@@ -86,7 +86,7 @@ public class FileDownloadController {
             HttpServletResponse res
     ) throws IOException {
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return;
         }
@@ -94,7 +94,7 @@ public class FileDownloadController {
         try {
             GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
 
-            if (gridFSDBFile == null) {
+            if (null == gridFSDBFile) {
                 LOG.warn("GridFSDBFile failed to find image={}", imageId);
                 File file = FileUtils.getFile(req.getServletContext().getRealPath(File.separator) + imageNotFound);
                 BufferedImage bi = ImageIO.read(file);

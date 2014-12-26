@@ -10,6 +10,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUN
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.web.controller.api.UtilityController;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
@@ -151,25 +152,6 @@ public class AccountController {
         return credential;
     }
 
-    private Map<String, String> validate(String mail, String firstName, String password) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-
-        if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
-            errors.put(REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
-        }
-        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
-            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
-        }
-        if (StringUtils.isBlank(password) || password.length() < passwordLength) {
-            errors.put(REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
-        }
-
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-        return errors;
-    }
-
     @RequestMapping (
             value = "/recover.json",
             method = RequestMethod.POST,
@@ -239,5 +221,26 @@ public class AccountController {
         }
 
         return credential;
+    }
+
+    private Map<String, String> validate(String mail, String firstName, String password) {
+        LOG.info("failed validation mail={} firstName={} password={}", mail, firstName, UtilityController.AUTH_KEY_HIDDEN);
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
+
+        if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
+            errors.put(REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
+        }
+        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
+            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
+        }
+        if (StringUtils.isBlank(password) || password.length() < passwordLength) {
+            errors.put(REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
+        }
+
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+        return errors;
     }
 }
