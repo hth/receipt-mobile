@@ -54,7 +54,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
             final HttpServletResponse response,
             final Authentication authentication
     ) throws ServletException, IOException {
-        if (request.getHeader("cookie") != null) {
+        if (null != request.getHeader("cookie")) {
             handle(request, response, authentication);
             clearAuthenticationAttributes(request);
         } else {
