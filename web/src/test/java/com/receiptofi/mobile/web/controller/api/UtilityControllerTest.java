@@ -57,7 +57,7 @@ public class UtilityControllerTest {
     @Test
     public void testUnprocessedDocuments() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
-        when(landingService.pendingReceipt(anyString())).thenReturn(123l);
-        assertEquals(123l, utilityController.unprocessedDocuments(anyString(), anyString(), httpServletResponse).getNumberOfUnprocessedFiles());
+        when(landingService.pendingReceipt(anyString())).thenReturn(123L);
+        assertEquals(123L, utilityController.unprocessedDocuments(anyString(), anyString(), httpServletResponse).getNumberOfUnprocessedFiles());
     }
 }
