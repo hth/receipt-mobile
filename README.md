@@ -648,7 +648,7 @@ HTTP header response when there is exception
             Content-Length: 0
             Date: Fri, 26 Dec 2014 09:18:18 GMT
 
-- HTTP response when there is data
+- HTTP response upon success
 
     ##### Application submission success
 
