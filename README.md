@@ -701,7 +701,7 @@ API call <code>/receipt-mobile/api/updateMail.json</code>
             X-XSS-Protection: 1; mode=block
             X-Frame-Options: DENY
             X-Content-Type-Options: nosniff
-            X-R-MAIL: one@tholix.com
-            X-R-AUTH: %242a%2415%24TYtUX46SljT7JRFTV0moQeK3W7ZmePxrXumZSteN7RAoHmGftAiOS
+            X-R-MAIL: change-email@receiptofi.com
+            X-R-AUTH: %242a%2415%2
             Content-Length: 0
             Date: Fri, 26 Dec 2014 12:11:54 GMT
