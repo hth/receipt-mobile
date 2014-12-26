@@ -582,7 +582,7 @@ API call <code>/receipt-mobile/api/updatePassword.json</code>
     -d '{"PA":"somepassword"}'
     http://localhost:9090/receipt-mobile/api/updatePassword.json
 
-HTTP header response when there is exception
+HTTP header response when there is an exception
 
 - List of possible errors: (Note these are mostly common errors across all API calls)
 
@@ -648,7 +648,7 @@ HTTP header response when there is exception
             Content-Length: 0
             Date: Fri, 26 Dec 2014 09:18:18 GMT
 
-- HTTP response upon success
+- HTTP header response upon success
 
     ##### Application submission success
 
@@ -684,7 +684,7 @@ API call <code>/receipt-mobile/api/updateMail.json</code>
     -d '{"UID":"change-email@receiptofi.com"}'
     http://localhost:9090/receipt-mobile/api/updateMail.json
 
-- HTTP response when there is data
+- HTTP header response upon success
 
     ##### Application submission success
 
