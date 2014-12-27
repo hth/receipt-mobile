@@ -9,19 +9,25 @@ import com.google.gson.annotations.SerializedName;
  * User: hitender
  * Date: 11/8/14 2:28 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 public class SignupUserInfo {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @SerializedName ("userId")
     private String userId;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @SerializedName ("name")
     private String name;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @SerializedName ("auth")
     private String auth;
 

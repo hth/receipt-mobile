@@ -11,6 +11,13 @@ import com.receiptofi.domain.BizNameEntity;
  * User: hitender
  * Date: 8/25/14 12:17 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -21,7 +28,6 @@ import com.receiptofi.domain.BizNameEntity;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BizName {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("name")
     private String businessName;
 

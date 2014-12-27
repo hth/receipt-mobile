@@ -10,12 +10,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * User: hitender
  * Date: 6/9/14 12:37 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class MobileApi {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @JsonProperty ("working")
     private boolean working;
 

@@ -19,6 +19,13 @@ import java.util.LinkedList;
  * User: hitender
  * Date: 8/24/14 9:35 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -27,7 +34,6 @@ import java.util.LinkedList;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-@SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
 public class Receipt {
     private static final DateTimeFormatter FMT = ISODateTimeFormat.dateTime();
 

@@ -10,16 +10,22 @@ import com.google.gson.annotations.SerializedName;
  * User: hitender
  * Date: 7/1/14 2:18 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class ProviderAndAccessToken {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @SerializedName ("pid")
     private String providerId;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @SerializedName ("at")
     private String accessToken;
 

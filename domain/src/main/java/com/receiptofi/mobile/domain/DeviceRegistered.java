@@ -9,12 +9,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * User: hitender
  * Date: 8/14/14 11:03 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class DeviceRegistered {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @JsonProperty ("registered")
     private boolean registered;
 

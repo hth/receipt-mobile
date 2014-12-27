@@ -17,16 +17,22 @@ import java.util.List;
  * User: hitender
  * Date: 8/10/14 3:57 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class AvailableAccountUpdates extends AbstractDomain {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @JsonProperty ("receipts")
     private List<Receipt> receipts = new LinkedList<>();
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
+    @SuppressWarnings ({"unused"})
     @JsonProperty ("profile")
     private Profile profile;
 

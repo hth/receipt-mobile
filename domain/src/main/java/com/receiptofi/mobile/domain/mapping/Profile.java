@@ -11,6 +11,13 @@ import com.receiptofi.domain.UserProfileEntity;
  * User: hitender
  * Date: 8/24/14 9:35 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -21,23 +28,18 @@ import com.receiptofi.domain.UserProfileEntity;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class Profile {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("rid")
     private String receiptUserId;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("name")
     private String name;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("firstName")
     private String firstName;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("lastName")
     private String lastName;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("mail")
     private String mail;
 

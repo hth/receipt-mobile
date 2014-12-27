@@ -11,6 +11,13 @@ import com.receiptofi.domain.ItemEntity;
  * User: hitender
  * Date: 9/11/14 12:06 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -19,7 +26,6 @@ import com.receiptofi.domain.ItemEntity;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-@SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
 public class ReceiptItem {
 
     @JsonProperty ("id")
