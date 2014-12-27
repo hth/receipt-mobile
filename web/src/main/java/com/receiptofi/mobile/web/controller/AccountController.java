@@ -188,7 +188,7 @@ public class AccountController {
 
         if (map.isEmpty()) {
             /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(validate(null, null, null));
+            return ErrorEncounteredJson.toJson(validate(null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRecovery(map);
             if (unknownKeys.size() > 0) {
@@ -270,6 +270,21 @@ public class AccountController {
         }
 
         return keys;
+    }
+
+    private Map<String, String> validate(String mail) {
+        LOG.info("failed validation mail={}", mail);
+
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
+
+        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
+            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
+        }
+
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+        return errors;
     }
 
     private Set<String> invalidElementsInMapDuringRecovery(Map<String, ScrubbedInput> map) {
