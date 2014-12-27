@@ -11,6 +11,13 @@ import com.receiptofi.domain.BizStoreEntity;
  * User: hitender
  * Date: 8/25/14 12:17 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -21,11 +28,9 @@ import com.receiptofi.domain.BizStoreEntity;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class BizStore {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("address")
     private String address;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("phone")
     private String phone;
 

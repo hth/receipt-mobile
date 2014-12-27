@@ -11,6 +11,13 @@ import com.receiptofi.domain.CommentEntity;
  * User: hitender
  * Date: 8/25/14 12:13 AM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -21,7 +28,6 @@ import com.receiptofi.domain.CommentEntity;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class Comment {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("text")
     private String text;
 

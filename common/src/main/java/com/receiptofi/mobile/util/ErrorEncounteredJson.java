@@ -11,6 +11,12 @@ import java.util.Map;
  * User: hitender
  * Date: 7/10/14 11:04 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable"
+})
 public class ErrorEncounteredJson {
 
     public static final String SYSTEM_ERROR = "systemError";

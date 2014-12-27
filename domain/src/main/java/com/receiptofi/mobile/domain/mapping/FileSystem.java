@@ -11,6 +11,13 @@ import com.receiptofi.domain.FileSystemEntity;
  * User: hitender
  * Date: 8/24/14 11:27 PM
  */
+@SuppressWarnings ({
+        "PMD.BeanMembersShouldSerialize",
+        "PMD.LocalVariableCouldBeFinal",
+        "PMD.MethodArgumentCouldBeFinal",
+        "PMD.LongVariable",
+        "unused"
+})
 @JsonAutoDetect (
         fieldVisibility = JsonAutoDetect.Visibility.ANY,
         getterVisibility = JsonAutoDetect.Visibility.NONE,
@@ -21,15 +28,12 @@ import com.receiptofi.domain.FileSystemEntity;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class FileSystem {
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("blobId")
     private String blobId;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("orientation")
     private int imageOrientation;
 
-    @SuppressWarnings ({"unused", "PMD.BeanMembersShouldSerialize"})
     @JsonProperty ("sequence")
     private int sequence;
 
