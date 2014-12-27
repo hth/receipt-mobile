@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -109,7 +108,7 @@ public class AccountController {
             return ErrorEncounteredJson.toJson(validate(null, null, null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
-            if (unknownKeys.size() > 0) {
+            if (!unknownKeys.isEmpty()) {
                 /** Validation failure as there are unknown keys. */
                 return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
             }
@@ -191,7 +190,7 @@ public class AccountController {
             return ErrorEncounteredJson.toJson(validate(null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRecovery(map);
-            if (unknownKeys.size() > 0) {
+            if (!unknownKeys.isEmpty()) {
                 /** Validation failure as there are unknown keys. */
                 return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
             }
