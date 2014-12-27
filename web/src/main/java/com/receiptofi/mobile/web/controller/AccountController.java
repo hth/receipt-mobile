@@ -29,8 +29,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -102,6 +108,12 @@ public class AccountController {
             /** Validation failure as there is not data in the map. */
             return ErrorEncounteredJson.toJson(validate(null, null, null));
         } else {
+            Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
+            if (unknownKeys.size() > 0) {
+                /** Validation failure as there are unknown keys. */
+                return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
+            }
+
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             String firstName = map.get(REGISTRATION.FN.name()).getText();
             String lastName = null;
@@ -178,6 +190,12 @@ public class AccountController {
             /** Validation failure as there is not data in the map. */
             return ErrorEncounteredJson.toJson(validate(null, null, null));
         } else {
+            Set<String> unknownKeys = invalidElementsInMapDuringRecovery(map);
+            if (unknownKeys.size() > 0) {
+                /** Validation failure as there are unknown keys. */
+                return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
+            }
+
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             if (StringUtils.isBlank(mail) || mailLength > mail.length()) {
                 LOG.info("failed data validation={}", mail);
@@ -242,5 +260,25 @@ public class AccountController {
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         return errors;
+    }
+
+    private Set<String> invalidElementsInMapDuringRegistration(Map<String, ScrubbedInput> map) {
+        Set<String> keys = new HashSet<>(map.keySet());
+        List<REGISTRATION> enums = new ArrayList<>(Arrays.asList(REGISTRATION.values()));
+        for (REGISTRATION registration : enums) {
+            keys.remove(registration.name());
+        }
+
+        return keys;
+    }
+
+    private Set<String> invalidElementsInMapDuringRecovery(Map<String, ScrubbedInput> map) {
+        Set<String> keys = new HashSet<>(map.keySet());
+        List<REGISTRATION> enums = new ArrayList<>(Arrays.asList(REGISTRATION.EM));
+        for (REGISTRATION registration : enums) {
+            keys.remove(registration.name());
+        }
+
+        return keys;
     }
 }
