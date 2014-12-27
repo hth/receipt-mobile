@@ -5,6 +5,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -305,6 +306,34 @@ public class AccountControllerTest {
 
         verify(accountService, times(1)).doesUserExists(anyString());
         verify(mobileAccountService, times(1)).recoverAccount(anyString());
+    }
+
+    @Test
+    public void testRecoverWhenUserProfileNull() throws IOException {
+        String json = createJsonForRecover("test@receiptofi.com");
+        when(accountService.doesUserExists(anyString())).thenReturn(null);
+        String responseJson = accountController.recover(json, response);
+
+        JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
+        assertEquals(USER_NOT_FOUND.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_NOT_FOUND.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("user does not exists", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+
+        verify(accountService, times(1)).doesUserExists(anyString());
+        verify(mobileAccountService, never()).recoverAccount(anyString());
+    }
+
+    @Test
+    public void testRecoverFalse() throws IOException {
+        String json = createJsonForRecover("test@receiptofi.com");
+        when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
+        when(mobileAccountService.recoverAccount(anyString())).thenReturn(false);
+        String responseJson = accountController.recover(json, response);
+
+        verify(accountService, times(1)).doesUserExists(any(String.class));
+        verify(mobileAccountService, times(1)).recoverAccount(anyString());
+        assertEquals("{}", responseJson);
     }
 
     @Test
