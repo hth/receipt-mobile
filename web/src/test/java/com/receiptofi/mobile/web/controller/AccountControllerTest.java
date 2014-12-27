@@ -311,7 +311,7 @@ public class AccountControllerTest {
     public void testRecover() throws IOException {
         String json = createJsonForRecover("test@receiptofi.com");
         when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
-        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(mobileAccountService.recoverAccount(anyString())).thenReturn(true);
         String responseJson = accountController.recover(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
