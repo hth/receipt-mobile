@@ -217,7 +217,7 @@ public class AccountControllerTest {
 
     @Test
     public void testRecoverJsonInvalid() throws IOException {
-        String jsonResponse = accountController.registerUser("", response);
+        String jsonResponse = accountController.recover("", response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
