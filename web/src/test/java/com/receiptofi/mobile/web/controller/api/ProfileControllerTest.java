@@ -63,14 +63,14 @@ public class ProfileControllerTest {
 
     @Test
     public void testUpdateMailNull() throws IOException {
-        when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(null);
+        when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         assertNull(profileController.updateMail("m", "z", "", httpServletResponse));
         verify(accountService, never()).saveUserAccount(any(UserAccountEntity.class));
     }
 
     @Test
     public void testUpdateMailValidation() throws IOException {
-        when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(userAccountEntity);
+        when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         String responseJson = profileController.updateMail("m", "z", createJsonForMail(""), httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
@@ -83,10 +83,10 @@ public class ProfileControllerTest {
 
     @Test
     public void testUpdateMail() throws IOException {
-        when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(userAccountEntity);
-        doNothing().when(accountService).saveUserAccount(userAccountEntity);
+        when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
+        when(accountService.updateUID(anyString(), anyString())).thenReturn(userAccountEntity);
         profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
-        verify(accountService, times(1)).saveUserAccount(any(UserAccountEntity.class));
+        verify(accountService, times(1)).updateUID(anyString(), anyString());
     }
 
     @Test
