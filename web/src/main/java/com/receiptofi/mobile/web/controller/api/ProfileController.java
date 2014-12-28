@@ -1,10 +1,12 @@
 package com.receiptofi.mobile.web.controller.api;
 
-import static com.receiptofi.mobile.web.controller.SocialAuthenticationController.*;
+import static com.receiptofi.mobile.web.controller.SocialAuthenticationController.AUTH;
+import static com.receiptofi.mobile.web.controller.SocialAuthenticationController.MAIL;
 
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.AccountService;
@@ -49,15 +51,22 @@ public class ProfileController {
 
     private AuthenticateService authenticateService;
     private AccountService accountService;
+    private MobileAccountService mobileAccountService;
 
     @Autowired
-    public ProfileController(AuthenticateService authenticateService, AccountService accountService) {
+    public ProfileController(
+            AuthenticateService authenticateService,
+            AccountService accountService,
+            MobileAccountService mobileAccountService
+    ) {
         this.authenticateService = authenticateService;
         this.accountService = accountService;
+        this.mobileAccountService = mobileAccountService;
     }
 
     /**
      * On account UID change, set account to re-validated.
+     *
      * @param mail
      * @param auth
      * @param updatedMailJson
@@ -101,7 +110,8 @@ public class ProfileController {
 
                 return ErrorEncounteredJson.toJson(errors);
             }
-            UserAccountEntity userAccount = accountService.updateUID(mail, map.get("UID").getText());
+
+            UserAccountEntity userAccount = mobileAccountService.changeUID(mail, map.get("UID").getText());
 
             response.addHeader(MAIL, userAccount.getUserId());
             response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
