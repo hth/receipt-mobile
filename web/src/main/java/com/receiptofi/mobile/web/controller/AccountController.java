@@ -16,6 +16,7 @@ import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +115,7 @@ public class AccountController {
             }
 
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
-            String firstName = map.get(REGISTRATION.FN.name()).getText();
+            String firstName = WordUtils.capitalize(map.get(REGISTRATION.FN.name()).getText());
             String lastName = null;
             if (StringUtils.isNotEmpty(firstName)) {
                 String[] name = firstName.split(" ");
