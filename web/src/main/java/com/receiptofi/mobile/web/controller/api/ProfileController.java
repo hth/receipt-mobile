@@ -56,6 +56,15 @@ public class ProfileController {
         this.accountService = accountService;
     }
 
+    /**
+     * On account UID change, set account to re-validated.
+     * @param mail
+     * @param auth
+     * @param updatedMailJson
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping (
             value = "/updateMail.json",
             method = RequestMethod.POST,
@@ -76,8 +85,8 @@ public class ProfileController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        UserAccountEntity userAccount = authenticateService.findUserAccount(mail, auth);
-        if (userAccount == null) {
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
@@ -92,11 +101,9 @@ public class ProfileController {
 
                 return ErrorEncounteredJson.toJson(errors);
             }
+            UserAccountEntity userAccount = accountService.updateUID(mail, map.get("UID").getText());
 
-            userAccount.setUserId(map.get("UID").getText());
-            accountService.saveUserAccount(userAccount);
-
-            response.addHeader(MAIL, map.get("UID").getText());
+            response.addHeader(MAIL, userAccount.getUserId());
             response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
             return null;
         }
