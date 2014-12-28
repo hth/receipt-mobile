@@ -67,7 +67,7 @@ public class ProfileControllerTest {
     public void testUpdateMailNull() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         assertNull(profileController.updateMail("m", "z", "", httpServletResponse));
-        verify(accountService, never()).saveUserAccount(any(UserAccountEntity.class));
+        verify(mobileAccountService, never()).changeUID(anyString(), anyString());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ProfileControllerTest {
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
         assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
-        verify(accountService, never()).saveUserAccount(any(UserAccountEntity.class));
+        verify(mobileAccountService, never()).changeUID(anyString(), anyString());
     }
 
     @Test
