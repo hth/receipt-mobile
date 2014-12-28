@@ -22,6 +22,7 @@ import com.google.gson.JsonParser;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.service.AccountService;
 
 import org.junit.Before;
@@ -47,13 +48,14 @@ public class ProfileControllerTest {
     @Mock private HttpServletResponse httpServletResponse;
     @Mock private UserAccountEntity userAccountEntity;
     @Mock private UserAuthenticationEntity userAuthenticationEntity;
+    @Mock private MobileAccountService mobileAccountService;
 
     private ProfileController profileController;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        profileController = new ProfileController(authenticateService, accountService);
+        profileController = new ProfileController(authenticateService, accountService, mobileAccountService);
 
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getId()).thenReturn("");
@@ -84,9 +86,9 @@ public class ProfileControllerTest {
     @Test
     public void testUpdateMail() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
-        when(accountService.updateUID(anyString(), anyString())).thenReturn(userAccountEntity);
+        when(mobileAccountService.changeUID(anyString(), anyString())).thenReturn(userAccountEntity);
         profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
-        verify(accountService, times(1)).updateUID(anyString(), anyString());
+        verify(mobileAccountService, times(1)).changeUID(anyString(), anyString());
     }
 
     @Test

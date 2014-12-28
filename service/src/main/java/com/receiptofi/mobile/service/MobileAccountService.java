@@ -87,6 +87,24 @@ public class MobileAccountService {
             throw new RuntimeException("failed creating new account for user " + mail, exce);
         }
 
+        sendValidationEmail(userAccount);
+        return userAccount.getUserAuthentication().getAuthenticationKey();
+    }
+
+    /**
+     * Updates existing userId with new userId and also sends out email to validate new userId.
+     *
+     * @param existingUserId
+     * @param newUserId
+     * @return
+     */
+    public UserAccountEntity changeUID(String existingUserId, String newUserId) {
+        UserAccountEntity userAccount = accountService.updateUID(existingUserId, newUserId);
+        sendValidationEmail(userAccount);
+        return userAccount;
+    }
+
+    private void sendValidationEmail(UserAccountEntity userAccount) {
         EmailValidateEntity accountValidate = emailValidateService.saveAccountValidate(
                 userAccount.getReceiptUserId(),
                 userAccount.getUserId());
@@ -98,9 +116,8 @@ public class MobileAccountService {
                 userAccount.getName(),
                 accountValidate.getAuthenticationKey(),
                 HttpClientBuilder.create().build());
-        LOG.info("mail sent={} to user={}", mailStatus, mail);
 
-        return userAccount.getUserAuthentication().getAuthenticationKey();
+        LOG.info("mail sent={} to user={}", mailStatus, userAccount.getUserId());
     }
 
     /**
