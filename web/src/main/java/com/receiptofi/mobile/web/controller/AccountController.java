@@ -117,7 +117,7 @@ public class AccountController {
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             String firstName = WordUtils.capitalize(map.get(REGISTRATION.FN.name()).getText());
             String lastName = null;
-            if (StringUtils.isNotEmpty(firstName)) {
+            if (StringUtils.isNotBlank(firstName)) {
                 String[] name = firstName.split(" ");
                 if (name.length > 1) {
                     lastName = name[name.length - 1];
