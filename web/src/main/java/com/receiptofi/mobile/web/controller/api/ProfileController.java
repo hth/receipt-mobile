@@ -1,10 +1,12 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.web.controller.SocialAuthenticationController.AUTH;
 import static com.receiptofi.mobile.web.controller.SocialAuthenticationController.MAIL;
 
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
+import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
@@ -111,11 +113,23 @@ public class ProfileController {
                 return ErrorEncounteredJson.toJson(errors);
             }
 
-            UserAccountEntity userAccount = mobileAccountService.changeUID(mail, map.get("UID").getText());
+            String newUserId = map.get("UID").getText();
+            UserAccountEntity userAccountExists = accountService.findByUserId(newUserId);
+            if (null == userAccountExists) {
+                UserAccountEntity userAccount = mobileAccountService.changeUID(mail, newUserId);
 
-            response.addHeader(MAIL, userAccount.getUserId());
-            response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
-            return null;
+                response.addHeader(MAIL, userAccount.getUserId());
+                response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
+                return null;
+            } else {
+                LOG.info("failed user id update as another user exists with same mail={}", mail);
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "user already exists with this mail");
+                errors.put(MobileAccountService.REGISTRATION.EM.name(), newUserId);
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_EXISTING.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_EXISTING.getCode());
+                return ErrorEncounteredJson.toJson(errors);
+            }
         }
     }
 

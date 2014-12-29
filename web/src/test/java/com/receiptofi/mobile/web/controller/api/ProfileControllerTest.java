@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.web.controller.AccountControllerTest.ERROR;
 import static com.receiptofi.mobile.web.controller.AccountControllerTest.REASON;
@@ -67,7 +68,8 @@ public class ProfileControllerTest {
     public void testUpdateMailNull() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         assertNull(profileController.updateMail("m", "z", "", httpServletResponse));
-        verify(mobileAccountService, never()).changeUID(anyString(), anyString());
+
+        verify(accountService, never()).findByUserId(anyString());
     }
 
     @Test
@@ -80,14 +82,33 @@ public class ProfileControllerTest {
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
         assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
+        verify(accountService, never()).findByUserId(anyString());
+    }
+
+    @Test
+    public void testUpdateMailUserExists() throws IOException {
+        when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
+        when(accountService.findByUserId(anyString())).thenReturn(userAccountEntity);
+
+        String responseJson = profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
+
+        JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
+        assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_EXISTING.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("user already exists with this mail", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("p@x.com", jo.get(ERROR).getAsJsonObject().get(MobileAccountService.REGISTRATION.EM.name()).getAsString());
+
         verify(mobileAccountService, never()).changeUID(anyString(), anyString());
     }
 
     @Test
     public void testUpdateMail() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
+        when(accountService.findByUserId(anyString())).thenReturn(null);
         when(mobileAccountService.changeUID(anyString(), anyString())).thenReturn(userAccountEntity);
+
         profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
+
         verify(mobileAccountService, times(1)).changeUID(anyString(), anyString());
     }
 
