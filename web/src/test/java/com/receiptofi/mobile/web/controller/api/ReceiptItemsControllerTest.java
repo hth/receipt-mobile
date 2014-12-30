@@ -8,6 +8,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -39,6 +40,7 @@ public class ReceiptItemsControllerTest {
     @Mock private HttpServletResponse httpServletResponse;
     @Mock private ReceiptEntity receiptEntity;
     @Mock private ItemEntity itemEntity;
+    @Mock private ExpenseTagEntity expenseTagEntity;
 
     private ReceiptItemsController receiptItemsController;
 
@@ -93,6 +95,7 @@ public class ReceiptItemsControllerTest {
         when(itemEntity.getPrice()).thenReturn(0.0);
         when(itemEntity.getTax()).thenReturn(0.0);
         when(itemEntity.getReceipt()).thenReturn(receiptEntity);
+        when(itemEntity.getExpenseTag()).thenReturn(expenseTagEntity);
 
         assertFalse(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "id", httpServletResponse).isEmpty());
     }
