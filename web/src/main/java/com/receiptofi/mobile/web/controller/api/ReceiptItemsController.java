@@ -2,7 +2,7 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.mobile.domain.mapping.ReceiptItem;
+import com.receiptofi.domain.json.JsonReceiptItem;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.ReceiptService;
@@ -69,7 +69,7 @@ public class ReceiptItemsController {
             value = "/receiptDetail/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public List<ReceiptItem> getDetailedReceipt(
+    public List<JsonReceiptItem> getDetailedReceipt(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -88,13 +88,13 @@ public class ReceiptItemsController {
             return Collections.emptyList();
         }
 
-        List<ReceiptItem> receiptItems = new LinkedList<>();
+        List<JsonReceiptItem> jsonReceiptItems = new LinkedList<>();
         try {
             ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
             if (null != receipt && receipt.getId().equals(receiptId)) {
                 List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
                 for (ItemEntity item : items) {
-                    receiptItems.add(ReceiptItem.newInstance(item));
+                    jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
                 }
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
@@ -103,6 +103,6 @@ public class ReceiptItemsController {
         } catch (Exception e) {
             LOG.error("reason={}", e.getLocalizedMessage(), e);
         }
-        return receiptItems;
+        return jsonReceiptItems;
     }
 }
