@@ -64,12 +64,12 @@ public class DeviceService {
 
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, registeredDevice.getUpdated());
             if (!receipts.isEmpty()) {
-                availableAccountUpdates.setReceipts(receipts);
+                availableAccountUpdates.setJsonReceipts(receipts);
             }
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
-                availableAccountUpdates.setProfile(userProfile);
+                availableAccountUpdates.setJsonProfile(userProfile);
             }
         }
         return availableAccountUpdates;

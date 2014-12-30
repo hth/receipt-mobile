@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.mobile.domain.mapping.Profile;
-import com.receiptofi.mobile.domain.mapping.Receipt;
+import com.receiptofi.domain.json.JsonProfile;
+import com.receiptofi.domain.json.JsonReceipt;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,31 +30,31 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @SuppressWarnings ({"unused"})
     @JsonProperty ("receipts")
-    private List<Receipt> receipts = new LinkedList<>();
+    private List<JsonReceipt> jsonReceipts = new LinkedList<>();
 
     @SuppressWarnings ({"unused"})
     @JsonProperty ("profile")
-    private Profile profile;
+    private JsonProfile jsonProfile;
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
     }
 
-    public List<Receipt> getReceipts() {
-        return receipts;
+    public List<JsonReceipt> getJsonReceipts() {
+        return jsonReceipts;
     }
 
-    public void setReceipts(List<ReceiptEntity> receipts) {
+    public void setJsonReceipts(List<ReceiptEntity> receipts) {
         for (ReceiptEntity receiptEntity : receipts) {
-            this.receipts.add(Receipt.newInstance(receiptEntity));
+            this.jsonReceipts.add(new JsonReceipt(receiptEntity));
         }
     }
 
-    public Profile getProfile() {
-        return profile;
+    public JsonProfile getJsonProfile() {
+        return jsonProfile;
     }
 
-    public void setProfile(UserProfileEntity userProfile) {
-        this.profile = Profile.newInstance(userProfile);
+    public void setJsonProfile(UserProfileEntity userProfile) {
+        this.jsonProfile = JsonProfile.newInstance(userProfile);
     }
 }

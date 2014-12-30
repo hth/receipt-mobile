@@ -64,7 +64,7 @@ public class DeviceServiceTest {
     @Test
     public void testHasUpdateWhenNull() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(null);
-        assertTrue("Receipt empty", deviceService.hasUpdate(anyString(), anyString()).getReceipts().isEmpty());
+        assertTrue("Receipt empty", deviceService.hasUpdate(anyString(), anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
+        assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getJsonProfile());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<ReceiptEntity>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
-        assertTrue("Receipts is empty", deviceService.hasUpdate(anyString(), anyString()).getReceipts().isEmpty());
+        assertTrue("Receipts is empty", deviceService.hasUpdate(anyString(), anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test

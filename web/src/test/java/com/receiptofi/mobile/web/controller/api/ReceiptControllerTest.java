@@ -14,7 +14,7 @@ import com.receiptofi.domain.BizStoreEntity;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.mobile.domain.mapping.Receipt;
+import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.LandingService;
 
@@ -90,8 +90,8 @@ public class ReceiptControllerTest {
     public void testYtdReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(Arrays.asList(receiptEntity));
-        List<Receipt> receipts = receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse);
-        assertEquals(receiptEntity.getReceiptUserId(), receipts.get(0).getReceiptUserId());
+        List<JsonReceipt> jsonReceipts = receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse);
+        assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 
     @Test
@@ -119,8 +119,8 @@ public class ReceiptControllerTest {
     public void testAllReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceipts(anyString())).thenReturn(Arrays.asList(receiptEntity));
-        List<Receipt> receipts = receiptController.allReceipts("mail@mail.com", "", httpServletResponse);
-        assertEquals(receiptEntity.getReceiptUserId(), receipts.get(0).getReceiptUserId());
+        List<JsonReceipt> jsonReceipts = receiptController.allReceipts("mail@mail.com", "", httpServletResponse);
+        assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class ReceiptControllerTest {
     public void testThisMonthReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(Arrays.asList(receiptEntity));
-        List<Receipt> receipts = receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse);
-        assertEquals(receiptEntity.getReceiptUserId(), receipts.get(0).getReceiptUserId());
+        List<JsonReceipt> jsonReceipts = receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse);
+        assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 }

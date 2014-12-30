@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.mobile.domain.mapping.Receipt;
+import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
@@ -52,7 +52,7 @@ public class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public List<Receipt> ytdReceipts(
+    public List<JsonReceipt> ytdReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -67,18 +67,18 @@ public class ReceiptController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         } else {
-            List<Receipt> receipts = new ArrayList<>();
+            List<JsonReceipt> jsonReceipts = new ArrayList<>();
             try {
                 List<ReceiptEntity> receiptEntities =
                         landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
 
                 for (ReceiptEntity receiptEntity : receiptEntities) {
-                    receipts.add(Receipt.newInstance(receiptEntity));
+                    jsonReceipts.add(new JsonReceipt(receiptEntity));
                 }
             } catch (Exception e) {
                 LOG.error("found error message={}", e.getLocalizedMessage(), e);
             }
-            return receipts;
+            return jsonReceipts;
         }
     }
 
@@ -87,7 +87,7 @@ public class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public List<Receipt> allReceipts(
+    public List<JsonReceipt> allReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -102,16 +102,16 @@ public class ReceiptController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         } else {
-            List<Receipt> receipts = new ArrayList<>();
+            List<JsonReceipt> jsonReceipts = new ArrayList<>();
             try {
                 List<ReceiptEntity> receiptEntities = landingService.getAllReceipts(rid);
                 for (ReceiptEntity receiptEntity : receiptEntities) {
-                    receipts.add(Receipt.newInstance(receiptEntity));
+                    jsonReceipts.add(new JsonReceipt(receiptEntity));
                 }
             } catch (Exception e) {
                 LOG.error("reason={}", e.getLocalizedMessage(), e);
             }
-            return receipts;
+            return jsonReceipts;
         }
     }
 
@@ -120,7 +120,7 @@ public class ReceiptController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public List<Receipt> thisMonthReceipts(
+    public List<JsonReceipt> thisMonthReceipts(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -136,11 +136,11 @@ public class ReceiptController {
             return Collections.emptyList();
         }
 
-        List<Receipt> receipts = new ArrayList<>();
+        List<JsonReceipt> receipts = new ArrayList<>();
         try {
             List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
             for (ReceiptEntity receiptEntity : receiptEntities) {
-                receipts.add(Receipt.newInstance(receiptEntity));
+                receipts.add(new JsonReceipt(receiptEntity));
             }
         } catch (Exception e) {
             LOG.error("reason={}", e.getLocalizedMessage(), e);
