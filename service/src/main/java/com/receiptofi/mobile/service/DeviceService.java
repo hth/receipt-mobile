@@ -69,7 +69,7 @@ public class DeviceService {
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
-                availableAccountUpdates.setJsonProfile(userProfile);
+                availableAccountUpdates.setProfile(userProfile);
             }
         }
         return availableAccountUpdates;

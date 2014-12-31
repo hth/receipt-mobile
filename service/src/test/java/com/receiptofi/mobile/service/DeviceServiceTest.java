@@ -73,7 +73,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getJsonProfile());
+        assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
     }
 
     @Test

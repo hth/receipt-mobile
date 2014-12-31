@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.json.JsonProfile;
 import com.receiptofi.domain.json.JsonReceipt;
 
 import java.util.LinkedList;
@@ -34,7 +33,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @SuppressWarnings ({"unused"})
     @JsonProperty ("profile")
-    private JsonProfile jsonProfile;
+    private Profile profile;
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -50,11 +49,11 @@ public class AvailableAccountUpdates extends AbstractDomain {
         }
     }
 
-    public JsonProfile getJsonProfile() {
-        return jsonProfile;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setJsonProfile(UserProfileEntity userProfile) {
-        this.jsonProfile = JsonProfile.newInstance(userProfile);
+    public void setProfile(UserProfileEntity userProfile) {
+        this.profile = Profile.newInstance(userProfile);
     }
 }
