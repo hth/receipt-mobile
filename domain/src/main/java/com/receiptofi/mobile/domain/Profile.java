@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.annotation.Mobile;
 
 /**
  * User: hitender
