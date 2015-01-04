@@ -18,6 +18,7 @@ import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.repository.RegisteredDeviceManager;
+import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
@@ -43,6 +44,7 @@ public class DeviceServiceTest {
     @Mock private LandingService landingService;
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
     @Mock private ItemService itemService;
+    @Mock private ExpensesService expensesService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -63,7 +65,8 @@ public class DeviceServiceTest {
                 registeredDeviceManager,
                 landingService,
                 userProfilePreferenceService,
-                itemService);
+                itemService,
+                expensesService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);
