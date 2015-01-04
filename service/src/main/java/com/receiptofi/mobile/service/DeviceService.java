@@ -5,6 +5,7 @@ import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
+import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
@@ -34,16 +35,19 @@ public class DeviceService {
     private RegisteredDeviceManager registeredDeviceManager;
     private LandingService landingService;
     private UserProfilePreferenceService userProfilePreferenceService;
+    private ItemService itemService;
 
     @Autowired
     public DeviceService(
             RegisteredDeviceManager registeredDeviceManager,
             LandingService landingService,
-            UserProfilePreferenceService userProfilePreferenceService
+            UserProfilePreferenceService userProfilePreferenceService,
+            ItemService itemService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.landingService = landingService;
         this.userProfilePreferenceService = userProfilePreferenceService;
+        this.itemService = itemService;
     }
 
     /**
@@ -65,6 +69,9 @@ public class DeviceService {
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, registeredDevice.getUpdated());
             if (!receipts.isEmpty()) {
                 availableAccountUpdates.setJsonReceipts(receipts);
+                for(ReceiptEntity receipt : receipts) {
+                    availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+                }
             }
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
