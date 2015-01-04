@@ -11,10 +11,12 @@ import com.receiptofi.domain.BizNameEntity;
 import com.receiptofi.domain.BizStoreEntity;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.FileSystemEntity;
+import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.repository.RegisteredDeviceManager;
+import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
@@ -38,6 +40,7 @@ public class DeviceServiceTest {
     @Mock private RegisteredDeviceManager registeredDeviceManager;
     @Mock private LandingService landingService;
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
+    @Mock private ItemService itemService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -46,13 +49,18 @@ public class DeviceServiceTest {
     @Mock private BizStoreEntity bizStore;
     @Mock private CommentEntity comment;
     @Mock private FileSystemEntity fileSystem;
+    @Mock private ItemEntity item;
 
     private DeviceService deviceService;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        deviceService = new DeviceService(registeredDeviceManager, landingService, userProfilePreferenceService);
+        deviceService = new DeviceService(
+                registeredDeviceManager,
+                landingService,
+                userProfilePreferenceService,
+                itemService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);
@@ -72,6 +80,7 @@ public class DeviceServiceTest {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
+        when(itemService.getAllItemsOfReceipt(anyString())).thenReturn(Arrays.asList(item));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
         assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
     }
