@@ -10,11 +10,13 @@ import static org.mockito.Mockito.when;
 import com.receiptofi.domain.BizNameEntity;
 import com.receiptofi.domain.BizStoreEntity;
 import com.receiptofi.domain.CommentEntity;
+import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
@@ -50,6 +52,7 @@ public class DeviceServiceTest {
     @Mock private CommentEntity comment;
     @Mock private FileSystemEntity fileSystem;
     @Mock private ItemEntity item;
+    @Mock private ExpenseTagEntity expenseTag;
 
     private DeviceService deviceService;
 
@@ -67,6 +70,9 @@ public class DeviceServiceTest {
         when(receipt.getNotes()).thenReturn(comment);
         when(receipt.getFileSystemEntities()).thenReturn(Arrays.asList(fileSystem));
         when(receipt.getReceiptDate()).thenReturn(new Date());
+
+        when(item.getReceipt()).thenReturn(receipt);
+        when(item.getExpenseTag()).thenReturn(expenseTag);
     }
 
     @Test
