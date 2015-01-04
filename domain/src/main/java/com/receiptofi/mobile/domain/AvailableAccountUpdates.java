@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
 
@@ -41,7 +43,9 @@ public class AvailableAccountUpdates extends AbstractDomain {
     @JsonProperty ("profile")
     private Profile profile;
 
-    //TODO add expense Tag
+    @SuppressWarnings ({"unused"})
+    @JsonProperty ("expenseTags")
+    private List<JsonExpenseTag> jsonExpenseTags = new LinkedList<>();
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -51,7 +55,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
         return jsonReceipts;
     }
 
-    public void setJsonReceipts(List<ReceiptEntity> receipts) {
+    public void addJsonReceipts(List<ReceiptEntity> receipts) {
         for (ReceiptEntity receiptEntity : receipts) {
             this.jsonReceipts.add(new JsonReceipt(receiptEntity));
         }
@@ -69,13 +73,19 @@ public class AvailableAccountUpdates extends AbstractDomain {
         return jsonReceiptItems;
     }
 
-    public void addJsonReceiptItems(ItemEntity item) {
-        this.jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
+    public void addJsonReceiptItems(List<ItemEntity> items) {
+        for (ItemEntity item : items) {
+            this.jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
+        }
     }
 
-    public void addJsonReceiptItems(List<ItemEntity> items) {
-        for(ItemEntity item : items) {
-            this.jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
+    public List<JsonExpenseTag> getJsonExpenseTags() {
+        return jsonExpenseTags;
+    }
+
+    public void addJsonExpenseTag(List<ExpenseTagEntity> expenseTags) {
+        for (ExpenseTagEntity expenseTag : expenseTags) {
+            this.jsonExpenseTags.add(JsonExpenseTag.newInstance(expenseTag));
         }
     }
 }
