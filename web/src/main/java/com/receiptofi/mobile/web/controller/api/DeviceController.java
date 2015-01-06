@@ -61,7 +61,7 @@ public class DeviceController {
             value = "/update",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String hasUpdate(
+    public String updates(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -81,14 +81,58 @@ public class DeviceController {
         }
 
         try {
-            return deviceService.hasUpdate(rid, deviceId).asJson();
+            return deviceService.getUpdates(rid, deviceId).asJson();
         } catch (Exception e) {
-            LOG.error("fetching update for device failed deviceId={} reason={}",
+            LOG.error("fetching updates for device failed deviceId={} reason={}",
                     deviceId, e.getLocalizedMessage(), e);
 
             Map<String, String> errors = new HashMap<>();
             errors.put(ErrorEncounteredJson.REASON, "something went wrong");
             errors.put("did", deviceId);
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+            return ErrorEncounteredJson.toJson(errors);
+        }
+    }
+
+    /**
+     * Irrespective of the device. Get all the data for an account.
+     *
+     * @param mail
+     * @param auth
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping (
+            method = RequestMethod.GET,
+            value = "/all",
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public String all(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (null == rid) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        }
+
+        try {
+            return deviceService.getAll(rid).asJson();
+        } catch (Exception e) {
+            LOG.error("fetching all reason={}", e.getLocalizedMessage(), e);
+
+            Map<String, String> errors = new HashMap<>();
+            errors.put(ErrorEncounteredJson.REASON, "something went wrong");
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 

@@ -61,54 +61,64 @@ public class DeviceService {
      * @param did Device Id
      * @return
      */
-    public AvailableAccountUpdates hasUpdate(String rid, String did) {
+    public AvailableAccountUpdates getUpdates(String rid, String did) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
-        boolean newRegistration = false;
         if (null == registeredDevice) {
             registeredDevice = registeredDeviceManager.registerDevice(rid, did);
-            newRegistration = true;
         }
 
         if (null != registeredDevice) {
-            if (newRegistration) {
-                LOG.info("Device registered now. Getting all updated");
+            Date updated = registeredDevice.getUpdated();
+            LOG.info("Device last updated date={}", updated);
 
-                List<ReceiptEntity> receipts = landingService.getAllReceipts(rid);
-                if (!receipts.isEmpty()) {
-                    availableAccountUpdates.addJsonReceipts(receipts);
-                    for (ReceiptEntity receipt : receipts) {
-                        availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
-                    }
-                }
-
-                UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
-                if (null != userProfile) {
-                    availableAccountUpdates.setProfile(userProfile);
-                }
-            } else {
-                Date updated = registeredDevice.getUpdated();
-                LOG.info("Device last updated date={}", updated);
-
-                List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, updated);
-                if (!receipts.isEmpty()) {
-                    availableAccountUpdates.addJsonReceipts(receipts);
-                    for (ReceiptEntity receipt : receipts) {
-                        availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
-                    }
-                }
-
-                UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
-                if (null != userProfile) {
-                    availableAccountUpdates.setProfile(userProfile);
+            List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, updated);
+            if (!receipts.isEmpty()) {
+                availableAccountUpdates.addJsonReceipts(receipts);
+                for (ReceiptEntity receipt : receipts) {
+                    availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
                 }
             }
 
-            availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
-            availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
+            UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
+            if (null != userProfile) {
+                availableAccountUpdates.setProfile(userProfile);
+            }
         }
+
+        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
+        availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
         return availableAccountUpdates;
     }
+
+    /**
+     * Get all for the account.
+     *
+     * @param rid
+     * @return
+     */
+    public AvailableAccountUpdates getAll(String rid) {
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+        LOG.info("Device registered now. Getting all updated");
+
+        List<ReceiptEntity> receipts = landingService.getAllReceipts(rid);
+        if (!receipts.isEmpty()) {
+            availableAccountUpdates.addJsonReceipts(receipts);
+            for (ReceiptEntity receipt : receipts) {
+                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+            }
+        }
+
+        UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
+        if (null != userProfile) {
+            availableAccountUpdates.setProfile(userProfile);
+        }
+
+        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
+        availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
+        return availableAccountUpdates;
+    }
+
 
     /**
      * Checks if the device is registered, if not registered then it registers the device.

@@ -16,7 +16,6 @@ import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.ItemService;
@@ -81,7 +80,7 @@ public class DeviceServiceTest {
     @Test
     public void testHasUpdateWhenNull() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(null);
-        assertTrue("Receipt empty", deviceService.hasUpdate(anyString(), anyString()).getJsonReceipts().isEmpty());
+        assertTrue("Receipt empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test
@@ -91,7 +90,7 @@ public class DeviceServiceTest {
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
         when(itemService.getAllItemsOfReceipt(anyString())).thenReturn(Arrays.asList(item));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertNull("UserProfile empty", deviceService.hasUpdate(anyString(), anyString()).getProfile());
+        assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString()).getProfile());
     }
 
     @Test
@@ -100,7 +99,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<ReceiptEntity>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
-        assertTrue("Receipts is empty", deviceService.hasUpdate(anyString(), anyString()).getJsonReceipts().isEmpty());
+        assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test
