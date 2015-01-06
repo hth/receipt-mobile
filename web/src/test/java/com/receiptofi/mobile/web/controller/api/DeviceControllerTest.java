@@ -55,15 +55,15 @@ public class DeviceControllerTest {
     @Test
     public void testHasUpdateFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        deviceController.hasUpdate("", "", "did", httpServletResponse);
-        verify(deviceService, never()).hasUpdate(anyString(), anyString());
+        deviceController.updates("", "", "did", httpServletResponse);
+        verify(deviceService, never()).getUpdates(anyString(), anyString());
     }
 
     @Test
     public void testHasUpdateException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        doThrow(new RuntimeException()).when(deviceService).hasUpdate(anyString(), anyString());
-        String responseJson = deviceController.hasUpdate("", "", "did", httpServletResponse);
+        doThrow(new RuntimeException()).when(deviceService).getUpdates(anyString(), anyString());
+        String responseJson = deviceController.updates("", "", "did", httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -75,9 +75,9 @@ public class DeviceControllerTest {
     @Test
     public void testHasUpdate() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(deviceService.hasUpdate(anyString(), anyString())).thenReturn(availableAccountUpdates);
-        deviceController.hasUpdate("", "", "did", httpServletResponse);
-        verify(deviceService, times(1)).hasUpdate(anyString(), anyString());
+        when(deviceService.getUpdates(anyString(), anyString())).thenReturn(availableAccountUpdates);
+        deviceController.updates("", "", "did", httpServletResponse);
+        verify(deviceService, times(1)).getUpdates(anyString(), anyString());
     }
 
     @Test
