@@ -47,6 +47,10 @@ public class AvailableAccountUpdates extends AbstractDomain {
     @JsonProperty ("expenseTags")
     private List<JsonExpenseTag> jsonExpenseTags = new LinkedList<>();
 
+    @SuppressWarnings ({"unused"})
+    @JsonProperty ("unprocessedDocuments")
+    private UnprocessedDocuments unprocessedDocuments;
+
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
     }
@@ -87,5 +91,13 @@ public class AvailableAccountUpdates extends AbstractDomain {
         for (ExpenseTagEntity expenseTag : expenseTags) {
             this.jsonExpenseTags.add(JsonExpenseTag.newInstance(expenseTag));
         }
+    }
+
+    public UnprocessedDocuments getUnprocessedDocuments() {
+        return unprocessedDocuments;
+    }
+
+    public void setUnprocessedDocuments(long count) {
+        this.unprocessedDocuments = UnprocessedDocuments.newInstance(count);
     }
 }
