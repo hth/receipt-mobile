@@ -307,9 +307,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.3.4" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.2" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:3.1" />
-            <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-core:0.9.16" />
-            <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-resources:2014.04" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
@@ -608,9 +605,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.3.4" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.2" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:3.1" />
-            <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-core:0.9.16" />
-            <element id="library" level="project" name="Gradle: net.sf.uadetector:uadetector-resources:2014.04" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
@@ -1359,15 +1353,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.jcip/jcip-annotations/1.0/d853625d8001c00d40abed553e670279504699f9/jcip-annotations-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.logstash.logback:logstash-logback-encoder:3.1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/3.1/58a68ae679eccee71b041a56efa4d805554f5cec/logstash-logback-encoder-3.1.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/3.1/d2f35a5cce67f8ba633bacd1b15bf35c164f1874/logstash-logback-encoder-3.1-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: net.sf.qualitycheck:quality-check:1.3">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.qualitycheck/quality-check/1.3/5387135c674a783fd2dec7f05b6c17a7f6517c8b/quality-check-1.3.jar!/" />
@@ -1375,24 +1360,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.qualitycheck/quality-check/1.3/88842e8b3a7a194dee872fed659581554e6e3b7a/quality-check-1.3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: net.sf.uadetector:uadetector-core:0.9.16">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-core/0.9.16/a46ac37e6e16763610d95d328107daea1f25648e/uadetector-core-0.9.16.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-core/0.9.16/168ea43f2a9a3b7fe45071dcaef6dd68178be627/uadetector-core-0.9.16-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: net.sf.uadetector:uadetector-resources:2014.04">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-resources/2014.04/411787f2b356bd8002a96efab130c209b3200c5/uadetector-resources-2014.04.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-resources/2014.04/f497b6c996ac8617f718f0eb04d97b448a62a3f0/uadetector-resources-2014.04-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: net.sourceforge.jmatio:jmatio:1.0">
