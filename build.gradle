@@ -108,7 +108,7 @@ subprojects {
     idea {
         module {
             downloadSources = true
-            downloadJavadoc = false
+            downloadJavadoc = true
         }
     }
 
@@ -212,8 +212,8 @@ subprojects {
         compile 'net.logstash.logback:logstash-logback-encoder:3.4'
         compile 'net.bull.javamelody:javamelody-core:1.+'
 
-        compile 'net.sf.uadetector:uadetector-core:0.9.16'
-        compile 'net.sf.uadetector:uadetector-resources:2014.04'
+        compile 'net.sf.uadetector:uadetector-core:0.9.22'
+        compile 'net.sf.uadetector:uadetector-resources:2014.10'
 
         compile 'javax.validation:validation-api:1.1.0.Final'
 
