@@ -29,12 +29,21 @@ public class IsWorkingController {
 
     /**
      * Supports HTML call.
+     * <p>
+     * During application start up a call is made to show index page. Hence this method and only this controller
+     * contains support for request type HEAD.
+     * <p>
+     * We have added support for HEAD request in filter to prevent failing on HEAD request. As of now there is no valid
+     * reason why filter contains this HEAD request as everything is secure after login and there are no bots or
+     * crawlers when a valid user has logged in.
+     * <p>
+     * @see <a href="http://axelfontaine.com/blog/http-head.html">http://axelfontaine.com/blog/http-head.html</a>
      *
      * @return
      */
     @RequestMapping (
             value = "/isWorking",
-            method = RequestMethod.GET,
+            method = {RequestMethod.GET, RequestMethod.HEAD},
             produces = {
                     MediaType.TEXT_HTML_VALUE + ";charset=UTF-8",
             }
