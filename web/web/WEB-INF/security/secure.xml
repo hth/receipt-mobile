@@ -8,8 +8,7 @@
 
     <!--<debug />-->
 
-    <global-method-security mode="aspectj"
-                            jsr250-annotations="enabled"
+    <global-method-security jsr250-annotations="enabled"
                             pre-post-annotations="enabled"
                             secured-annotations="enabled" />
 
