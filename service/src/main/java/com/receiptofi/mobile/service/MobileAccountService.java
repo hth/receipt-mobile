@@ -99,7 +99,7 @@ public class MobileAccountService {
      * @return
      */
     public UserAccountEntity changeUID(String existingUserId, String newUserId) {
-        /** No RID hence using method without RID */
+        /** No RID hence using method without RID. */
         UserAccountEntity userAccount = accountService.updateUID(existingUserId, newUserId);
         sendValidationEmail(userAccount);
         return userAccount;
