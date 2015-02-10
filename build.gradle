@@ -167,8 +167,8 @@ subprojects {
         compile "$springSecurityGroup:spring-security-taglibs:$springSecurityVersion"
         compile "$springSecurityGroup:spring-security-web:$springSecurityVersion"
 
-        compile "$springDataGroup:spring-data-mongodb:1.6.1.RELEASE"
-        compile "$springDataGroup:spring-data-commons:1.9.1.RELEASE"
+        compile "$springDataGroup:spring-data-mongodb:1.6.2.RELEASE"
+        compile "$springDataGroup:spring-data-commons:1.9.2.RELEASE"
         compile 'org.mongodb:mongo-java-driver:2.12.4'
 
         compile 'org.apache.commons:commons-collections4:4.0'
@@ -194,7 +194,7 @@ subprojects {
         compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
         compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
 
-        compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r232'
+        compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
         compile 'javax.validation:validation-api:1.1.0.Final'
         compile 'org.hibernate:hibernate-validator:5.1.1.Final'
         compile 'commons-fileupload:commons-fileupload:1.3.1'
@@ -224,8 +224,8 @@ subprojects {
         compile "org.ajar:swagger-spring-mvc-ui:0.2"
 
         testCompile group: 'junit', name: 'junit', version: '4.+'
-        testCompile 'org.mockito:mockito-all:1.10.8'
-        testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.46.1'
+        testCompile 'org.mockito:mockito-all:1.10.19'
+        testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.46.4'
     }
 
     test {
