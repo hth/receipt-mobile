@@ -223,7 +223,7 @@
           </element>
         </element>
         <element id="directory" name="doc">
-          <element id="dir-copy" path="$PROJECT_DIR$/web/web/doc" />
+          <element id="dir-copy" path="$PROJECT_DIR$/web/web/api-docs" />
         </element>
       </root>
     </artifact>
