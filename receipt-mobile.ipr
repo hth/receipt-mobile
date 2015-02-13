@@ -19,6 +19,7 @@
             <element id="directory" name="images">
               <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/circle-leaf-sized_small.png" />
             </element>
+            <element id="file-copy" path="$PROJECT_DIR$/swagger.properties" />
           </element>
           <element id="directory" name="lib">
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar" />
@@ -170,6 +171,32 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-core/0.9.22/e40e4e391e27fdb798a574a3ee0c26debe36c6cd/uadetector-core-0.9.22.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-resources/2014.10/973d8ec015a740b20cd3cdbc593315c521cb0128/uadetector-resources-2014.10.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.1.4.RELEASE/833a6c4672741a227cceef2cdb06ca36ea908435/spring-messaging-4.1.4.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.6.2.RELEASE/a0292bffe73a65b73fde8420dffcef16c83a7c5e/spring-data-mongodb-1.6.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.9.2.RELEASE/6f92f93d9f837ea8a97a99e9bb850d3a08974c99/spring-data-commons-1.9.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.12.5/8e53a39f2a5b2755ecc394d48d18026460f5da58/mongo-java-driver-2.12.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/5599707a3eaad13e889f691b3af78c8c03842195/joda-time-2.7.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer/r239/ea8dd89a9e8fcf90c1b666ac0585e7769224da5e/owasp-java-html-sanitizer-r239.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.55.0/65c4f7cec7f499ac312e57704d3e37f39ee940ee/javamelody-core-1.55.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-core_2.10/1.3.12/4ab0aa311cead6fd495b5ec6a0777c3c7666ff08/swagger-core_2.10-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/0.9.5/89271a637ae467075e36dfbf057478d0a70b934e/swagger-springmvc-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.10/ce49a188721bc39cb9710b346ae9b7ec27b0f36b/jcl-over-slf4j-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jsonSchema/2.4.1/10f026e3b68197768b32cae1d99159a497afb05c/jackson-module-jsonSchema-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.1/edf3feac7ab567c74f965c5645ee8f524a54307d/jackson-jaxrs-json-provider-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.3.12/673426bef1a1d2043fb42c915338e0e0fb6a536d/swagger-annotations-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ext_2.10/3.2.11/cf11b4a4c171516a7ceeba765b48fb5d029650d7/json4s-ext_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-native_2.10/3.2.11/8db8a89704724d85e42940d6e8346f7e90e80c4b/json4s-native_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-jackson_2.10/3.2.11/c91b7c1c01d49ccccc1e715bb651440c8cd105f2/json4s-jackson_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/0.9.5/f49070371eb07e0f2e2a3a92d7e81b293d616e41/swagger-models-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.10.4/dad1949e8bddc4f97a77025e67d6f0bb2a5071be/scala-reflect-2.10.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.4.1/64ea87dbf2fba58fecabf644f336912d9d4dd4a6/jackson-jaxrs-base-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.4.1/b774bf94db3968a7d318f8339c5c8151b820686b/jackson-module-jaxb-annotations-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-core_2.10/3.2.11/dabb704ffdb3ede596e8df39959d092e1bab8816/json4s-core_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ast_2.10/3.2.11/49ab60e86a2c3508d3d45a04dca6dfe173492fcf/json4s-ast_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-compiler/2.10.0/fec8066cd2b4f8dc7ff7ba7a8e0a792939d9f9a/scala-compiler-2.10.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/1.0.0-SNAPSHOT/7f820c5e0d7a52ea7716f063a5ac2066ada10aba/swagger-springmvc-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/1.0.0-SNAPSHOT/f13eb98361982fde654b072e2ca4b6e19d36b832/swagger-models-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ajar/swagger-spring-mvc-ui/0.4/ec105fa806ff6655b93592c4bd015862ce574c3b/swagger-spring-mvc-ui-0.4.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -450,6 +477,32 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-core/0.9.22/e40e4e391e27fdb798a574a3ee0c26debe36c6cd/uadetector-core-0.9.22.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-resources/2014.10/973d8ec015a740b20cd3cdbc593315c521cb0128/uadetector-resources-2014.10.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.1.4.RELEASE/833a6c4672741a227cceef2cdb06ca36ea908435/spring-messaging-4.1.4.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.6.2.RELEASE/a0292bffe73a65b73fde8420dffcef16c83a7c5e/spring-data-mongodb-1.6.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.9.2.RELEASE/6f92f93d9f837ea8a97a99e9bb850d3a08974c99/spring-data-commons-1.9.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.12.5/8e53a39f2a5b2755ecc394d48d18026460f5da58/mongo-java-driver-2.12.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/5599707a3eaad13e889f691b3af78c8c03842195/joda-time-2.7.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer/r239/ea8dd89a9e8fcf90c1b666ac0585e7769224da5e/owasp-java-html-sanitizer-r239.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.55.0/65c4f7cec7f499ac312e57704d3e37f39ee940ee/javamelody-core-1.55.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-core_2.10/1.3.12/4ab0aa311cead6fd495b5ec6a0777c3c7666ff08/swagger-core_2.10-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/0.9.5/89271a637ae467075e36dfbf057478d0a70b934e/swagger-springmvc-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.10/ce49a188721bc39cb9710b346ae9b7ec27b0f36b/jcl-over-slf4j-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jsonSchema/2.4.1/10f026e3b68197768b32cae1d99159a497afb05c/jackson-module-jsonSchema-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.1/edf3feac7ab567c74f965c5645ee8f524a54307d/jackson-jaxrs-json-provider-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.3.12/673426bef1a1d2043fb42c915338e0e0fb6a536d/swagger-annotations-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ext_2.10/3.2.11/cf11b4a4c171516a7ceeba765b48fb5d029650d7/json4s-ext_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-native_2.10/3.2.11/8db8a89704724d85e42940d6e8346f7e90e80c4b/json4s-native_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-jackson_2.10/3.2.11/c91b7c1c01d49ccccc1e715bb651440c8cd105f2/json4s-jackson_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/0.9.5/f49070371eb07e0f2e2a3a92d7e81b293d616e41/swagger-models-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.10.4/dad1949e8bddc4f97a77025e67d6f0bb2a5071be/scala-reflect-2.10.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.4.1/64ea87dbf2fba58fecabf644f336912d9d4dd4a6/jackson-jaxrs-base-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.4.1/b774bf94db3968a7d318f8339c5c8151b820686b/jackson-module-jaxb-annotations-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-core_2.10/3.2.11/dabb704ffdb3ede596e8df39959d092e1bab8816/json4s-core_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ast_2.10/3.2.11/49ab60e86a2c3508d3d45a04dca6dfe173492fcf/json4s-ast_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-compiler/2.10.0/fec8066cd2b4f8dc7ff7ba7a8e0a792939d9f9a/scala-compiler-2.10.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/1.0.0-SNAPSHOT/7f820c5e0d7a52ea7716f063a5ac2066ada10aba/swagger-springmvc-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/1.0.0-SNAPSHOT/f13eb98361982fde654b072e2ca4b6e19d36b832/swagger-models-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ajar/swagger-spring-mvc-ui/0.4/ec105fa806ff6655b93592c4bd015862ce574c3b/swagger-spring-mvc-ui-0.4.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -703,6 +756,32 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-core/0.9.22/e40e4e391e27fdb798a574a3ee0c26debe36c6cd/uadetector-core-0.9.22.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.uadetector/uadetector-resources/2014.10/973d8ec015a740b20cd3cdbc593315c521cb0128/uadetector-resources-2014.10.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.1.4.RELEASE/833a6c4672741a227cceef2cdb06ca36ea908435/spring-messaging-4.1.4.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.6.2.RELEASE/a0292bffe73a65b73fde8420dffcef16c83a7c5e/spring-data-mongodb-1.6.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.9.2.RELEASE/6f92f93d9f837ea8a97a99e9bb850d3a08974c99/spring-data-commons-1.9.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.12.5/8e53a39f2a5b2755ecc394d48d18026460f5da58/mongo-java-driver-2.12.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/5599707a3eaad13e889f691b3af78c8c03842195/joda-time-2.7.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer/r239/ea8dd89a9e8fcf90c1b666ac0585e7769224da5e/owasp-java-html-sanitizer-r239.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.55.0/65c4f7cec7f499ac312e57704d3e37f39ee940ee/javamelody-core-1.55.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-core_2.10/1.3.12/4ab0aa311cead6fd495b5ec6a0777c3c7666ff08/swagger-core_2.10-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/0.9.5/89271a637ae467075e36dfbf057478d0a70b934e/swagger-springmvc-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.10/ce49a188721bc39cb9710b346ae9b7ec27b0f36b/jcl-over-slf4j-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jsonSchema/2.4.1/10f026e3b68197768b32cae1d99159a497afb05c/jackson-module-jsonSchema-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.1/edf3feac7ab567c74f965c5645ee8f524a54307d/jackson-jaxrs-json-provider-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.3.12/673426bef1a1d2043fb42c915338e0e0fb6a536d/swagger-annotations-1.3.12.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ext_2.10/3.2.11/cf11b4a4c171516a7ceeba765b48fb5d029650d7/json4s-ext_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-native_2.10/3.2.11/8db8a89704724d85e42940d6e8346f7e90e80c4b/json4s-native_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-jackson_2.10/3.2.11/c91b7c1c01d49ccccc1e715bb651440c8cd105f2/json4s-jackson_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/0.9.5/f49070371eb07e0f2e2a3a92d7e81b293d616e41/swagger-models-0.9.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.10.4/dad1949e8bddc4f97a77025e67d6f0bb2a5071be/scala-reflect-2.10.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.4.1/64ea87dbf2fba58fecabf644f336912d9d4dd4a6/jackson-jaxrs-base-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.4.1/b774bf94db3968a7d318f8339c5c8151b820686b/jackson-module-jaxb-annotations-2.4.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-core_2.10/3.2.11/dabb704ffdb3ede596e8df39959d092e1bab8816/json4s-core_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json4s/json4s-ast_2.10/3.2.11/49ab60e86a2c3508d3d45a04dca6dfe173492fcf/json4s-ast_2.10-3.2.11.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-compiler/2.10.0/fec8066cd2b4f8dc7ff7ba7a8e0a792939d9f9a/scala-compiler-2.10.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-springmvc/1.0.0-SNAPSHOT/7f820c5e0d7a52ea7716f063a5ac2066ada10aba/swagger-springmvc-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mangofactory/swagger-models/1.0.0-SNAPSHOT/f13eb98361982fde654b072e2ca4b6e19d36b832/swagger-models-1.0.0-SNAPSHOT.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.ajar/swagger-spring-mvc-ui/0.4/ec105fa806ff6655b93592c4bd015862ce574c3b/swagger-spring-mvc-ui-0.4.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
