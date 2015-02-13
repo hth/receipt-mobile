@@ -2,7 +2,11 @@ package com.receiptofi.mobile.web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.models.dto.ApiInfo;
@@ -14,8 +18,10 @@ import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
  * Date: 12/9/14 1:45 AM
  */
 @Configuration
+@EnableWebMvc
+@ComponentScan("com.receiptofi.mobile.web.controller")
 @EnableSwagger /* Loads the spring beans required by the framework. */
-public class SwaggerConfig {
+public class SwaggerConfig extends WebMvcConfigurerAdapter {
     private SpringSwaggerConfig springSwaggerConfig;
 
     /**
@@ -36,6 +42,11 @@ public class SwaggerConfig {
     public SwaggerSpringMvcPlugin customImplementation() {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .includePatterns(".*");
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
 
     private ApiInfo apiInfo() {
