@@ -222,6 +222,9 @@
             <element id="file-copy" path="$PROJECT_DIR$/web/web/static/css/receipt.css" />
           </element>
         </element>
+        <element id="directory" name="api-docs">
+          <element id="dir-copy" path="$PROJECT_DIR$/web/web/api-docs" />
+        </element>
       </root>
     </artifact>
     <artifact type="exploded-war" name="Gradle : com.receiptofi.mobile:web : receiptofi.mobile-web-0.9.0.war (exploded)">
