@@ -22,7 +22,7 @@ ext {
     unzipLibDir = file("$unzipDir$lib")
 
     springGroup = 'org.springframework'
-    springVersion = '4.1.4.RELEASE'
+    springVersion = '4.1.5.RELEASE'
 
     springSecurityGroup = 'org.springframework.security'
     springSecurityVersion = '3.2.5.RELEASE'
