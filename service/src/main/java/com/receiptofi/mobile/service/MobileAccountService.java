@@ -1,6 +1,9 @@
 package com.receiptofi.mobile.service;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
@@ -11,6 +14,7 @@ import com.receiptofi.service.EmailValidateService;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -43,6 +47,7 @@ public class MobileAccountService {
 
     private String accountValidationEndPoint;
     private String accountRecoverEndPoint;
+    private String registrationAcceptingEndPoint;
     private WebConnectorService webConnectorService;
     private EmailValidateService emailValidateService;
     private AccountService accountService;
@@ -55,12 +60,16 @@ public class MobileAccountService {
             @Value ("${accountRecover:/webapi/mobile/mail/accountRecover.htm}")
             String accountRecoverEndPoint,
 
+            @Value ("${registrationAccepting:/webapi/mobile/registration/accepting.htm}")
+            String registrationAcceptingEndPoint,
+
             WebConnectorService webConnectorService,
             EmailValidateService emailValidateService,
             AccountService accountService
     ) {
         this.accountValidationEndPoint = accountSignupEndPoint;
         this.accountRecoverEndPoint = accountRecoverEndPoint;
+        this.registrationAcceptingEndPoint = registrationAcceptingEndPoint;
         this.webConnectorService = webConnectorService;
         this.emailValidateService = emailValidateService;
         this.accountService = accountService;
@@ -200,6 +209,47 @@ public class MobileAccountService {
     }
 
     /**
+     * Query server to check if sign-ups are being accepted.
+     *
+     * @return
+     */
+    public boolean acceptingSignup() {
+        LOG.debug("userId={} webApiAccessToken={}", "*******");
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = webConnectorService.getHttpGet(registrationAcceptingEndPoint, httpClient);
+
+        if (null == httpGet) {
+            LOG.warn("failed connecting, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+            LOG.error("error occurred while executing request path={} reason={}",
+                    httpGet.getURI(), e.getLocalizedMessage(), e);
+        }
+
+        if (null == response) {
+            LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        int status = response.getStatusLine().getStatusCode();
+        LOG.debug("status={}", status);
+        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
+            String data = SocialAuthenticationService.responseString(response.getEntity());
+            JsonElement element = new JsonParser().parse(data);
+            JsonObject object = element.getAsJsonObject();
+            return object.get(REGISTRATION_TURNED_ON.RTO.name()).getAsBoolean();
+        }
+
+        LOG.error("server responded with response code={}", status);
+        return false;
+    }
+
+    /**
      * Create Request Body.
      *
      * @param object
@@ -219,5 +269,9 @@ public class MobileAccountService {
         EM, //Email
         BD, //Birthday
         PW  //Password
+    }
+
+    public enum REGISTRATION_TURNED_ON {
+        RTO
     }
 }

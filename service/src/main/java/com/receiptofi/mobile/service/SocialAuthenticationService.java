@@ -95,7 +95,7 @@ public class SocialAuthenticationService {
      * @param entity
      * @return
      */
-    private String responseString(HttpEntity entity) {
+    public static String responseString(HttpEntity entity) {
         if (entity != null) {
             long len = entity.getContentLength();
             LOG.debug("response length={}", len);
