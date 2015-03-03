@@ -72,7 +72,7 @@ public class WebConnectorService {
     }
 
     /**
-     * Creates Http Post for supplied endpoint.
+     * Creates Http POST for supplied endpoint.
      *
      * @param endPoint
      * @param httpClient
@@ -93,6 +93,23 @@ public class WebConnectorService {
         httpPost.setHeader("X-R-API-MOBILE", webApiAccessToken);
         httpPost.addHeader(header);
         return httpPost;
+    }
+
+    /**
+     * Creates Http GET for supplied endpoint.
+     *
+     * @param endPoint
+     * @param httpClient
+     * @return
+     */
+    protected HttpGet getHttpGet(String endPoint, HttpClient httpClient) {
+        LOG.info("calling external URL={}", protocol + "://" + host + computePort() + endPoint);
+        HttpGet httpGet = new HttpGet(protocol + "://" + host + computePort() + endPoint);
+        LOG.info("external call complete URI={} webApiAccessToken={}", httpGet.getURI().toString(), "*******");
+
+        httpGet.setHeader(HTTP.CONTENT_TYPE, "application/json");
+        httpGet.setHeader("X-R-API-MOBILE", webApiAccessToken);
+        return httpGet;
     }
 
     /**

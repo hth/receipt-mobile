@@ -57,6 +57,7 @@ public class MobileAccountServiceTest {
         mobileAccountService = new MobileAccountService(
                 "accountValidationEndPoint",
                 "accountRecover",
+                "registrationAcceptingEndPoint",
                 webConnectorService,
                 emailValidateService,
                 accountService

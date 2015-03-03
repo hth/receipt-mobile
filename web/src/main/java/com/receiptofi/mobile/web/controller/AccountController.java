@@ -6,6 +6,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.REGISTRATION_TURNED_OFF;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.MobileAccountService;
@@ -148,7 +149,21 @@ public class AccountController {
             try {
                 String auth = mobileAccountService.signup(mail, firstName, lastName, password, birthday);
                 response.addHeader("X-R-MAIL", mail);
-                response.addHeader("X-R-AUTH", auth);
+                if (mobileAccountService.acceptingSignup()) {
+                    /** X-R-AUTH is sent when server is accepting registration. */
+                    response.addHeader("X-R-AUTH", auth);
+                } else {
+                    /** when server is NOT accepting registration. */
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Account created successfully. Site is not accepting new " +
+                            "users. When site starts accepting new users, you will be notified through email and your " +
+                            "account would be turned active.");
+                    errors.put(MobileAccountService.REGISTRATION_TURNED_ON.RTO.name(), Boolean.FALSE.toString());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, REGISTRATION_TURNED_OFF.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, REGISTRATION_TURNED_OFF.getCode());
+                    return ErrorEncounteredJson.toJson(errors);
+
+                }
             } catch (Exception e) {
                 LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
