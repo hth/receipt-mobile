@@ -186,6 +186,7 @@ public class AccountControllerTest {
         String json = createJsonForRegistration("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(mobileAccountService.acceptingSignup()).thenReturn(true);
         String responseJson = accountController.registerUser(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
@@ -198,6 +199,7 @@ public class AccountControllerTest {
         String jsonResponse = createJsonForRegistration("first last middle", " test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(mobileAccountService.acceptingSignup()).thenReturn(true);
         String responseJson = accountController.registerUser(jsonResponse, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
