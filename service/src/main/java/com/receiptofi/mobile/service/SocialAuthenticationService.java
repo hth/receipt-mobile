@@ -95,7 +95,7 @@ public class SocialAuthenticationService {
      * @param entity
      * @return
      */
-    public static String responseString(HttpEntity entity) {
+    private String responseString(HttpEntity entity) {
         if (entity != null) {
             long len = entity.getContentLength();
             LOG.debug("response length={}", len);
@@ -106,13 +106,14 @@ public class SocialAuthenticationService {
                     return data;
                 } catch (IOException e) {
                     LOG.error("error occurred while parsing entity reason={}", e.getLocalizedMessage(), e);
+                    return "{}";
                 }
             }
         }
 
         /** Stream too big */
-        LOG.warn("stream size bigger than {}", MAX_RESPONSE_SIZE);
-        return ErrorEncounteredJson.toJson("stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
+        LOG.warn("Stream size bigger than {}", MAX_RESPONSE_SIZE);
+        return ErrorEncounteredJson.toJson("Stream size bigger than " + MAX_RESPONSE_SIZE, SEVERE);
     }
 
     /**

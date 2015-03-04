@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -239,10 +240,16 @@ public class MobileAccountService {
         int status = response.getStatusLine().getStatusCode();
         LOG.debug("status={}", status);
         if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
-            String data = SocialAuthenticationService.responseString(response.getEntity());
-            JsonElement element = new JsonParser().parse(data);
-            JsonObject object = element.getAsJsonObject();
-            return object.get(REGISTRATION_TURNED_ON.RTO.name()).getAsBoolean();
+            try {
+                String data = EntityUtils.toString(response.getEntity());
+                LOG.debug("data={}", data);
+                JsonElement element = new JsonParser().parse(data);
+                JsonObject object = element.getAsJsonObject();
+                return object.get(REGISTRATION_TURNED_ON.RTO.name()).getAsBoolean();
+            } catch (IOException e) {
+                LOG.error("failed parsing data={} reason={}", response.getEntity(), e.getLocalizedMessage(), e);
+                return false;
+            }
         }
 
         LOG.error("server responded with response code={}", status);
