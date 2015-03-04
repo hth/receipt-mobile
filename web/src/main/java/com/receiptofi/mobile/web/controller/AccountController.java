@@ -139,7 +139,7 @@ public class AccountController {
             if (userProfile != null) {
                 LOG.info("failed user registration as already exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "user already exists");
+                errors.put(ErrorEncounteredJson.REASON, "User already exists. Did you forget password?");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_EXISTING.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_EXISTING.getCode());
