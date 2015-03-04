@@ -71,7 +71,7 @@ public class UploadDocumentControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(DOCUMENT_UPLOAD.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("multipart failure for document upload", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed to upload file.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class UploadDocumentControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(DOCUMENT_UPLOAD.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed document upload", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed to upload file.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("filename", jo.get(ERROR).getAsJsonObject().get("document").getAsString());
     }
 
