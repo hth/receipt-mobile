@@ -119,6 +119,8 @@ public class AccountController {
             String firstName = WordUtils.capitalize(map.get(REGISTRATION.FN.name()).getText());
             String lastName = null;
             if (StringUtils.isNotBlank(firstName)) {
+                /** NPE is already checked in above condition. */
+                @SuppressWarnings("all")
                 String[] name = firstName.split(" ");
                 if (name.length > 1) {
                     lastName = name[name.length - 1];
