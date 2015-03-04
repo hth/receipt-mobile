@@ -126,7 +126,7 @@ public class UploadDocumentController {
                 LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Failed document upload");
+                errors.put(ErrorEncounteredJson.REASON, "Failed to upload file.");
                 errors.put("document", multipartFile.getOriginalFilename());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, DOCUMENT_UPLOAD.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, DOCUMENT_UPLOAD.getCode());
@@ -136,6 +136,6 @@ public class UploadDocumentController {
                 LOG.info("upload document processed with success={} rid={}", upload, rid);
             }
         }
-        return ErrorEncounteredJson.toJson("Multipart failure for document upload", DOCUMENT_UPLOAD);
+        return ErrorEncounteredJson.toJson("Failed to upload file.", DOCUMENT_UPLOAD);
     }
 }
