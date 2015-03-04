@@ -154,7 +154,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_EXISTING.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("user already exists", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("User already exists. Did you forget password?", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
