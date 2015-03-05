@@ -10,6 +10,7 @@ import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
+import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.HashText;
 import com.receiptofi.utils.ParseJsonStringToMap;
@@ -53,16 +54,19 @@ public class ProfileController {
     private AuthenticateService authenticateService;
     private AccountService accountService;
     private MobileAccountService mobileAccountService;
+    private UserInfoValidator userInfoValidator;
 
     @Autowired
     public ProfileController(
             AuthenticateService authenticateService,
             AccountService accountService,
-            MobileAccountService mobileAccountService
+            MobileAccountService mobileAccountService,
+            UserInfoValidator userInfoValidator
     ) {
         this.authenticateService = authenticateService;
         this.accountService = accountService;
         this.mobileAccountService = mobileAccountService;
+        this.userInfoValidator = userInfoValidator;
     }
 
     /**
@@ -157,25 +161,31 @@ public class ProfileController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
+            String password = map.get(MobileAccountService.REGISTRATION.PW.name()).getText();
+            if (StringUtils.isBlank(password) || userInfoValidator.getPasswordLength() > password.length()) {
+                Map <String, String> errors = new HashMap<>();
+                userInfoValidator.passwordValidation(password, errors);
+                return ErrorEncounteredJson.toJson(errors);
+            }
+
             if (!userAccount.isAccountValidated()) {
                 /** Since account is not validated, send validation email instead. */
                 return null;
             } else {
-                Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
                 LOG.info("new password={}", UtilityController.AUTH_KEY_HIDDEN);
-
-                if (StringUtils.isBlank(map.get("PA").getText())) {
-
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
-                    return ErrorEncounteredJson.toJson(errors);
-                }
+//                if (StringUtils.isBlank(map.get("PA").getText())) {
+//
+//                    Map<String, String> errors = new HashMap<>();
+//                    errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
+//                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+//                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+//
+//                    return ErrorEncounteredJson.toJson(errors);
+//                }
 
                 UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
-                        HashText.computeBCrypt(map.get("PA").getText()),
+                        HashText.computeBCrypt(map.get(MobileAccountService.REGISTRATION.PW.name()).getText()),
                         HashText.computeBCrypt(RandomString.newInstance().nextString())
                 );
 
