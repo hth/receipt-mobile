@@ -87,7 +87,7 @@ public class ProfileControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).findByUserId(anyString());
     }
@@ -102,7 +102,7 @@ public class ProfileControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_EXISTING.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("user already exists with this mail", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("User already exists with this mail.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("p@x.com", jo.get(ERROR).getAsJsonObject().get(MobileAccountService.REGISTRATION.EM.name()).getAsString());
 
         verify(mobileAccountService, never()).changeUID(anyString(), anyString());
@@ -150,7 +150,7 @@ public class ProfileControllerTest {
 
     private String createJsonForMail(String mail) {
         JsonObject json = new JsonObject();
-        json.addProperty("UID", mail);
+        json.addProperty(MobileAccountService.REGISTRATION.EM.name(), mail);
 
         return new Gson().toJson(json);
     }

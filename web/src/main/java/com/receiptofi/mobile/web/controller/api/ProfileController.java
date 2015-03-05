@@ -105,18 +105,14 @@ public class ProfileController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedMailJson);
-            LOG.info("new mail={}", map.get("UID"));
-
-            if (StringUtils.isBlank(map.get("UID").getText())) {
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+            LOG.info("new mail={}", map.get(MobileAccountService.REGISTRATION.EM.name()));
+            String newUserId = map.get(MobileAccountService.REGISTRATION.EM.name()).getText();
+            if (StringUtils.isBlank(newUserId) || userInfoValidator.getNameLength() > newUserId.length()) {
+                Map <String, String> errors = new HashMap<>();
+                userInfoValidator.mailValidation(newUserId, errors);
                 return ErrorEncounteredJson.toJson(errors);
             }
 
-            String newUserId = map.get("UID").getText();
             UserAccountEntity userAccountExists = accountService.findByUserId(newUserId);
             if (null == userAccountExists) {
                 UserAccountEntity userAccount = mobileAccountService.changeUID(mail, newUserId);
@@ -127,7 +123,7 @@ public class ProfileController {
             } else {
                 LOG.info("failed user id update as another user exists with same mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "user already exists with this mail");
+                errors.put(ErrorEncounteredJson.REASON, "User already exists with this mail.");
                 errors.put(MobileAccountService.REGISTRATION.EM.name(), newUserId);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_EXISTING.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_EXISTING.getCode());
