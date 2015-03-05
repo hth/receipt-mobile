@@ -2,16 +2,16 @@ package com.receiptofi.mobile.web.controller;
 
 import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.REGISTRATION_TURNED_OFF;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.REGISTRATION_TURNED_OFF;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.MobileAccountService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.web.controller.api.UtilityController;
+import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,33 +53,20 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class AccountController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
-    private static final String EMPTY = "Empty";
 
-    private int mailLength;
-    private int nameLength;
-    private int passwordLength;
     private AccountService accountService;
     private MobileAccountService mobileAccountService;
+    private UserInfoValidator userInfoValidator;
 
     @Autowired
     public AccountController(
-            @Value ("${AccountRegistrationController.mailLength:5}")
-            int mailLength,
-
-            @Value ("${AccountRegistrationController.nameLength:2}")
-            int nameLength,
-
-            @Value ("${AccountRegistrationController.passwordLength:6}")
-            int passwordLength,
-
             AccountService accountService,
-            MobileAccountService mobileAccountService
+            MobileAccountService mobileAccountService,
+            UserInfoValidator userInfoValidator
     ) {
-        this.mailLength = mailLength;
-        this.nameLength = nameLength;
-        this.passwordLength = passwordLength;
         this.accountService = accountService;
         this.mobileAccountService = mobileAccountService;
+        this.userInfoValidator = userInfoValidator;
     }
 
     @RequestMapping (
@@ -107,7 +93,7 @@ public class AccountController {
 
         if (map.isEmpty()) {
             /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(validate(null, null, null));
+            return ErrorEncounteredJson.toJson(userInfoValidator.validate(null, null, null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
             if (!unknownKeys.isEmpty()) {
@@ -120,7 +106,7 @@ public class AccountController {
             String lastName = null;
             if (StringUtils.isNotBlank(firstName)) {
                 /** NPE is already checked in above condition. */
-                @SuppressWarnings("all")
+                @SuppressWarnings ("all")
                 String[] name = firstName.split(" ");
                 if (name.length > 1) {
                     lastName = name[name.length - 1];
@@ -130,11 +116,11 @@ public class AccountController {
             String password = map.get(REGISTRATION.PW.name()).getText();
             String birthday = map.get(REGISTRATION.BD.name()).getText();
 
-            if (StringUtils.isBlank(mail) || mailLength > mail.length() ||
-                    StringUtils.isBlank(firstName) || nameLength > firstName.length() ||
-                    StringUtils.isBlank(password) || passwordLength > password.length()) {
+            if (StringUtils.isBlank(mail) || userInfoValidator.getMailLength() > mail.length() ||
+                    StringUtils.isBlank(firstName) || userInfoValidator.getNameLength() > firstName.length() ||
+                    StringUtils.isBlank(password) || userInfoValidator.getPasswordLength() > password.length()) {
 
-                return ErrorEncounteredJson.toJson(validate(mail, firstName, password));
+                return ErrorEncounteredJson.toJson(userInfoValidator.validate(mail, firstName, password));
             }
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
@@ -200,12 +186,12 @@ public class AccountController {
             map = ParseJsonStringToMap.jsonStringToMap(recoverJson);
         } catch (IOException e) {
             LOG.error("could not parse json={} reason={}", recoverJson, e.getLocalizedMessage(), e);
-            return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
+            return ErrorEncounteredJson.toJson("Could not parse JSON.", MOBILE_JSON);
         }
 
         if (map.isEmpty()) {
             /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(validate(null));
+            return ErrorEncounteredJson.toJson(userInfoValidator.validate(null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRecovery(map);
             if (!unknownKeys.isEmpty()) {
@@ -214,11 +200,11 @@ public class AccountController {
             }
 
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
-            if (StringUtils.isBlank(mail) || mailLength > mail.length()) {
+            if (StringUtils.isBlank(mail) || userInfoValidator.getMailLength() > mail.length()) {
                 LOG.info("failed data validation={}", mail);
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-                errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
+                errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
+                errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? UserInfoValidator.EMPTY : mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
                 return ErrorEncounteredJson.toJson(errors);
@@ -228,7 +214,7 @@ public class AccountController {
             if (null == userProfile) {
                 LOG.info("user does not exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "user does not exists");
+                errors.put(ErrorEncounteredJson.REASON, "User does not exists.");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_NOT_FOUND.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_NOT_FOUND.getCode());
@@ -247,7 +233,7 @@ public class AccountController {
                 LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "failed creating account");
+                errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
@@ -258,27 +244,6 @@ public class AccountController {
         return credential;
     }
 
-    private Map<String, String> validate(String mail, String firstName, String password) {
-        LOG.info("failed validation mail={} firstName={} password={}", mail, firstName, UtilityController.AUTH_KEY_HIDDEN);
-
-        Map<String, String> errors = new HashMap<>();
-        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-
-        if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
-            errors.put(REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
-        }
-        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
-            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
-        }
-        if (StringUtils.isBlank(password) || password.length() < passwordLength) {
-            errors.put(REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
-        }
-
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-        return errors;
-    }
-
     private Set<String> invalidElementsInMapDuringRegistration(Map<String, ScrubbedInput> map) {
         Set<String> keys = new HashSet<>(map.keySet());
         List<REGISTRATION> enums = new ArrayList<>(Arrays.asList(REGISTRATION.values()));
@@ -287,21 +252,6 @@ public class AccountController {
         }
 
         return keys;
-    }
-
-    private Map<String, String> validate(String mail) {
-        LOG.info("failed validation mail={}", mail);
-
-        Map<String, String> errors = new HashMap<>();
-        errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-
-        if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
-            errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
-        }
-
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-        return errors;
     }
 
     private Set<String> invalidElementsInMapDuringRecovery(Map<String, ScrubbedInput> map) {
