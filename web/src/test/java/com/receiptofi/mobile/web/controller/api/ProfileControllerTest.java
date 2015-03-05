@@ -24,6 +24,7 @@ import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 
 import org.junit.Before;
@@ -50,13 +51,19 @@ public class ProfileControllerTest {
     @Mock private UserAccountEntity userAccountEntity;
     @Mock private UserAuthenticationEntity userAuthenticationEntity;
     @Mock private MobileAccountService mobileAccountService;
-
+    private UserInfoValidator userInfoValidator;
     private ProfileController profileController;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        profileController = new ProfileController(authenticateService, accountService, mobileAccountService);
+        userInfoValidator = new UserInfoValidator(5, 2, 6);
+        profileController = new ProfileController(
+                authenticateService,
+                accountService,
+                mobileAccountService,
+                userInfoValidator
+        );
 
         when(userAccountEntity.getUserAuthentication()).thenReturn(userAuthenticationEntity);
         when(userAuthenticationEntity.getId()).thenReturn("");
@@ -127,7 +134,7 @@ public class ProfileControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).updateAuthentication(any(UserAuthenticationEntity.class));
     }
@@ -135,8 +142,9 @@ public class ProfileControllerTest {
     @Test
     public void testUpdatePassword() throws IOException {
         when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(userAccountEntity);
+        when(userAccountEntity.isAccountValidated()).thenReturn(true);
         doNothing().when(accountService).updateAuthentication(userAuthenticationEntity);
-        profileController.updatePassword("m", "z", createJsonForPassword("p"), httpServletResponse);
+        profileController.updatePassword("m", "z", createJsonForPassword("password"), httpServletResponse);
         verify(accountService, times(1)).updateAuthentication(any(UserAuthenticationEntity.class));
     }
 
@@ -149,7 +157,7 @@ public class ProfileControllerTest {
 
     private String createJsonForPassword(String password) {
         JsonObject json = new JsonObject();
-        json.addProperty("PA", password);
+        json.addProperty(MobileAccountService.REGISTRATION.PW.name(), password);
 
         return new Gson().toJson(json);
     }
