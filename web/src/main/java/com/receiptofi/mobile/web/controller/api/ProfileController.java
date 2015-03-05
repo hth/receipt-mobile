@@ -153,36 +153,41 @@ public class ProfileController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         UserAccountEntity userAccount = authenticateService.findUserAccount(mail, auth);
-        if (userAccount == null) {
+        if (null == userAccount) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
-            LOG.info("new password={}", UtilityController.AUTH_KEY_HIDDEN);
+            if (!userAccount.isAccountValidated()) {
+                /** Since account is not validated, send validation email instead. */
+                return null;
+            } else {
+                Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
+                LOG.info("new password={}", UtilityController.AUTH_KEY_HIDDEN);
 
-            if (StringUtils.isBlank(map.get("PA").getText())) {
+                if (StringUtils.isBlank(map.get("PA").getText())) {
 
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "failed data validation");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "failed data validation");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
-                return ErrorEncounteredJson.toJson(errors);
+                    return ErrorEncounteredJson.toJson(errors);
+                }
+
+                UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
+                        HashText.computeBCrypt(map.get("PA").getText()),
+                        HashText.computeBCrypt(RandomString.newInstance().nextString())
+                );
+
+                userAuthentication.setId(userAccount.getUserAuthentication().getId());
+                userAuthentication.setVersion(userAccount.getUserAuthentication().getVersion());
+                userAuthentication.setCreated(userAccount.getUserAuthentication().getCreated());
+                accountService.updateAuthentication(userAuthentication);
+
+                response.addHeader(MAIL, mail);
+                response.addHeader(AUTH, userAuthentication.getAuthenticationKeyEncoded());
+                return null;
             }
-
-            UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
-                    HashText.computeBCrypt(map.get("PA").getText()),
-                    HashText.computeBCrypt(RandomString.newInstance().nextString())
-            );
-
-            userAuthentication.setId(userAccount.getUserAuthentication().getId());
-            userAuthentication.setVersion(userAccount.getUserAuthentication().getVersion());
-            userAuthentication.setCreated(userAccount.getUserAuthentication().getCreated());
-            accountService.updateAuthentication(userAuthentication);
-
-            response.addHeader(MAIL, mail);
-            response.addHeader(AUTH, userAuthentication.getAuthenticationKeyEncoded());
-            return null;
         }
     }
 }

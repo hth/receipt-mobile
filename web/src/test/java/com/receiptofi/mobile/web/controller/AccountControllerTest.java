@@ -21,6 +21,7 @@ import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 
 import org.springframework.util.StringUtils;
@@ -54,18 +55,18 @@ public class AccountControllerTest {
     @Mock private AccountService accountService;
     @Mock private HttpServletResponse response;
     @Mock private UserProfileEntity userProfile;
+    private UserInfoValidator userInfoValidator;
 
     private AccountController accountController;
 
     @Before
     public void setUp() throws Exception {
+        userInfoValidator = new UserInfoValidator(mailLength, nameLength, passwordLength);
         MockitoAnnotations.initMocks(this);
         accountController = new AccountController(
-                mailLength,
-                nameLength,
-                passwordLength,
                 accountService,
-                mobileAccountService);
+                mobileAccountService,
+                userInfoValidator);
     }
 
     @Test
@@ -87,7 +88,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
@@ -104,7 +105,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.FN.name()).getAsString());
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
@@ -139,7 +140,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("t@c", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, never()).doesUserExists(anyString());
@@ -224,7 +225,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(MOBILE_JSON.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("could not parse JSON", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Could not parse JSON.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).doesUserExists(any(String.class));
     }
@@ -236,7 +237,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
@@ -251,7 +252,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         assertEquals("Empty", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
@@ -284,7 +285,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed data validation", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed data validation.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("t@c", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, never()).doesUserExists(anyString());
@@ -303,7 +304,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed creating account", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Failed creating account.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
@@ -319,7 +320,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_NOT_FOUND.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_NOT_FOUND.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("user does not exists", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("User does not exists.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
