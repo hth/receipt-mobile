@@ -115,7 +115,7 @@ public class MobileAccountService {
         return userAccount;
     }
 
-    private void sendValidationEmail(UserAccountEntity userAccount) {
+    public void sendValidationEmail(UserAccountEntity userAccount) {
         EmailValidateEntity accountValidate = emailValidateService.saveAccountValidate(
                 userAccount.getReceiptUserId(),
                 userAccount.getUserId());

@@ -170,20 +170,18 @@ public class ProfileController {
             }
 
             if (!userAccount.isAccountValidated()) {
+                LOG.info("sending validation email instead of password change, mail={}", mail);
+
                 /** Since account is not validated, send validation email instead. */
-                return null;
+                mobileAccountService.sendValidationEmail(userAccount);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON,
+                        "Your email has not been verified. A verification email is sent. " +
+                        "After verification, follow same steps to change password.");
+                return ErrorEncounteredJson.toJson(errors);
             } else {
                 LOG.info("new password={}", UtilityController.AUTH_KEY_HIDDEN);
-//                if (StringUtils.isBlank(map.get("PA").getText())) {
-//
-//                    Map<String, String> errors = new HashMap<>();
-//                    errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-//                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-//                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-//
-//                    return ErrorEncounteredJson.toJson(errors);
-//                }
-
                 UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
                         HashText.computeBCrypt(map.get(MobileAccountService.REGISTRATION.PW.name()).getText()),
                         HashText.computeBCrypt(RandomString.newInstance().nextString())
