@@ -13,6 +13,7 @@
             <element id="module-output" name="service" />
             <element id="directory" name="conf">
               <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/dev.properties" />
+              <element id="file-copy" path="$PROJECT_DIR$/web/resources/conf/application-messages.properties" />
             </element>
             <element id="file-copy" path="$PROJECT_DIR$/web/resources/conf/messages.properties" />
             <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/logback.xml" />

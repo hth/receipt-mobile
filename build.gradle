@@ -409,6 +409,11 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
     }
 
     copy {
+        from 'web/resources/conf/application-messages.properties'
+        into warConfDir
+    }
+
+    copy {
         from "web/environment/$env/logback.xml"
         from 'web/resources/conf/messages.properties'
         into warClassesDir
