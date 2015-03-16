@@ -169,7 +169,7 @@ subprojects {
 
         compile "$springDataGroup:spring-data-mongodb:1.6.2.RELEASE"
         compile "$springDataGroup:spring-data-commons:1.9.2.RELEASE"
-        compile 'org.mongodb:mongo-java-driver:2.12.5'
+        compile 'org.mongodb:mongo-java-driver:2.13.0'
 
         compile 'org.apache.commons:commons-collections4:4.0'
         compile 'org.apache.commons:commons-lang3:3.3.2'
