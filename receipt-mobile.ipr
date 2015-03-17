@@ -203,6 +203,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.5/2259657970fd09dd941ffb88c059bc3bbe09b17f/google-maps-services-0.1.5.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.0.0/4c8d1536dba3812cc1592090dc20c47a4ed3c35e/okhttp-2.0.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.0/2534c458682c73f5b9871131ab3098d3f987ca3/okio-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.13.0/6b19c1276871001fa85684475db7e4c538046b52/mongo-java-driver-2.13.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.11.1/4d501ba53065be743dd66bf13e81a0512e33e860/activemq-client-5.11.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.11/8f0e50ad8bea37b84b698ec40cce09e47714a63e/hawtbuf-1.11.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -272,14 +275,12 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.4.2" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.10.0" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.3.4" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.2" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
             <element id="library" level="project" name="Gradle: org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1" />
-            <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.10" />
             <element id="library" level="project" name="Gradle: org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1" />
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: net.sf.qualitycheck:quality-check:1.3" />
@@ -509,6 +510,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.5/2259657970fd09dd941ffb88c059bc3bbe09b17f/google-maps-services-0.1.5.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.0.0/4c8d1536dba3812cc1592090dc20c47a4ed3c35e/okhttp-2.0.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.0/2534c458682c73f5b9871131ab3098d3f987ca3/okio-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.13.0/6b19c1276871001fa85684475db7e4c538046b52/mongo-java-driver-2.13.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.11.1/4d501ba53065be743dd66bf13e81a0512e33e860/activemq-client-5.11.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.11/8f0e50ad8bea37b84b698ec40cce09e47714a63e/hawtbuf-1.11.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -556,14 +560,12 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.4.2" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.4.2" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.10.0" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.3.4" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.2" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" />
             <element id="library" level="project" name="Gradle: org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1" />
-            <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.10" />
             <element id="library" level="project" name="Gradle: org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1" />
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: net.sf.qualitycheck:quality-check:1.3" />
@@ -785,6 +787,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.5/2259657970fd09dd941ffb88c059bc3bbe09b17f/google-maps-services-0.1.5.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.0.0/4c8d1536dba3812cc1592090dc20c47a4ed3c35e/okhttp-2.0.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.0/2534c458682c73f5b9871131ab3098d3f987ca3/okio-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/2.13.0/6b19c1276871001fa85684475db7e4c538046b52/mongo-java-driver-2.13.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.11.1/4d501ba53065be743dd66bf13e81a0512e33e860/activemq-client-5.11.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.11/8f0e50ad8bea37b84b698ec40cce09e47714a63e/hawtbuf-1.11.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1272,15 +1277,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.jmatio/jmatio/1.0/ad4536babac74b401af4655c7270afa9b0361fc0/jmatio-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.apache.activemq:activemq-client:5.10.0">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.10.0/7cd9cafc93a97d3f7a34675e208d45885bb77a0e/activemq-client-5.10.0.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.10.0/df697b252f412a26f082beadcf053e965ff962b6/activemq-client-5.10.0-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: org.apache.commons:commons-collections4:4.0">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.0/da217367fd25e88df52ba79e47658d4cf928b0d1/commons-collections4-4.0.jar!/" />
@@ -1482,15 +1478,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.freemarker/freemarker/2.3.21/4a6b65fd5ad1c37cfdff66dd3fca3eb2d484e3f9/freemarker-2.3.21-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.10">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.10/a20907168eb4f05c8f777e1671d8070cd06715e4/hawtbuf-1.10.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fusesource.hawtbuf/hawtbuf/1.10/f796bc15a11ccfcd08c7057451a19e7c3c673d10/hawtbuf-1.10-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.gagravarr:vorbis-java-core:0.6">
