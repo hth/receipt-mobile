@@ -16,6 +16,7 @@ import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.ItemService;
@@ -72,6 +73,7 @@ public class DeviceServiceTest {
         when(receipt.getNotes()).thenReturn(comment);
         when(receipt.getFileSystemEntities()).thenReturn(Arrays.asList(fileSystem));
         when(receipt.getReceiptDate()).thenReturn(new Date());
+        when(receipt.getBilledStatus()).thenReturn(BilledStatusEnum.P);
 
         when(item.getReceipt()).thenReturn(receipt);
         when(item.getExpenseTag()).thenReturn(expenseTag);
