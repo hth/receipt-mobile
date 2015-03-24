@@ -15,6 +15,7 @@ import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
+import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.LandingService;
 
@@ -63,6 +64,7 @@ public class ReceiptControllerTest {
         when(receiptEntity.getFileSystemEntities()).thenReturn(Arrays.asList(fileSystem));
         when(receiptEntity.getReceiptDate()).thenReturn(new Date());
         when(receiptEntity.getReceiptUserId()).thenReturn("rid");
+        when(receiptEntity.getBilledStatus()).thenReturn(BilledStatusEnum.P);
     }
 
     @Test
