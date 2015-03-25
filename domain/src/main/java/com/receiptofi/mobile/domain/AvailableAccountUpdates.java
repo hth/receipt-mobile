@@ -14,6 +14,7 @@ import com.receiptofi.domain.json.JsonReceiptItem;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * All account updates available.
@@ -60,9 +61,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
     }
 
     public void addJsonReceipts(List<ReceiptEntity> receipts) {
-        for (ReceiptEntity receiptEntity : receipts) {
-            this.jsonReceipts.add(new JsonReceipt(receiptEntity));
-        }
+        this.jsonReceipts.addAll(receipts.stream().map(JsonReceipt::new).collect(Collectors.toList()));
     }
 
     public Profile getProfile() {
@@ -78,9 +77,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
     }
 
     public void addJsonReceiptItems(List<ItemEntity> items) {
-        for (ItemEntity item : items) {
-            this.jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
-        }
+        this.jsonReceiptItems.addAll(items.stream().map(JsonReceiptItem::newInstance).collect(Collectors.toList()));
     }
 
     public List<JsonExpenseTag> getJsonExpenseTags() {
@@ -88,9 +85,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
     }
 
     public void addJsonExpenseTag(List<ExpenseTagEntity> expenseTags) {
-        for (ExpenseTagEntity expenseTag : expenseTags) {
-            this.jsonExpenseTags.add(JsonExpenseTag.newInstance(expenseTag));
-        }
+        this.jsonExpenseTags.addAll(expenseTags.stream().map(JsonExpenseTag::newInstance).collect(Collectors.toList()));
     }
 
     public UnprocessedDocuments getUnprocessedDocuments() {
