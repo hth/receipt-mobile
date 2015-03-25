@@ -29,7 +29,7 @@ public enum MobileSystemErrorCodeEnum {
 
     private String code;
 
-    private MobileSystemErrorCodeEnum(String code) {
+    MobileSystemErrorCodeEnum(String code) {
         this.code = code;
     }
 
