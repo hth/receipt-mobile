@@ -21,6 +21,7 @@ import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.service.NotificationService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.junit.Before;
@@ -45,6 +46,7 @@ public class DeviceServiceTest {
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
     @Mock private ItemService itemService;
     @Mock private ExpensesService expensesService;
+    @Mock private NotificationService notificationService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -66,7 +68,8 @@ public class DeviceServiceTest {
                 landingService,
                 userProfilePreferenceService,
                 itemService,
-                expensesService);
+                expensesService,
+                notificationService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);
@@ -99,7 +102,7 @@ public class DeviceServiceTest {
     public void testHasUpdateNoReceiptUpdates() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<ReceiptEntity>());
+        when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
         assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
     }

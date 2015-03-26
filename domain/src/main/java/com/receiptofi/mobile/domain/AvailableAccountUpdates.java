@@ -6,12 +6,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ItemEntity;
+import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.json.JsonExpenseTag;
+import com.receiptofi.domain.json.JsonNotification;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,32 +28,31 @@ import java.util.stream.Collectors;
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
         "PMD.MethodArgumentCouldBeFinal",
-        "PMD.LongVariable"
+        "PMD.LongVariable",
+        "unused"
 })
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class AvailableAccountUpdates extends AbstractDomain {
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("receipts")
     private List<JsonReceipt> jsonReceipts = new LinkedList<>();
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("items")
     private List<JsonReceiptItem> jsonReceiptItems = new LinkedList<>();
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("profile")
     private Profile profile;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("expenseTags")
     private List<JsonExpenseTag> jsonExpenseTags = new LinkedList<>();
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("unprocessedDocuments")
     private UnprocessedDocuments unprocessedDocuments;
+
+    @JsonProperty ("notifications")
+    private List<JsonNotification> jsonNotifications = new ArrayList<>();
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -94,5 +96,13 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setUnprocessedDocuments(long count) {
         this.unprocessedDocuments = UnprocessedDocuments.newInstance(count);
+    }
+
+    public List<JsonNotification> getJsonNotifications() {
+        return jsonNotifications;
+    }
+
+    public void setJsonNotifications(List<NotificationEntity> notifications) {
+        this.jsonNotifications.addAll(notifications.stream().map(JsonNotification::newInstance).collect(Collectors.toList()));
     }
 }
