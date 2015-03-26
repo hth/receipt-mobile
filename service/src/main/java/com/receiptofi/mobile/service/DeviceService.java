@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.service;
 
+import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
@@ -8,6 +9,7 @@ import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.service.NotificationService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.slf4j.Logger;
@@ -38,6 +40,7 @@ public class DeviceService {
     private UserProfilePreferenceService userProfilePreferenceService;
     private ItemService itemService;
     private ExpensesService expensesService;
+    private NotificationService notificationService;
 
     @Autowired
     public DeviceService(
@@ -45,13 +48,15 @@ public class DeviceService {
             LandingService landingService,
             UserProfilePreferenceService userProfilePreferenceService,
             ItemService itemService,
-            ExpensesService expensesService
+            ExpensesService expensesService,
+            NotificationService notificationService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.landingService = landingService;
         this.userProfilePreferenceService = userProfilePreferenceService;
         this.itemService = itemService;
         this.expensesService = expensesService;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -83,6 +88,11 @@ public class DeviceService {
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
                 availableAccountUpdates.setProfile(userProfile);
+            }
+
+            List<NotificationEntity> notifications = notificationService.getNotifications(rid, updated);
+            if (!notifications.isEmpty()) {
+                availableAccountUpdates.setJsonNotifications(notifications);
             }
         }
 
@@ -116,6 +126,7 @@ public class DeviceService {
 
         availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
         availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
+        availableAccountUpdates.setJsonNotifications(notificationService.getAllNotifications(rid));
         return availableAccountUpdates;
     }
 
