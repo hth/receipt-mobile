@@ -73,7 +73,7 @@ public class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        LOG.debug("Updated data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
@@ -119,7 +119,7 @@ public class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        LOG.debug("All data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
