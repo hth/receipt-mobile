@@ -76,7 +76,7 @@ public class ReceiptController {
                     jsonReceipts.add(new JsonReceipt(receiptEntity));
                 }
             } catch (Exception e) {
-                LOG.error("found error message={}", e.getLocalizedMessage(), e);
+                LOG.error("Found error reason={}", e.getLocalizedMessage(), e);
             }
             return jsonReceipts;
         }

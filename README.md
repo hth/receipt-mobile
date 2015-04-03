@@ -8,6 +8,11 @@ There two ways to test through command line
 
 ![Mobile Api Architecture](/architecture/Mobile-Architecture.png)
 
+Table of content
+
+1. [Check is web site is running and functioning](/documentation/SiteWorking.md)
+2.
+
 ### Check if site is up and running ###
 
 Following call will make sure if site is up and running
