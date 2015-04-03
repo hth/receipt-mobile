@@ -10,7 +10,7 @@ There two ways to test through command line
 
 Table of content
 
-1. [Check is web site is running and functioning](documentation/SiteWorking.md)
+1. [Check is web site is running and functioning](documentation/api/SiteWorking.md)
 2.
 
 ### Check if site is up and running ###
