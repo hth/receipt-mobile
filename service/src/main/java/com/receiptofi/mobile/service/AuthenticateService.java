@@ -60,9 +60,9 @@ public class AuthenticateService {
      * @return
      */
     public String getReceiptUserId(String mail, String auth) {
-        UserAccountEntity userAccountEntity = findUserAccount(mail, auth);
-        if (userAccountEntity != null) {
-            return userAccountEntity.getReceiptUserId();
+        UserAccountEntity userAccount = findUserAccount(mail, auth);
+        if (null != userAccount) {
+            return userAccount.getReceiptUserId();
         }
         return null;
     }
