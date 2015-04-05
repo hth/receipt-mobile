@@ -17,6 +17,7 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.service.MobileReceiptService;
 import com.receiptofi.service.LandingService;
 
 import org.joda.time.DateTime;
@@ -29,6 +30,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -50,18 +52,19 @@ public class ReceiptControllerTest {
     @Mock private BizStoreEntity bizStore;
     @Mock private CommentEntity comment;
     @Mock private FileSystemEntity fileSystem;
+    @Mock private MobileReceiptService mobileReceiptService;
 
     private ReceiptController receiptController;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        receiptController = new ReceiptController(landingService, authenticateService);
+        receiptController = new ReceiptController(landingService, authenticateService, mobileReceiptService);
 
         when(receiptEntity.getBizName()).thenReturn(bizName);
         when(receiptEntity.getBizStore()).thenReturn(bizStore);
         when(receiptEntity.getNotes()).thenReturn(comment);
-        when(receiptEntity.getFileSystemEntities()).thenReturn(Arrays.asList(fileSystem));
+        when(receiptEntity.getFileSystemEntities()).thenReturn(Collections.singletonList(fileSystem));
         when(receiptEntity.getReceiptDate()).thenReturn(new Date());
         when(receiptEntity.getReceiptUserId()).thenReturn("rid");
         when(receiptEntity.getBilledStatus()).thenReturn(BilledStatusEnum.P);
@@ -91,7 +94,7 @@ public class ReceiptControllerTest {
     @Test
     public void testYtdReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(Arrays.asList(receiptEntity));
+        when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(Collections.singletonList(receiptEntity));
         List<JsonReceipt> jsonReceipts = receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
@@ -106,7 +109,7 @@ public class ReceiptControllerTest {
     @Test
     public void testAllReceiptsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceipts(anyString())).thenReturn(new ArrayList<ReceiptEntity>());
+        when(landingService.getAllReceipts(anyString())).thenReturn(new ArrayList<>());
         assertTrue(receiptController.allReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
     }
 
@@ -120,7 +123,7 @@ public class ReceiptControllerTest {
     @Test
     public void testAllReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceipts(anyString())).thenReturn(Arrays.asList(receiptEntity));
+        when(landingService.getAllReceipts(anyString())).thenReturn(Collections.singletonList(receiptEntity));
         List<JsonReceipt> jsonReceipts = receiptController.allReceipts("mail@mail.com", "", httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
@@ -135,7 +138,7 @@ public class ReceiptControllerTest {
     @Test
     public void testThisMonthReceiptsIsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(new ArrayList<ReceiptEntity>());
+        when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(new ArrayList<>());
         assertTrue(receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
     }
 
