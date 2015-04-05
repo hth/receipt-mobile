@@ -213,6 +213,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/3.2.6.RELEASE/75d3e11dec360625e1e298a023debf876938fb0d/spring-security-taglibs-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.6.RELEASE/5cf804645a588155ceb0b3c1128d18e07de7f529/spring-security-web-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/3.2.6.RELEASE/6dc2df01ddecdb87ae60e900cacc0ff67bf6f354/spring-security-acl-3.2.6.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/bfbcfdd207c971f31b274c463620af90b6dcff0d/google-maps-services-0.1.6.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -519,6 +520,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/3.2.6.RELEASE/75d3e11dec360625e1e298a023debf876938fb0d/spring-security-taglibs-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.6.RELEASE/5cf804645a588155ceb0b3c1128d18e07de7f529/spring-security-web-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/3.2.6.RELEASE/6dc2df01ddecdb87ae60e900cacc0ff67bf6f354/spring-security-acl-3.2.6.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/bfbcfdd207c971f31b274c463620af90b6dcff0d/google-maps-services-0.1.6.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -795,6 +797,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/3.2.6.RELEASE/75d3e11dec360625e1e298a023debf876938fb0d/spring-security-taglibs-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/3.2.6.RELEASE/5cf804645a588155ceb0b3c1128d18e07de7f529/spring-security-web-3.2.6.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/3.2.6.RELEASE/6dc2df01ddecdb87ae60e900cacc0ff67bf6f354/spring-security-acl-3.2.6.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/bfbcfdd207c971f31b274c463620af90b6dcff0d/google-maps-services-0.1.6.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
