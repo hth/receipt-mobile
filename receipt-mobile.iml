@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="receipt-mobile" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="com.receiptofi.mobile" external.system.module.version="0.9.0" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/receipt-mobile-servlet.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/mongo/mongo-config.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/security/secure.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/root-context.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build" />
     <output-test url="file://$MODULE_DIR$/build" />
