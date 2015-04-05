@@ -78,12 +78,7 @@ public class DeviceService {
             LOG.info("Device last updated date={}", updated);
 
             List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, updated);
-            if (!receipts.isEmpty()) {
-                availableAccountUpdates.addJsonReceipts(receipts);
-                for (ReceiptEntity receipt : receipts) {
-                    availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
-                }
-            }
+            getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
@@ -102,8 +97,22 @@ public class DeviceService {
     }
 
     /**
-     * Gets all available data for RID.
+     * Gets item updates for the set of receipts.
      *
+     * @param availableAccountUpdates
+     * @param receipts
+     */
+    public void getReceiptAndItemUpdates(AvailableAccountUpdates availableAccountUpdates, List<ReceiptEntity> receipts) {
+        if (!receipts.isEmpty()) {
+            availableAccountUpdates.addJsonReceipts(receipts);
+            for (ReceiptEntity receipt : receipts) {
+                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+            }
+        }
+    }
+
+    /**
+     * Gets all available data for RID.
      * Receipts
      * Items
      * UserProfile
@@ -119,12 +128,7 @@ public class DeviceService {
         LOG.info("Device registered now. Getting all updated.");
 
         List<ReceiptEntity> receipts = landingService.getAllReceipts(rid);
-        if (!receipts.isEmpty()) {
-            availableAccountUpdates.addJsonReceipts(receipts);
-            for (ReceiptEntity receipt : receipts) {
-                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
-            }
-        }
+        getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
         UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
         if (null != userProfile) {
