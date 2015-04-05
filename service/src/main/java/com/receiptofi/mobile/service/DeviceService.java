@@ -102,7 +102,14 @@ public class DeviceService {
     }
 
     /**
-     * Get all for the account.
+     * Gets all available data for RID.
+     *
+     * Receipts
+     * Items
+     * UserProfile
+     * ExpenseTag
+     * Unprocessed Document
+     * Notification
      *
      * @param rid
      * @return
