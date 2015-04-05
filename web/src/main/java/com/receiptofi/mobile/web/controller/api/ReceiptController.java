@@ -3,14 +3,22 @@ package com.receiptofi.mobile.web.controller.api;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.service.MobileReceiptService;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.utils.DateUtil;
+import com.receiptofi.utils.ParseJsonStringToMap;
+import com.receiptofi.utils.ScrubbedInput;
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +52,17 @@ public class ReceiptController {
 
     private LandingService landingService;
     private AuthenticateService authenticateService;
+    private MobileReceiptService mobileReceiptService;
 
     @Autowired
-    public ReceiptController(LandingService landingService, AuthenticateService authenticateService) {
+    public ReceiptController(
+            LandingService landingService,
+            AuthenticateService authenticateService,
+            MobileReceiptService mobileReceiptService
+    ) {
         this.landingService = landingService;
         this.authenticateService = authenticateService;
+        this.mobileReceiptService = mobileReceiptService;
     }
 
     @RequestMapping (
@@ -142,5 +158,78 @@ public class ReceiptController {
             LOG.error("reason={}", e.getLocalizedMessage(), e);
         }
         return receipts;
+    }
+
+    /**
+     * Set of actions to be performed on receipt.
+     *
+     * @param mail
+     * @param auth
+     * @param requestBodyJson
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping (
+            method = RequestMethod.POST,
+            value = "/receiptAction",
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public String upload(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            @RequestBody
+            String requestBodyJson,
+
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
+            String expenseTagId = map.get("expenseTagId").getText();
+            String notes = map.get("notes").getText();
+            String recheck = map.get("recheck").getText();
+            String receiptId = map.get("receiptId").getText();
+
+            ReceiptEntity receipt = mobileReceiptService.findReceipt(receiptId, rid);
+            if (receipt == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
+                return null;
+            } else {
+                if (StringUtils.isNotBlank(notes)) {
+                    mobileReceiptService.saveComment(notes, receipt);
+                }
+
+                if (StringUtils.isNotBlank(expenseTagId)) {
+                    mobileReceiptService.updateReceiptExpenseTag(receipt, expenseTagId);
+                }
+
+                try {
+                    if (StringUtils.isNotBlank(recheck) && ("RECHECK").equals(recheck)) {
+                        mobileReceiptService.reopen(receiptId, rid);
+                    }
+                    return mobileReceiptService.getUpdateForChangedReceipt(receipt).asJson();
+                } catch (Exception e) {
+                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
+            }
+        }
     }
 }
