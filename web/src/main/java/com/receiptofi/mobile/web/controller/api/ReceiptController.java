@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -72,9 +74,7 @@ public class ReceiptController {
                 List<ReceiptEntity> receiptEntities =
                         landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
 
-                for (ReceiptEntity receiptEntity : receiptEntities) {
-                    jsonReceipts.add(new JsonReceipt(receiptEntity));
-                }
+                jsonReceipts.addAll(receiptEntities.stream().map(JsonReceipt::new).collect(Collectors.toList()));
             } catch (Exception e) {
                 LOG.error("Found error reason={}", e.getLocalizedMessage(), e);
             }
@@ -105,9 +105,7 @@ public class ReceiptController {
             List<JsonReceipt> jsonReceipts = new ArrayList<>();
             try {
                 List<ReceiptEntity> receiptEntities = landingService.getAllReceipts(rid);
-                for (ReceiptEntity receiptEntity : receiptEntities) {
-                    jsonReceipts.add(new JsonReceipt(receiptEntity));
-                }
+                jsonReceipts.addAll(receiptEntities.stream().map(JsonReceipt::new).collect(Collectors.toList()));
             } catch (Exception e) {
                 LOG.error("reason={}", e.getLocalizedMessage(), e);
             }
@@ -139,9 +137,7 @@ public class ReceiptController {
         List<JsonReceipt> receipts = new ArrayList<>();
         try {
             List<ReceiptEntity> receiptEntities = landingService.getAllReceiptsForThisMonth(rid, DateUtil.now());
-            for (ReceiptEntity receiptEntity : receiptEntities) {
-                receipts.add(new JsonReceipt(receiptEntity));
-            }
+            receipts.addAll(receiptEntities.stream().map(JsonReceipt::new).collect(Collectors.toList()));
         } catch (Exception e) {
             LOG.error("reason={}", e.getLocalizedMessage(), e);
         }
