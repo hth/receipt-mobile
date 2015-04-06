@@ -57,6 +57,7 @@ public class MobileReceiptService {
         Assert.notNull(receipt, "ReceiptEntity should not be null");
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         deviceService.getReceiptAndItemUpdates(availableAccountUpdates, Collections.singletonList(receipt));
+        deviceService.getUnprocessedDocuments(receipt.getReceiptUserId(), availableAccountUpdates);
         return availableAccountUpdates;
     }
 }

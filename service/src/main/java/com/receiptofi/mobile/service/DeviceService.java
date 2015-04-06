@@ -91,24 +91,10 @@ public class DeviceService {
             }
         }
 
-        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
-        availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
-        return availableAccountUpdates;
-    }
+        getExpenseTag(rid, availableAccountUpdates);
+        getUnprocessedDocuments(rid, availableAccountUpdates);
 
-    /**
-     * Gets item updates for the set of receipts.
-     *
-     * @param availableAccountUpdates
-     * @param receipts
-     */
-    public void getReceiptAndItemUpdates(AvailableAccountUpdates availableAccountUpdates, List<ReceiptEntity> receipts) {
-        if (!receipts.isEmpty()) {
-            availableAccountUpdates.addJsonReceipts(receipts);
-            for (ReceiptEntity receipt : receipts) {
-                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
-            }
-        }
+        return availableAccountUpdates;
     }
 
     /**
@@ -135,9 +121,11 @@ public class DeviceService {
             availableAccountUpdates.setProfile(userProfile);
         }
 
-        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
-        availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
         availableAccountUpdates.setJsonNotifications(notificationService.getAllNotifications(rid));
+
+        getExpenseTag(rid, availableAccountUpdates);
+        getUnprocessedDocuments(rid, availableAccountUpdates);
+
         return availableAccountUpdates;
     }
 
@@ -159,5 +147,28 @@ public class DeviceService {
             registrationSuccess = true;
         }
         return registrationSuccess;
+    }
+
+    public void getExpenseTag(String rid, AvailableAccountUpdates availableAccountUpdates) {
+        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
+    }
+
+    public void getUnprocessedDocuments(String rid, AvailableAccountUpdates availableAccountUpdates) {
+        availableAccountUpdates.setUnprocessedDocuments(landingService.pendingReceipt(rid));
+    }
+
+    /**
+     * Gets item updates for the set of receipts.
+     *
+     * @param availableAccountUpdates
+     * @param receipts
+     */
+    public void getReceiptAndItemUpdates(AvailableAccountUpdates availableAccountUpdates, List<ReceiptEntity> receipts) {
+        if (!receipts.isEmpty()) {
+            availableAccountUpdates.addJsonReceipts(receipts);
+            for (ReceiptEntity receipt : receipts) {
+                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+            }
+        }
     }
 }
