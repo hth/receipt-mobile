@@ -33,6 +33,10 @@ public class MobileReceiptService {
         return receiptService.findReceipt(receiptId, rid);
     }
 
+    public ReceiptEntity findReceiptForMobile(String receiptId, String rid) {
+        return receiptService.findReceiptForMobile(receiptId, rid);
+    }
+
     public void updateReceiptExpenseTag(ReceiptEntity receipt, String expenseTagId) {
         receiptService.updateReceiptExpenseTag(receipt, expenseTagId);
     }

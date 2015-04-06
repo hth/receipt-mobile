@@ -196,10 +196,10 @@ public class ReceiptController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String expenseTagId = map.get("expenseTagId").getText();
-            String notes = map.get("notes").getText();
-            String recheck = map.get("recheck").getText();
-            String receiptId = map.get("receiptId").getText();
+            String expenseTagId = map.containsKey("expenseTagId") ? map.get("expenseTagId").getText() : null;
+            String notes = map.containsKey("notes") ? map.get("notes").getText() : null;
+            String recheck = map.containsKey("recheck") ? map.get("recheck").getText() : null;
+            String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
 
             ReceiptEntity receipt = mobileReceiptService.findReceipt(receiptId, rid);
             if (receipt == null) {
@@ -218,7 +218,9 @@ public class ReceiptController {
                     if (StringUtils.isNotBlank(recheck) && ("RECHECK").equals(recheck)) {
                         mobileReceiptService.reopen(receiptId, rid);
                     }
-                    return mobileReceiptService.getUpdateForChangedReceipt(receipt).asJson();
+                    return mobileReceiptService.getUpdateForChangedReceipt(
+                            mobileReceiptService.findReceiptForMobile(receiptId, rid)
+                    ).asJson();
                 } catch (Exception e) {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
 
