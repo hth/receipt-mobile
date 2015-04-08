@@ -7,8 +7,6 @@ import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
-import com.receiptofi.service.ItemService;
-import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.slf4j.Logger;
@@ -38,7 +36,7 @@ public class DeviceService {
     private MobileReceiptService mobileReceiptService;
     private UserProfilePreferenceService userProfilePreferenceService;
     private ExpensesService expensesService;
-    private MobileNotificationService mobileNotificationService;
+    private NotificationMobileService notificationMobileService;
     private DocumentMobileService documentMobileService;
 
     @Autowired
@@ -46,14 +44,14 @@ public class DeviceService {
             RegisteredDeviceManager registeredDeviceManager,
             UserProfilePreferenceService userProfilePreferenceService,
             ExpensesService expensesService,
-            MobileNotificationService mobileNotificationService,
+            NotificationMobileService notificationMobileService,
             MobileReceiptService mobileReceiptService,
             DocumentMobileService documentMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
         this.expensesService = expensesService;
-        this.mobileNotificationService = mobileNotificationService;
+        this.notificationMobileService = notificationMobileService;
         this.mobileReceiptService = mobileReceiptService;
         this.documentMobileService = documentMobileService;
     }
@@ -84,7 +82,7 @@ public class DeviceService {
                 availableAccountUpdates.setProfile(userProfile);
             }
 
-            List<NotificationEntity> notifications = mobileNotificationService.getNotifications(rid, updated);
+            List<NotificationEntity> notifications = notificationMobileService.getNotifications(rid, updated);
             if (!notifications.isEmpty()) {
                 availableAccountUpdates.setJsonNotifications(notifications);
             }
@@ -120,7 +118,7 @@ public class DeviceService {
             availableAccountUpdates.setProfile(userProfile);
         }
 
-        availableAccountUpdates.setJsonNotifications(mobileNotificationService.getAllNotifications(rid));
+        availableAccountUpdates.setJsonNotifications(notificationMobileService.getAllNotifications(rid));
 
         getExpenseTag(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);

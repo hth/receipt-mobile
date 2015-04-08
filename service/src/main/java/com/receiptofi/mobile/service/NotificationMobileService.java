@@ -22,7 +22,7 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Component
-public class MobileNotificationService {
+public class NotificationMobileService {
 
     @Autowired NotificationManager notificationManager;
     @Autowired NotificationManagerMobile notificationManagerMobile;
