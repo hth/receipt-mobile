@@ -19,9 +19,6 @@ import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
-import com.receiptofi.service.ItemService;
-import com.receiptofi.service.LandingService;
-import com.receiptofi.service.NotificationService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.junit.Before;
@@ -30,7 +27,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 @SuppressWarnings ({
@@ -42,11 +39,11 @@ import java.util.Date;
 public class DeviceServiceTest {
 
     @Mock private RegisteredDeviceManager registeredDeviceManager;
-    @Mock private LandingService landingService;
+    @Mock private MobileReceiptService mobileReceiptService;
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
-    @Mock private ItemService itemService;
     @Mock private ExpensesService expensesService;
-    @Mock private NotificationService notificationService;
+    @Mock private MobileNotificationService mobileNotificationService;
+    @Mock private DocumentMobileService documentMobileService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -65,16 +62,16 @@ public class DeviceServiceTest {
         MockitoAnnotations.initMocks(this);
         deviceService = new DeviceService(
                 registeredDeviceManager,
-                landingService,
                 userProfilePreferenceService,
-                itemService,
                 expensesService,
-                notificationService);
+                mobileNotificationService,
+                mobileReceiptService,
+                documentMobileService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);
         when(receipt.getNotes()).thenReturn(comment);
-        when(receipt.getFileSystemEntities()).thenReturn(Arrays.asList(fileSystem));
+        when(receipt.getFileSystemEntities()).thenReturn(Collections.singletonList(fileSystem));
         when(receipt.getReceiptDate()).thenReturn(new Date());
         when(receipt.getBilledStatus()).thenReturn(BilledStatusEnum.P);
 
@@ -92,8 +89,7 @@ public class DeviceServiceTest {
     public void testHasUpdateNoUserProfileUpdate() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Arrays.asList(receipt));
-        when(itemService.getAllItemsOfReceipt(anyString())).thenReturn(Arrays.asList(item));
+        when(mobileReceiptService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Collections.singletonList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
         assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString()).getProfile());
     }
@@ -102,7 +98,7 @@ public class DeviceServiceTest {
     public void testHasUpdateNoReceiptUpdates() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(landingService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
+        when(mobileReceiptService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
         assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
     }

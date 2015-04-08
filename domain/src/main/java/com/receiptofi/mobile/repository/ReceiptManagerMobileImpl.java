@@ -31,7 +31,7 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Repository
-public class ReceiptManagerMobileImpl extends ReceiptManagerImpl implements ReceiptManagerMobile {
+public class ReceiptManagerMobileImpl implements ReceiptManagerMobile {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
             ReceiptEntity.class,

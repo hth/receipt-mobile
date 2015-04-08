@@ -32,7 +32,7 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Repository
-public class NotificationManagerMobileImpl extends NotificationManagerImpl implements NotificationManagerMobile {
+public class NotificationManagerMobileImpl implements NotificationManagerMobile {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
             NotificationEntity.class,
