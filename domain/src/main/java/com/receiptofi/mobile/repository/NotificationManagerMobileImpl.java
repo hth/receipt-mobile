@@ -1,12 +1,13 @@
 package com.receiptofi.mobile.repository;
 
-import static org.springframework.data.domain.Sort.Direction.DESC;
+import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
+import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.repository.ReceiptManagerImpl;
+import com.receiptofi.repository.NotificationManagerImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ import java.util.List;
 
 /**
  * User: hitender
- * Date: 4/7/15 7:38 PM
+ * Date: 4/7/15 8:39 PM
  */
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
@@ -31,31 +32,22 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Repository
-public class ReceiptManagerMobileImpl extends ReceiptManagerImpl implements ReceiptManagerMobile {
+public class NotificationManagerMobileImpl extends NotificationManagerImpl implements NotificationManagerMobile {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
-            ReceiptEntity.class,
+            NotificationEntity.class,
             Document.class,
             "collection");
 
     @Autowired private MongoTemplate mongoTemplate;
 
     @Override
-    public List<ReceiptEntity> getAllReceipts(String receiptUserId) {
+    public List<NotificationEntity> getNotifications(String rid, Date since) {
         return mongoTemplate.find(
-                query(where("RID").is(receiptUserId))
-                        .with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
-                ReceiptEntity.class,
-                TABLE);
-    }
-
-    @Override
-    public List<ReceiptEntity> getAllUpdatedReceiptSince(String receiptUserId, Date since) {
-        return mongoTemplate.find(
-                query(where("RID").is(receiptUserId).and("U").gte(since))
-                        .with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
-                ReceiptEntity.class,
-                TABLE
+                query(where("RID").is(rid).and("ND").is(true).and("U").gte(since))
+                        .addCriteria(isNotDeleted())
+                        .with(new Sort(Sort.Direction.DESC, "C")),
+                NotificationEntity.class
         );
     }
 }
