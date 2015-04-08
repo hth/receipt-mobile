@@ -3,7 +3,7 @@ package com.receiptofi.mobile.web.controller.api;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.MobileReceiptService;
+import com.receiptofi.mobile.service.ReceiptMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.LandingService;
@@ -52,17 +52,17 @@ public class ReceiptController {
 
     private LandingService landingService;
     private AuthenticateService authenticateService;
-    private MobileReceiptService mobileReceiptService;
+    private ReceiptMobileService receiptMobileService;
 
     @Autowired
     public ReceiptController(
             LandingService landingService,
             AuthenticateService authenticateService,
-            MobileReceiptService mobileReceiptService
+            ReceiptMobileService receiptMobileService
     ) {
         this.landingService = landingService;
         this.authenticateService = authenticateService;
-        this.mobileReceiptService = mobileReceiptService;
+        this.receiptMobileService = receiptMobileService;
     }
 
     @RequestMapping (
@@ -201,25 +201,25 @@ public class ReceiptController {
             String recheck = map.containsKey("recheck") ? map.get("recheck").getText() : null;
             String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
 
-            ReceiptEntity receipt = mobileReceiptService.findReceipt(receiptId, rid);
+            ReceiptEntity receipt = receiptMobileService.findReceipt(receiptId, rid);
             if (receipt == null) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                 return null;
             } else {
                 if (StringUtils.isNotBlank(notes)) {
-                    mobileReceiptService.saveComment(notes, receipt);
+                    receiptMobileService.saveComment(notes, receipt);
                 }
 
                 if (StringUtils.isNotBlank(expenseTagId)) {
-                    mobileReceiptService.updateReceiptExpenseTag(receipt, expenseTagId);
+                    receiptMobileService.updateReceiptExpenseTag(receipt, expenseTagId);
                 }
 
                 try {
                     if (StringUtils.isNotBlank(recheck) && ("RECHECK").equals(recheck)) {
-                        mobileReceiptService.reopen(receiptId, rid);
+                        receiptMobileService.reopen(receiptId, rid);
                     }
-                    return mobileReceiptService.getUpdateForChangedReceipt(
-                            mobileReceiptService.findReceiptForMobile(receiptId, rid)
+                    return receiptMobileService.getUpdateForChangedReceipt(
+                            receiptMobileService.findReceiptForMobile(receiptId, rid)
                     ).asJson();
                 } catch (Exception e) {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);

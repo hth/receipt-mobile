@@ -39,7 +39,7 @@ import java.util.Date;
 public class DeviceServiceTest {
 
     @Mock private RegisteredDeviceManager registeredDeviceManager;
-    @Mock private MobileReceiptService mobileReceiptService;
+    @Mock private ReceiptMobileService receiptMobileService;
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
     @Mock private ExpensesService expensesService;
     @Mock private NotificationMobileService notificationMobileService;
@@ -65,7 +65,7 @@ public class DeviceServiceTest {
                 userProfilePreferenceService,
                 expensesService,
                 notificationMobileService,
-                mobileReceiptService,
+                receiptMobileService,
                 documentMobileService);
 
         when(receipt.getBizName()).thenReturn(bizName);
@@ -89,7 +89,7 @@ public class DeviceServiceTest {
     public void testHasUpdateNoUserProfileUpdate() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(mobileReceiptService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Collections.singletonList(receipt));
+        when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Collections.singletonList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
         assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString()).getProfile());
     }
@@ -98,7 +98,7 @@ public class DeviceServiceTest {
     public void testHasUpdateNoReceiptUpdates() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(registeredDeviceEntity);
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
-        when(mobileReceiptService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
+        when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
         assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
     }

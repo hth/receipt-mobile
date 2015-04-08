@@ -33,7 +33,7 @@ public class DeviceService {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceService.class);
 
     private RegisteredDeviceManager registeredDeviceManager;
-    private MobileReceiptService mobileReceiptService;
+    private ReceiptMobileService receiptMobileService;
     private UserProfilePreferenceService userProfilePreferenceService;
     private ExpensesService expensesService;
     private NotificationMobileService notificationMobileService;
@@ -45,14 +45,14 @@ public class DeviceService {
             UserProfilePreferenceService userProfilePreferenceService,
             ExpensesService expensesService,
             NotificationMobileService notificationMobileService,
-            MobileReceiptService mobileReceiptService,
+            ReceiptMobileService receiptMobileService,
             DocumentMobileService documentMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
         this.expensesService = expensesService;
         this.notificationMobileService = notificationMobileService;
-        this.mobileReceiptService = mobileReceiptService;
+        this.receiptMobileService = receiptMobileService;
         this.documentMobileService = documentMobileService;
     }
 
@@ -74,8 +74,8 @@ public class DeviceService {
             Date updated = registeredDevice.getUpdated();
             LOG.info("Device last updated date={}", updated);
 
-            List<ReceiptEntity> receipts = mobileReceiptService.getAllUpdatedReceiptSince(rid, updated);
-            mobileReceiptService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+            List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
+            receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
@@ -110,8 +110,8 @@ public class DeviceService {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         LOG.info("Device registered now. Getting all updated.");
 
-        List<ReceiptEntity> receipts = mobileReceiptService.getAllReceipts(rid);
-        mobileReceiptService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+        List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
+        receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
         UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
         if (null != userProfile) {
