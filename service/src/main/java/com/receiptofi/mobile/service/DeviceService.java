@@ -7,8 +7,6 @@ import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.ExpensesService;
-import com.receiptofi.service.ItemService;
-import com.receiptofi.service.LandingService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.slf4j.Logger;
@@ -35,10 +33,10 @@ public class DeviceService {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceService.class);
 
     private RegisteredDeviceManager registeredDeviceManager;
-    private MobileReceiptService mobileReceiptService;
+    private ReceiptMobileService receiptMobileService;
     private UserProfilePreferenceService userProfilePreferenceService;
     private ExpensesService expensesService;
-    private MobileNotificationService mobileNotificationService;
+    private NotificationMobileService notificationMobileService;
     private DocumentMobileService documentMobileService;
 
     @Autowired
@@ -46,15 +44,15 @@ public class DeviceService {
             RegisteredDeviceManager registeredDeviceManager,
             UserProfilePreferenceService userProfilePreferenceService,
             ExpensesService expensesService,
-            MobileNotificationService mobileNotificationService,
-            MobileReceiptService mobileReceiptService,
+            NotificationMobileService notificationMobileService,
+            ReceiptMobileService receiptMobileService,
             DocumentMobileService documentMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
         this.expensesService = expensesService;
-        this.mobileNotificationService = mobileNotificationService;
-        this.mobileReceiptService = mobileReceiptService;
+        this.notificationMobileService = notificationMobileService;
+        this.receiptMobileService = receiptMobileService;
         this.documentMobileService = documentMobileService;
     }
 
@@ -76,15 +74,15 @@ public class DeviceService {
             Date updated = registeredDevice.getUpdated();
             LOG.info("Device last updated date={}", updated);
 
-            List<ReceiptEntity> receipts = mobileReceiptService.getAllUpdatedReceiptSince(rid, updated);
-            mobileReceiptService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+            List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
+            receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
                 availableAccountUpdates.setProfile(userProfile);
             }
 
-            List<NotificationEntity> notifications = mobileNotificationService.getNotifications(rid, updated);
+            List<NotificationEntity> notifications = notificationMobileService.getNotifications(rid, updated);
             if (!notifications.isEmpty()) {
                 availableAccountUpdates.setJsonNotifications(notifications);
             }
@@ -112,15 +110,15 @@ public class DeviceService {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         LOG.info("Device registered now. Getting all updated.");
 
-        List<ReceiptEntity> receipts = mobileReceiptService.getAllReceipts(rid);
-        mobileReceiptService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+        List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
+        receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
         UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
         if (null != userProfile) {
             availableAccountUpdates.setProfile(userProfile);
         }
 
-        availableAccountUpdates.setJsonNotifications(mobileNotificationService.getAllNotifications(rid));
+        availableAccountUpdates.setJsonNotifications(notificationMobileService.getAllNotifications(rid));
 
         getExpenseTag(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);

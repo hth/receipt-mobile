@@ -29,7 +29,7 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Component
-public class MobileReceiptService {
+public class ReceiptMobileService {
     @Autowired private ReceiptService receiptService;
     @Autowired private CommentService commentService;
     @Autowired private DocumentMobileService documentMobileService;

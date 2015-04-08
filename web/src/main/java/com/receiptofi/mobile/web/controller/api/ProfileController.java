@@ -7,9 +7,8 @@ import static com.receiptofi.mobile.web.controller.SocialAuthenticationControlle
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.utils.HashText;
@@ -53,19 +52,19 @@ public class ProfileController {
 
     private AuthenticateService authenticateService;
     private AccountService accountService;
-    private MobileAccountService mobileAccountService;
+    private AccountMobileService accountMobileService;
     private UserInfoValidator userInfoValidator;
 
     @Autowired
     public ProfileController(
             AuthenticateService authenticateService,
             AccountService accountService,
-            MobileAccountService mobileAccountService,
+            AccountMobileService accountMobileService,
             UserInfoValidator userInfoValidator
     ) {
         this.authenticateService = authenticateService;
         this.accountService = accountService;
-        this.mobileAccountService = mobileAccountService;
+        this.accountMobileService = accountMobileService;
         this.userInfoValidator = userInfoValidator;
     }
 
@@ -105,8 +104,8 @@ public class ProfileController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedMailJson);
-            LOG.info("new mail={}", map.get(MobileAccountService.REGISTRATION.EM.name()));
-            String newUserId = map.get(MobileAccountService.REGISTRATION.EM.name()).getText();
+            LOG.info("new mail={}", map.get(AccountMobileService.REGISTRATION.EM.name()));
+            String newUserId = map.get(AccountMobileService.REGISTRATION.EM.name()).getText();
             if (StringUtils.isBlank(newUserId) || userInfoValidator.getNameLength() > newUserId.length()) {
                 Map <String, String> errors = new HashMap<>();
                 userInfoValidator.mailValidation(newUserId, errors);
@@ -115,7 +114,7 @@ public class ProfileController {
 
             UserAccountEntity userAccountExists = accountService.findByUserId(newUserId);
             if (null == userAccountExists) {
-                UserAccountEntity userAccount = mobileAccountService.changeUID(mail, newUserId);
+                UserAccountEntity userAccount = accountMobileService.changeUID(mail, newUserId);
 
                 response.addHeader(MAIL, userAccount.getUserId());
                 response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
@@ -124,7 +123,7 @@ public class ProfileController {
                 LOG.info("failed user id update as another user exists with same mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "User already exists with this mail.");
-                errors.put(MobileAccountService.REGISTRATION.EM.name(), newUserId);
+                errors.put(AccountMobileService.REGISTRATION.EM.name(), newUserId);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_EXISTING.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_EXISTING.getCode());
                 return ErrorEncounteredJson.toJson(errors);
@@ -158,7 +157,7 @@ public class ProfileController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
-            String password = map.get(MobileAccountService.REGISTRATION.PW.name()).getText();
+            String password = map.get(AccountMobileService.REGISTRATION.PW.name()).getText();
             if (StringUtils.isBlank(password) || userInfoValidator.getPasswordLength() > password.length()) {
                 Map <String, String> errors = new HashMap<>();
                 userInfoValidator.passwordValidation(password, errors);
@@ -169,7 +168,7 @@ public class ProfileController {
                 LOG.info("sending validation email instead of password change, mail={}", mail);
 
                 /** Since account is not validated, send validation email instead. */
-                mobileAccountService.sendValidationEmail(userAccount);
+                accountMobileService.sendValidationEmail(userAccount);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON,
@@ -179,7 +178,7 @@ public class ProfileController {
             } else {
                 LOG.info("new password={}", UtilityController.AUTH_KEY_HIDDEN);
                 UserAuthenticationEntity userAuthentication = UserAuthenticationEntity.newInstance(
-                        HashText.computeBCrypt(map.get(MobileAccountService.REGISTRATION.PW.name()).getText()),
+                        HashText.computeBCrypt(map.get(AccountMobileService.REGISTRATION.PW.name()).getText()),
                         HashText.computeBCrypt(RandomString.newInstance().nextString())
                 );
 

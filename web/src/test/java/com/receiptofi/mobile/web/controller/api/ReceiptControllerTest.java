@@ -17,7 +17,7 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.MobileReceiptService;
+import com.receiptofi.mobile.service.ReceiptMobileService;
 import com.receiptofi.service.LandingService;
 
 import org.joda.time.DateTime;
@@ -52,14 +52,14 @@ public class ReceiptControllerTest {
     @Mock private BizStoreEntity bizStore;
     @Mock private CommentEntity comment;
     @Mock private FileSystemEntity fileSystem;
-    @Mock private MobileReceiptService mobileReceiptService;
+    @Mock private ReceiptMobileService receiptMobileService;
 
     private ReceiptController receiptController;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        receiptController = new ReceiptController(landingService, authenticateService, mobileReceiptService);
+        receiptController = new ReceiptController(landingService, authenticateService, receiptMobileService);
 
         when(receiptEntity.getBizName()).thenReturn(bizName);
         when(receiptEntity.getBizStore()).thenReturn(bizStore);

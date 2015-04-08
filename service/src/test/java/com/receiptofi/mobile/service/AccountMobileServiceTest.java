@@ -35,13 +35,13 @@ import java.io.IOException;
         "PMD.MethodArgumentCouldBeFinal",
         "PMD.LongVariable"
 })
-public class MobileAccountServiceTest {
+public class AccountMobileServiceTest {
 
     @Mock private WebConnectorService webConnectorService;
     @Mock private EmailValidateService emailValidateService;
     @Mock private AccountService accountService;
 
-    private MobileAccountService mobileAccountService;
+    private AccountMobileService accountMobileService;
     private HttpPost httpPost;
     private HttpClient httpClient;
     private HttpResponse httpResponse;
@@ -54,7 +54,7 @@ public class MobileAccountServiceTest {
         httpClient = mock(HttpClient.class);
         httpResponse = mock(HttpResponse.class);
         basicStatusLine = mock(BasicStatusLine.class);
-        mobileAccountService = new MobileAccountService(
+        accountMobileService = new AccountMobileService(
                 "accountValidationEndPoint",
                 "accountRecover",
                 "registrationAcceptingEndPoint",
@@ -68,7 +68,7 @@ public class MobileAccountServiceTest {
     public void testSignupWhenUserAccountIsNull() {
         when(accountService.createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(null);
-        mobileAccountService.signup("", "", "", "", "");
+        accountMobileService.signup("", "", "", "", "");
     }
 
     @Test (expected = RuntimeException.class)
@@ -76,7 +76,7 @@ public class MobileAccountServiceTest {
         doThrow(new RuntimeException())
                 .when(accountService)
                 .createNewAccount(anyString(), anyString(), anyString(), anyString(), anyString());
-        mobileAccountService.signup("", "", "", "", "");
+        accountMobileService.signup("", "", "", "", "");
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -85,7 +85,7 @@ public class MobileAccountServiceTest {
                 .thenReturn(UserAccountEntity.newInstance("", "", "", "", null));
 
         when(emailValidateService.saveAccountValidate("", "")).thenReturn(null);
-        assertEquals("", mobileAccountService.signup("", "", "", "", ""));
+        assertEquals("", accountMobileService.signup("", "", "", "", ""));
     }
 
     @Test
@@ -98,13 +98,13 @@ public class MobileAccountServiceTest {
         EmailValidateEntity emailValidate = EmailValidateEntity.newInstance("", "", "email-validation-auth-key");
         when(emailValidateService.saveAccountValidate("", "")).thenReturn(emailValidate);
 
-        assertEquals("authKey", mobileAccountService.signup("", "", "", "", ""));
+        assertEquals("authKey", accountMobileService.signup("", "", "", "", ""));
     }
 
     @Test
     public void sendMailDuringSignupHttpPostNull() {
         when(webConnectorService.getHttpPost("", HttpClientBuilder.create().build())).thenReturn(null);
-        assertNotNull(null, mobileAccountService.sendMailDuringSignup("", "", "", httpClient));
+        assertNotNull(null, accountMobileService.sendMailDuringSignup("", "", "", httpClient));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class MobileAccountServiceTest {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(null);
 
-        assertNotNull(null, mobileAccountService.sendMailDuringSignup("", "", "", httpClient));
+        assertNotNull(null, accountMobileService.sendMailDuringSignup("", "", "", httpClient));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class MobileAccountServiceTest {
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
         when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_ERROR);
 
-        assertFalse(mobileAccountService.sendMailDuringSignup("", "", "", httpClient));
+        assertFalse(accountMobileService.sendMailDuringSignup("", "", "", httpClient));
     }
 
     @Test
@@ -132,6 +132,6 @@ public class MobileAccountServiceTest {
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
         when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_SUCCESS);
 
-        assertTrue(mobileAccountService.sendMailDuringSignup("", "", "", httpClient));
+        assertTrue(accountMobileService.sendMailDuringSignup("", "", "", httpClient));
     }
 }

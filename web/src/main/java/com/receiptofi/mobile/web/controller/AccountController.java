@@ -1,6 +1,6 @@
 package com.receiptofi.mobile.web.controller;
 
-import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
+import static com.receiptofi.mobile.service.AccountMobileService.REGISTRATION;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.REGISTRATION_TURNED_OFF;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
@@ -9,7 +9,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
 
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
@@ -55,17 +55,17 @@ public class AccountController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
     private AccountService accountService;
-    private MobileAccountService mobileAccountService;
+    private AccountMobileService accountMobileService;
     private UserInfoValidator userInfoValidator;
 
     @Autowired
     public AccountController(
             AccountService accountService,
-            MobileAccountService mobileAccountService,
+            AccountMobileService accountMobileService,
             UserInfoValidator userInfoValidator
     ) {
         this.accountService = accountService;
-        this.mobileAccountService = mobileAccountService;
+        this.accountMobileService = accountMobileService;
         this.userInfoValidator = userInfoValidator;
     }
 
@@ -135,9 +135,9 @@ public class AccountController {
             }
 
             try {
-                String auth = mobileAccountService.signup(mail, firstName, lastName, password, birthday);
+                String auth = accountMobileService.signup(mail, firstName, lastName, password, birthday);
                 response.addHeader("X-R-MAIL", mail);
-                if (mobileAccountService.acceptingSignup()) {
+                if (accountMobileService.acceptingSignup()) {
                     /** X-R-AUTH is sent when server is accepting registration. */
                     response.addHeader("X-R-AUTH", auth);
                 } else {
@@ -146,7 +146,7 @@ public class AccountController {
                     errors.put(ErrorEncounteredJson.REASON, "Account created successfully. Site is not accepting new " +
                             "users. When site starts accepting new users, you will be notified through email and your " +
                             "account would be turned active.");
-                    errors.put(MobileAccountService.REGISTRATION_TURNED_ON.RTO.name(), Boolean.FALSE.toString());
+                    errors.put(AccountMobileService.REGISTRATION_TURNED_ON.RTO.name(), Boolean.FALSE.toString());
                     errors.put(ErrorEncounteredJson.SYSTEM_ERROR, REGISTRATION_TURNED_OFF.name());
                     errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, REGISTRATION_TURNED_OFF.getCode());
                     return ErrorEncounteredJson.toJson(errors);
@@ -222,7 +222,7 @@ public class AccountController {
             }
 
             try {
-                if (mobileAccountService.recoverAccount(mail)) {
+                if (accountMobileService.recoverAccount(mail)) {
                     LOG.info("sent recovery mail={}", mail);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } else {
