@@ -43,8 +43,8 @@ import java.io.IOException;
         "PMD.LongVariable"
 })
 @Component
-public class MobileAccountService {
-    private static final Logger LOG = LoggerFactory.getLogger(MobileAccountService.class);
+public class AccountMobileService {
+    private static final Logger LOG = LoggerFactory.getLogger(AccountMobileService.class);
 
     private String accountValidationEndPoint;
     private String accountRecoverEndPoint;
@@ -54,7 +54,7 @@ public class MobileAccountService {
     private AccountService accountService;
 
     @Autowired
-    public MobileAccountService(
+    public AccountMobileService(
             @Value ("${accountSignupEndPoint:/webapi/mobile/mail/accountSignup.htm}")
             String accountSignupEndPoint,
 

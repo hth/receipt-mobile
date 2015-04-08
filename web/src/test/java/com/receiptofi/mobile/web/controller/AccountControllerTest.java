@@ -1,6 +1,6 @@
 package com.receiptofi.mobile.web.controller;
 
-import static com.receiptofi.mobile.service.MobileAccountService.REGISTRATION;
+import static com.receiptofi.mobile.service.AccountMobileService.REGISTRATION;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 
@@ -51,7 +51,7 @@ public class AccountControllerTest {
     private static final int nameLength = 2;
     private static final int passwordLength = 6;
 
-    @Mock private MobileAccountService mobileAccountService;
+    @Mock private AccountMobileService accountMobileService;
     @Mock private AccountService accountService;
     @Mock private HttpServletResponse response;
     @Mock private UserProfileEntity userProfile;
@@ -65,7 +65,7 @@ public class AccountControllerTest {
         MockitoAnnotations.initMocks(this);
         accountController = new AccountController(
                 accountService,
-                mobileAccountService,
+                accountMobileService,
                 userInfoValidator);
     }
 
@@ -120,7 +120,7 @@ public class AccountControllerTest {
         json = StringUtils.replace(json, "BD", "DB");
 
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(accountMobileService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
         String responseJson = accountController.registerUser(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
@@ -159,7 +159,7 @@ public class AccountControllerTest {
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
-        verify(mobileAccountService, never()).signup(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(accountMobileService, never()).signup(anyString(), anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class AccountControllerTest {
         String json = createJsonForRegistration("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
         doThrow(new RuntimeException())
-                .when(mobileAccountService)
+                .when(accountMobileService)
                 .signup(anyString(), anyString(), anyString(), anyString(), anyString());
 
         String responseJson = accountController.registerUser(json, response);
@@ -179,19 +179,19 @@ public class AccountControllerTest {
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
-        verify(mobileAccountService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(accountMobileService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     public void testRegisterUser() throws IOException {
         String json = createJsonForRegistration("first", "test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
-        when(mobileAccountService.acceptingSignup()).thenReturn(true);
+        when(accountMobileService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(accountMobileService.acceptingSignup()).thenReturn(true);
         String responseJson = accountController.registerUser(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
-        verify(mobileAccountService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(accountMobileService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
         assertEquals("{}", responseJson);
     }
 
@@ -199,12 +199,12 @@ public class AccountControllerTest {
     public void testRegisterUser_Without_Lastname() throws IOException {
         String jsonResponse = createJsonForRegistration("first last middle", " test@receiptofi.com", "", "XXXXXX");
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
-        when(mobileAccountService.acceptingSignup()).thenReturn(true);
+        when(accountMobileService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(accountMobileService.acceptingSignup()).thenReturn(true);
         String responseJson = accountController.registerUser(jsonResponse, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
-        verify(mobileAccountService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(accountMobileService, times(1)).signup(anyString(), anyString(), anyString(), anyString(), anyString());
         assertEquals("{}", responseJson);
     }
 
@@ -265,7 +265,7 @@ public class AccountControllerTest {
         json = StringUtils.replace(json, "EM", "ME");
 
         when(accountService.doesUserExists(anyString())).thenReturn(null);
-        when(mobileAccountService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
+        when(accountMobileService.signup(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("1234");
         String responseJson = accountController.recover(json, response);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
@@ -296,7 +296,7 @@ public class AccountControllerTest {
         String json = createJsonForRecover("test@receiptofi.com");
         when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
         doThrow(new RuntimeException())
-                .when(mobileAccountService)
+                .when(accountMobileService)
                 .recoverAccount(anyString());
 
         String responseJson = accountController.recover(json, response);
@@ -308,7 +308,7 @@ public class AccountControllerTest {
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
-        verify(mobileAccountService, times(1)).recoverAccount(anyString());
+        verify(accountMobileService, times(1)).recoverAccount(anyString());
     }
 
     @Test
@@ -324,18 +324,18 @@ public class AccountControllerTest {
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
-        verify(mobileAccountService, never()).recoverAccount(anyString());
+        verify(accountMobileService, never()).recoverAccount(anyString());
     }
 
     @Test
     public void testRecoverFalse() throws IOException {
         String json = createJsonForRecover("test@receiptofi.com");
         when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
-        when(mobileAccountService.recoverAccount(anyString())).thenReturn(false);
+        when(accountMobileService.recoverAccount(anyString())).thenReturn(false);
         String responseJson = accountController.recover(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
-        verify(mobileAccountService, times(1)).recoverAccount(anyString());
+        verify(accountMobileService, times(1)).recoverAccount(anyString());
         assertEquals("{}", responseJson);
     }
 
@@ -343,11 +343,11 @@ public class AccountControllerTest {
     public void testRecover() throws IOException {
         String json = createJsonForRecover("test@receiptofi.com");
         when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
-        when(mobileAccountService.recoverAccount(anyString())).thenReturn(true);
+        when(accountMobileService.recoverAccount(anyString())).thenReturn(true);
         String responseJson = accountController.recover(json, response);
 
         verify(accountService, times(1)).doesUserExists(any(String.class));
-        verify(mobileAccountService, times(1)).recoverAccount(anyString());
+        verify(accountMobileService, times(1)).recoverAccount(anyString());
         assertEquals("{}", responseJson);
     }
 

@@ -2,7 +2,7 @@ package com.receiptofi.mobile.web.validator;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
-import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.web.controller.api.UtilityController;
 
@@ -72,7 +72,7 @@ public class UserInfoValidator {
         if (StringUtils.isBlank(password) || password.length() < passwordLength) {
             LOG.info("failed validation password={}", UtilityController.AUTH_KEY_HIDDEN);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-            errors.put(MobileAccountService.REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
+            errors.put(AccountMobileService.REGISTRATION.PW.name(), StringUtils.isBlank(password) ? EMPTY : password);
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         }
@@ -82,7 +82,7 @@ public class UserInfoValidator {
         if (StringUtils.isBlank(mail) || mail.length() < mailLength) {
             LOG.info("failed validation mail={}", mail);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-            errors.put(MobileAccountService.REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
+            errors.put(AccountMobileService.REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? EMPTY : mail);
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         }
@@ -92,7 +92,7 @@ public class UserInfoValidator {
         if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
             LOG.info("failed validation firstName={}", firstName);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-            errors.put(MobileAccountService.REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
+            errors.put(AccountMobileService.REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         }

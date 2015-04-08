@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.MobileAccountService;
+import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
 
@@ -50,7 +50,7 @@ public class ProfileControllerTest {
     @Mock private HttpServletResponse httpServletResponse;
     @Mock private UserAccountEntity userAccountEntity;
     @Mock private UserAuthenticationEntity userAuthenticationEntity;
-    @Mock private MobileAccountService mobileAccountService;
+    @Mock private AccountMobileService accountMobileService;
     private UserInfoValidator userInfoValidator;
     private ProfileController profileController;
 
@@ -61,7 +61,7 @@ public class ProfileControllerTest {
         profileController = new ProfileController(
                 authenticateService,
                 accountService,
-                mobileAccountService,
+                accountMobileService,
                 userInfoValidator
         );
 
@@ -103,20 +103,20 @@ public class ProfileControllerTest {
         assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_EXISTING.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
         assertEquals("User already exists with this mail.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
-        assertEquals("p@x.com", jo.get(ERROR).getAsJsonObject().get(MobileAccountService.REGISTRATION.EM.name()).getAsString());
+        assertEquals("p@x.com", jo.get(ERROR).getAsJsonObject().get(AccountMobileService.REGISTRATION.EM.name()).getAsString());
 
-        verify(mobileAccountService, never()).changeUID(anyString(), anyString());
+        verify(accountMobileService, never()).changeUID(anyString(), anyString());
     }
 
     @Test
     public void testUpdateMail() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         when(accountService.findByUserId(anyString())).thenReturn(null);
-        when(mobileAccountService.changeUID(anyString(), anyString())).thenReturn(userAccountEntity);
+        when(accountMobileService.changeUID(anyString(), anyString())).thenReturn(userAccountEntity);
 
         profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
 
-        verify(mobileAccountService, times(1)).changeUID(anyString(), anyString());
+        verify(accountMobileService, times(1)).changeUID(anyString(), anyString());
     }
 
     @Test
@@ -150,14 +150,14 @@ public class ProfileControllerTest {
 
     private String createJsonForMail(String mail) {
         JsonObject json = new JsonObject();
-        json.addProperty(MobileAccountService.REGISTRATION.EM.name(), mail);
+        json.addProperty(AccountMobileService.REGISTRATION.EM.name(), mail);
 
         return new Gson().toJson(json);
     }
 
     private String createJsonForPassword(String password) {
         JsonObject json = new JsonObject();
-        json.addProperty(MobileAccountService.REGISTRATION.PW.name(), password);
+        json.addProperty(AccountMobileService.REGISTRATION.PW.name(), password);
 
         return new Gson().toJson(json);
     }
