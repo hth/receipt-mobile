@@ -36,6 +36,7 @@ public class DeviceService {
 
     private RegisteredDeviceManager registeredDeviceManager;
     private LandingService landingService;
+    private ReceiptService receiptService;
     private UserProfilePreferenceService userProfilePreferenceService;
     private ItemService itemService;
     private ExpensesService expensesService;
@@ -48,7 +49,8 @@ public class DeviceService {
             UserProfilePreferenceService userProfilePreferenceService,
             ItemService itemService,
             ExpensesService expensesService,
-            NotificationService notificationService
+            NotificationService notificationService,
+            ReceiptService receiptService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.landingService = landingService;
@@ -56,6 +58,7 @@ public class DeviceService {
         this.itemService = itemService;
         this.expensesService = expensesService;
         this.notificationService = notificationService;
+        this.receiptService = receiptService;
     }
 
     /**
@@ -76,7 +79,7 @@ public class DeviceService {
             Date updated = registeredDevice.getUpdated();
             LOG.info("Device last updated date={}", updated);
 
-            List<ReceiptEntity> receipts = landingService.getAllUpdatedReceiptSince(rid, updated);
+            List<ReceiptEntity> receipts = receiptService.getAllUpdatedReceiptSince(rid, updated);
             getReceiptAndItemUpdates(availableAccountUpdates, receipts);
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);

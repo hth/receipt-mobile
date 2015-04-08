@@ -23,8 +23,13 @@ import java.util.List;
 public class NotificationService {
 
     @Autowired NotificationManagerMobile notificationManagerMobile;
+    @Autowired com.receiptofi.service.NotificationService notificationService;
 
     public List<NotificationEntity> getNotifications(String rid, Date since) {
         return notificationManagerMobile.getNotifications(rid, since);
+    }
+
+    public List<NotificationEntity> getAllNotifications(String rid) {
+        return notificationService.getAllNotifications(rid);
     }
 }
