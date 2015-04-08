@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.repository;
 
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.repository.ReceiptManager;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
  * User: hitender
  * Date: 4/7/15 7:34 PM
  */
-public interface ReceiptManagerMobile extends ReceiptManager {
+public interface ReceiptManagerMobile extends RepositoryManager<ReceiptEntity> {
     /**
      *
      * @param receiptUserId

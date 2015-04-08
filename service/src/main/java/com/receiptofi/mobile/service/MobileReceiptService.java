@@ -2,9 +2,12 @@ package com.receiptofi.mobile.service;
 
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
+import com.receiptofi.domain.annotation.Mobile;
 import com.receiptofi.domain.types.CommentTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
+import com.receiptofi.mobile.repository.ReceiptManagerMobile;
 import com.receiptofi.service.CommentService;
+import com.receiptofi.service.ItemService;
 import com.receiptofi.service.ReceiptService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * User: hitender
@@ -27,7 +32,9 @@ import java.util.Collections;
 public class MobileReceiptService {
     @Autowired private ReceiptService receiptService;
     @Autowired private CommentService commentService;
-    @Autowired private DeviceService deviceService;
+    @Autowired private DocumentMobileService documentMobileService;
+    @Autowired private ReceiptManagerMobile receiptManagerMobile;
+    @Autowired private ItemService itemService;
 
     public ReceiptEntity findReceipt(String receiptId, String rid) {
         return receiptService.findReceipt(receiptId, rid);
@@ -60,8 +67,37 @@ public class MobileReceiptService {
     public AvailableAccountUpdates getUpdateForChangedReceipt(ReceiptEntity receipt) {
         Assert.notNull(receipt, "ReceiptEntity should not be null");
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        deviceService.getReceiptAndItemUpdates(availableAccountUpdates, Collections.singletonList(receipt));
-        deviceService.getUnprocessedDocuments(receipt.getReceiptUserId(), availableAccountUpdates);
+        getReceiptAndItemUpdates(availableAccountUpdates, Collections.singletonList(receipt));
+        documentMobileService.getUnprocessedDocuments(receipt.getReceiptUserId(), availableAccountUpdates);
         return availableAccountUpdates;
+    }
+
+    /**
+     * Do not use this open end query.
+     *
+     * @param profileId
+     * @return
+     */
+    public List<ReceiptEntity> getAllReceipts(String profileId) {
+        return receiptManagerMobile.getAllReceipts(profileId);
+    }
+
+    public List<ReceiptEntity> getAllUpdatedReceiptSince(String profileId, Date since) {
+        return receiptManagerMobile.getAllUpdatedReceiptSince(profileId, since);
+    }
+
+    /**
+     * Gets item updates for the set of receipts.
+     *
+     * @param availableAccountUpdates
+     * @param receipts
+     */
+    public void getReceiptAndItemUpdates(AvailableAccountUpdates availableAccountUpdates, List<ReceiptEntity> receipts) {
+        if (!receipts.isEmpty()) {
+            availableAccountUpdates.addJsonReceipts(receipts);
+            for (ReceiptEntity receipt : receipts) {
+                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+            }
+        }
     }
 }

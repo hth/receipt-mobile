@@ -1,7 +1,9 @@
 package com.receiptofi.mobile.service;
 
 import com.receiptofi.domain.NotificationEntity;
+import com.receiptofi.domain.types.PaginationEnum;
 import com.receiptofi.mobile.repository.NotificationManagerMobile;
+import com.receiptofi.repository.NotificationManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,16 +22,16 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Component
-public class NotificationService {
+public class MobileNotificationService {
 
+    @Autowired NotificationManager notificationManager;
     @Autowired NotificationManagerMobile notificationManagerMobile;
-    @Autowired com.receiptofi.service.NotificationService notificationService;
 
     public List<NotificationEntity> getNotifications(String rid, Date since) {
         return notificationManagerMobile.getNotifications(rid, since);
     }
 
     public List<NotificationEntity> getAllNotifications(String rid) {
-        return notificationService.getAllNotifications(rid);
+        return notificationManager.getNotifications(rid, 0, PaginationEnum.ALL.getLimit());
     }
 }
