@@ -35,7 +35,7 @@ public class DeviceService {
     private RegisteredDeviceManager registeredDeviceManager;
     private ReceiptMobileService receiptMobileService;
     private UserProfilePreferenceService userProfilePreferenceService;
-    private ExpensesService expensesService;
+    private ExpenseTagMobileService expenseTagMobileService;
     private NotificationMobileService notificationMobileService;
     private DocumentMobileService documentMobileService;
 
@@ -50,7 +50,7 @@ public class DeviceService {
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
-        this.expensesService = expensesService;
+        this.expenseTagMobileService = expenseTagMobileService;
         this.notificationMobileService = notificationMobileService;
         this.receiptMobileService = receiptMobileService;
         this.documentMobileService = documentMobileService;
@@ -147,6 +147,6 @@ public class DeviceService {
     }
 
     public void getExpenseTag(String rid, AvailableAccountUpdates availableAccountUpdates) {
-        availableAccountUpdates.addJsonExpenseTag(expensesService.activeExpenseTypes(rid));
+        availableAccountUpdates.addJsonExpenseTag(expenseTagMobileService.getExpenseTags(rid));
     }
 }
