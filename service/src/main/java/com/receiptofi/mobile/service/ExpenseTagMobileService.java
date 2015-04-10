@@ -6,6 +6,7 @@ import com.receiptofi.repository.ExpenseTagManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -53,6 +54,12 @@ public class ExpenseTagMobileService {
         ExpenseTagEntity expenseTag = ExpenseTagEntity.newInstance(tagName, rid, tagColor);
         expenseTagManager.save(expenseTag);
         return expenseTag;
+    }
+
+    public void update(String tagName, String rid, String tagColor, String tagId) {
+        ExpenseTagEntity expenseTag = expenseTagManager.getExpenseTag(rid, tagId);
+        Assert.notNull(expenseTag, "Expense Tag does not exists");
+        expenseTagManager.updateExpenseTag(tagId, tagName, tagColor, rid);
     }
 
     public AvailableAccountUpdates getUpdates(String rid) {
