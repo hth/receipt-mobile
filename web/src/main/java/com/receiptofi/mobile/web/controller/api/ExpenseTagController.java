@@ -1,6 +1,5 @@
 package com.receiptofi.mobile.web.controller.api;
 
-import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.ExpenseTagMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
@@ -63,13 +62,13 @@ public class ExpenseTagController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/createExpenseTag.json",
+            value = "/addExpenseTag.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String createExpenseTag(
+    public String addExpenseTag(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -101,8 +100,19 @@ public class ExpenseTagController {
 
                 return ErrorEncounteredJson.toJson(errors);
             } else {
-                expenseTagMobileService.save(tagName, rid, tagColor);
-                return expenseTagMobileService.getUpdates(rid).asJson();
+                try {
+                    expenseTagMobileService.save(tagName, rid, tagColor);
+                    return expenseTagMobileService.getUpdates(rid).asJson();
+                } catch (Exception e) {
+                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
             }
         }
     }
