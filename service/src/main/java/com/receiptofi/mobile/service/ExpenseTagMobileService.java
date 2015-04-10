@@ -31,4 +31,8 @@ public class ExpenseTagMobileService {
     public List<ExpenseTagEntity> getExpenseTags(String rid) {
         return expenseTagManager.getExpenseTags(rid);
     }
+
+    public ExpenseTagEntity getExpenseTag(String rid, String expenseTagId) {
+        return expenseTagManager.getExpenseTag(rid, expenseTagId);
+    }
 }

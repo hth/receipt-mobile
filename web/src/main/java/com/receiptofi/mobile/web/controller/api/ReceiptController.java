@@ -1,8 +1,10 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.service.ExpenseTagMobileService;
 import com.receiptofi.mobile.service.ReceiptMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
@@ -53,16 +55,19 @@ public class ReceiptController {
     private LandingService landingService;
     private AuthenticateService authenticateService;
     private ReceiptMobileService receiptMobileService;
+    private ExpenseTagMobileService expenseTagMobileService;
 
     @Autowired
     public ReceiptController(
             LandingService landingService,
             AuthenticateService authenticateService,
-            ReceiptMobileService receiptMobileService
+            ReceiptMobileService receiptMobileService,
+            ExpenseTagMobileService expenseTagMobileService
     ) {
         this.landingService = landingService;
         this.authenticateService = authenticateService;
         this.receiptMobileService = receiptMobileService;
+        this.expenseTagMobileService = expenseTagMobileService;
     }
 
     @RequestMapping (
@@ -211,7 +216,20 @@ public class ReceiptController {
                 }
 
                 if (StringUtils.isNotBlank(expenseTagId)) {
-                    receiptMobileService.updateReceiptExpenseTag(receipt, expenseTagId);
+                    ExpenseTagEntity expenseTag  = expenseTagMobileService.getExpenseTag(rid, expenseTagId);
+                    if (null != expenseTag) {
+                        receiptMobileService.updateReceiptExpenseTag(receipt, expenseTagId);
+                    } else {
+                        LOG.error("Could not find expenseTagId={} under user rid={}. Should never happen.",
+                                expenseTagId, rid);
+
+                        Map<String, String> errors = new HashMap<>();
+                        errors.put(ErrorEncounteredJson.REASON, "Could not bind Expense Tag with Receipt.");
+                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                        return ErrorEncounteredJson.toJson(errors);
+                    }
                 }
 
                 try {
