@@ -87,7 +87,7 @@ public class DeviceService {
             }
         }
 
-        getExpenseTag(rid, availableAccountUpdates);
+        expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
@@ -119,7 +119,7 @@ public class DeviceService {
 
         availableAccountUpdates.setJsonNotifications(notificationMobileService.getAllNotifications(rid));
 
-        getExpenseTag(rid, availableAccountUpdates);
+        expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
@@ -143,9 +143,5 @@ public class DeviceService {
             registrationSuccess = true;
         }
         return registrationSuccess;
-    }
-
-    public void getExpenseTag(String rid, AvailableAccountUpdates availableAccountUpdates) {
-        availableAccountUpdates.addJsonExpenseTag(expenseTagMobileService.getExpenseTags(rid));
     }
 }
