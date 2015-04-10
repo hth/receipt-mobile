@@ -6,7 +6,6 @@ import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
-import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class DeviceService {
     public DeviceService(
             RegisteredDeviceManager registeredDeviceManager,
             UserProfilePreferenceService userProfilePreferenceService,
-            ExpensesService expensesService,
+            ExpenseTagMobileService expenseTagMobileService,
             NotificationMobileService notificationMobileService,
             ReceiptMobileService receiptMobileService,
             DocumentMobileService documentMobileService
