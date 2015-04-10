@@ -41,7 +41,7 @@ public class DeviceServiceTest {
     @Mock private RegisteredDeviceManager registeredDeviceManager;
     @Mock private ReceiptMobileService receiptMobileService;
     @Mock private UserProfilePreferenceService userProfilePreferenceService;
-    @Mock private ExpensesService expensesService;
+    @Mock private ExpenseTagMobileService expenseTagMobileService;
     @Mock private NotificationMobileService notificationMobileService;
     @Mock private DocumentMobileService documentMobileService;
 
@@ -63,7 +63,7 @@ public class DeviceServiceTest {
         deviceService = new DeviceService(
                 registeredDeviceManager,
                 userProfilePreferenceService,
-                expensesService,
+                expenseTagMobileService,
                 notificationMobileService,
                 receiptMobileService,
                 documentMobileService);
