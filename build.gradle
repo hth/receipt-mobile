@@ -171,50 +171,55 @@ subprojects {
         compile "$springDataGroup:spring-data-commons:1.9.2.RELEASE"
         compile 'org.mongodb:mongo-java-driver:2.13.0'
 
+        /** --- Specific to Receipt Mobile Web Application ---- */
+        compile "com.mangofactory:swagger-springmvc:0.9.5"
+        compile "org.ajar:swagger-spring-mvc-ui:0.4"
+        /** ------- */
+
         compile 'org.apache.commons:commons-collections4:4.0'
-        compile 'org.apache.commons:commons-lang3:3.3.2'
+        compile 'org.apache.commons:commons-lang3:3.4'
 
         compile 'aopalliance:aopalliance:1.0'
-        compile 'org.aspectj:aspectjrt:1.7.4'
-        compile 'com.fasterxml:classmate:1.0.0'
-        compile 'org.slf4j:slf4j-api:1.7.7'
+        compile 'org.aspectj:aspectjrt:1.8.5'
+        compile 'com.fasterxml:classmate:1.1.0'
+        compile 'org.slf4j:slf4j-api:1.7.12'
         compile 'org.hibernate:hibernate-validator:5.1.1.Final'
         compile 'joda-time:joda-time:2.7'
         compile 'javax.mail:mail:1.4.7'
-        compile 'org.freemarker:freemarker:2.3.21'
-        compile 'commons-validator:commons-validator:1.4.0'
+        compile 'org.freemarker:freemarker:2.3.22'
+        compile 'commons-validator:commons-validator:1.4.1'
         compile 'commons-io:commons-io:2.4'
-        compile 'org.apache.poi:poi:3.10.1'
-        compile 'commons-codec:commons-codec:1.9'
-        compile 'commons-logging:commons-logging:1.1.3'
+        compile 'org.apache.poi:poi:3.11'
+        compile 'commons-codec:commons-codec:1.10'
+        compile 'commons-logging:commons-logging:1.2'
 
-        compile 'com.google.guava:guava:17.0'
+        compile 'com.google.guava:guava:18.0'
         compile 'com.google.code.gson:gson:2.3.1'
         compile 'com.google.maps:google-maps-services:0.1.6'
-        compile 'com.googlecode.libphonenumber:libphonenumber:6.0'
+        compile 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
         compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
 
-        compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
-        compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
-        compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+        compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.2'
+        compile 'com.fasterxml.jackson.core:jackson-core:2.5.2'
+        compile 'com.fasterxml.jackson.core:jackson-databind:2.5.2'
 
         compile 'javax.validation:validation-api:1.1.0.Final'
-        compile 'org.hibernate:hibernate-validator:5.1.1.Final'
+        compile 'org.hibernate:hibernate-validator:5.1.3.Final'
         compile 'commons-fileupload:commons-fileupload:1.3.1'
         compile 'commons-io:commons-io:2.4'
         compile 'javax.inject:javax.inject:1'
         compile 'org.apache.activemq:activemq-client:5.11.1'
         compile 'javax.mail:mail:1.4.7'
-        compile 'org.apache.commons:commons-lang3:3.3.2'
+        compile 'org.apache.commons:commons-lang3:3.4'
 
-        compile 'org.apache.tika:tika-parsers:1.6'
-        compile 'org.apache.tika:tika-core:1.6'
+        compile 'org.apache.tika:tika-parsers:1.7'
+        compile 'org.apache.tika:tika-core:1.7'
 
-        compile 'org.apache.httpcomponents:httpclient:4.3.4'
+        compile 'org.apache.httpcomponents:httpclient:4.4.1'
 
-        compile 'ch.qos.logback:logback-core:1.1.2'
-        compile 'ch.qos.logback:logback-classic:1.1.2'
-        compile 'net.logstash.logback:logstash-logback-encoder:3.4'
+        compile 'ch.qos.logback:logback-core:1.1.3'
+        compile 'ch.qos.logback:logback-classic:1.1.3'
+        compile 'net.logstash.logback:logstash-logback-encoder:4.2'
         compile 'net.bull.javamelody:javamelody-core:1.+'
 
         compile 'net.sf.uadetector:uadetector-core:0.9.22'
@@ -222,12 +227,9 @@ subprojects {
 
         compile 'javax.validation:validation-api:1.1.0.Final'
 
-        compile "com.mangofactory:swagger-springmvc:0.9.5"
-        compile "org.ajar:swagger-spring-mvc-ui:0.4"
-
         testCompile group: 'junit', name: 'junit', version: '4.+'
         testCompile 'org.mockito:mockito-all:1.10.19'
-        testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.46.4'
+        testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.47.2'
     }
 
     test {
