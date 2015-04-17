@@ -49,7 +49,7 @@
     <logger name="org.apache.http" level="OFF"/>
     <logger name="org.springframework.jms.listener" level="OFF"/>
 
-    <root level="ALL">
+    <root level="INFO">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
