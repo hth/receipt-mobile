@@ -62,7 +62,7 @@ public class ExpenseTagMobileService {
         return expenseTag;
     }
 
-    public void update(String tagName, String rid, String tagColor, String tagId) {
+    public void update(String tagId, String tagName, String rid, String tagColor) {
         ExpenseTagEntity expenseTag = expenseTagManager.getExpenseTag(rid, tagId);
         Assert.notNull(expenseTag, "Expense Tag does not exists.");
         expenseTagManager.updateExpenseTag(tagId, tagName, tagColor, rid);
