@@ -101,7 +101,7 @@ public class ExpenseTagController {
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
                 return ErrorEncounteredJson.toJson(errors);
-            } else if (!expenseTagMobileService.doesExists(rid, tagName)) {
+            } else if (expenseTagMobileService.doesExists(rid, tagName)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
 
                 Map<String, String> errors = new HashMap<>();
