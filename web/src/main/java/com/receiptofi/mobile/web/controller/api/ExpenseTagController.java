@@ -204,4 +204,80 @@ public class ExpenseTagController {
             }
         }
     }
+
+    /**
+     * Delete expense tag.
+     *
+     * @param mail
+     * @param auth
+     * @param requestBodyJson
+     * @param response
+     * @return
+     */
+    @RequestMapping (
+            value = "/deleteExpenseTag.json",
+            method = RequestMethod.POST,
+            headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public String deleteExpenseTag(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            @RequestBody
+            String requestBodyJson,
+
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
+            String tagName = map.containsKey("tagName") ? map.get("tagName").getText() : null;
+            String tagId = map.containsKey("tagId") ? map.get("tagId").getText() : null;
+
+
+            if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagId)) {
+                LOG.warn("Null tagName={} or tagId={}", tagName, tagId);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "Either Expense Tag or Color or Id received as empty.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
+            } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
+                LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "Expense Tag does not exists.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
+            } else {
+                try {
+                    expenseTagMobileService.deleteExpenseTag(tagId, tagName, rid);
+                    return expenseTagMobileService.getUpdates(rid).asJson();
+                } catch (Exception e) {
+                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
+            }
+        }
+
+    }
 }

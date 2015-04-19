@@ -3,6 +3,7 @@ package com.receiptofi.mobile.service;
 import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.ExpenseTagManager;
+import com.receiptofi.service.ExpensesService;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,8 +27,8 @@ import java.util.List;
 public class ExpenseTagMobileService {
 
     private ExpenseTagManager expenseTagManager;
-    private ReceiptMobileService receiptMobileService;
     private DocumentMobileService documentMobileService;
+    private ExpensesService expensesService;
 
     @Autowired
     public ExpenseTagMobileService(
@@ -36,7 +37,7 @@ public class ExpenseTagMobileService {
             DocumentMobileService documentMobileService
     ) {
         this.expenseTagManager = expenseTagManager;
-        this.receiptMobileService = receiptMobileService;
+        this.expensesService = expensesService;
         this.documentMobileService = documentMobileService;
     }
 
@@ -63,7 +64,7 @@ public class ExpenseTagMobileService {
 
     public void update(String tagName, String rid, String tagColor, String tagId) {
         ExpenseTagEntity expenseTag = expenseTagManager.getExpenseTag(rid, tagId);
-        Assert.notNull(expenseTag, "Expense Tag does not exists");
+        Assert.notNull(expenseTag, "Expense Tag does not exists.");
         expenseTagManager.updateExpenseTag(tagId, tagName, tagColor, rid);
     }
 
@@ -76,5 +77,9 @@ public class ExpenseTagMobileService {
 
     public void getExpenseTag(String rid, AvailableAccountUpdates availableAccountUpdates) {
         availableAccountUpdates.addJsonExpenseTag(getExpenseTags(rid));
+    }
+
+    public void deleteExpenseTag(String expenseTypeId, String expenseTagName, String rid) {
+        expensesService.deleteExpenseTag(expenseTypeId, expenseTagName, rid);
     }
 }
