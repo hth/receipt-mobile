@@ -33,7 +33,7 @@ public class ExpenseTagMobileService {
     @Autowired
     public ExpenseTagMobileService(
             ExpenseTagManager expenseTagManager,
-            ReceiptMobileService receiptMobileService,
+            ExpensesService expensesService,
             DocumentMobileService documentMobileService
     ) {
         this.expenseTagManager = expenseTagManager;
