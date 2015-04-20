@@ -1,27 +1,24 @@
 package com.receiptofi.mobile.repository;
 
+import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
 import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
-import com.receiptofi.domain.NotificationEntity;
+import com.receiptofi.domain.BillingAccountEntity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
-
 /**
  * User: hitender
- * Date: 4/7/15 8:39 PM
+ * Date: 4/19/15 3:59 PM
  */
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
@@ -30,22 +27,20 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Repository
-public class NotificationManagerMobileImpl implements NotificationManagerMobile {
-    private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
+public class BillingAccountManagerMobileImpl implements BillingAccountManagerMobile {
+    private static final Logger LOG = LoggerFactory.getLogger(BillingAccountManagerMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
-            NotificationEntity.class,
+            BillingAccountEntity.class,
             Document.class,
             "collection");
 
     @Autowired private MongoTemplate mongoTemplate;
 
     @Override
-    public List<NotificationEntity> getNotifications(String rid, Date since) {
-        return mongoTemplate.find(
-                query(where("RID").is(rid).and("ND").is(true).and("U").gte(since))
-                        .addCriteria(isNotDeleted())
-                        .with(new Sort(Sort.Direction.DESC, "C")),
-                NotificationEntity.class
+    public BillingAccountEntity getBillingAccount(String rid) {
+        return mongoTemplate.findOne(
+                query(where("RID").is(rid).andOperator(isActive(), isNotDeleted())),
+                BillingAccountEntity.class
         );
     }
 }

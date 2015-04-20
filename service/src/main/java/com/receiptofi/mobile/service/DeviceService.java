@@ -37,6 +37,7 @@ public class DeviceService {
     private ExpenseTagMobileService expenseTagMobileService;
     private NotificationMobileService notificationMobileService;
     private DocumentMobileService documentMobileService;
+    private BillingMobileService billingMobileService;
 
     @Autowired
     public DeviceService(
@@ -45,7 +46,8 @@ public class DeviceService {
             ExpenseTagMobileService expenseTagMobileService,
             NotificationMobileService notificationMobileService,
             ReceiptMobileService receiptMobileService,
-            DocumentMobileService documentMobileService
+            DocumentMobileService documentMobileService,
+            BillingMobileService billingMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
@@ -53,6 +55,7 @@ public class DeviceService {
         this.notificationMobileService = notificationMobileService;
         this.receiptMobileService = receiptMobileService;
         this.documentMobileService = documentMobileService;
+        this.billingMobileService = billingMobileService;
     }
 
     /**
@@ -85,6 +88,8 @@ public class DeviceService {
             if (!notifications.isEmpty()) {
                 availableAccountUpdates.setJsonNotifications(notifications);
             }
+
+            billingMobileService.getBilling(rid, updated, availableAccountUpdates);
         }
 
         expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
@@ -118,6 +123,7 @@ public class DeviceService {
         }
 
         availableAccountUpdates.setJsonNotifications(notificationMobileService.getAllNotifications(rid));
+        billingMobileService.getBilling(rid, availableAccountUpdates);
 
         expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);

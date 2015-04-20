@@ -5,7 +5,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
-import com.receiptofi.domain.ReceiptEntity;
+import com.receiptofi.domain.BillingHistoryEntity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * User: hitender
- * Date: 4/7/15 7:38 PM
+ * Date: 4/19/15 4:05 PM
  */
 @SuppressWarnings ({
         "PMD.BeanMembersShouldSerialize",
@@ -30,31 +30,27 @@ import java.util.List;
         "PMD.LongVariable"
 })
 @Repository
-public class ReceiptManagerMobileImpl implements ReceiptManagerMobile {
-    private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
+public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMobile {
+    private static final Logger LOG = LoggerFactory.getLogger(BillingHistoryManagerMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
-            ReceiptEntity.class,
+            BillingHistoryEntity.class,
             Document.class,
             "collection");
 
     @Autowired private MongoTemplate mongoTemplate;
 
     @Override
-    public List<ReceiptEntity> getAllReceipts(String receiptUserId) {
+    public List<BillingHistoryEntity> getHistory(String rid, Date since) {
         return mongoTemplate.find(
-                query(where("RID").is(receiptUserId))
-                        .with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
-                ReceiptEntity.class,
-                TABLE);
+                query(where("RID").is(rid).and("U").gte(since)).with(new Sort(DESC, "BM")),
+                BillingHistoryEntity.class);
     }
 
     @Override
-    public List<ReceiptEntity> getAllUpdatedReceiptSince(String receiptUserId, Date since) {
+    public List<BillingHistoryEntity> getHistory(String rid) {
         return mongoTemplate.find(
-                query(where("RID").is(receiptUserId).and("U").gte(since))
-                        .with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
-                ReceiptEntity.class,
-                TABLE
+                query(where("RID").is(rid)).with(new Sort(DESC, "BM")),
+                BillingHistoryEntity.class
         );
     }
 }
