@@ -9,6 +9,7 @@ import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.json.JsonBilling;
 import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.domain.json.JsonNotification;
 import com.receiptofi.domain.json.JsonReceipt;
@@ -53,6 +54,9 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("notifications")
     private List<JsonNotification> jsonNotifications = new ArrayList<>();
+
+    @JsonProperty ("billing")
+    private JsonBilling jsonBilling;
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -104,5 +108,13 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setJsonNotifications(List<NotificationEntity> notifications) {
         this.jsonNotifications.addAll(notifications.stream().map(JsonNotification::newInstance).collect(Collectors.toList()));
+    }
+
+    public JsonBilling getJsonBilling() {
+        return jsonBilling;
+    }
+
+    public void setJsonBilling(JsonBilling jsonBilling) {
+        this.jsonBilling = jsonBilling;
     }
 }

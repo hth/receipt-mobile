@@ -44,6 +44,7 @@ public class DeviceServiceTest {
     @Mock private ExpenseTagMobileService expenseTagMobileService;
     @Mock private NotificationMobileService notificationMobileService;
     @Mock private DocumentMobileService documentMobileService;
+    @Mock private BillingMobileService billingMobileService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -66,7 +67,8 @@ public class DeviceServiceTest {
                 expenseTagMobileService,
                 notificationMobileService,
                 receiptMobileService,
-                documentMobileService);
+                documentMobileService,
+                billingMobileService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);
