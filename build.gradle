@@ -41,7 +41,6 @@ subprojects {
 
     apply plugin: 'checkstyle'  //for java code conventions, you can use sonar instead but it need DB
     apply plugin: 'findbugs'    //for static code analysis
-    apply plugin: 'jdepend'     //for dependency analysis, Jenkins plugin does not use this feature
     apply plugin: 'pmd'
     apply plugin: 'jacoco'      //for code coverage
 
@@ -277,13 +276,6 @@ subprojects {
         reports {
             xml.enabled = true
             html.enabled = false
-        }
-    }
-
-    tasks.withType(JDepend) {
-        reports {
-            xml.enabled = true
-            text.enabled = false
         }
     }
 
