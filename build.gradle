@@ -63,11 +63,6 @@ subprojects {
 //        excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
     }
 
-    jdepend {
-        ignoreFailures = true
-        reportsDir = file("$project.buildDir/reports/jdepend")
-    }
-
     pmd {
         ignoreFailures = true
         toolVersion = '5.1.3'
