@@ -273,6 +273,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.0.RELEASE/b0c635786ede56d002b5c27f213eed4352bbb059/spring-social-facebook-2.0.0.RELEASE.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -618,6 +619,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.0.RELEASE/b0c635786ede56d002b5c27f213eed4352bbb059/spring-social-facebook-2.0.0.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -933,6 +935,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.0.RELEASE/b0c635786ede56d002b5c27f213eed4352bbb059/spring-social-facebook-2.0.0.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
