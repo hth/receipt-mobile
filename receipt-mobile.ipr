@@ -268,6 +268,11 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.0.RELEASE/cd5e6c52e00ea603ffc89282ca0f424c8c96f3ba/spring-data-mongodb-1.7.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.0.RELEASE/f3c8d801fc68907ddef15d0d28ab2b3564900b14/spring-data-commons-1.10.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/734a5acccbd07a545c22244159e373aba9e963f6/mongo-java-driver-3.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-core/1.1.0.RELEASE/17399004ca49180476dc90df4d379e1c9b62f850/spring-social-core-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-google/1.0.0.RELEASE/a59c5c0358b465722f6359e6f5788acaca31cf42/spring-social-google-1.0.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -608,6 +613,11 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.0.RELEASE/cd5e6c52e00ea603ffc89282ca0f424c8c96f3ba/spring-data-mongodb-1.7.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.0.RELEASE/f3c8d801fc68907ddef15d0d28ab2b3564900b14/spring-data-commons-1.10.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/734a5acccbd07a545c22244159e373aba9e963f6/mongo-java-driver-3.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-core/1.1.0.RELEASE/17399004ca49180476dc90df4d379e1c9b62f850/spring-social-core-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-google/1.0.0.RELEASE/a59c5c0358b465722f6359e6f5788acaca31cf42/spring-social-google-1.0.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -918,6 +928,11 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.0.RELEASE/cd5e6c52e00ea603ffc89282ca0f424c8c96f3ba/spring-data-mongodb-1.7.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.0.RELEASE/f3c8d801fc68907ddef15d0d28ab2b3564900b14/spring-data-commons-1.10.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/734a5acccbd07a545c22244159e373aba9e963f6/mongo-java-driver-3.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-core/1.1.0.RELEASE/17399004ca49180476dc90df4d379e1c9b62f850/spring-social-core-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-google/1.0.0.RELEASE/a59c5c0358b465722f6359e6f5788acaca31cf42/spring-social-google-1.0.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-web/1.1.0.RELEASE/7446db1f18b314f792d4565e1c36f97c79b2eec4/spring-social-web-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-security/1.1.0.RELEASE/8c1df0d833e777676e6a094490508a65b02e2653/spring-social-security-1.1.0.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
