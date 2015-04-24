@@ -63,6 +63,7 @@
 
     <!-- the application context definition for the receipt DispatcherServlet -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <!--suppress SpringModelInspection -->
         <property name="basename" value="messages" />
         <!--<property name="cacheSeconds" value="0" />-->
     </bean>
