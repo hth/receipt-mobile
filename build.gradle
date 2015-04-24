@@ -131,11 +131,12 @@ subprojects {
         compile 'com.receiptofi:service:0.9.0'
         compile 'com.receiptofi:social:0.9.0'
 
-        compile files('../lib/spring-social-core-1.1.0.RELEASE.jar')
+        compile 'org.springframework.social:spring-social-core:1.1.0.RELEASE'
+        compile 'org.springframework.social:spring-social-google:1.0.0.RELEASE'
+        compile 'org.springframework.social:spring-social-web:1.1.0.RELEASE'
+        compile 'org.springframework.social:spring-social-security:1.1.0.RELEASE'
+
         compile files('../lib/spring-social-facebook-1.1.1.RELEASE.jar')
-        compile files('../lib/spring-social-google-1.0.0.RELEASE.jar')
-        compile files('../lib/spring-social-security-1.1.0.RELEASE.jar')
-        compile files('../lib/spring-social-web-1.1.0.RELEASE.jar')
         compile files('../lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar')
         compile files('../lib/geronimo-jms_1.1_spec-1.1.1.jar')
 
