@@ -6,8 +6,8 @@ import static com.receiptofi.mobile.web.controller.SocialAuthenticationControlle
 
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.domain.UserAuthenticationEntity;
-import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.AccountMobileService;
+import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;

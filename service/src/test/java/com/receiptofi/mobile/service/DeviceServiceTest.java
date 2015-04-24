@@ -18,7 +18,6 @@ import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.repository.RegisteredDeviceManager;
-import com.receiptofi.service.ExpensesService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.junit.Before;
