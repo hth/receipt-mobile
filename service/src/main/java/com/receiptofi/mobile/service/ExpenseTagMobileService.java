@@ -2,6 +2,7 @@ package com.receiptofi.mobile.service;
 
 import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
+import com.receiptofi.mobile.repository.ExpenseTagManagerMobile;
 import com.receiptofi.repository.ExpenseTagManager;
 import com.receiptofi.service.ExpensesService;
 
@@ -29,16 +30,19 @@ public class ExpenseTagMobileService {
     private ExpenseTagManager expenseTagManager;
     private DocumentMobileService documentMobileService;
     private ExpensesService expensesService;
+    private ExpenseTagManagerMobile expenseTagManagerMobile;
 
     @Autowired
     public ExpenseTagMobileService(
             ExpenseTagManager expenseTagManager,
             ExpensesService expensesService,
-            DocumentMobileService documentMobileService
+            DocumentMobileService documentMobileService,
+            ExpenseTagManagerMobile expenseTagManagerMobile
     ) {
         this.expenseTagManager = expenseTagManager;
         this.expensesService = expensesService;
         this.documentMobileService = documentMobileService;
+        this.expenseTagManagerMobile = expenseTagManagerMobile;
     }
 
     public List<ExpenseTagEntity> getExpenseTags(String rid) {
@@ -48,6 +52,13 @@ public class ExpenseTagMobileService {
     public ExpenseTagEntity getExpenseTag(String rid, String tagId) {
         if (StringUtils.isNotBlank(tagId)) {
             return expenseTagManager.getExpenseTag(rid, tagId);
+        }
+        return null;
+    }
+
+    public ExpenseTagEntity getExpenseTag(String rid, String tagId, String tagName) {
+        if (StringUtils.isNotBlank(tagId) && StringUtils.isNotBlank(tagName)) {
+            return expenseTagManagerMobile.getExpenseTag(rid, tagId, tagName);
         }
         return null;
     }

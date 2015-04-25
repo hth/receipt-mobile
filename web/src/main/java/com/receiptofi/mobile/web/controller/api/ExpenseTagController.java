@@ -168,7 +168,6 @@ public class ExpenseTagController {
             String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText() : null;
             String tagId = map.containsKey("tagId") ? map.get("tagId").getText() : null;
 
-
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) || StringUtils.isBlank(tagId)) {
                 LOG.warn("Null tagName={} or tagColor={} or tagId={}", tagName, tagColor, tagId);
 
@@ -179,7 +178,7 @@ public class ExpenseTagController {
 
                 return ErrorEncounteredJson.toJson(errors);
             } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
-                LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
+                LOG.warn("Expense Tag with expenseTagName={} for rid={} could not be found", tagName, rid);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Expense Tag does not exists.");
@@ -243,7 +242,6 @@ public class ExpenseTagController {
             String tagName = map.containsKey("tagName") ? map.get("tagName").getText() : null;
             String tagId = map.containsKey("tagId") ? map.get("tagId").getText() : null;
 
-
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagId)) {
                 LOG.warn("Null tagName={} or tagId={}", tagName, tagId);
 
@@ -253,8 +251,8 @@ public class ExpenseTagController {
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
 
                 return ErrorEncounteredJson.toJson(errors);
-            } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
-                LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
+            } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId, tagName)) {
+                LOG.warn("Expense Tag with expenseTagName={} for rid={} does not exists", tagName, rid);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Expense Tag does not exists.");
