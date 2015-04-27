@@ -5,9 +5,9 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/receipt-mobile-servlet.xml</file>
-          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/mongo/mongo-config.xml</file>
-          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/security/secure.xml</file>
           <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/root-context.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/security/secure.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/receipt_mobile_exploded/WEB-INF/mongo/mongo-config.xml</file>
         </fileset>
       </configuration>
     </facet>

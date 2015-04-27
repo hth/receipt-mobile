@@ -218,9 +218,6 @@ subprojects {
         compile 'net.logstash.logback:logstash-logback-encoder:4.2'
         compile 'net.bull.javamelody:javamelody-core:1.+'
 
-        compile 'net.sf.uadetector:uadetector-core:0.9.22'
-        compile 'net.sf.uadetector:uadetector-resources:2014.10'
-
         compile 'javax.validation:validation-api:1.1.0.Final'
 
         testCompile group: 'junit', name: 'junit', version: '4.+'
