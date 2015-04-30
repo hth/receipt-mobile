@@ -4,6 +4,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.FileDBService;
+import com.receiptofi.utils.Validate;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,8 +92,12 @@ public class FileDownloadController {
             return;
         }
 
+        if (!Validate.isValidObjectId(imageId)) {
+            LOG.error("ImageId not valid ObjectId={}", imageId);
+            return;
+        }
+
         try {
-            Assert.hasText(imageId, "ImageId is empty");
             GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
 
             if (null == gridFSDBFile) {
