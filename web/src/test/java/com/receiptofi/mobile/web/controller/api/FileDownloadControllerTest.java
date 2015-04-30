@@ -89,7 +89,7 @@ public class FileDownloadControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         when(fileDBService.getFile(anyString())).thenReturn(gridFSDBFile);
         when(gridFSDBFile.getFilename()).thenReturn("filename");
-        fileDownloadController.getDocumentImage("", "", "", httpServletRequest, httpServletResponse);
+        fileDownloadController.getDocumentImage("", "", "ab", httpServletRequest, httpServletResponse);
         verify(gridFSDBFile, times(1)).writeTo(httpServletResponse.getOutputStream());
     }
 }
