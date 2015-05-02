@@ -261,11 +261,11 @@ public class ExpenseTagController {
 
                 return ErrorEncounteredJson.toJson(errors);
             } else {
-                try {
-                    expenseTagMobileService.deleteExpenseTag(tagId, tagName, rid);
+                boolean result = expenseTagMobileService.deleteExpenseTag(tagId, tagName, rid);
+                if(result) {
                     return expenseTagMobileService.getUpdates(rid).asJson();
-                } catch (Exception e) {
-                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                } else {
+                    LOG.error("Failure to delete expense tag rid={} tagId={}", rid, tagId);
 
                     Map<String, String> errors = new HashMap<>();
                     errors.put(ErrorEncounteredJson.REASON, "Something went wrong.");
