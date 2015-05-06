@@ -29,7 +29,7 @@
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
 
     <!-- Swagger Initialization for Rest API Starts -->
-    <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
+    <bean class="springfox.documentation.swagger.configuration.SwaggerCommonConfiguration" />
     <bean class="com.receiptofi.mobile.web.config.SwaggerConfig"/>
     <!-- Swagger Initialization for Rest API Ends   -->
 
