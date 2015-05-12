@@ -3,7 +3,7 @@ package com.receiptofi.mobile.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import com.receiptofi.domain.types.BillingProviderEnum;
+import com.receiptofi.domain.types.PaymentGatewayEnum;
 
 import java.math.BigDecimal;
 
@@ -28,7 +28,7 @@ public class ReceiptofiPlan {
     private BigDecimal price;
     private int billingFrequency;
     private int billingDayOfMonth;
-    private BillingProviderEnum billingProvider;
+    private PaymentGatewayEnum paymentGateway;
 
     public String getId() {
         return id;
@@ -78,11 +78,11 @@ public class ReceiptofiPlan {
         this.billingDayOfMonth = billingDayOfMonth;
     }
 
-    public BillingProviderEnum getBillingProvider() {
-        return billingProvider;
+    public PaymentGatewayEnum getPaymentGateway() {
+        return paymentGateway;
     }
 
-    public void setBillingProvider(BillingProviderEnum billingProvider) {
-        this.billingProvider = billingProvider;
+    public void setPaymentGateway(PaymentGatewayEnum paymentGateway) {
+        this.paymentGateway = paymentGateway;
     }
 }

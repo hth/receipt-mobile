@@ -2,7 +2,7 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.google.gson.JsonObject;
 
-import com.receiptofi.domain.types.BillingProviderEnum;
+import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
@@ -185,7 +185,7 @@ public class BillingController {
                 Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
                 String billingProvider = map.containsKey("billingProvider") ? map.get("billingProvider").getText() : null;
                 Assert.hasText(billingProvider, "No billing provider provided");
-                BillingProviderEnum.valueOf(billingProvider);
+                PaymentGatewayEnum.valueOf(billingProvider);
 
                 boolean status = billingMobileService.paymentPersonal(rid);
                 JsonObject jsonObject = new JsonObject();
