@@ -7,6 +7,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.BillingAccountEntity;
+import com.receiptofi.repository.BillingAccountManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,7 @@ public class BillingAccountManagerMobileImpl implements BillingAccountManagerMob
             "collection");
 
     @Autowired private MongoTemplate mongoTemplate;
+    @Autowired private BillingAccountManager billingAccountManager;
 
     @Override
     public BillingAccountEntity getBillingAccount(String rid) {
@@ -42,5 +44,10 @@ public class BillingAccountManagerMobileImpl implements BillingAccountManagerMob
                 query(where("RID").is(rid).andOperator(isActive(), isNotDeleted())),
                 BillingAccountEntity.class
         );
+    }
+
+    @Override
+    public void save(BillingAccountEntity billingAccount) {
+        billingAccountManager.save(billingAccount);
     }
 }

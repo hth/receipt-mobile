@@ -2,10 +2,13 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.google.gson.JsonObject;
 
+import com.receiptofi.domain.types.BillingProviderEnum;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.utils.ParseJsonStringToMap;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,7 +93,12 @@ public class BillingController {
     }
 
     /**
-     * Generate BrainTree client token for mobile payments.
+     * Generate BrainTree client token for mobile payments. This initializes Braintree in mobile device.
+     * Should obtain a new client token often, at least as often as your app restarts. For the best experience,
+     * you should kick off this network operation before it would block a user interaction. Preferably when
+     * user its a payment screen.
+     * <p>
+     * You must generate a client token on your server once per user checkout session.
      *
      * @param mail
      * @param auth
@@ -123,9 +132,7 @@ public class BillingController {
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 LOG.info("Generating client token for rid={} did={}", rid, did);
-                String token = billingMobileService.getBrianTreeClientToken(rid);
-                Assert.hasText(token, "Token should not be null");
-                return token;
+                return billingMobileService.getBrianTreeClientToken(rid);
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
@@ -151,7 +158,7 @@ public class BillingController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String brainTreePurchases(
+    public String brainTreePayment(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -174,9 +181,12 @@ public class BillingController {
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 LOG.info("Submitting payment for rid={} did={}", rid, did);
-//                Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-//                String clientToken = map.containsKey("ct") ? map.get("ct").getText() : null;
-//                String paymentMethod = map.containsKey("payment_method_nonce") ? map.get("payment_method_nonce").getText() : null;
+
+                Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
+                String billingProvider = map.containsKey("billingProvider") ? map.get("billingProvider").getText() : null;
+                Assert.hasText(billingProvider, "No billing provider provided");
+                BillingProviderEnum.valueOf(billingProvider);
+
                 boolean status = billingMobileService.paymentPersonal(rid);
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("status", status);

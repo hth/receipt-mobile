@@ -7,6 +7,7 @@ import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
 import com.receiptofi.domain.types.BillingProviderEnum;
+import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
@@ -21,6 +22,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import com.braintreegateway.Address;
+import com.braintreegateway.AddressRequest;
 import com.braintreegateway.BraintreeGateway;
 import com.braintreegateway.ClientTokenRequest;
 import com.braintreegateway.Customer;
@@ -30,6 +33,7 @@ import com.braintreegateway.Plan;
 import com.braintreegateway.Result;
 import com.braintreegateway.Transaction;
 import com.braintreegateway.TransactionRequest;
+import com.oracle.tools.packager.Log;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -50,7 +54,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class BillingMobileService {
     private static final Logger LOG = LoggerFactory.getLogger(BillingMobileService.class);
-    public static final String PLANS = "PLANS";
+    private static final String PLANS = "PLANS";
 
     private BraintreeGateway gateway;
     private BillingAccountManagerMobile billingAccountManager;
@@ -179,6 +183,7 @@ public class BillingMobileService {
                 receiptofiPlan.setPrice(plan.getPrice());
                 receiptofiPlan.setBillingFrequency(plan.getBillingFrequency());
                 receiptofiPlan.setBillingDayOfMonth(plan.getBillingDayOfMonth());
+                receiptofiPlan.setBillingProvider(billingProvider);
 
                 receiptofiPlans.add(receiptofiPlan);
             }
@@ -194,7 +199,7 @@ public class BillingMobileService {
         if (billingAccount.getPaymentGateway().isEmpty()) {
             clientToken = gateway.clientToken().generate();
         } else {
-            PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().get(billingAccount.getPaymentGateway().size() - 1);
+            PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
             switch (paymentGatewayUser.getPaymentGateway()) {
                 case BT:
                     ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
@@ -209,39 +214,79 @@ public class BillingMobileService {
         return clientToken;
     }
 
+    //https://developers.braintreepayments.com/ios+java/reference/general/testing
     public boolean paymentPersonal(String rid) {
-        CustomerRequest crequest = new CustomerRequest()
-                .firstName("Mark")
-                .lastName("Jones")
-                .company("Jones Co.")
-                .email("mark.jones@example.com")
-                .fax("419-555-1234")
-                .phone("614-555-1234")
-                .website("http://example.com")
-                .customerId(rid);
-        Result<Customer> cresult = gateway.customer().create(crequest);
+        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        PaymentGatewayUser paymentGatewayUser;
+        if (billingAccount.getPaymentGateway().isEmpty()) {
+            TransactionRequest request = new TransactionRequest();
+            request.customer()
+                    .firstName("Jenna")
+                    .lastName("Smith");
+            request.creditCard()
+                    .number("4111111111111111")
+                    .expirationMonth("05")
+                    .expirationYear("2016")
+                    .cvv("100");
+            request.billingAddress()
+                    .firstName("Jenna")
+                    .lastName("Smith")
+                    .postalCode("60622");
+            request.amount(new BigDecimal("2"))
+                    .paymentMethodNonce("nonce-from-the-client")
+                    .options()
+                    .submitForSettlement(true)
+                    .storeInVaultOnSuccess(true)
+                    .done();
 
-        cresult.isSuccess();
-        cresult.getTarget().getId();
+            Result<Transaction> result = gateway.transaction().sale(request);
+            if(result.isSuccess()) {
+                paymentGatewayUser = new PaymentGatewayUser();
+                paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
+                paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
+                paymentGatewayUser.setFirstName("Jenna");
+                paymentGatewayUser.setLastName("Smith");
+                paymentGatewayUser.setPostalCode("60622");
+                billingAccount.addPaymentGateway(paymentGatewayUser);
+                billingAccountManager.save(billingAccount);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
-        TransactionRequest request = new TransactionRequest();
-        request.customer()
-                .firstName("Mark")
-                .lastName("Jones");
+            TransactionRequest request = new TransactionRequest();
+            request.customer()
+                    .customerId(paymentGatewayUser.getCustomerId())
+                    .firstName(paymentGatewayUser.getFirstName())
+                    .lastName(paymentGatewayUser.getLastName());
+            request.creditCard()
+                    .number("4111111111111111")
+                    .expirationMonth("05")
+                    .expirationYear("2016")
+                    .cvv("100");
+            request.amount(new BigDecimal("2"))
+                    .paymentMethodNonce("nonce-from-the-client")
+                    .options()
+                    .submitForSettlement(true)
+                    .done();
 
-        request.creditCard().number("4111111111111111").expirationMonth("05").expirationYear("2016");
-
-        request.amount(new BigDecimal("100.00"))
-                .paymentMethodNonce("nonce-from-the-client")
-                .customerId(cresult.getTarget().getId())
-                .options()
-                .submitForSettlement(true)
-                .storeInVaultOnSuccess(true)
-                .done();
-
-        Result<Transaction> result = gateway.transaction().sale(request);
-        return result.isSuccess();
+            Result<Transaction> result = gateway.transaction().sale(request);
+            return result.isSuccess();
+        }
     }
+
+//    AddressRequest request = new AddressRequest()
+//            .firstName("Jenna")
+//            .lastName("Smith")
+//            .company("Braintree")
+//            .streetAddress("1 E Main St")
+//            .extendedAddress("Suite 403")
+//            .locality("Chicago")
+//            .region("Illinois")
+//            .postalCode("60622")
+//            .countryCodeAlpha2("US");
 
     public boolean paymentBusiness(String rid) {
         TransactionRequest request = new TransactionRequest();
