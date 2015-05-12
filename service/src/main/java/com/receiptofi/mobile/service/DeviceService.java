@@ -150,4 +150,8 @@ public class DeviceService {
         }
         return registrationSuccess;
     }
+
+    public boolean isDeviceRegistered(String rid, String did) {
+        return registeredDeviceManager.find(rid, did) != null;
+    }
 }

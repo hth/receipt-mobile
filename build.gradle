@@ -140,7 +140,6 @@ subprojects {
         compile 'org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1'
         compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
 
-
         compile "$springGroup:spring-aop:$springVersion"
         compile "$springGroup:spring-aspects:$springVersion"
         compile "$springGroup:spring-beans:$springVersion"
@@ -171,6 +170,7 @@ subprojects {
         /** --- Specific to Receipt Mobile Web Application ---- */
         compile "io.springfox:springfox-swagger2:2.0.0"
         compile "io.springfox:springfox-swagger-ui:2.0.0"
+        compile 'com.braintreepayments.gateway:braintree-java:2.43.0'
         /** ------- */
 
         compile 'org.apache.commons:commons-collections4:4.0'
