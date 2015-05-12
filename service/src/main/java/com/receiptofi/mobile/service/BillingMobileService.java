@@ -6,7 +6,6 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
-import com.receiptofi.domain.types.BillingProviderEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
@@ -22,18 +21,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import com.braintreegateway.Address;
-import com.braintreegateway.AddressRequest;
 import com.braintreegateway.BraintreeGateway;
 import com.braintreegateway.ClientTokenRequest;
-import com.braintreegateway.Customer;
-import com.braintreegateway.CustomerRequest;
 import com.braintreegateway.Environment;
 import com.braintreegateway.Plan;
 import com.braintreegateway.Result;
 import com.braintreegateway.Transaction;
 import com.braintreegateway.TransactionRequest;
-import com.oracle.tools.packager.Log;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -62,7 +56,7 @@ public class BillingMobileService {
 
     /** Cache plans. */
     private final Cache<String, List<ReceiptofiPlan>> planCache;
-    private final Cache<BillingProviderEnum, List<ReceiptofiPlan>> planProviderCache;
+    private final Cache<PaymentGatewayEnum, List<ReceiptofiPlan>> planProviderCache;
 
     @Autowired
     public BillingMobileService(
@@ -148,7 +142,7 @@ public class BillingMobileService {
         if (receiptofiPlans == null) {
             receiptofiPlans = new ArrayList<>();
 
-            for (BillingProviderEnum billingProvider : BillingProviderEnum.values()) {
+            for (PaymentGatewayEnum billingProvider : PaymentGatewayEnum.values()) {
                 switch (billingProvider) {
                     case BT:
                         receiptofiPlans.addAll(getAllBraintreePlans(billingProvider));
@@ -169,8 +163,8 @@ public class BillingMobileService {
      *
      * @return
      */
-    private List<ReceiptofiPlan> getAllBraintreePlans(BillingProviderEnum billingProvider) {
-        List<ReceiptofiPlan> receiptofiPlans = planProviderCache.getIfPresent(billingProvider);
+    private List<ReceiptofiPlan> getAllBraintreePlans(PaymentGatewayEnum paymentGateway) {
+        List<ReceiptofiPlan> receiptofiPlans = planProviderCache.getIfPresent(paymentGateway);
         if (receiptofiPlans == null) {
             receiptofiPlans = new ArrayList<>();
 
@@ -183,11 +177,11 @@ public class BillingMobileService {
                 receiptofiPlan.setPrice(plan.getPrice());
                 receiptofiPlan.setBillingFrequency(plan.getBillingFrequency());
                 receiptofiPlan.setBillingDayOfMonth(plan.getBillingDayOfMonth());
-                receiptofiPlan.setBillingProvider(billingProvider);
+                receiptofiPlan.setPaymentGateway(paymentGateway);
 
                 receiptofiPlans.add(receiptofiPlan);
             }
-            planProviderCache.put(billingProvider, receiptofiPlans);
+            planProviderCache.put(paymentGateway, receiptofiPlans);
         }
         return receiptofiPlans;
     }
@@ -240,7 +234,7 @@ public class BillingMobileService {
                     .done();
 
             Result<Transaction> result = gateway.transaction().sale(request);
-            if(result.isSuccess()) {
+            if (result.isSuccess()) {
                 paymentGatewayUser = new PaymentGatewayUser();
                 paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
                 paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
