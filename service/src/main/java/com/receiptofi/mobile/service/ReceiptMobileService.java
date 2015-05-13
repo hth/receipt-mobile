@@ -47,6 +47,12 @@ public class ReceiptMobileService {
         receiptService.updateReceiptExpenseTag(receipt, expenseTagId);
     }
 
+    /**
+     * Saves the comment and updates receipts with comment.
+     *
+     * @param notes
+     * @param receipt
+     */
     public void saveComment(String notes, ReceiptEntity receipt) {
         CommentEntity comment = receipt.getNotes();
         if (null == comment) {
@@ -57,6 +63,7 @@ public class ReceiptMobileService {
         }
         commentService.save(comment);
         receipt.setNotes(comment);
+        receiptService.save(receipt);
     }
 
     public void reopen(String receiptId, String rid) throws Exception {
