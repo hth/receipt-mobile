@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -108,7 +109,7 @@ public class BillingController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/btct",
+            value = "/btToken",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
@@ -187,7 +188,24 @@ public class BillingController {
                 Assert.hasText(billingProvider, "No billing provider provided");
                 PaymentGatewayEnum.valueOf(billingProvider);
 
-                boolean status = billingMobileService.paymentPersonal(rid);
+                BigDecimal amount = new BigDecimal("2.00");
+                String firstName = "Jenna";
+                String lastName = "Smith";
+                String cardNumber = "4111111111111111";
+                String month = "05";
+                String year = "2016";
+                String cvv = "100";
+                String postal = "60622";
+                boolean status = billingMobileService.paymentPersonal(
+                        rid,
+                        amount,
+                        firstName,
+                        lastName,
+                        cardNumber,
+                        month,
+                        year,
+                        cvv,
+                        postal);
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("status", status);
                 return jsonObject.toString();

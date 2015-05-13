@@ -209,24 +209,34 @@ public class BillingMobileService {
     }
 
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
-    public boolean paymentPersonal(String rid) {
+    public boolean paymentPersonal(
+            String rid,
+            BigDecimal amount,
+            String firstName,
+            String lastName,
+            String cardNumber,
+            String month,
+            String year,
+            String cvv,
+            String postal
+    ) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         PaymentGatewayUser paymentGatewayUser;
         if (billingAccount.getPaymentGateway().isEmpty()) {
             TransactionRequest request = new TransactionRequest();
             request.customer()
-                    .firstName("Jenna")
-                    .lastName("Smith");
+                    .firstName(firstName)
+                    .lastName(lastName);
             request.creditCard()
-                    .number("4111111111111111")
-                    .expirationMonth("05")
-                    .expirationYear("2016")
-                    .cvv("100");
+                    .number(cardNumber)
+                    .expirationMonth(month)
+                    .expirationYear(year)
+                    .cvv(cvv);
             request.billingAddress()
-                    .firstName("Jenna")
-                    .lastName("Smith")
-                    .postalCode("60622");
-            request.amount(new BigDecimal("2"))
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .postalCode(postal);
+            request.amount(amount)
                     .paymentMethodNonce("nonce-from-the-client")
                     .options()
                     .submitForSettlement(true)
