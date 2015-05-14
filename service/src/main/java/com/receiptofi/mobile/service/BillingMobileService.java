@@ -21,8 +21,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import com.braintreegateway.AddressRequest;
 import com.braintreegateway.BraintreeGateway;
 import com.braintreegateway.ClientTokenRequest;
+import com.braintreegateway.CustomerRequest;
 import com.braintreegateway.Environment;
 import com.braintreegateway.Plan;
 import com.braintreegateway.Result;
@@ -241,16 +243,19 @@ public class BillingMobileService {
                     .options()
                     .submitForSettlement(true)
                     .storeInVaultOnSuccess(true)
+                    .addBillingAddressToPaymentMethod(true)
                     .done();
+            request.recurring(true);
 
             Result<Transaction> result = gateway.transaction().sale(request);
             if (result.isSuccess()) {
                 paymentGatewayUser = new PaymentGatewayUser();
                 paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
                 paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
-                paymentGatewayUser.setFirstName("Jenna");
-                paymentGatewayUser.setLastName("Smith");
-                paymentGatewayUser.setPostalCode("60622");
+                paymentGatewayUser.setFirstName(firstName);
+                paymentGatewayUser.setLastName(lastName);
+                paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
+                paymentGatewayUser.setPostalCode(postal);
                 billingAccount.addPaymentGateway(paymentGatewayUser);
                 billingAccountManager.save(billingAccount);
                 return true;
@@ -260,17 +265,17 @@ public class BillingMobileService {
         } else {
             paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
+            updateCustomer(firstName, lastName, paymentGatewayUser, billingAccount);
+            updateBillingAddress(postal, paymentGatewayUser, billingAccount);
+
             TransactionRequest request = new TransactionRequest();
-            request.customer()
-                    .customerId(paymentGatewayUser.getCustomerId())
-                    .firstName(paymentGatewayUser.getFirstName())
-                    .lastName(paymentGatewayUser.getLastName());
+            request.customerId(paymentGatewayUser.getCustomerId());
             request.creditCard()
-                    .number("4111111111111111")
-                    .expirationMonth("05")
-                    .expirationYear("2016")
-                    .cvv("100");
-            request.amount(new BigDecimal("2"))
+                    .number(cardNumber)
+                    .expirationMonth(month)
+                    .expirationYear(year)
+                    .cvv(cvv);
+            request.amount(amount)
                     .paymentMethodNonce("nonce-from-the-client")
                     .options()
                     .submitForSettlement(true)
@@ -278,6 +283,54 @@ public class BillingMobileService {
 
             Result<Transaction> result = gateway.transaction().sale(request);
             return result.isSuccess();
+        }
+    }
+
+    private void updateCustomer(
+            String firstName,
+            String lastName,
+            PaymentGatewayUser paymentGatewayUser,
+            BillingAccountEntity billingAccount
+    ) {
+        boolean modified = false;
+
+        if (!firstName.equals(paymentGatewayUser.getFirstName())) {
+            paymentGatewayUser.setFirstName(firstName);
+            modified = true;
+        }
+        if (!lastName.equals(paymentGatewayUser.getLastName())) {
+            paymentGatewayUser.setLastName(lastName);
+            modified = true;
+        }
+
+        if (modified) {
+            billingAccountManager.save(billingAccount);
+            CustomerRequest customerRequest = new CustomerRequest();
+            customerRequest
+                    .firstName(firstName)
+                    .lastName(lastName);
+            gateway.customer().update(paymentGatewayUser.getCustomerId(), customerRequest);
+        }
+    }
+
+    private void updateBillingAddress(
+            String postal,
+            PaymentGatewayUser paymentGatewayUser,
+            BillingAccountEntity billingAccount
+    ) {
+        boolean modified = false;
+
+        if (!postal.equals(paymentGatewayUser.getPostalCode())) {
+            paymentGatewayUser.setPostalCode(postal);
+            modified = true;
+        }
+
+        if (modified) {
+            billingAccountManager.save(billingAccount);
+            AddressRequest addressRequest = new AddressRequest();
+            addressRequest
+                    .postalCode(postal);
+            gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
     }
 
