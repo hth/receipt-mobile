@@ -109,7 +109,7 @@ public class BillingController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/btToken",
+            value = "/token",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
@@ -153,7 +153,7 @@ public class BillingController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/btp",
+            value = "/payment",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,

@@ -416,7 +416,7 @@
     </object>
     <object type="LMREQUEST" id="z138">
         <attribute name="uuid" type="string">C8C70837-0CB4-4E32-9A6A-43B3EE0B5684</attribute>
-        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/btct.json</attribute>
+        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/token.json</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -427,7 +427,7 @@
         <attribute name="name" type="string">Billing Client Token</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z128"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z137 z140 z139 z141"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z140 z137 z139 z141"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z139">
         <attribute name="value" type="string">12347</attribute>
@@ -537,7 +537,7 @@
     <object type="LMREQUEST" id="z149">
         <attribute name="body" type="string">[{"data":{"json":"{\\"billingProvider\\":\\"BT\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">5486853D-C364-4C82-B797-CD89588F595D</attribute>
-        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/btp.json</attribute>
+        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/payment.json</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

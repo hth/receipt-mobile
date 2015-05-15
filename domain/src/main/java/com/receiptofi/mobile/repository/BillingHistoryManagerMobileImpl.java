@@ -45,13 +45,22 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
     public List<BillingHistoryEntity> getHistory(String rid, Date since) {
         return mongoTemplate.find(
                 query(where("RID").is(rid).and("U").gte(since)).with(new Sort(DESC, "BM")),
-                BillingHistoryEntity.class);
+                BillingHistoryEntity.class
+        );
     }
 
     @Override
     public List<BillingHistoryEntity> getHistory(String rid) {
         return mongoTemplate.find(
                 query(where("RID").is(rid)).with(new Sort(DESC, "BM")),
+                BillingHistoryEntity.class
+        );
+    }
+
+    @Override
+    public BillingHistoryEntity getHistory(String rid, String yyyyMM) {
+        return  mongoTemplate.findOne(
+                query(where("RID").is(rid).and("BM").is(yyyyMM)),
                 BillingHistoryEntity.class
         );
     }
