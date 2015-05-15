@@ -6,6 +6,8 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
+import com.receiptofi.domain.types.AccountBillingTypeEnum;
+import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
@@ -28,6 +30,8 @@ import com.braintreegateway.CustomerRequest;
 import com.braintreegateway.Environment;
 import com.braintreegateway.Plan;
 import com.braintreegateway.Result;
+import com.braintreegateway.Subscription;
+import com.braintreegateway.SubscriptionRequest;
 import com.braintreegateway.Transaction;
 import com.braintreegateway.TransactionRequest;
 
@@ -182,7 +186,7 @@ public class BillingMobileService {
      * @param planId
      * @return
      */
-    public ReceiptofiPlan getPlan(String planId) {
+    private ReceiptofiPlan getPlan(String planId) {
         ReceiptofiPlan receiptofiPlan = plansMap.getIfPresent(planId);
         if (receiptofiPlan == null) {
             getAllPlans();
@@ -211,6 +215,7 @@ public class BillingMobileService {
                 receiptofiPlan.setBillingFrequency(plan.getBillingFrequency());
                 receiptofiPlan.setBillingDayOfMonth(plan.getBillingDayOfMonth());
                 receiptofiPlan.setPaymentGateway(paymentGateway);
+                Assert.notNull(receiptofiPlan.getAccountBillingType());
 
                 receiptofiPlans.add(receiptofiPlan);
                 plansMap.put(plan.getId(), receiptofiPlan);
@@ -245,7 +250,7 @@ public class BillingMobileService {
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
     public boolean paymentPersonal(
             String rid,
-            BigDecimal amount,
+            String planId,
             String firstName,
             String lastName,
             String cardNumber,
@@ -255,6 +260,7 @@ public class BillingMobileService {
             String postal
     ) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        ReceiptofiPlan receiptofiPlan = getPlan(planId);
         PaymentGatewayUser paymentGatewayUser;
         if (billingAccount.getPaymentGateway().isEmpty()) {
             TransactionRequest request = new TransactionRequest();
@@ -271,7 +277,7 @@ public class BillingMobileService {
                     .firstName(firstName)
                     .lastName(lastName)
                     .postalCode(postal);
-            request.amount(amount)
+            request.amount(receiptofiPlan.getPrice())
                     .paymentMethodNonce("nonce-from-the-client")
                     .options()
                     .submitForSettlement(true)
@@ -290,7 +296,22 @@ public class BillingMobileService {
                 paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
                 paymentGatewayUser.setPostalCode(postal);
                 billingAccount.addPaymentGateway(paymentGatewayUser);
+                billingAccount.markAccountBilled();
                 billingAccountManager.save(billingAccount);
+
+                BillingHistoryEntity billingHistory = addBillingHistory(rid, receiptofiPlan, paymentGatewayUser, result.getTransaction());
+                billingHistoryManager.save(billingHistory);
+
+                SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
+                subscriptionRequest
+                        .paymentMethodNonce(result.getTarget().getCreditCard().getToken())
+                        .planId(planId);
+                Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
+                if (subscriptionResult.isSuccess()) {
+                    billingAccount.setAccountBillingType(AccountBillingTypeEnum.M10);
+                    billingAccountManager.save(billingAccount);
+                }
+
                 return true;
             } else {
                 return false;
@@ -308,15 +329,42 @@ public class BillingMobileService {
                     .expirationMonth(month)
                     .expirationYear(year)
                     .cvv(cvv);
-            request.amount(amount)
+            request.amount(receiptofiPlan.getPrice())
                     .paymentMethodNonce("nonce-from-the-client")
                     .options()
                     .submitForSettlement(true)
                     .done();
 
             Result<Transaction> result = gateway.transaction().sale(request);
+            if (result.isSuccess()) {
+                BillingHistoryEntity billingHistory = addBillingHistory(rid, receiptofiPlan, paymentGatewayUser, result.getTransaction());
+                billingHistoryManager.save(billingHistory);
+
+                SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
+                subscriptionRequest
+                        .paymentMethodNonce(result.getTarget().getCreditCard().getToken())
+                        .planId(planId);
+                Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
+                if (subscriptionResult.isSuccess()) {
+                    LOG.info("Added to subscription");
+                }
+            }
             return result.isSuccess();
         }
+    }
+
+    private BillingHistoryEntity addBillingHistory(
+            String rid,
+            ReceiptofiPlan receiptofiPlan,
+            PaymentGatewayUser paymentGatewayUser,
+            Transaction transaction
+    ) {
+        BillingHistoryEntity billingHistory = new BillingHistoryEntity(rid, new Date());
+        billingHistory.setBilledStatus(BilledStatusEnum.P);
+        billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
+        billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
+        billingHistory.setTransactionId(transaction.getId());
+        return billingHistory;
     }
 
     private void updateCustomer(

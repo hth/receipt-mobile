@@ -6,6 +6,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
+import com.receiptofi.repository.BillingHistoryManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
             "collection");
 
     @Autowired private MongoTemplate mongoTemplate;
+    @Autowired private BillingHistoryManager billingHistoryManager;
 
     @Override
     public List<BillingHistoryEntity> getHistory(String rid, Date since) {
@@ -52,5 +54,10 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
                 query(where("RID").is(rid)).with(new Sort(DESC, "BM")),
                 BillingHistoryEntity.class
         );
+    }
+
+    @Override
+    public void save(BillingHistoryEntity billingHistory) {
+        billingHistoryManager.save(billingHistory);
     }
 }

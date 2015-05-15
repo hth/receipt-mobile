@@ -12,4 +12,5 @@ import java.util.List;
 public interface BillingHistoryManagerMobile extends RepositoryManager<BillingHistoryEntity> {
     List<BillingHistoryEntity> getHistory(String rid, Date since);
     List<BillingHistoryEntity> getHistory(String rid);
+    void save(BillingHistoryEntity billingHistory);
 }

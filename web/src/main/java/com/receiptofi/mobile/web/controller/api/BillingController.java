@@ -189,9 +189,6 @@ public class BillingController {
                 PaymentGatewayEnum.valueOf(billingProvider);
 
                 String planId = "M10";
-                ReceiptofiPlan receiptofiPlan = billingMobileService.getPlan(planId);
-
-                BigDecimal amount = receiptofiPlan.getPrice();
                 String firstName = "Jenna";
                 String lastName = "Smith";
                 String cardNumber = "4111111111111111";
@@ -201,7 +198,7 @@ public class BillingController {
                 String postal = "60622";
                 boolean status = billingMobileService.paymentPersonal(
                         rid,
-                        amount,
+                        planId,
                         firstName,
                         lastName,
                         cardNumber,
