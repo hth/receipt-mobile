@@ -59,6 +59,8 @@ public class BillingMobileService {
     /** Cache plans. */
     private final Cache<String, List<ReceiptofiPlan>> planCache;
     private final Cache<PaymentGatewayEnum, List<ReceiptofiPlan>> planProviderCache;
+    private final Cache<String, ReceiptofiPlan> plansMap;
+    private String merchantAccountId;
 
     @Autowired
     public BillingMobileService(
@@ -73,6 +75,9 @@ public class BillingMobileService {
 
             @Value ("${braintree.private_key}")
             String brainTreePrivateKey,
+
+            @Value ("${braintree.merchant_account_id}")
+            String merchantAccountId,
 
             @Value ("${plan.cache.minutes}")
             int planCacheMinutes,
@@ -97,6 +102,11 @@ public class BillingMobileService {
                     .maximumSize(20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
+
+            plansMap = CacheBuilder.newBuilder()
+                    .maximumSize(20)
+                    .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
+                    .build();
         } else {
             gateway = new BraintreeGateway(
                     Environment.SANDBOX,
@@ -114,10 +124,16 @@ public class BillingMobileService {
                     .maximumSize(20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
+
+            plansMap = CacheBuilder.newBuilder()
+                    .maximumSize(20)
+                    .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
+                    .build();
         }
 
         this.billingAccountManager = billingAccountManager;
         this.billingHistoryManager = billingHistoryManager;
+        this.merchantAccountId = merchantAccountId;
     }
 
     public void getBilling(String rid, AvailableAccountUpdates availableAccountUpdates) {
@@ -141,7 +157,7 @@ public class BillingMobileService {
      */
     public List<ReceiptofiPlan> getAllPlans() {
         List<ReceiptofiPlan> receiptofiPlans = planCache.getIfPresent(PLANS);
-        if (receiptofiPlans == null) {
+        if (null == receiptofiPlans) {
             receiptofiPlans = new ArrayList<>();
 
             for (PaymentGatewayEnum billingProvider : PaymentGatewayEnum.values()) {
@@ -158,6 +174,21 @@ public class BillingMobileService {
             planCache.put(PLANS, receiptofiPlans);
         }
         return receiptofiPlans;
+    }
+
+    /**
+     * Get plan from planId.
+     *
+     * @param planId
+     * @return
+     */
+    public ReceiptofiPlan getPlan(String planId) {
+        ReceiptofiPlan receiptofiPlan = plansMap.getIfPresent(planId);
+        if (receiptofiPlan == null) {
+            getAllPlans();
+            receiptofiPlan = plansMap.getIfPresent(planId);
+        }
+        return receiptofiPlan;
     }
 
     /**
@@ -182,6 +213,7 @@ public class BillingMobileService {
                 receiptofiPlan.setPaymentGateway(paymentGateway);
 
                 receiptofiPlans.add(receiptofiPlan);
+                plansMap.put(plan.getId(), receiptofiPlan);
             }
             planProviderCache.put(paymentGateway, receiptofiPlans);
         }
@@ -226,6 +258,7 @@ public class BillingMobileService {
         PaymentGatewayUser paymentGatewayUser;
         if (billingAccount.getPaymentGateway().isEmpty()) {
             TransactionRequest request = new TransactionRequest();
+            request.merchantAccountId(merchantAccountId);
             request.customer()
                     .firstName(firstName)
                     .lastName(lastName);

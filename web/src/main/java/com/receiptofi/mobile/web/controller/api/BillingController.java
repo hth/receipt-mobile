@@ -188,7 +188,10 @@ public class BillingController {
                 Assert.hasText(billingProvider, "No billing provider provided");
                 PaymentGatewayEnum.valueOf(billingProvider);
 
-                BigDecimal amount = new BigDecimal("2.00");
+                String planId = "M10";
+                ReceiptofiPlan receiptofiPlan = billingMobileService.getPlan(planId);
+
+                BigDecimal amount = receiptofiPlan.getPrice();
                 String firstName = "Jenna";
                 String lastName = "Smith";
                 String cardNumber = "4111111111111111";
