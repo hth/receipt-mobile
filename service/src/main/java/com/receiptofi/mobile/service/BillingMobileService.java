@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.service;
 
+import static com.receiptofi.domain.BillingHistoryEntity.YYYY_MM;
+
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -287,6 +289,9 @@ public class BillingMobileService {
 
             Result<Transaction> result = gateway.transaction().sale(request);
             if (result.isSuccess()) {
+                LOG.info("Paid for rid={} plan={} customerId={}",
+                        rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
+
                 paymentGatewayUser = new PaymentGatewayUser();
                 paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
                 paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
@@ -298,7 +303,7 @@ public class BillingMobileService {
                 billingAccount.markAccountBilled();
                 billingAccountManager.save(billingAccount);
 
-                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, BillingHistoryEntity.YYYY_MM.format(new Date()));
+                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
                 if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
                     billingHistory = createBillingHistory(
                             rid,
@@ -335,7 +340,10 @@ public class BillingMobileService {
 
             Result<Transaction> result = gateway.transaction().sale(request);
             if (result.isSuccess()) {
-                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, BillingHistoryEntity.YYYY_MM.format(new Date()));
+                LOG.info("Paid for rid={} plan={} customerId={}",
+                        rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
+
+                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
                 if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
                     billingHistory = createBillingHistory(
                             rid,
@@ -354,7 +362,12 @@ public class BillingMobileService {
         }
     }
 
-    private void subscribe(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser, ReceiptofiPlan receiptofiPlan, String token) {
+    private void subscribe(
+            BillingAccountEntity billingAccount,
+            PaymentGatewayUser paymentGatewayUser,
+            ReceiptofiPlan receiptofiPlan,
+            String token
+    ) {
         SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
         subscriptionRequest
                 .paymentMethodToken(token)
