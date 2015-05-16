@@ -347,7 +347,9 @@ public class BillingMobileService {
             billingAccount.markAccountBilled();
             billingAccountManager.save(billingAccount);
             upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
-            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+
+            String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            paymentGatewayUser.setSubscriptionId(subscriptionId);
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
@@ -391,7 +393,9 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
             upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
-            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+
+            String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            paymentGatewayUser.setSubscriptionId(subscriptionId);
             paymentGatewayUser.setUpdated(new Date());
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
@@ -475,7 +479,12 @@ public class BillingMobileService {
      * @param transactionId
      * @param billingHistory
      */
-    private void updateBillingHistory(ReceiptofiPlan receiptofiPlan, PaymentGatewayUser paymentGatewayUser, String transactionId, BillingHistoryEntity billingHistory) {
+    private void updateBillingHistory(
+            ReceiptofiPlan receiptofiPlan,
+            PaymentGatewayUser paymentGatewayUser,
+            String transactionId,
+            BillingHistoryEntity billingHistory
+    ) {
         billingHistory.setBilledStatus(BilledStatusEnum.B);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
@@ -560,17 +569,6 @@ public class BillingMobileService {
             gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
     }
-
-//    AddressRequest request = new AddressRequest()
-//            .firstName("Jenna")
-//            .lastName("Smith")
-//            .company("Braintree")
-//            .streetAddress("1 E Main St")
-//            .extendedAddress("Suite 403")
-//            .locality("Chicago")
-//            .region("Illinois")
-//            .postalCode("60622")
-//            .countryCodeAlpha2("US");
 
     public boolean paymentBusiness(String rid) {
         TransactionRequest request = new TransactionRequest();
