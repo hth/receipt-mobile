@@ -312,7 +312,8 @@ public class BillingMobileService {
         request.merchantAccountId(merchantAccountId);
         request.customer()
                 .firstName(firstName)
-                .lastName(lastName);
+                .lastName(lastName)
+                .company(company);
         request.creditCard()
                 .number(cardNumber)
                 .expirationMonth(month)
@@ -336,13 +337,15 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
 
-            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser();
-            paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
-            paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
-            paymentGatewayUser.setFirstName(firstName);
-            paymentGatewayUser.setLastName(lastName);
-            paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
-            paymentGatewayUser.setPostalCode(postal);
+            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser(
+                    PaymentGatewayEnum.BT,
+                    result.getTarget().getCustomer().getId(),
+                    firstName,
+                    lastName,
+                    company,
+                    result.getTarget().getBillingAddress().getId(),
+                    postal);
+
             billingAccount.addPaymentGateway(paymentGatewayUser);
             billingAccount.markAccountBilled();
             billingAccountManager.save(billingAccount);
