@@ -184,23 +184,24 @@ public class BillingController {
                 LOG.info("Submitting payment for rid={} did={}", rid, did);
 
                 Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-                String billingProvider = map.containsKey("billingProvider") ? map.get("billingProvider").getText() : null;
-                Assert.hasText(billingProvider, "No billing provider provided");
-                PaymentGatewayEnum.valueOf(billingProvider);
+                String planId = map.containsKey("planId") ? map.get("planId").getText() : null;
+                String firstName = map.containsKey("firstName") ? map.get("firstName").getText() : null;
+                String lastName = map.containsKey("lastName") ? map.get("lastName").getText() : null;
+                String cardNumber = map.containsKey("cardNumber") ? map.get("cardNumber").getText() : null;
+                String month = map.containsKey("month") ? map.get("month").getText() : null;
+                String year = map.containsKey("year") ? map.get("year").getText() : null;
+                String cvv = map.containsKey("cvv") ? map.get("cvv").getText() : null;
+                String postal = map.containsKey("postal") ? map.get("postal").getText() : null;
+                String company = map.containsKey("company") ? map.get("company").getText() : null;
 
-                String planId = "M10";
-                String firstName = "Jenna";
-                String lastName = "Smith";
-                String cardNumber = "4111111111111111";
-                String month = "05";
-                String year = "2016";
-                String cvv = "100";
-                String postal = "60622";
-                boolean status = billingMobileService.paymentPersonal(
+                //TODO add validation
+
+                boolean status = billingMobileService.payment(
                         rid,
                         planId,
                         firstName,
                         lastName,
+                        company,
                         cardNumber,
                         month,
                         year,

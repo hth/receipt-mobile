@@ -249,11 +249,12 @@ public class BillingMobileService {
     }
 
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
-    public boolean paymentPersonal(
+    public boolean payment(
             String rid,
             String planId,
             String firstName,
             String lastName,
+            String company,
             String cardNumber,
             String month,
             String year,
@@ -264,102 +265,110 @@ public class BillingMobileService {
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
         PaymentGatewayUser paymentGatewayUser;
         if (billingAccount.getPaymentGateway().isEmpty()) {
-            TransactionRequest request = new TransactionRequest();
-            request.merchantAccountId(merchantAccountId);
-            request.customer()
-                    .firstName(firstName)
-                    .lastName(lastName);
-            request.creditCard()
-                    .number(cardNumber)
-                    .expirationMonth(month)
-                    .expirationYear(year)
-                    .cvv(cvv);
-            request.billingAddress()
-                    .firstName(firstName)
-                    .lastName(lastName)
-                    .postalCode(postal);
-            request.amount(receiptofiPlan.getPrice())
-                    .paymentMethodNonce("nonce-from-the-client")
-                    .options()
-                    .submitForSettlement(true)
-                    .storeInVaultOnSuccess(true)
-                    .addBillingAddressToPaymentMethod(true)
-                    .done();
-            request.recurring(true);
 
-            Result<Transaction> result = gateway.transaction().sale(request);
-            if (result.isSuccess()) {
-                LOG.info("Paid for rid={} plan={} customerId={}",
-                        rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
-
-                paymentGatewayUser = new PaymentGatewayUser();
-                paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
-                paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
-                paymentGatewayUser.setFirstName(firstName);
-                paymentGatewayUser.setLastName(lastName);
-                paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
-                paymentGatewayUser.setPostalCode(postal);
-                billingAccount.addPaymentGateway(paymentGatewayUser);
-                billingAccount.markAccountBilled();
-                billingAccountManager.save(billingAccount);
-
-                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-                if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-                    billingHistory = createBillingHistory(
-                            rid,
-                            receiptofiPlan,
-                            paymentGatewayUser,
-                            result.getTarget().getId());
-                } else {
-                    /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-                    updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-                }
-                billingHistoryManager.save(billingHistory);
-                subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
-                billingAccountManager.save(billingAccount);
-            }
-            return result.isSuccess();
         } else {
-            paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
-            updateCustomer(firstName, lastName, paymentGatewayUser, billingAccount);
-            updateBillingAddress(postal, paymentGatewayUser, billingAccount);
-
-            TransactionRequest request = new TransactionRequest();
-            request.customerId(paymentGatewayUser.getCustomerId());
-            request.creditCard()
-                    .number(cardNumber)
-                    .expirationMonth(month)
-                    .expirationYear(year)
-                    .cvv(cvv);
-            request.amount(receiptofiPlan.getPrice())
-                    .paymentMethodNonce("nonce-from-the-client")
-                    .options()
-                    .submitForSettlement(true)
-                    .done();
-
-            Result<Transaction> result = gateway.transaction().sale(request);
-            if (result.isSuccess()) {
-                LOG.info("Paid for rid={} plan={} customerId={}",
-                        rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
-
-                BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-                if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-                    billingHistory = createBillingHistory(
-                            rid,
-                            receiptofiPlan,
-                            paymentGatewayUser,
-                            result.getTarget().getId());
-                } else {
-                    /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-                    updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-                }
-                billingHistoryManager.save(billingHistory);
-                subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
-                billingAccountManager.save(billingAccount);
-            }
-            return result.isSuccess();
         }
+    }
+
+    private boolean newPayment() {
+        TransactionRequest request = new TransactionRequest();
+        request.merchantAccountId(merchantAccountId);
+        request.customer()
+                .firstName(firstName)
+                .lastName(lastName);
+        request.creditCard()
+                .number(cardNumber)
+                .expirationMonth(month)
+                .expirationYear(year)
+                .cvv(cvv);
+        request.billingAddress()
+                .firstName(firstName)
+                .lastName(lastName)
+                .postalCode(postal);
+        request.amount(receiptofiPlan.getPrice())
+                .paymentMethodNonce("nonce-from-the-client")
+                .options()
+                .submitForSettlement(true)
+                .storeInVaultOnSuccess(true)
+                .addBillingAddressToPaymentMethod(true)
+                .done();
+        request.recurring(true);
+
+        Result<Transaction> result = gateway.transaction().sale(request);
+        if (result.isSuccess()) {
+            LOG.info("Paid for rid={} plan={} customerId={}",
+                    rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
+
+            paymentGatewayUser = new PaymentGatewayUser();
+            paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
+            paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
+            paymentGatewayUser.setFirstName(firstName);
+            paymentGatewayUser.setLastName(lastName);
+            paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
+            paymentGatewayUser.setPostalCode(postal);
+            billingAccount.addPaymentGateway(paymentGatewayUser);
+            billingAccount.markAccountBilled();
+            billingAccountManager.save(billingAccount);
+
+            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+            if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
+                billingHistory = createBillingHistory(
+                        rid,
+                        receiptofiPlan,
+                        paymentGatewayUser,
+                        result.getTarget().getId());
+            } else {
+                /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
+                updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
+            }
+            billingHistoryManager.save(billingHistory);
+            subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            billingAccountManager.save(billingAccount);
+        }
+        return result.isSuccess();
+    }
+
+    private boolean updatePayement() {
+        paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+
+        updateCustomer(firstName, lastName, paymentGatewayUser, billingAccount);
+        updateBillingAddress(postal, paymentGatewayUser, billingAccount);
+
+        TransactionRequest request = new TransactionRequest();
+        request.customerId(paymentGatewayUser.getCustomerId());
+        request.creditCard()
+                .number(cardNumber)
+                .expirationMonth(month)
+                .expirationYear(year)
+                .cvv(cvv);
+        request.amount(receiptofiPlan.getPrice())
+                .paymentMethodNonce("nonce-from-the-client")
+                .options()
+                .submitForSettlement(true)
+                .done();
+
+        Result<Transaction> result = gateway.transaction().sale(request);
+        if (result.isSuccess()) {
+            LOG.info("Paid for rid={} plan={} customerId={}",
+                    rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
+
+            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+            if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
+                billingHistory = createBillingHistory(
+                        rid,
+                        receiptofiPlan,
+                        paymentGatewayUser,
+                        result.getTarget().getId());
+            } else {
+                /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
+                updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
+            }
+            billingHistoryManager.save(billingHistory);
+            subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            billingAccountManager.save(billingAccount);
+        }
+        return result.isSuccess();
     }
 
     private void subscribe(
@@ -458,6 +467,7 @@ public class BillingMobileService {
     private void updateCustomer(
             String firstName,
             String lastName,
+            String company,
             PaymentGatewayUser paymentGatewayUser,
             BillingAccountEntity billingAccount
     ) {
@@ -472,12 +482,18 @@ public class BillingMobileService {
             modified = true;
         }
 
+        if (!company.equals(paymentGatewayUser.getCompany())) {
+            paymentGatewayUser.setCompany(company);
+            modified = true;
+        }
+
         if (modified) {
             billingAccountManager.save(billingAccount);
             CustomerRequest customerRequest = new CustomerRequest();
             customerRequest
                     .firstName(firstName)
-                    .lastName(lastName);
+                    .lastName(lastName)
+                    .company(company);
             gateway.customer().update(paymentGatewayUser.getCustomerId(), customerRequest);
         }
     }
