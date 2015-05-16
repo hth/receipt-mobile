@@ -489,7 +489,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="order" type="int64">1</attribute>
-        <attribute name="name" type="string">Register Device</attribute>
+        <attribute name="name" type="string">Device Register</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z128"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z143 z145 z142 z146"></relationship>
@@ -535,7 +535,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z149"></relationship>
     </object>
     <object type="LMREQUEST" id="z149">
-        <attribute name="body" type="string">[{"data":{"json":"{\\"billingProvider\\":\\"BT\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"planId\\":\\"M10\\",\\"firstName\\":\\"Jenna\\",\\"lastName\\":\\"Smith\\",\\"company\\":\\"Some Company\\",\\"cardNumber\\":\\"4111111111111111\\\\n\\",\\"month\\":\\"05\\",\\"year\\":\\"2016\\",\\"cvv\\":\\"100\\",\\"postal\\":\\"60622\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">5486853D-C364-4C82-B797-CD89588F595D</attribute>
         <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/payment.json</attribute>
         <attribute name="storecookies" type="bool">1</attribute>

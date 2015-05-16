@@ -263,15 +263,51 @@ public class BillingMobileService {
     ) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
-        PaymentGatewayUser paymentGatewayUser;
         if (billingAccount.getPaymentGateway().isEmpty()) {
-
+            return newPayment(
+                    rid,
+                    planId,
+                    firstName,
+                    lastName,
+                    company,
+                    cardNumber,
+                    month,
+                    year,
+                    cvv,
+                    postal,
+                    receiptofiPlan,
+                    billingAccount);
         } else {
-
+            return updatePayment(
+                    rid,
+                    planId,
+                    firstName,
+                    lastName,
+                    company,
+                    cardNumber,
+                    month,
+                    year,
+                    cvv,
+                    postal,
+                    receiptofiPlan,
+                    billingAccount);
         }
     }
 
-    private boolean newPayment() {
+    private boolean newPayment(
+            String rid,
+            String planId,
+            String firstName,
+            String lastName,
+            String company,
+            String cardNumber,
+            String month,
+            String year,
+            String cvv,
+            String postal,
+            ReceiptofiPlan receiptofiPlan,
+            BillingAccountEntity billingAccount
+    ) {
         TransactionRequest request = new TransactionRequest();
         request.merchantAccountId(merchantAccountId);
         request.customer()
@@ -300,7 +336,7 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
 
-            paymentGatewayUser = new PaymentGatewayUser();
+            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser();
             paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
             paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
             paymentGatewayUser.setFirstName(firstName);
@@ -310,29 +346,46 @@ public class BillingMobileService {
             billingAccount.addPaymentGateway(paymentGatewayUser);
             billingAccount.markAccountBilled();
             billingAccountManager.save(billingAccount);
-
-            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-            if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-                billingHistory = createBillingHistory(
-                        rid,
-                        receiptofiPlan,
-                        paymentGatewayUser,
-                        result.getTarget().getId());
-            } else {
-                /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-                updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-            }
-            billingHistoryManager.save(billingHistory);
-            subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
+            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+            billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
         return result.isSuccess();
     }
 
-    private boolean updatePayement() {
-        paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
+        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
+            billingHistory = createBillingHistory(
+                    rid,
+                    receiptofiPlan,
+                    paymentGatewayUser,
+                    result.getTarget().getId());
+        } else {
+            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
+            updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
+        }
+        billingHistoryManager.save(billingHistory);
+    }
 
-        updateCustomer(firstName, lastName, paymentGatewayUser, billingAccount);
+    private boolean updatePayment(
+            String rid,
+            String planId,
+            String firstName,
+            String lastName,
+            String company,
+            String cardNumber,
+            String month,
+            String year,
+            String cvv,
+            String postal,
+            ReceiptofiPlan receiptofiPlan,
+            BillingAccountEntity billingAccount
+    ) {
+        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+
+        updateCustomer(firstName, lastName, company, paymentGatewayUser, billingAccount);
         updateBillingAddress(postal, paymentGatewayUser, billingAccount);
 
         TransactionRequest request = new TransactionRequest();
@@ -352,31 +405,19 @@ public class BillingMobileService {
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
-
-            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-            if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-                billingHistory = createBillingHistory(
-                        rid,
-                        receiptofiPlan,
-                        paymentGatewayUser,
-                        result.getTarget().getId());
-            } else {
-                /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-                updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-            }
-            billingHistoryManager.save(billingHistory);
-            subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
+            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+            billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
         return result.isSuccess();
     }
 
-    private void subscribe(
-            BillingAccountEntity billingAccount,
-            PaymentGatewayUser paymentGatewayUser,
+    private String subscribe(
             ReceiptofiPlan receiptofiPlan,
             String token
     ) {
+        String subscriptionId = null;
         SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
         subscriptionRequest
                 .paymentMethodToken(token)
@@ -384,9 +425,9 @@ public class BillingMobileService {
         Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
         if (subscriptionResult.isSuccess()) {
             LOG.info("Added to subscription");
-            billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
-            paymentGatewayUser.setSubscriptionId(subscriptionResult.getTarget().getId());
+            subscriptionId = subscriptionResult.getTarget().getId();
         }
+        return subscriptionId;
     }
 
     /**
