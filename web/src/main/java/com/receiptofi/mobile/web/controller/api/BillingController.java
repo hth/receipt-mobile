@@ -133,7 +133,10 @@ public class BillingController {
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 LOG.info("Generating client token for rid={} did={}", rid, did);
-                return billingMobileService.getBrianTreeClientToken(rid);
+                String token = billingMobileService.getBrianTreeClientToken(rid);
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("token", token);
+                return jsonObject.toString();
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;

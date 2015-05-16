@@ -312,7 +312,8 @@ public class BillingMobileService {
         request.merchantAccountId(merchantAccountId);
         request.customer()
                 .firstName(firstName)
-                .lastName(lastName);
+                .lastName(lastName)
+                .company(company);
         request.creditCard()
                 .number(cardNumber)
                 .expirationMonth(month)
@@ -336,37 +337,26 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
 
-            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser();
-            paymentGatewayUser.setCustomerId(result.getTarget().getCustomer().getId());
-            paymentGatewayUser.setPaymentGateway(PaymentGatewayEnum.BT);
-            paymentGatewayUser.setFirstName(firstName);
-            paymentGatewayUser.setLastName(lastName);
-            paymentGatewayUser.setAddressId(result.getTarget().getBillingAddress().getId());
-            paymentGatewayUser.setPostalCode(postal);
+            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser(
+                    PaymentGatewayEnum.BT,
+                    result.getTarget().getCustomer().getId(),
+                    firstName,
+                    lastName,
+                    company,
+                    result.getTarget().getBillingAddress().getId(),
+                    postal);
+
             billingAccount.addPaymentGateway(paymentGatewayUser);
             billingAccount.markAccountBilled();
             billingAccountManager.save(billingAccount);
             upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
-            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+
+            String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            paymentGatewayUser.setSubscriptionId(subscriptionId);
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
         return result.isSuccess();
-    }
-
-    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
-        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-            billingHistory = createBillingHistory(
-                    rid,
-                    receiptofiPlan,
-                    paymentGatewayUser,
-                    result.getTarget().getId());
-        } else {
-            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-            updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-        }
-        billingHistoryManager.save(billingHistory);
     }
 
     private boolean updatePayment(
@@ -406,12 +396,29 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
             upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
-            paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+
+            String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            paymentGatewayUser.setSubscriptionId(subscriptionId);
             paymentGatewayUser.setUpdated(new Date());
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
         return result.isSuccess();
+    }
+
+    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
+        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
+            billingHistory = createBillingHistory(
+                    rid,
+                    receiptofiPlan,
+                    paymentGatewayUser,
+                    result.getTarget().getId());
+        } else {
+            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
+            updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
+        }
+        billingHistoryManager.save(billingHistory);
     }
 
     private String subscribe(
@@ -475,7 +482,12 @@ public class BillingMobileService {
      * @param transactionId
      * @param billingHistory
      */
-    private void updateBillingHistory(ReceiptofiPlan receiptofiPlan, PaymentGatewayUser paymentGatewayUser, String transactionId, BillingHistoryEntity billingHistory) {
+    private void updateBillingHistory(
+            ReceiptofiPlan receiptofiPlan,
+            PaymentGatewayUser paymentGatewayUser,
+            String transactionId,
+            BillingHistoryEntity billingHistory
+    ) {
         billingHistory.setBilledStatus(BilledStatusEnum.B);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
@@ -560,17 +572,6 @@ public class BillingMobileService {
             gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
     }
-
-//    AddressRequest request = new AddressRequest()
-//            .firstName("Jenna")
-//            .lastName("Smith")
-//            .company("Braintree")
-//            .streetAddress("1 E Main St")
-//            .extendedAddress("Suite 403")
-//            .locality("Chicago")
-//            .region("Illinois")
-//            .postalCode("60622")
-//            .countryCodeAlpha2("US");
 
     public boolean paymentBusiness(String rid) {
         TransactionRequest request = new TransactionRequest();
