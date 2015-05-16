@@ -407,6 +407,7 @@ public class BillingMobileService {
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
             upsertBillingHistory(rid, receiptofiPlan, result, paymentGatewayUser);
             paymentGatewayUser.setSubscriptionId(subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken()));
+            paymentGatewayUser.setUpdated(new Date());
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
