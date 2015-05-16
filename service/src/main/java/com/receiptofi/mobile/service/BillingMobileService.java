@@ -354,21 +354,6 @@ public class BillingMobileService {
         return result.isSuccess();
     }
 
-    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
-        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-            billingHistory = createBillingHistory(
-                    rid,
-                    receiptofiPlan,
-                    paymentGatewayUser,
-                    result.getTarget().getId());
-        } else {
-            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-            updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
-        }
-        billingHistoryManager.save(billingHistory);
-    }
-
     private boolean updatePayment(
             String rid,
             String planId,
@@ -412,6 +397,21 @@ public class BillingMobileService {
             billingAccountManager.save(billingAccount);
         }
         return result.isSuccess();
+    }
+
+    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
+        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
+            billingHistory = createBillingHistory(
+                    rid,
+                    receiptofiPlan,
+                    paymentGatewayUser,
+                    result.getTarget().getId());
+        } else {
+            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
+            updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
+        }
+        billingHistoryManager.save(billingHistory);
     }
 
     private String subscribe(
