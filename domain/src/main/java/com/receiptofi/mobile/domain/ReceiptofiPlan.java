@@ -32,6 +32,11 @@ public class ReceiptofiPlan {
     private PaymentGatewayEnum paymentGateway;
     private AccountBillingTypeEnum accountBillingType;
 
+    /**
+     * Get plan id.
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
