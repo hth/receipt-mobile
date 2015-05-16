@@ -108,9 +108,9 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"BD\\":\\"24\\",\\"EM\\":\\"one@one.com\\",\\"FN\\":\\"lkjhdsf\\",\\"PW\\":\\"lkehfkjdfhgkjdf\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"BD\\":\\"24\\",\\"EM\\":\\"fine@one.com\\",\\"FN\\":\\"lkjhdsf\\",\\"PW\\":\\"lkehfkjdfhgkjdf\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string">Registration</attribute>
+        <attribute name="name" type="string">User Registration</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z104"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z106"></relationship>
@@ -670,9 +670,9 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"BD\\":\\"24\\",\\"EM\\":\\"one@one.com\\",\\"FN\\":\\"lkjhdsf\\",\\"PW\\":\\"lkehfkjdfhgkjdf\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"BD\\":\\"24\\",\\"EM\\":\\"onee@one.com\\",\\"FN\\":\\"lkjhdsf\\",\\"PW\\":\\"lkehfkjdfhgkjdf\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string">Registration</attribute>
+        <attribute name="name" type="string">User Registration</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z128"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z163"></relationship>

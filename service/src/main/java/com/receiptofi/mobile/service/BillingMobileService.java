@@ -6,7 +6,6 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
-import com.receiptofi.domain.types.AccountBillingTypeEnum;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
@@ -300,7 +299,7 @@ public class BillingMobileService {
                 billingAccountManager.save(billingAccount);
 
                 BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, BillingHistoryEntity.YYYY_MM.format(new Date()));
-                if (null == billingHistory || billingHistory.getBilledStatus() == BilledStatusEnum.B) {
+                if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
                     billingHistory = createBillingHistory(
                             rid,
                             receiptofiPlan,
@@ -311,21 +310,10 @@ public class BillingMobileService {
                     updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
                 }
                 billingHistoryManager.save(billingHistory);
-
-                SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
-                subscriptionRequest
-                        .paymentMethodToken(result.getTarget().getCreditCard().getToken())
-                        .planId(planId);
-                Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
-                if (subscriptionResult.isSuccess()) {
-                    billingAccount.setAccountBillingType(AccountBillingTypeEnum.M10);
-                    billingAccountManager.save(billingAccount);
-                }
-
-                return true;
-            } else {
-                return false;
+                subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+                billingAccountManager.save(billingAccount);
             }
+            return result.isSuccess();
         } else {
             paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
@@ -348,7 +336,7 @@ public class BillingMobileService {
             Result<Transaction> result = gateway.transaction().sale(request);
             if (result.isSuccess()) {
                 BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, BillingHistoryEntity.YYYY_MM.format(new Date()));
-                if (null == billingHistory || billingHistory.getBilledStatus() == BilledStatusEnum.B) {
+                if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
                     billingHistory = createBillingHistory(
                             rid,
                             receiptofiPlan,
@@ -359,18 +347,60 @@ public class BillingMobileService {
                     updateBillingHistory(receiptofiPlan, paymentGatewayUser, result.getTarget().getId(), billingHistory);
                 }
                 billingHistoryManager.save(billingHistory);
-
-                SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
-                subscriptionRequest
-                        .paymentMethodToken(result.getTarget().getCreditCard().getToken())
-                        .planId(planId);
-                Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
-                if (subscriptionResult.isSuccess()) {
-                    LOG.info("Added to subscription");
-                }
+                subscribe(billingAccount, paymentGatewayUser, receiptofiPlan, result.getTarget().getCreditCard().getToken());
+                billingAccountManager.save(billingAccount);
             }
             return result.isSuccess();
         }
+    }
+
+    private void subscribe(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser, ReceiptofiPlan receiptofiPlan, String token) {
+        SubscriptionRequest subscriptionRequest = new SubscriptionRequest();
+        subscriptionRequest
+                .paymentMethodToken(token)
+                .planId(receiptofiPlan.getId());
+        Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
+        if (subscriptionResult.isSuccess()) {
+            LOG.info("Added to subscription");
+            billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
+            paymentGatewayUser.setSubscriptionId(subscriptionResult.getTarget().getId());
+        }
+    }
+
+    /**
+     * Cancels all subscription.
+     *
+     * @param rid
+     * @return
+     */
+    public void cancelAllSubscription(String rid) {
+        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
+            Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
+            if (result.isSuccess()) {
+                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
+            } else {
+                LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Cancels last subscription.
+     *
+     * @param rid
+     * @return
+     */
+    public boolean cancelLastSubscription(String rid) {
+        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+        Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
+        if (result.isSuccess()) {
+            LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
+        } else {
+            LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
+        }
+        return result.isSuccess();
     }
 
     /**
