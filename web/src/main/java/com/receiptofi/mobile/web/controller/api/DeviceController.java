@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.Timed;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +59,8 @@ public class DeviceController {
      * @return
      * @throws IOException
      */
+    @Timed
+    @ExceptionMetered
     @RequestMapping (
             method = RequestMethod.GET,
             value = "/update",
@@ -105,6 +110,8 @@ public class DeviceController {
      * @return
      * @throws IOException
      */
+    @Timed
+    @ExceptionMetered
     @RequestMapping (
             method = RequestMethod.GET,
             value = "/all",
@@ -150,6 +157,8 @@ public class DeviceController {
      * @return
      * @throws IOException
      */
+    @Timed
+    @ExceptionMetered
     @RequestMapping (
             method = RequestMethod.POST,
             value = "/register",
