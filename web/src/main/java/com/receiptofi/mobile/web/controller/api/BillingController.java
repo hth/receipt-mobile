@@ -2,7 +2,6 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.google.gson.JsonObject;
 
-import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -190,12 +187,9 @@ public class BillingController {
                 String planId = map.containsKey("planId") ? map.get("planId").getText() : null;
                 String firstName = map.containsKey("firstName") ? map.get("firstName").getText() : null;
                 String lastName = map.containsKey("lastName") ? map.get("lastName").getText() : null;
-                String cardNumber = map.containsKey("cardNumber") ? map.get("cardNumber").getText() : null;
-                String month = map.containsKey("month") ? map.get("month").getText() : null;
-                String year = map.containsKey("year") ? map.get("year").getText() : null;
-                String cvv = map.containsKey("cvv") ? map.get("cvv").getText() : null;
                 String postal = map.containsKey("postal") ? map.get("postal").getText() : null;
                 String company = map.containsKey("company") ? map.get("company").getText() : null;
+                String paymentMethodNonce = map.containsKey("payment-method-nonce") ? map.get("payment-method-nonce").getText() : null;
 
                 //TODO add validation
 
@@ -205,11 +199,8 @@ public class BillingController {
                         firstName,
                         lastName,
                         company,
-                        cardNumber,
-                        month,
-                        year,
-                        cvv,
-                        postal);
+                        postal,
+                        paymentMethodNonce);
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("status", status);
                 return jsonObject.toString();

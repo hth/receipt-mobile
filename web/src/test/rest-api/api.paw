@@ -535,7 +535,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z149"></relationship>
     </object>
     <object type="LMREQUEST" id="z149">
-        <attribute name="body" type="string">[{"data":{"json":"{\\"planId\\":\\"M10\\",\\"firstName\\":\\"Jenna\\",\\"lastName\\":\\"Smith\\",\\"company\\":\\"Some Company\\",\\"cardNumber\\":\\"4111111111111111\\\\n\\",\\"month\\":\\"05\\",\\"year\\":\\"2016\\",\\"cvv\\":\\"100\\",\\"postal\\":\\"60622\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"planId\\":\\"M10\\",\\"firstName\\":\\"Jenna\\",\\"lastName\\":\\"Smith\\",\\"company\\":\\"Some Company\\",\\"cardNumber\\":\\"4111111111111111\\\\n\\",\\"month\\":\\"05\\",\\"year\\":\\"2016\\",\\"cvv\\":\\"100\\",\\"postal\\":\\"60622\\",\\"payment-method-nonce\\\\n\\":\\"8306bd43-ca1d-4714-8f2a-6bd11a1cfcd0\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">5486853D-C364-4C82-B797-CD89588F595D</attribute>
         <attribute name="url" type="string">http://localhost:9090/receipt-mobile/api/payment.json</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
