@@ -255,11 +255,8 @@ public class BillingMobileService {
             String firstName,
             String lastName,
             String company,
-            String cardNumber,
-            String month,
-            String year,
-            String cvv,
-            String postal
+            String postal,
+            String paymentMethodNonce
     ) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
@@ -270,13 +267,10 @@ public class BillingMobileService {
                     firstName,
                     lastName,
                     company,
-                    cardNumber,
-                    month,
-                    year,
-                    cvv,
                     postal,
                     receiptofiPlan,
-                    billingAccount);
+                    billingAccount,
+                    paymentMethodNonce);
         } else {
             return updatePayment(
                     rid,
@@ -284,13 +278,10 @@ public class BillingMobileService {
                     firstName,
                     lastName,
                     company,
-                    cardNumber,
-                    month,
-                    year,
-                    cvv,
                     postal,
                     receiptofiPlan,
-                    billingAccount);
+                    billingAccount,
+                    paymentMethodNonce);
         }
     }
 
@@ -300,13 +291,10 @@ public class BillingMobileService {
             String firstName,
             String lastName,
             String company,
-            String cardNumber,
-            String month,
-            String year,
-            String cvv,
             String postal,
             ReceiptofiPlan receiptofiPlan,
-            BillingAccountEntity billingAccount
+            BillingAccountEntity billingAccount,
+            String paymentMethodNonce
     ) {
         TransactionRequest request = new TransactionRequest();
         request.merchantAccountId(merchantAccountId);
@@ -314,17 +302,12 @@ public class BillingMobileService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .company(company);
-        request.creditCard()
-                .number(cardNumber)
-                .expirationMonth(month)
-                .expirationYear(year)
-                .cvv(cvv);
         request.billingAddress()
                 .firstName(firstName)
                 .lastName(lastName)
                 .postalCode(postal);
         request.amount(receiptofiPlan.getPrice())
-                .paymentMethodNonce("nonce-from-the-client")
+                .paymentMethodNonce(paymentMethodNonce)
                 .options()
                 .submitForSettlement(true)
                 .storeInVaultOnSuccess(true)
@@ -365,13 +348,10 @@ public class BillingMobileService {
             String firstName,
             String lastName,
             String company,
-            String cardNumber,
-            String month,
-            String year,
-            String cvv,
             String postal,
             ReceiptofiPlan receiptofiPlan,
-            BillingAccountEntity billingAccount
+            BillingAccountEntity billingAccount,
+            String paymentMethodNonce
     ) {
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
@@ -380,13 +360,8 @@ public class BillingMobileService {
 
         TransactionRequest request = new TransactionRequest();
         request.customerId(paymentGatewayUser.getCustomerId());
-        request.creditCard()
-                .number(cardNumber)
-                .expirationMonth(month)
-                .expirationYear(year)
-                .cvv(cvv);
         request.amount(receiptofiPlan.getPrice())
-                .paymentMethodNonce("nonce-from-the-client")
+                .paymentMethodNonce(paymentMethodNonce)
                 .options()
                 .submitForSettlement(true)
                 .done();
