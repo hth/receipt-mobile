@@ -5,6 +5,16 @@
 ### Mobile APP reference 
     
    [https://developers.braintreepayments.com/android+java/start/hello-client] (https://developers.braintreepayments.com/android+java/start/hello-client)
+   
+### Sample Credit Card
+   
+Link below would get you different credit card samples (Visa, MasterCard)
+   
+   [https://developers.braintreepayments.com/android+java/reference/general/testing#credit-card-numbers] (https://developers.braintreepayments.com/android+java/reference/general/testing#credit-card-numbers)
+   
+    Postal Code - 60645 or any five digit
+    CVV - 100 or any three digit
+    Expiration - 06/16 or any date in future (3 or less years from now)
     
 ### Client Token
 
@@ -69,13 +79,10 @@ API call `POST`. API call `/receipt-mobile/api/payment.json`
     	-d "{
     	"planId":"M10",
     	"firstName":"Jenna",
-    	"lastName":"Smith",
+    	"lastName":"Smith", 
+    	"postal":"60622",
     	"company":"Some Company",
-    	"cardNumber":"4111111111111111",
-    	"month":"05",
-    	"year":"2016",
-    	"cvv":"100",
-    	"postal":"60622"
+    	"payment-method-nonce":"payment-method-nonce"
     	}"
     	
 Response
