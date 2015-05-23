@@ -69,13 +69,10 @@ API call `POST`. API call `/receipt-mobile/api/payment.json`
     	-d "{
     	"planId":"M10",
     	"firstName":"Jenna",
-    	"lastName":"Smith",
+    	"lastName":"Smith", 
+    	"postal":"60622",
     	"company":"Some Company",
-    	"cardNumber":"4111111111111111",
-    	"month":"05",
-    	"year":"2016",
-    	"cvv":"100",
-    	"postal":"60622"
+    	"payment-method-nonce":"payment-method-nonce"
     	}"
     	
 Response
