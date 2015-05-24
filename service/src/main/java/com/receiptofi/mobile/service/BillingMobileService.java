@@ -12,7 +12,10 @@ import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
+import com.receiptofi.mobile.domain.BraintreeToken;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
+import com.receiptofi.mobile.domain.Token;
+import com.receiptofi.mobile.domain.TransactionDetail;
 import com.receiptofi.mobile.repository.BillingAccountManagerMobile;
 import com.receiptofi.mobile.repository.BillingHistoryManagerMobile;
 
@@ -226,30 +229,34 @@ public class BillingMobileService {
         return receiptofiPlans;
     }
 
-    public String getBrianTreeClientToken(String rid) {
-        String clientToken;
+    public Token getBrianTreeClientToken(String rid) {
+        BraintreeToken braintreeToken;
 
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         if (billingAccount.getPaymentGateway().isEmpty()) {
-            clientToken = gateway.clientToken().generate();
+            braintreeToken = new BraintreeToken(gateway.clientToken().generate());
         } else {
             PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
             switch (paymentGatewayUser.getPaymentGateway()) {
                 case BT:
                     ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
-                    clientToken = gateway.clientToken().generate(clientTokenRequest);
+                    braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
+                    braintreeToken.setHasCustomerInfo(true);
+                    braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
+                    braintreeToken.setLastName(paymentGatewayUser.getLastName());
+                    braintreeToken.setPostalCode(paymentGatewayUser.getPostalCode());
+                    braintreeToken.setPlanId(billingAccount.getAccountBillingType().name());
                     break;
                 default:
                     LOG.error("Reached unreachable condition ", billingAccount.getPaymentGateway());
                     throw new IllegalStateException("Reached unreachable condition for payment gateway");
             }
         }
-        Assert.hasText(clientToken, "Client token is empty");
-        return clientToken;
+        return braintreeToken;
     }
 
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
-    public boolean payment(
+    public TransactionDetail payment(
             String rid,
             String planId,
             String firstName,
@@ -260,6 +267,7 @@ public class BillingMobileService {
     ) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
+        Assert.notNull(receiptofiPlan, "Could not find a plan for id=" + planId);
         if (billingAccount.getPaymentGateway().isEmpty()) {
             return newPayment(
                     rid,
@@ -285,7 +293,7 @@ public class BillingMobileService {
         }
     }
 
-    private boolean newPayment(
+    private TransactionDetail newPayment(
             String rid,
             String planId,
             String firstName,
@@ -316,6 +324,7 @@ public class BillingMobileService {
         request.recurring(true);
 
         Result<Transaction> result = gateway.transaction().sale(request);
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -339,10 +348,11 @@ public class BillingMobileService {
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
-        return result.isSuccess();
+
+        return transactionDetail;
     }
 
-    private boolean updatePayment(
+    private TransactionDetail updatePayment(
             String rid,
             String planId,
             String firstName,
@@ -367,6 +377,7 @@ public class BillingMobileService {
                 .done();
 
         Result<Transaction> result = gateway.transaction().sale(request);
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -378,7 +389,7 @@ public class BillingMobileService {
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
-        return result.isSuccess();
+        return transactionDetail;
     }
 
     private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Result<Transaction> result, PaymentGatewayUser paymentGatewayUser) {
@@ -511,7 +522,7 @@ public class BillingMobileService {
             modified = true;
         }
 
-        if (!company.equals(paymentGatewayUser.getCompany())) {
+        if (null != company && null != paymentGatewayUser.getCompany() && !company.equals(paymentGatewayUser.getCompany())) {
             paymentGatewayUser.setCompany(company);
             modified = true;
         }

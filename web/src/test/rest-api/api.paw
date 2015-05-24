@@ -275,7 +275,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"keyValues":[["mail","test@receiptofi.com",true],["password","testtest",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"keyValues":[[["mail"],["li@receiptofi.com"],true],[["password"],["Chongzhi"],true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
         <attribute name="order" type="int64">6</attribute>
         <attribute name="name" type="string">Authentication - Local</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z128"></relationship>
@@ -405,7 +405,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z133"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z137">
-        <attribute name="value" type="string">test@receiptofi.com</attribute>
+        <attribute name="value" type="string">li@receiptofi.com</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">X-R-MAIL</attribute>
         <attribute name="enabled" type="bool">1</attribute>
@@ -440,7 +440,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z138"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z140">
-        <attribute name="value" type="string">$2a$15$e2kRPwg04Ld6W9u4WWwvTuYZdbUhf5PSz8BLtQCRzDRwP5x0wvlBm</attribute>
+        <attribute name="value" type="string">$2a$15$/M3r9no64P7fUQHlkCndK.tGDZa6mkoRpdZ7/aLEvXqwLHfbCiiOa</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">X-R-AUTH</attribute>
         <attribute name="enabled" type="bool">1</attribute>
@@ -460,7 +460,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z138"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z142">
-        <attribute name="value" type="string">test@receiptofi.com</attribute>
+        <attribute name="value" type="string">li@receiptofi.com</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">X-R-MAIL</attribute>
         <attribute name="enabled" type="bool">1</attribute>
@@ -495,7 +495,7 @@
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z143 z145 z142 z146"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z145">
-        <attribute name="value" type="string">$2a$15$e2kRPwg04Ld6W9u4WWwvTuYZdbUhf5PSz8BLtQCRzDRwP5x0wvlBm</attribute>
+        <attribute name="value" type="string">$2a$15$/M3r9no64P7fUQHlkCndK.tGDZa6mkoRpdZ7/aLEvXqwLHfbCiiOa</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">X-R-AUTH</attribute>
         <attribute name="enabled" type="bool">1</attribute>
@@ -571,7 +571,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z149"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z152">
-        <attribute name="value" type="string">test@receiptofi.com</attribute>
+        <attribute name="value" type="string">li@receiptofi.com</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">X-R-MAIL</attribute>
         <attribute name="enabled" type="bool">1</attribute>
@@ -591,7 +591,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z156"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z155">
-        <attribute name="value" type="string">$2a$15$e2kRPwg04Ld6W9u4WWwvTuYZdbUhf5PSz8BLtQCRzDRwP5x0wvlBm</attribute>
+        <attribute name="value" type="string">$2a$15$/M3r9no64P7fUQHlkCndK.tGDZa6mkoRpdZ7/aLEvXqwLHfbCiiOa</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">X-R-AUTH</attribute>
         <attribute name="enabled" type="bool">1</attribute>

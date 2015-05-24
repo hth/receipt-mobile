@@ -3,6 +3,8 @@ package com.receiptofi.mobile.web.controller.api;
 import com.google.gson.JsonObject;
 
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
+import com.receiptofi.mobile.domain.Token;
+import com.receiptofi.mobile.domain.TransactionDetail;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
 import com.receiptofi.mobile.service.DeviceService;
@@ -110,7 +112,7 @@ public class BillingController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String brainTreeClientToken(
+    public Token brainTreeClientToken(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -130,10 +132,7 @@ public class BillingController {
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 LOG.info("Generating client token for rid={} did={}", rid, did);
-                String token = billingMobileService.getBrianTreeClientToken(rid);
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("token", token);
-                return jsonObject.toString();
+                return billingMobileService.getBrianTreeClientToken(rid);
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
@@ -159,7 +158,7 @@ public class BillingController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String brainTreePayment(
+    public TransactionDetail brainTreePayment(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -193,7 +192,7 @@ public class BillingController {
 
                 //TODO add validation
 
-                boolean status = billingMobileService.payment(
+                return billingMobileService.payment(
                         rid,
                         planId,
                         firstName,
@@ -201,9 +200,6 @@ public class BillingController {
                         company,
                         postal,
                         paymentMethodNonce);
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("status", status);
-                return jsonObject.toString();
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
