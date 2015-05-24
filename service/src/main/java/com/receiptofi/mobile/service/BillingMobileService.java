@@ -42,6 +42,7 @@ import com.braintreegateway.TransactionRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -430,16 +431,35 @@ public class BillingMobileService {
      * @param rid
      * @return
      */
-    public void cancelAllSubscription(String rid) {
+    public List<TransactionDetail> cancelAllSubscription(String rid) {
+        int count = 0, success = 0, failure = 0;
+        List<TransactionDetail> transactionDetails = new LinkedList<>();
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
+            count ++;
             Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
             if (result.isSuccess()) {
+                paymentGatewayUser.setSubscriptionId("");
+                paymentGatewayUser.setUpdated(new Date());
+                billingAccountManager.save(billingAccount);
+                success ++;
                 LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
             } else {
+                failure ++;
                 LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
+
+            transactionDetails.add(
+                    new TransactionDetail(
+                            result.isSuccess(),
+                            billingAccount.getAccountBillingType().getName(),
+                            result.getTarget().getId()
+                    )
+            );
         }
+        LOG.info("Cancelled subscriptions count={} success={} failure={}", count, success, failure);
+
+        return transactionDetails;
     }
 
     /**
@@ -448,20 +468,28 @@ public class BillingMobileService {
      * @param rid
      * @return
      */
-    public boolean cancelLastSubscription(String rid) {
+    public TransactionDetail cancelLastSubscription(String rid) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
         Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
         if (result.isSuccess()) {
+            paymentGatewayUser.setSubscriptionId("");
+            paymentGatewayUser.setUpdated(new Date());
+            billingAccountManager.save(billingAccount);
             LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
         } else {
             LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
         }
-        return result.isSuccess();
+
+        return new TransactionDetail(
+                result.isSuccess(),
+                billingAccount.getAccountBillingType().getName(),
+                result.getTarget().getId()
+        );
     }
 
     /**
-     * Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P
+     * Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P.
      *
      * @param receiptofiPlan
      * @param paymentGatewayUser

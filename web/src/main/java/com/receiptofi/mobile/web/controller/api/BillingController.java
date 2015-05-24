@@ -206,4 +206,48 @@ public class BillingController {
             }
         }
     }
+
+    /**
+     * Cancel subscription.
+     *
+     * @param mail
+     * @param auth
+     * @param did
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping (
+            value = "/cancelSubscription",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public TransactionDetail cancelSubscription(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            @RequestHeader ("X-R-DID")
+            String did,
+
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (null == rid) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            if (deviceService.isDeviceRegistered(rid, did)) {
+                LOG.info("Submitting payment for rid={} did={}", rid, did);
+
+                return billingMobileService.cancelLastSubscription(rid);
+            } else {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+                return null;
+            }
+        }
+    }
 }
