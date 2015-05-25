@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.web.controller.api;
 
-import com.google.gson.JsonObject;
-
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.domain.Token;
 import com.receiptofi.mobile.domain.TransactionDetail;

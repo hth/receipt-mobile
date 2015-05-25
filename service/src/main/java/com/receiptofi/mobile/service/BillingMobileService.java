@@ -240,19 +240,24 @@ public class BillingMobileService {
             PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
             switch (paymentGatewayUser.getPaymentGateway()) {
                 case BT:
-                    ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
-                    braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
-                    braintreeToken.setHasCustomerInfo(true);
-                    braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
-                    braintreeToken.setLastName(paymentGatewayUser.getLastName());
-                    braintreeToken.setPostalCode(paymentGatewayUser.getPostalCode());
-                    braintreeToken.setPlanId(billingAccount.getAccountBillingType().name());
+                    braintreeToken = getBraintreeToken(billingAccount, paymentGatewayUser);
                     break;
                 default:
                     LOG.error("Reached unreachable condition ", billingAccount.getPaymentGateway());
                     throw new IllegalStateException("Reached unreachable condition for payment gateway");
             }
         }
+        return braintreeToken;
+    }
+
+    private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
+        ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
+        BraintreeToken braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
+        braintreeToken.setHasCustomerInfo(true);
+        braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
+        braintreeToken.setLastName(paymentGatewayUser.getLastName());
+        braintreeToken.setPostalCode(paymentGatewayUser.getPostalCode());
+        braintreeToken.setPlanId(billingAccount.getAccountBillingType().name());
         return braintreeToken;
     }
 
