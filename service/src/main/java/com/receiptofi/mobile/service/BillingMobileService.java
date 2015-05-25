@@ -60,6 +60,8 @@ import java.util.concurrent.TimeUnit;
 public class BillingMobileService {
     private static final Logger LOG = LoggerFactory.getLogger(BillingMobileService.class);
     private static final String PLANS = "PLANS";
+    private static final int SIZE_20 = 20;
+    private static final int SIZE_1 = 1;
 
     private BraintreeGateway gateway;
     private BillingAccountManagerMobile billingAccountManager;
@@ -94,7 +96,7 @@ public class BillingMobileService {
             BillingAccountManagerMobile billingAccountManager,
             BillingHistoryManagerMobile billingHistoryManager
     ) {
-        if (brainTreeEnvironment.equals("PRODUCTION")) {
+        if ("PRODUCTION".equals(brainTreeEnvironment)) {
             gateway = new BraintreeGateway(
                     Environment.PRODUCTION,
                     brainTreeMerchantId,
@@ -103,17 +105,17 @@ public class BillingMobileService {
             );
 
             planCache = CacheBuilder.newBuilder()
-                    .maximumSize(1)
+                    .maximumSize(SIZE_1)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
 
             planProviderCache = CacheBuilder.newBuilder()
-                    .maximumSize(20)
+                    .maximumSize(SIZE_20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
 
             plansMap = CacheBuilder.newBuilder()
-                    .maximumSize(20)
+                    .maximumSize(SIZE_20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
         } else {
@@ -125,17 +127,17 @@ public class BillingMobileService {
             );
 
             planCache = CacheBuilder.newBuilder()
-                    .maximumSize(1)
+                    .maximumSize(SIZE_1)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
 
             planProviderCache = CacheBuilder.newBuilder()
-                    .maximumSize(20)
+                    .maximumSize(SIZE_20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
 
             plansMap = CacheBuilder.newBuilder()
-                    .maximumSize(20)
+                    .maximumSize(SIZE_20)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
         }
@@ -170,13 +172,11 @@ public class BillingMobileService {
             receiptofiPlans = new ArrayList<>();
 
             for (PaymentGatewayEnum billingProvider : PaymentGatewayEnum.values()) {
-                switch (billingProvider) {
-                    case BT:
-                        receiptofiPlans.addAll(getAllBraintreePlans(billingProvider));
-                        break;
-                    default:
-                        LOG.error("Reached unreachable condition for Billing Provider");
-                        throw new IllegalStateException("Reached unreachable condition for Billing Provider");
+                if (PaymentGatewayEnum.BT == billingProvider) {
+                    receiptofiPlans.addAll(getAllBraintreePlans(billingProvider));
+                } else {
+                    LOG.error("Reached unreachable condition for Billing Provider");
+                    throw new IllegalStateException("Reached unreachable condition for Billing Provider");
                 }
             }
 
@@ -238,13 +238,11 @@ public class BillingMobileService {
             braintreeToken = new BraintreeToken(gateway.clientToken().generate());
         } else {
             PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
-            switch (paymentGatewayUser.getPaymentGateway()) {
-                case BT:
-                    braintreeToken = getBraintreeToken(billingAccount, paymentGatewayUser);
-                    break;
-                default:
-                    LOG.error("Reached unreachable condition ", billingAccount.getPaymentGateway());
-                    throw new IllegalStateException("Reached unreachable condition for payment gateway");
+            if (PaymentGatewayEnum.BT == paymentGatewayUser.getPaymentGateway()) {
+                braintreeToken = getBraintreeToken(billingAccount, paymentGatewayUser);
+            } else {
+                LOG.error("Reached unreachable condition ", billingAccount.getPaymentGateway());
+                throw new IllegalStateException("Reached unreachable condition for payment gateway");
             }
         }
         return braintreeToken;
