@@ -46,7 +46,6 @@ public class BraintreeToken implements Token {
     private String planId;
 
     public BraintreeToken(String token) {
-        Assert.hasText(token, "Client token is empty");
         this.token = token;
     }
 

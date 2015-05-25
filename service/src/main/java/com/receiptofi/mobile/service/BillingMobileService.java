@@ -250,6 +250,7 @@ public class BillingMobileService {
 
     private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
         ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
+        /** Token from gateway can be null and should be sent to phone as null. */
         BraintreeToken braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
         braintreeToken.setHasCustomerInfo(true);
         braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
