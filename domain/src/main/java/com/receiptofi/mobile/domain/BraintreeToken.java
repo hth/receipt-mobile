@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.StringUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: hitender
@@ -20,6 +23,7 @@ import org.springframework.util.Assert;
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class BraintreeToken implements Token {
+    private static final Logger LOG = LoggerFactory.getLogger(BraintreeToken.class);
 
     @SuppressWarnings ({"unused"})
     @JsonProperty ("token")
@@ -46,7 +50,11 @@ public class BraintreeToken implements Token {
     private String planId;
 
     public BraintreeToken(String token) {
-        this.token = token;
+        if (StringUtils.isBlank(token)) {
+            LOG.warn("Client token is empty. Failed to initialized.");
+        } else {
+            this.token = token;
+        }
     }
 
     public void setHasCustomerInfo(boolean hasCustomerInfo) {
