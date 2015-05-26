@@ -454,26 +454,13 @@ public class BillingMobileService {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
             count++;
-            Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
-            if (result.isSuccess()) {
-                paymentGatewayUser.setSubscriptionId("");
-                paymentGatewayUser.setUpdated(new Date());
-                billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
-                billingAccountManager.save(billingAccount);
+            TransactionDetail transactionDetail = getTransactionDetail(rid, billingAccount, paymentGatewayUser);
+            if (transactionDetail.isSuccess()) {
                 success++;
-                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
             } else {
                 failure++;
-                LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
-
-            transactionDetails.add(
-                    new TransactionDetail(
-                            result.isSuccess(),
-                            billingAccount.getAccountBillingType().getName(),
-                            result.getTarget().getId()
-                    )
-            );
+            transactionDetails.add(transactionDetail);
         }
         LOG.info("Cancelled subscriptions count={} success={} failure={}", count, success, failure);
 
@@ -487,10 +474,13 @@ public class BillingMobileService {
      * @return
      */
     public TransactionDetail cancelLastSubscription(String rid) {
-        TransactionDetail transactionDetail;
-
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+        return getTransactionDetail(rid, billingAccount, paymentGatewayUser);
+    }
+
+    private TransactionDetail getTransactionDetail(String rid, BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
+        TransactionDetail transactionDetail;
         if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
             Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
             if (result.isSuccess()) {

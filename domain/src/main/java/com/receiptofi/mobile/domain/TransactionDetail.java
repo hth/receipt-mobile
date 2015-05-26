@@ -36,4 +36,8 @@ public class TransactionDetail {
         this.planId = planId;
         this.transactionId = transactionId;
     }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }
