@@ -458,6 +458,7 @@ public class BillingMobileService {
             if (result.isSuccess()) {
                 paymentGatewayUser.setSubscriptionId("");
                 paymentGatewayUser.setUpdated(new Date());
+                billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                 billingAccountManager.save(billingAccount);
                 success++;
                 LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
