@@ -8,6 +8,7 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
+import com.receiptofi.domain.types.AccountBillingTypeEnum;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
@@ -485,23 +486,36 @@ public class BillingMobileService {
      * @return
      */
     public TransactionDetail cancelLastSubscription(String rid) {
+        TransactionDetail transactionDetail;
+
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
-        Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
-        if (result.isSuccess()) {
-            paymentGatewayUser.setSubscriptionId("");
-            paymentGatewayUser.setUpdated(new Date());
-            billingAccountManager.save(billingAccount);
-            LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
-        } else {
-            LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
-        }
+        if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
+            Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
+            if (result.isSuccess()) {
+                paymentGatewayUser.setSubscriptionId("");
+                paymentGatewayUser.setUpdated(new Date());
+                billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
+                billingAccountManager.save(billingAccount);
+                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
+            } else {
+                LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
+            }
 
-        return new TransactionDetail(
-                result.isSuccess(),
-                billingAccount.getAccountBillingType().getName(),
-                result.getTarget().getId()
-        );
+            transactionDetail = new TransactionDetail(
+                    result.isSuccess(),
+                    billingAccount.getAccountBillingType().getName(),
+                    result.getTarget().getId()
+            );
+        } else {
+            LOG.warn("No subscription found rid={}", rid);
+            transactionDetail = new TransactionDetail(
+                    false,
+                    billingAccount.getAccountBillingType().getName(),
+                    ""
+            );
+        }
+        return transactionDetail;
     }
 
     /**
