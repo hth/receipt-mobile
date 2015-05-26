@@ -272,7 +272,7 @@ public class AccountMobileService {
     }
 
     public enum REGISTRATION {
-        FN, //Firstname
+        FN, //FirstName
         EM, //Email
         BD, //Birthday
         PW  //Password

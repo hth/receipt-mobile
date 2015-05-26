@@ -342,7 +342,7 @@ public class BillingMobileService {
                 transaction.getProcessorSettlementResponseCode(),
                 transaction.getProcessorSettlementResponseText());
 
-        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), firstName, lastName, postal, planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -395,7 +395,7 @@ public class BillingMobileService {
                 .done();
 
         Result<Transaction> result = gateway.transaction().sale(request);
-        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), firstName, lastName, postal, planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -454,25 +454,13 @@ public class BillingMobileService {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
             count++;
-            Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
-            if (result.isSuccess()) {
-                paymentGatewayUser.setSubscriptionId("");
-                paymentGatewayUser.setUpdated(new Date());
-                billingAccountManager.save(billingAccount);
+            TransactionDetail transactionDetail = getTransactionDetail(rid, billingAccount, paymentGatewayUser);
+            if (transactionDetail.isSuccess()) {
                 success++;
-                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
             } else {
                 failure++;
-                LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
-
-            transactionDetails.add(
-                    new TransactionDetail(
-                            result.isSuccess(),
-                            billingAccount.getAccountBillingType().getName(),
-                            result.getTarget().getId()
-                    )
-            );
+            transactionDetails.add(transactionDetail);
         }
         LOG.info("Cancelled subscriptions count={} success={} failure={}", count, success, failure);
 
@@ -486,10 +474,13 @@ public class BillingMobileService {
      * @return
      */
     public TransactionDetail cancelLastSubscription(String rid) {
-        TransactionDetail transactionDetail;
-
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+        return getTransactionDetail(rid, billingAccount, paymentGatewayUser);
+    }
+
+    private TransactionDetail getTransactionDetail(String rid, BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
+        TransactionDetail transactionDetail;
         if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
             Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
             if (result.isSuccess()) {
@@ -497,13 +488,16 @@ public class BillingMobileService {
                 paymentGatewayUser.setUpdated(new Date());
                 billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                 billingAccountManager.save(billingAccount);
-                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
+                LOG.info("Canceled subscription rid={} status={}", rid, result.getTarget().getStatus());
             } else {
                 LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
 
             transactionDetail = new TransactionDetail(
                     result.isSuccess(),
+                    paymentGatewayUser.getFirstName(),
+                    paymentGatewayUser.getLastName(),
+                    paymentGatewayUser.getPostalCode(),
                     billingAccount.getAccountBillingType().getName(),
                     result.getTarget().getId()
             );
@@ -511,6 +505,9 @@ public class BillingMobileService {
             LOG.warn("No subscription found rid={}", rid);
             transactionDetail = new TransactionDetail(
                     false,
+                    paymentGatewayUser.getFirstName(),
+                    paymentGatewayUser.getLastName(),
+                    paymentGatewayUser.getPostalCode(),
                     billingAccount.getAccountBillingType().getName(),
                     ""
             );
