@@ -239,8 +239,7 @@ public class BillingController {
             return null;
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
-                LOG.info("Submitting payment for rid={} did={}", rid, did);
-
+                LOG.info("Cancel subscription for rid={} did={}", rid, did);
                 return billingMobileService.cancelLastSubscription(rid);
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);

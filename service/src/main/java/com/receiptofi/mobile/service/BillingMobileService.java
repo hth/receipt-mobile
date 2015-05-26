@@ -19,6 +19,8 @@ import com.receiptofi.mobile.domain.TransactionDetail;
 import com.receiptofi.mobile.repository.BillingAccountManagerMobile;
 import com.receiptofi.mobile.repository.BillingHistoryManagerMobile;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -252,6 +254,9 @@ public class BillingMobileService {
         ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
         /** Token from gateway can be null and should be sent to phone as null. */
         BraintreeToken braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
+        if (StringUtils.isBlank(braintreeToken.getToken())) {
+            LOG.warn("Token not initialized rid={}", billingAccount.getRid());
+        }
         braintreeToken.setHasCustomerInfo(true);
         braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
         braintreeToken.setLastName(paymentGatewayUser.getLastName());
@@ -329,6 +334,13 @@ public class BillingMobileService {
         request.recurring(true);
 
         Result<Transaction> result = gateway.transaction().sale(request);
+        Transaction transaction = result.getTarget();
+        LOG.info("Processor responseCode={} responseText={} settlementResponseCode={} settlementResponseText={}",
+                transaction.getProcessorResponseCode(),
+                transaction.getProcessorResponseText(),
+                transaction.getProcessorSettlementResponseCode(),
+                transaction.getProcessorSettlementResponseText());
+
         TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
@@ -440,16 +452,16 @@ public class BillingMobileService {
         List<TransactionDetail> transactionDetails = new LinkedList<>();
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
-            count ++;
+            count++;
             Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
             if (result.isSuccess()) {
                 paymentGatewayUser.setSubscriptionId("");
                 paymentGatewayUser.setUpdated(new Date());
                 billingAccountManager.save(billingAccount);
-                success ++;
+                success++;
                 LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
             } else {
-                failure ++;
+                failure++;
                 LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
 
