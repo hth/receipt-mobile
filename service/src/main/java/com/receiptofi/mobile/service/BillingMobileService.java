@@ -342,7 +342,7 @@ public class BillingMobileService {
                 transaction.getProcessorSettlementResponseCode(),
                 transaction.getProcessorSettlementResponseText());
 
-        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), firstName, lastName, postal, planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -395,7 +395,7 @@ public class BillingMobileService {
                 .done();
 
         Result<Transaction> result = gateway.transaction().sale(request);
-        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), planId, result.getTarget().getId());
+        TransactionDetail transactionDetail = new TransactionDetail(result.isSuccess(), firstName, lastName, postal, planId, result.getTarget().getId());
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), result.getTarget().getCustomer().getId());
@@ -488,13 +488,16 @@ public class BillingMobileService {
                 paymentGatewayUser.setUpdated(new Date());
                 billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                 billingAccountManager.save(billingAccount);
-                LOG.info("Canceled subscription rid={} status={}", rid, result.getSubscription().getStatus());
+                LOG.info("Canceled subscription rid={} status={}", rid, result.getTarget().getStatus());
             } else {
                 LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
             }
 
             transactionDetail = new TransactionDetail(
                     result.isSuccess(),
+                    paymentGatewayUser.getFirstName(),
+                    paymentGatewayUser.getLastName(),
+                    paymentGatewayUser.getPostalCode(),
                     billingAccount.getAccountBillingType().getName(),
                     result.getTarget().getId()
             );
@@ -502,6 +505,9 @@ public class BillingMobileService {
             LOG.warn("No subscription found rid={}", rid);
             transactionDetail = new TransactionDetail(
                     false,
+                    paymentGatewayUser.getFirstName(),
+                    paymentGatewayUser.getLastName(),
+                    paymentGatewayUser.getPostalCode(),
                     billingAccount.getAccountBillingType().getName(),
                     ""
             );

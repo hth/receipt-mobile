@@ -24,6 +24,18 @@ public class TransactionDetail {
     private boolean success;
 
     @SuppressWarnings ({"unused"})
+    @JsonProperty ("firstName")
+    private String firstName;
+
+    @SuppressWarnings ({"unused"})
+    @JsonProperty ("lastName")
+    private String lastName;
+
+    @SuppressWarnings ({"unused"})
+    @JsonProperty ("postalCode")
+    private String postalCode;
+
+    @SuppressWarnings ({"unused"})
     @JsonProperty ("planId")
     private String planId;
 
@@ -31,8 +43,11 @@ public class TransactionDetail {
     @JsonProperty ("transactionId")
     private String transactionId;
 
-    public TransactionDetail(boolean success, String planId, String transactionId) {
+    public TransactionDetail(boolean success, String firstName, String lastName, String postalCode, String planId, String transactionId) {
         this.success = success;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.postalCode = postalCode;
         this.planId = planId;
         this.transactionId = transactionId;
     }
