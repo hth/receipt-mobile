@@ -2,6 +2,18 @@ package com.receiptofi.mobile.service;
 
 import static com.receiptofi.domain.BillingHistoryEntity.YYYY_MM;
 
+import com.braintreegateway.AddressRequest;
+import com.braintreegateway.BraintreeGateway;
+import com.braintreegateway.ClientTokenRequest;
+import com.braintreegateway.CustomerRequest;
+import com.braintreegateway.Environment;
+import com.braintreegateway.Plan;
+import com.braintreegateway.Result;
+import com.braintreegateway.Subscription;
+import com.braintreegateway.SubscriptionRequest;
+import com.braintreegateway.Transaction;
+import com.braintreegateway.TransactionRequest;
+
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -29,18 +41,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-
-import com.braintreegateway.AddressRequest;
-import com.braintreegateway.BraintreeGateway;
-import com.braintreegateway.ClientTokenRequest;
-import com.braintreegateway.CustomerRequest;
-import com.braintreegateway.Environment;
-import com.braintreegateway.Plan;
-import com.braintreegateway.Result;
-import com.braintreegateway.Subscription;
-import com.braintreegateway.SubscriptionRequest;
-import com.braintreegateway.Transaction;
-import com.braintreegateway.TransactionRequest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
