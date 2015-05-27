@@ -44,6 +44,9 @@ public class TransactionDetailPayment implements TransactionDetail {
     @JsonProperty ("transactionId")
     private final String transactionId;
 
+    @JsonProperty ("message")
+    private final String message;
+
     public TransactionDetailPayment(
             boolean success,
             String status,
@@ -61,9 +64,49 @@ public class TransactionDetailPayment implements TransactionDetail {
         this.postalCode = postalCode;
         this.accountPlanId = accountPlanId;
         this.transactionId = transactionId;
+        this.message = "";
     }
 
+    public TransactionDetailPayment(
+            String firstName,
+            String lastName,
+            String postalCode,
+            String accountPlanId,
+            String message
+    ) {
+        this.type = TYPE.PAY;
+        this.success = false;
+        this.status = "";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.postalCode = postalCode;
+        this.accountPlanId = accountPlanId;
+        this.transactionId = "";
+        this.message = message;
+    }
+
+    @Override
     public boolean isSuccess() {
         return success;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionDetailPayment{" +
+                "type=" + type +
+                ", success=" + success +
+                ", status='" + status + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", accountPlanId='" + accountPlanId + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

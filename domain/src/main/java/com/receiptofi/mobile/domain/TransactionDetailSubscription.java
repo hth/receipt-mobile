@@ -47,6 +47,9 @@ public class TransactionDetailSubscription implements TransactionDetail {
     @JsonProperty ("subscriptionId")
     private final String subscriptionId;
 
+    @JsonProperty ("message")
+    private final String message;
+
     /**
      *
      * @param success
@@ -77,9 +80,59 @@ public class TransactionDetailSubscription implements TransactionDetail {
         this.postalCode = postalCode;
         this.accountPlanId = accountPlanId;
         this.subscriptionId = subscriptionId;
+        this.message = "";
     }
 
+    /**
+     * When subscription fails.
+     *
+     * @param firstName
+     * @param lastName
+     * @param postalCode
+     * @param accountPlanId
+     */
+    public TransactionDetailSubscription(
+            String firstName,
+            String lastName,
+            String postalCode,
+            String accountPlanId,
+            String message
+    ) {
+        this.type = TYPE.SUB;
+        this.success = false;
+        this.status = "";
+        this.planId = "";
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.postalCode = postalCode;
+        this.accountPlanId = accountPlanId;
+        this.subscriptionId = "";
+        this.message = message;
+    }
+
+    @Override
     public boolean isSuccess() {
         return success;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionDetailSubscription{" +
+                "type=" + type +
+                ", success=" + success +
+                ", status='" + status + '\'' +
+                ", planId='" + planId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", accountPlanId='" + accountPlanId + '\'' +
+                ", subscriptionId='" + subscriptionId + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
