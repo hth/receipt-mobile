@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -17,42 +16,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public class TransactionDetail {
+public interface TransactionDetail {
 
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("success")
-    private boolean success;
+    enum TYPE {PAY, SUB}
 
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("firstName")
-    private String firstName;
-
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("lastName")
-    private String lastName;
-
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("postalCode")
-    private String postalCode;
-
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("planId")
-    private String planId;
-
-    @SuppressWarnings ({"unused"})
-    @JsonProperty ("transactionId")
-    private String transactionId;
-
-    public TransactionDetail(boolean success, String firstName, String lastName, String postalCode, String planId, String transactionId) {
-        this.success = success;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.postalCode = postalCode;
-        this.planId = planId;
-        this.transactionId = transactionId;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
+    boolean isSuccess();
 }
