@@ -12,42 +12,35 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "PMD.BeanMembersShouldSerialize",
         "PMD.LocalVariableCouldBeFinal",
         "PMD.MethodArgumentCouldBeFinal",
-        "PMD.LongVariable"
+        "PMD.LongVariable",
+        "unused"
 })
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class TransactionDetailPayment implements TransactionDetail {
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("type")
     private TYPE type;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("success")
     private boolean success;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("status")
     private String status;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("firstName")
     private String firstName;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("lastName")
     private String lastName;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("postalCode")
     private String postalCode;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("accountPlanId")
     private String accountPlanId;
 
-    @SuppressWarnings ({"unused"})
     @JsonProperty ("transactionId")
     private String transactionId;
 
