@@ -411,6 +411,7 @@ public class BillingMobileService {
             billingAccountManager.save(billingAccount);
         }
 
+        LOG.debug("at exit {}", transactionDetail);
         return transactionDetail;
     }
 
@@ -469,9 +470,26 @@ public class BillingMobileService {
             billingAccount.setAccountBillingType(receiptofiPlan.getAccountBillingType());
             billingAccountManager.save(billingAccount);
         }
+
+        LOG.debug("at exit {}", transactionDetail);
         return transactionDetail;
     }
 
+    /**
+     * Void or Refund existing transaction and then cancels subscription before signing up with new plan.
+     *
+     * @param rid
+     * @param planId
+     * @param firstName
+     * @param lastName
+     * @param company
+     * @param postal
+     * @param receiptofiPlan
+     * @param billingAccount
+     * @param paymentMethodNonce
+     * @param billingHistory
+     * @return
+     */
     private TransactionDetail cancelAndCreateNewPayment(
             String rid,
             String planId,
@@ -484,11 +502,46 @@ public class BillingMobileService {
             String paymentMethodNonce,
             BillingHistoryEntity billingHistory
     ) {
-        cancelSubscription(rid, billingAccount, billingAccount.getPaymentGateway().getLast());
-        if (voidTransaction(billingHistory.getTransactionId())) {
-            return updateBilledPayment(rid, planId, firstName, lastName, company, postal, receiptofiPlan, billingAccount, paymentMethodNonce, billingHistory);
+        TransactionDetail transactionDetail;
+        if (voidOrRefund(billingHistory.getTransactionId(), rid)) {
+            PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+
+            TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
+            if (subscriptionCancelDetail.isSuccess()) {
+                LOG.info("success cancelled subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
+                transactionDetail = updateBilledPayment(
+                        rid,
+                        planId,
+                        firstName,
+                        lastName,
+                        company,
+                        postal,
+                        receiptofiPlan,
+                        billingAccount,
+                        paymentMethodNonce,
+                        billingHistory);
+            } else {
+                transactionDetail = new TransactionDetailPayment(
+                        firstName,
+                        lastName,
+                        postal,
+                        planId,
+                        subscriptionCancelDetail.getMessage()
+                );
+            }
+        } else {
+            LOG.error("Failed to refund transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+            transactionDetail = new TransactionDetailPayment(
+                    firstName,
+                    lastName,
+                    postal,
+                    planId,
+                    "Failed to refund payment."
+            );
         }
-        return null;
+
+        LOG.debug("at exit {}", transactionDetail);
+        return transactionDetail;
     }
 
     /**
@@ -575,6 +628,14 @@ public class BillingMobileService {
         return cancelSubscription(rid, billingAccount, paymentGatewayUser);
     }
 
+    /**
+     * Cancels an existing subscription.
+     *
+     * @param rid
+     * @param billingAccount
+     * @param paymentGatewayUser
+     * @return
+     */
     private TransactionDetail cancelSubscription(
             String rid,
             BillingAccountEntity billingAccount,
@@ -592,40 +653,59 @@ public class BillingMobileService {
                 paymentGatewayUser.setUpdated(new Date());
                 billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                 billingAccountManager.save(billingAccount);
-                LOG.info("Canceled subscription rid={} status={}", rid, subscription.getStatus());
+                LOG.info("Success canceled subscription rid={} status={}", rid, subscription.getStatus());
+
+                transactionDetail = new TransactionDetailSubscription(
+                        result.isSuccess(),
+                        subscription.getStatus().name(),
+                        subscription.getPlanId(),
+                        paymentGatewayUser.getFirstName(),
+                        paymentGatewayUser.getLastName(),
+                        paymentGatewayUser.getPostalCode(),
+                        billingAccount.getAccountBillingType().getName(),
+                        subscription.getId()
+                );
             } else {
                 LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
-            }
 
-            transactionDetail = new TransactionDetailSubscription(
-                    result.isSuccess(),
-                    subscription.getStatus().name(),
-                    subscription.getPlanId(),
-                    paymentGatewayUser.getFirstName(),
-                    paymentGatewayUser.getLastName(),
-                    paymentGatewayUser.getPostalCode(),
-                    billingAccount.getAccountBillingType().getName(),
-                    subscription.getId()
-            );
+                transactionDetail = new TransactionDetailSubscription(
+                        paymentGatewayUser.getFirstName(),
+                        paymentGatewayUser.getLastName(),
+                        paymentGatewayUser.getPostalCode(),
+                        billingAccount.getAccountBillingType().getName(),
+                        result.getMessage()
+                );
+            }
         } else {
-            LOG.warn("No subscription found rid={}", rid);
+            LOG.error("Subscription not found subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
             transactionDetail = new TransactionDetailSubscription(
-                    false,
-                    null,
-                    null,
                     paymentGatewayUser.getFirstName(),
                     paymentGatewayUser.getLastName(),
                     paymentGatewayUser.getPostalCode(),
                     billingAccount.getAccountBillingType().getName(),
-                    ""
+                    "Subscription could not be found."
             );
         }
+
+        LOG.debug("at exit {}", transactionDetail);
         return transactionDetail;
     }
 
-    private boolean voidTransaction(String transactionId) {
+    private boolean voidOrRefund(String transactionId, String rid) {
         Result<Transaction> result = gateway.transaction().voidTransaction(transactionId);
-        return result.isSuccess();
+        if (result.isSuccess()) {
+            LOG.info("void success transactionId={} rid={}", transactionId, rid);
+            return result.isSuccess();
+        } else {
+            LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", transactionId, rid, result.getMessage());
+            result = gateway.transaction().refund(transactionId);
+            if (result.isSuccess()) {
+                LOG.info("refund success transactionId={} rid={}", transactionId, rid);
+            } else {
+                LOG.warn("refund failed transactionId={} rid={} reason={}", transactionId, rid, result.getMessage());
+            }
+            return result.isSuccess();
+        }
     }
 
     /**
