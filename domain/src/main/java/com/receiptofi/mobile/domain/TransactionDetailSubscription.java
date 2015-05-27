@@ -21,31 +21,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class TransactionDetailSubscription implements TransactionDetail {
 
     @JsonProperty ("type")
-    private TYPE type;
+    private final TYPE type;
 
     @JsonProperty ("success")
-    private boolean success;
+    private final boolean success;
 
     @JsonProperty ("status")
-    private String status;
+    private final String status;
 
     @JsonProperty ("planId")
-    private String planId;
+    private final String planId;
 
     @JsonProperty ("firstName")
-    private String firstName;
+    private final String firstName;
 
     @JsonProperty ("lastName")
-    private String lastName;
+    private final String lastName;
 
     @JsonProperty ("postalCode")
-    private String postalCode;
+    private final String postalCode;
 
     @JsonProperty ("accountPlanId")
-    private String accountPlanId;
+    private final String accountPlanId;
 
     @JsonProperty ("transactionId")
-    private String transactionId;
+    private final String transactionId;
 
     /**
      *
