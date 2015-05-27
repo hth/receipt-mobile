@@ -271,6 +271,19 @@ public class BillingMobileService {
     }
 
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
+
+    /**
+     * Create new payment or update payment.
+     *
+     * @param rid
+     * @param planId
+     * @param firstName
+     * @param lastName
+     * @param company
+     * @param postal
+     * @param paymentMethodNonce
+     * @return
+     */
     public TransactionDetail payment(
             String rid,
             String planId,
@@ -441,6 +454,14 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
+    /**
+     * Create new or update existing billing history.
+     *
+     * @param rid
+     * @param receiptofiPlan
+     * @param transaction
+     * @param paymentGatewayUser
+     */
     private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Transaction transaction, PaymentGatewayUser paymentGatewayUser) {
         BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
         if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
@@ -456,6 +477,13 @@ public class BillingMobileService {
         billingHistoryManager.save(billingHistory);
     }
 
+    /**
+     * Subscribe the plan.
+     *
+     * @param receiptofiPlan
+     * @param token
+     * @return
+     */
     private String subscribe(
             ReceiptofiPlan receiptofiPlan,
             String token
@@ -572,6 +600,7 @@ public class BillingMobileService {
             String transactionId,
             BillingHistoryEntity billingHistory
     ) {
+        //Why E, should be billed. If billing then update.
         billingHistory.setBilledStatus(BilledStatusEnum.E);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
@@ -655,25 +684,5 @@ public class BillingMobileService {
                     .postalCode(postal);
             gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
-    }
-
-    public boolean paymentBusiness(String rid) {
-        TransactionRequest request = new TransactionRequest();
-        request.customer()
-                .firstName("Jac")
-                .lastName("Paui")
-                .company("Jones Co.");
-
-        request.creditCard().number("4111111111111111").expirationMonth("05").expirationYear("2016");
-
-        request.amount(new BigDecimal("100.00"))
-                .customerId(rid)
-                .options()
-                .submitForSettlement(true)
-                .storeInVaultOnSuccess(true)
-                .done();
-
-        Result<Transaction> result = gateway.transaction().sale(request);
-        return result.isSuccess();
     }
 }
