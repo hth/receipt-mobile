@@ -44,8 +44,8 @@ public class TransactionDetailSubscription implements TransactionDetail {
     @JsonProperty ("accountPlanId")
     private final String accountPlanId;
 
-    @JsonProperty ("transactionId")
-    private final String transactionId;
+    @JsonProperty ("subscriptionId")
+    private final String subscriptionId;
 
     /**
      *
@@ -56,7 +56,7 @@ public class TransactionDetailSubscription implements TransactionDetail {
      * @param lastName
      * @param postalCode
      * @param accountPlanId
-     * @param transactionId - Cancelled subscription Id
+     * @param subscriptionId - Cancelled subscription Id
      */
     public TransactionDetailSubscription(
             boolean success,
@@ -66,7 +66,7 @@ public class TransactionDetailSubscription implements TransactionDetail {
             String lastName,
             String postalCode,
             String accountPlanId,
-            String transactionId
+            String subscriptionId
     ) {
         this.type = TYPE.SUB;
         this.success = success;
@@ -76,7 +76,7 @@ public class TransactionDetailSubscription implements TransactionDetail {
         this.lastName = lastName;
         this.postalCode = postalCode;
         this.accountPlanId = accountPlanId;
-        this.transactionId = transactionId;
+        this.subscriptionId = subscriptionId;
     }
 
     public boolean isSuccess() {
