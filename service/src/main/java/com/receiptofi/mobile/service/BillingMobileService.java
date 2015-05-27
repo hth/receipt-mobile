@@ -202,6 +202,8 @@ public class BillingMobileService {
             getAllPlans();
             receiptofiPlan = plansMap.getIfPresent(planId);
         }
+
+        LOG.info("planId={} receiptPlan={}", planId, receiptofiPlan.getId());
         return receiptofiPlan;
     }
 
@@ -570,7 +572,7 @@ public class BillingMobileService {
             String transactionId,
             BillingHistoryEntity billingHistory
     ) {
-        billingHistory.setBilledStatus(BilledStatusEnum.B);
+        billingHistory.setBilledStatus(BilledStatusEnum.E);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
@@ -593,7 +595,7 @@ public class BillingMobileService {
             String transactionId
     ) {
         BillingHistoryEntity billingHistory = new BillingHistoryEntity(rid, new Date());
-        billingHistory.setBilledStatus(BilledStatusEnum.B);
+        billingHistory.setBilledStatus(BilledStatusEnum.E);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
