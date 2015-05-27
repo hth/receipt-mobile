@@ -10,8 +10,18 @@ import java.util.List;
  * Date: 4/19/15 4:04 PM
  */
 public interface BillingHistoryManagerMobile extends RepositoryManager<BillingHistoryEntity> {
+    /**
+     * Get history since last mobile device update.
+     *
+     * @param rid
+     * @param since
+     * @return
+     */
     List<BillingHistoryEntity> getHistory(String rid, Date since);
+
     List<BillingHistoryEntity> getHistory(String rid);
+
     BillingHistoryEntity getHistory(String rid, String yyyyMM);
+
     void save(BillingHistoryEntity billingHistory);
 }

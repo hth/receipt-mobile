@@ -44,7 +44,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -271,6 +270,19 @@ public class BillingMobileService {
     }
 
     //https://developers.braintreepayments.com/ios+java/reference/general/testing
+
+    /**
+     * Create new payment or update payment.
+     *
+     * @param rid
+     * @param planId
+     * @param firstName
+     * @param lastName
+     * @param company
+     * @param postal
+     * @param paymentMethodNonce
+     * @return
+     */
     public TransactionDetail payment(
             String rid,
             String planId,
@@ -295,16 +307,34 @@ public class BillingMobileService {
                     billingAccount,
                     paymentMethodNonce);
         } else {
-            return updatePayment(
-                    rid,
-                    planId,
-                    firstName,
-                    lastName,
-                    company,
-                    postal,
-                    receiptofiPlan,
-                    billingAccount,
-                    paymentMethodNonce);
+            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+
+            if (billingHistory.getBilledStatus() == BilledStatusEnum.B) {
+                return updateBilledPayment(
+                        rid,
+                        planId,
+                        firstName,
+                        lastName,
+                        company,
+                        postal,
+                        receiptofiPlan,
+                        billingAccount,
+                        paymentMethodNonce,
+                        billingHistory);
+            } else {
+                return cancelAndCreateNewPayment(
+                        rid,
+                        planId,
+                        firstName,
+                        lastName,
+                        company,
+                        postal,
+                        receiptofiPlan,
+                        billingAccount,
+                        paymentMethodNonce,
+                        billingHistory);
+
+            }
         }
     }
 
@@ -384,7 +414,7 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
-    private TransactionDetail updatePayment(
+    private TransactionDetail updateBilledPayment(
             String rid,
             String planId,
             String firstName,
@@ -393,7 +423,8 @@ public class BillingMobileService {
             String postal,
             ReceiptofiPlan receiptofiPlan,
             BillingAccountEntity billingAccount,
-            String paymentMethodNonce
+            String paymentMethodNonce,
+            BillingHistoryEntity billingHistory
     ) {
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
@@ -441,6 +472,33 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
+    private TransactionDetail cancelAndCreateNewPayment(
+            String rid,
+            String planId,
+            String firstName,
+            String lastName,
+            String company,
+            String postal,
+            ReceiptofiPlan receiptofiPlan,
+            BillingAccountEntity billingAccount,
+            String paymentMethodNonce,
+            BillingHistoryEntity billingHistory
+    ) {
+        cancelSubscription(rid, billingAccount, billingAccount.getPaymentGateway().getLast());
+        if (voidTransaction(billingHistory.getTransactionId())) {
+            return updateBilledPayment(rid, planId, firstName, lastName, company, postal, receiptofiPlan, billingAccount, paymentMethodNonce, billingHistory);
+        }
+        return null;
+    }
+
+    /**
+     * Create new or update existing billing history.
+     *
+     * @param rid
+     * @param receiptofiPlan
+     * @param transaction
+     * @param paymentGatewayUser
+     */
     private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Transaction transaction, PaymentGatewayUser paymentGatewayUser) {
         BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
         if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
@@ -456,6 +514,13 @@ public class BillingMobileService {
         billingHistoryManager.save(billingHistory);
     }
 
+    /**
+     * Subscribe the plan.
+     *
+     * @param receiptofiPlan
+     * @param token
+     * @return
+     */
     private String subscribe(
             ReceiptofiPlan receiptofiPlan,
             String token
@@ -558,6 +623,11 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
+    private boolean voidTransaction(String transactionId) {
+        Result<Transaction> result = gateway.transaction().voidTransaction(transactionId);
+        return result.isSuccess();
+    }
+
     /**
      * Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P.
      *
@@ -572,7 +642,7 @@ public class BillingMobileService {
             String transactionId,
             BillingHistoryEntity billingHistory
     ) {
-        billingHistory.setBilledStatus(BilledStatusEnum.E);
+        billingHistory.setBilledStatus(BilledStatusEnum.S);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
@@ -595,7 +665,7 @@ public class BillingMobileService {
             String transactionId
     ) {
         BillingHistoryEntity billingHistory = new BillingHistoryEntity(rid, new Date());
-        billingHistory.setBilledStatus(BilledStatusEnum.E);
+        billingHistory.setBilledStatus(BilledStatusEnum.S);
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
@@ -655,25 +725,5 @@ public class BillingMobileService {
                     .postalCode(postal);
             gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
-    }
-
-    public boolean paymentBusiness(String rid) {
-        TransactionRequest request = new TransactionRequest();
-        request.customer()
-                .firstName("Jac")
-                .lastName("Paui")
-                .company("Jones Co.");
-
-        request.creditCard().number("4111111111111111").expirationMonth("05").expirationYear("2016");
-
-        request.amount(new BigDecimal("100.00"))
-                .customerId(rid)
-                .options()
-                .submitForSettlement(true)
-                .storeInVaultOnSuccess(true)
-                .done();
-
-        Result<Transaction> result = gateway.transaction().sale(request);
-        return result.isSuccess();
     }
 }
