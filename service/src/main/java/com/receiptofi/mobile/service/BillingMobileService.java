@@ -503,11 +503,15 @@ public class BillingMobileService {
             String paymentMethodNonce,
             BillingHistoryEntity billingHistory
     ) {
-        TransactionDetail transactionDetail;
+        TransactionDetail transactionDetail = null;
+        String message = null;
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
         /** Highly unlikely to happen that refund will fail. Hence condition of 'OR' to complete un-subscribe. */
-        if (voidOrRefund(billingHistory, rid) || StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
+        if (StringUtils.isNotBlank(billingHistory.getTransactionId()) ||
+                StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
+
+            boolean vorSuccess = voidOrRefund(billingHistory, rid);
             TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
             if (subscriptionCancelDetail.isSuccess()) {
                 LOG.info("success cancelled subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
@@ -523,22 +527,30 @@ public class BillingMobileService {
                         paymentMethodNonce,
                         billingHistory);
             } else {
-                transactionDetail = new TransactionDetailPayment(
-                        firstName,
-                        lastName,
-                        postal,
-                        planId,
-                        "Payment refunded. " + subscriptionCancelDetail.getMessage()
-                );
+                if (vorSuccess) {
+                    message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
+                    LOG.warn("refund success message={}", message);
+                } else {
+                    LOG.error("Failed to refund payment and cancel subscription transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+                    message = "Failed to refund payment and cancel subscription.";
+                    LOG.warn("message={}", message);
+                }
             }
         } else {
-            LOG.error("Failed to refund transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+            LOG.error("Either transactionId or subscriptionId is empty transactionId={} subscriptionId={} rid={}",
+                    billingHistory.getTransactionId(), paymentGatewayUser.getSubscriptionId(), rid);
+
+            message = "We failed to understand the request.";
+        }
+
+        if (null == transactionDetail) {
+            Assert.hasLength(message, "Message for TransactionDetailPayment is null");
             transactionDetail = new TransactionDetailPayment(
                     firstName,
                     lastName,
                     postal,
                     planId,
-                    "Failed to refund payment."
+                    message
             );
         }
 
