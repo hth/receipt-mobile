@@ -13,6 +13,7 @@ import com.braintreegateway.Subscription;
 import com.braintreegateway.SubscriptionRequest;
 import com.braintreegateway.Transaction;
 import com.braintreegateway.TransactionRequest;
+import com.braintreegateway.exceptions.NotFoundException;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -503,9 +504,10 @@ public class BillingMobileService {
             BillingHistoryEntity billingHistory
     ) {
         TransactionDetail transactionDetail;
-        if (voidOrRefund(billingHistory.getTransactionId(), rid)) {
-            PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
+        /** Highly unlikely to happen that refund will fail. Hence condition of 'OR' to complete un-subscribe. */
+        if (voidOrRefund(billingHistory, rid) || StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
             TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
             if (subscriptionCancelDetail.isSuccess()) {
                 LOG.info("success cancelled subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
@@ -526,7 +528,7 @@ public class BillingMobileService {
                         lastName,
                         postal,
                         planId,
-                        subscriptionCancelDetail.getMessage()
+                        "Payment refunded. " + subscriptionCancelDetail.getMessage()
                 );
             }
         } else {
@@ -643,38 +645,50 @@ public class BillingMobileService {
     ) {
         TransactionDetail transactionDetail;
         if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
-            Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
-            Subscription subscription = result.getTarget();
-            if (result.isSuccess() &&
-                    StringUtils.isNotBlank(subscription.getId()) &&
-                    paymentGatewayUser.getSubscriptionId().equals(subscription.getId())) {
+            try {
+                Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
+                Subscription subscription = result.getTarget();
+                if (result.isSuccess() &&
+                        StringUtils.isNotBlank(subscription.getId()) &&
+                        paymentGatewayUser.getSubscriptionId().equals(subscription.getId())) {
 
-                paymentGatewayUser.setSubscriptionId("");
-                paymentGatewayUser.setUpdated(new Date());
-                billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
-                billingAccountManager.save(billingAccount);
-                LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
-                        paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
+                    paymentGatewayUser.setSubscriptionId("");
+                    paymentGatewayUser.setUpdated(new Date());
+                    billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
+                    billingAccountManager.save(billingAccount);
+                    LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
+                            paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
+
+                    transactionDetail = new TransactionDetailSubscription(
+                            result.isSuccess(),
+                            subscription.getStatus().name(),
+                            subscription.getPlanId(),
+                            paymentGatewayUser.getFirstName(),
+                            paymentGatewayUser.getLastName(),
+                            paymentGatewayUser.getPostalCode(),
+                            billingAccount.getAccountBillingType().getName(),
+                            subscription.getId()
+                    );
+                } else {
+                    LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
+
+                    transactionDetail = new TransactionDetailSubscription(
+                            paymentGatewayUser.getFirstName(),
+                            paymentGatewayUser.getLastName(),
+                            paymentGatewayUser.getPostalCode(),
+                            billingAccount.getAccountBillingType().getName(),
+                            result.getMessage()
+                    );
+                }
+            } catch (NotFoundException e) {
+                LOG.error("Failed when un-subscribing reason={}", e.getLocalizedMessage(), e);
 
                 transactionDetail = new TransactionDetailSubscription(
-                        result.isSuccess(),
-                        subscription.getStatus().name(),
-                        subscription.getPlanId(),
                         paymentGatewayUser.getFirstName(),
                         paymentGatewayUser.getLastName(),
                         paymentGatewayUser.getPostalCode(),
                         billingAccount.getAccountBillingType().getName(),
-                        subscription.getId()
-                );
-            } else {
-                LOG.warn("Failed to cancel rid={} status={}", rid, result.getMessage());
-
-                transactionDetail = new TransactionDetailSubscription(
-                        paymentGatewayUser.getFirstName(),
-                        paymentGatewayUser.getLastName(),
-                        paymentGatewayUser.getPostalCode(),
-                        billingAccount.getAccountBillingType().getName(),
-                        result.getMessage()
+                        "Could not find users subscription."
                 );
             }
         } else {
@@ -692,20 +706,31 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
-    private boolean voidOrRefund(String transactionId, String rid) {
-        Result<Transaction> result = gateway.transaction().voidTransaction(transactionId);
-        if (result.isSuccess()) {
-            LOG.info("void success transactionId={} rid={} resultId={}", transactionId, rid, result.getTarget().getId());
-            return result.isSuccess();
-        } else {
-            LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", transactionId, rid, result.getMessage());
-            result = gateway.transaction().refund(transactionId);
+    private boolean voidOrRefund(BillingHistoryEntity billingHistory, String rid) {
+        try {
+            Result<Transaction> result = gateway.transaction().voidTransaction(billingHistory.getTransactionId());
             if (result.isSuccess()) {
-                LOG.info("refund success transactionId={} rid={}", transactionId, rid);
+                LOG.info("void success transactionId={} rid={} resultId={}", billingHistory.getTransactionId(), rid, result.getTarget().getId());
+                billingHistory.setTransactionId("");
+                billingHistory.setUpdated();
+                billingHistoryManager.save(billingHistory);
+                return result.isSuccess();
             } else {
-                LOG.warn("refund failed transactionId={} rid={} reason={}", transactionId, rid, result.getMessage());
+                LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", billingHistory.getTransactionId(), rid, result.getMessage());
+                result = gateway.transaction().refund(billingHistory.getTransactionId());
+                if (result.isSuccess()) {
+                    LOG.info("refund success transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+                    billingHistory.setTransactionId("");
+                    billingHistory.setUpdated();
+                    billingHistoryManager.save(billingHistory);
+                } else {
+                    LOG.warn("refund failed transactionId={} rid={} reason={}", billingHistory.getTransactionId(), rid, result.getMessage());
+                }
+                return result.isSuccess();
             }
-            return result.isSuccess();
+        } catch (NotFoundException e) {
+            LOG.error("Failed when voidOrRefunding reason={}", e.getLocalizedMessage(), e);
+            return false;
         }
     }
 
