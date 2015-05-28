@@ -371,9 +371,7 @@ public class BillingMobileService {
 
         Result<Transaction> result = gateway.transaction().sale(request);
         Transaction transaction = result.getTarget();
-        LOG.info("Processor responseCode={} responseText={} authorizationCode={} settlementResponseCode={} settlementResponseText={}",
-                transaction.getProcessorResponseCode(),
-                transaction.getProcessorResponseText(),
+        LOG.info("Processor authorizationCode={} settlementResponseCode={} settlementResponseText={}",
                 transaction.getProcessorAuthorizationCode(),
                 transaction.getProcessorSettlementResponseCode(),
                 transaction.getProcessorSettlementResponseText());
@@ -442,9 +440,7 @@ public class BillingMobileService {
 
         Result<Transaction> result = gateway.transaction().sale(request);
         Transaction transaction = result.getTarget();
-        LOG.info("Processor responseCode={} responseText={} authorizationCode={} settlementResponseCode={} settlementResponseText={}",
-                transaction.getProcessorResponseCode(),
-                transaction.getProcessorResponseText(),
+        LOG.info("Processor authorizationCode={} settlementResponseCode={} settlementResponseText={}",
                 transaction.getProcessorAuthorizationCode(),
                 transaction.getProcessorSettlementResponseCode(),
                 transaction.getProcessorSettlementResponseText());
@@ -665,14 +661,14 @@ public class BillingMobileService {
                         StringUtils.isNotBlank(subscription.getId()) &&
                         paymentGatewayUser.getSubscriptionId().equals(subscription.getId())) {
 
-                    paymentGatewayUser.setSubscriptionId("");
-                    paymentGatewayUser.setUpdated(new Date());
-
-                    billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
-                    billingAccountManager.save(billingAccount);
-
                     LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
                             paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
+
+                    /** Payment Gateway is updated with BillingAccount. */
+                    paymentGatewayUser.setSubscriptionId("");
+                    paymentGatewayUser.setUpdated(new Date());
+                    billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
+                    billingAccountManager.save(billingAccount);
 
                     transactionDetail = new TransactionDetailSubscription(
                             result.isSuccess(),
