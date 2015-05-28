@@ -653,7 +653,8 @@ public class BillingMobileService {
                 paymentGatewayUser.setUpdated(new Date());
                 billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                 billingAccountManager.save(billingAccount);
-                LOG.info("Success canceled subscription rid={} status={}", rid, subscription.getStatus());
+                LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
+                        paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
 
                 transactionDetail = new TransactionDetailSubscription(
                         result.isSuccess(),
@@ -694,7 +695,7 @@ public class BillingMobileService {
     private boolean voidOrRefund(String transactionId, String rid) {
         Result<Transaction> result = gateway.transaction().voidTransaction(transactionId);
         if (result.isSuccess()) {
-            LOG.info("void success transactionId={} rid={}", transactionId, rid);
+            LOG.info("void success transactionId={} rid={} resultId={}", transactionId, rid, result.getTarget().getId());
             return result.isSuccess();
         } else {
             LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", transactionId, rid, result.getMessage());
