@@ -523,12 +523,11 @@ public class BillingMobileService {
                         billingHistory);
             } else {
                 if (vorSuccess) {
-                    message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
                     LOG.warn("refund success message={}", message);
+                    message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
                 } else {
                     LOG.error("Failed to refund payment and cancel subscription transactionId={} rid={}", billingHistory.getTransactionId(), rid);
                     message = "Failed to refund payment and cancel subscription.";
-                    LOG.warn("message={}", message);
                 }
             }
         } else {
