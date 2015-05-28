@@ -668,8 +668,10 @@ public class BillingMobileService {
 
                     paymentGatewayUser.setSubscriptionId("");
                     paymentGatewayUser.setUpdated(new Date());
+
                     billingAccount.setAccountBillingType(AccountBillingTypeEnum.NB);
                     billingAccountManager.save(billingAccount);
+
                     LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
                             paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
 
@@ -717,18 +719,14 @@ public class BillingMobileService {
                 Result<Transaction> result = gateway.transaction().voidTransaction(billingHistory.getTransactionId());
                 if (result.isSuccess()) {
                     LOG.info("void success transactionId={} rid={} resultId={}", billingHistory.getTransactionId(), rid, result.getTarget().getId());
-                    billingHistory.setTransactionId("");
-                    billingHistory.setUpdated();
-                    billingHistoryManager.save(billingHistory);
+                    markAsNotBilled(billingHistory);
                     return result.isSuccess();
                 } else {
                     LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", billingHistory.getTransactionId(), rid, result.getMessage());
                     result = gateway.transaction().refund(billingHistory.getTransactionId());
                     if (result.isSuccess()) {
                         LOG.info("refund success transactionId={} rid={}", billingHistory.getTransactionId(), rid);
-                        billingHistory.setTransactionId("");
-                        billingHistory.setUpdated();
-                        billingHistoryManager.save(billingHistory);
+                        markAsNotBilled(billingHistory);
                     } else {
                         LOG.warn("refund failed transactionId={} rid={} reason={}", billingHistory.getTransactionId(), rid, result.getMessage());
                     }
@@ -742,6 +740,19 @@ public class BillingMobileService {
             LOG.error("TransactionId is empty rid={}", rid);
             return false;
         }
+    }
+
+    /**
+     * Change the BillingHistory as not billed.
+     *
+     * @param billingHistory
+     */
+    private void markAsNotBilled(BillingHistoryEntity billingHistory) {
+        billingHistory.setBilledStatus(BilledStatusEnum.NB);
+        billingHistory.setAccountBillingType(AccountBillingTypeEnum.NB);
+        billingHistory.setTransactionId("");
+        billingHistory.setUpdated();
+        billingHistoryManager.save(billingHistory);
     }
 
     /**
