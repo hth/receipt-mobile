@@ -402,7 +402,6 @@ public class BillingMobileService {
                     postal);
 
             billingAccount.addPaymentGateway(paymentGatewayUser);
-            billingAccount.markAccountBilled();
             billingAccountManager.save(billingAccount);
             upsertBillingHistory(rid, receiptofiPlan, transaction, paymentGatewayUser);
 
