@@ -727,7 +727,7 @@ public class BillingMobileService {
                     return refundTransaction(billingHistory, rid);
                 }
             } catch (NotFoundException e) {
-                LOG.error("Failed when voidOrRefunding reason={}", e.getLocalizedMessage(), e);
+                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
                 return false;
             }
         } else {
@@ -755,7 +755,7 @@ public class BillingMobileService {
                 }
                 return result.isSuccess();
             } catch (NotFoundException e) {
-                LOG.error("Failed when voidOrRefunding reason={}", e.getLocalizedMessage(), e);
+                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
                 return false;
             }
         } else {
