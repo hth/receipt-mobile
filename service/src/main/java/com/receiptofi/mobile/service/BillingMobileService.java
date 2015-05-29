@@ -506,7 +506,7 @@ public class BillingMobileService {
         if (StringUtils.isNotBlank(billingHistory.getTransactionId()) ||
                 StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
 
-            boolean vorSuccess = voidOrRefund(billingHistory, rid);
+            boolean vorSuccess = voidTransaction(billingHistory, rid);
             TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
             if (subscriptionCancelDetail.isSuccess()) {
                 LOG.info("success cancelled subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
@@ -707,7 +707,14 @@ public class BillingMobileService {
         return transactionDetail;
     }
 
-    private boolean voidOrRefund(BillingHistoryEntity billingHistory, String rid) {
+    /**
+     * Voids unsettled transaction.
+     *
+     * @param billingHistory
+     * @param rid
+     * @return
+     */
+    private boolean voidTransaction(BillingHistoryEntity billingHistory, String rid) {
         if (StringUtils.isNotBlank(billingHistory.getTransactionId())) {
             try {
                 Result<Transaction> result = gateway.transaction().voidTransaction(billingHistory.getTransactionId());
@@ -717,17 +724,38 @@ public class BillingMobileService {
                     return result.isSuccess();
                 } else {
                     LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", billingHistory.getTransactionId(), rid, result.getMessage());
-                    result = gateway.transaction().refund(billingHistory.getTransactionId());
-                    if (result.isSuccess()) {
-                        LOG.info("refund success transactionId={} rid={}", billingHistory.getTransactionId(), rid);
-                        markAsNotBilled(billingHistory);
-                    } else {
-                        LOG.warn("refund failed transactionId={} rid={} reason={}", billingHistory.getTransactionId(), rid, result.getMessage());
-                    }
-                    return result.isSuccess();
+                    return refundTransaction(billingHistory, rid);
                 }
             } catch (NotFoundException e) {
-                LOG.error("Failed when voidOrRefunding reason={}", e.getLocalizedMessage(), e);
+                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
+                return false;
+            }
+        } else {
+            LOG.error("TransactionId is empty rid={}", rid);
+            return false;
+        }
+    }
+
+    /**
+     * Refunds transaction.
+     *
+     * @param billingHistory
+     * @param rid
+     * @return
+     */
+    private boolean refundTransaction(BillingHistoryEntity billingHistory, String rid) {
+        if (StringUtils.isNotBlank(billingHistory.getTransactionId())) {
+            try {
+                Result<Transaction> result = gateway.transaction().refund(billingHistory.getTransactionId());
+                if (result.isSuccess()) {
+                    LOG.info("refund success transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+                    markAsNotBilled(billingHistory);
+                } else {
+                    LOG.warn("refund failed transactionId={} rid={} reason={}", billingHistory.getTransactionId(), rid, result.getMessage());
+                }
+                return result.isSuccess();
+            } catch (NotFoundException e) {
+                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
                 return false;
             }
         } else {
