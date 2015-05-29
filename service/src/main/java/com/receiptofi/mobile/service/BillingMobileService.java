@@ -737,7 +737,7 @@ public class BillingMobileService {
     }
 
     /**
-     * Refunds transaction.
+     * Refunds transaction. All transactions are settled at 5:00 PM or 7:00 AM EST.
      *
      * @param billingHistory
      * @param rid
