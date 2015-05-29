@@ -152,6 +152,12 @@ public class BillingMobileService {
         this.merchantAccountId = merchantAccountId;
     }
 
+    /**
+     * All billing history.
+     *
+     * @param rid
+     * @param availableAccountUpdates
+     */
     public void getBilling(String rid, AvailableAccountUpdates availableAccountUpdates) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         List<BillingHistoryEntity> billings = billingHistoryManager.getHistory(rid);
@@ -159,6 +165,13 @@ public class BillingMobileService {
         availableAccountUpdates.setJsonBilling(new JsonBilling(billingAccount, billings));
     }
 
+    /**
+     * Billing history since last checked time.
+     *
+     * @param rid
+     * @param since
+     * @param availableAccountUpdates
+     */
     public void getBilling(String rid, Date since, AvailableAccountUpdates availableAccountUpdates) {
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         List<BillingHistoryEntity> billings = billingHistoryManager.getHistory(rid, since);
@@ -237,6 +250,12 @@ public class BillingMobileService {
         return receiptofiPlans;
     }
 
+    /**
+     * Get payment gateway token to initialize SDK.
+     *
+     * @param rid
+     * @return
+     */
     public Token getBrianTreeClientToken(String rid) {
         BraintreeToken braintreeToken;
 
@@ -248,13 +267,20 @@ public class BillingMobileService {
             if (PaymentGatewayEnum.BT == paymentGatewayUser.getPaymentGateway()) {
                 braintreeToken = getBraintreeToken(billingAccount, paymentGatewayUser);
             } else {
-                LOG.error("Reached unreachable condition ", billingAccount.getPaymentGateway());
+                LOG.error("Reached unreachable condition {}", billingAccount.getPaymentGateway());
                 throw new IllegalStateException("Reached unreachable condition for payment gateway");
             }
         }
         return braintreeToken;
     }
 
+    /**
+     * Populate token with user information.
+     *
+     * @param billingAccount
+     * @param paymentGatewayUser
+     * @return
+     */
     private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
         ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
         /** Token from gateway can be null and should be sent to phone as null. */
