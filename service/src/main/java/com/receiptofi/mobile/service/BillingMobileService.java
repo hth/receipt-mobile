@@ -323,6 +323,7 @@ public class BillingMobileService {
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
         Assert.notNull(receiptofiPlan, "Could not find a plan for id=" + planId);
         if (billingAccount.getPaymentGateway().isEmpty()) {
+            /** Means customer does not exists on payment gateway. */
             return newPayment(
                     rid,
                     planId,
@@ -335,36 +336,34 @@ public class BillingMobileService {
                     paymentMethodNonce);
         } else {
             BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-
-            if (billingHistory.getBilledStatus() == BilledStatusEnum.B) {
-                return updateBilledPayment(
-                        rid,
-                        planId,
-                        firstName,
-                        lastName,
-                        company,
-                        postal,
-                        receiptofiPlan,
-                        billingAccount,
-                        paymentMethodNonce,
-                        billingHistory);
-            } else {
-                return cancelAndCreateNewPayment(
-                        rid,
-                        planId,
-                        firstName,
-                        lastName,
-                        company,
-                        postal,
-                        receiptofiPlan,
-                        billingAccount,
-                        paymentMethodNonce,
-                        billingHistory);
-
-            }
+            return cancelAndCreateNewPayment(
+                rid,
+                planId,
+                firstName,
+                lastName,
+                company,
+                postal,
+                receiptofiPlan,
+                billingAccount,
+                paymentMethodNonce,
+                billingHistory);
         }
     }
 
+    /**
+     * Create customer. Charge the card and add to subscription.
+     *
+     * @param rid
+     * @param planId
+     * @param firstName
+     * @param lastName
+     * @param company
+     * @param postal
+     * @param receiptofiPlan
+     * @param billingAccount
+     * @param paymentMethodNonce
+     * @return
+     */
     private TransactionDetail newPayment(
             String rid,
             String planId,
@@ -557,10 +556,20 @@ public class BillingMobileService {
                 }
             }
         } else {
-            LOG.error("Either transactionId or subscriptionId is empty transactionId={} subscriptionId={} rid={}",
+            LOG.info("Subscribing to new plan since transactionId or subscriptionId is empty transactionId={} subscriptionId={} rid={}",
                     billingHistory.getTransactionId(), paymentGatewayUser.getSubscriptionId(), rid);
 
-            message = "We failed to understand the request.";
+            transactionDetail = updateBilledPayment(
+                    rid,
+                    planId,
+                    firstName,
+                    lastName,
+                    company,
+                    postal,
+                    receiptofiPlan,
+                    billingAccount,
+                    paymentMethodNonce,
+                    billingHistory);
         }
 
         if (null == transactionDetail) {
