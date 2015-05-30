@@ -337,16 +337,16 @@ public class BillingMobileService {
         } else {
             BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
             return cancelAndCreateNewPayment(
-                rid,
-                planId,
-                firstName,
-                lastName,
-                company,
-                postal,
-                receiptofiPlan,
-                billingAccount,
-                paymentMethodNonce,
-                billingHistory);
+                    rid,
+                    planId,
+                    firstName,
+                    lastName,
+                    company,
+                    postal,
+                    receiptofiPlan,
+                    billingAccount,
+                    paymentMethodNonce,
+                    billingHistory);
         }
     }
 
@@ -532,9 +532,8 @@ public class BillingMobileService {
                 StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
 
             boolean vorSuccess = voidTransaction(billingHistory, rid);
-            TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
-            if (subscriptionCancelDetail.isSuccess()) {
-                LOG.info("success cancelled subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
+            if (StringUtils.isBlank(paymentGatewayUser.getSubscriptionId())) {
+                LOG.info("User not subscribed to any plan. Hence billing and subscribing to a plan");
                 transactionDetail = updateBilledPayment(
                         rid,
                         planId,
@@ -547,12 +546,30 @@ public class BillingMobileService {
                         paymentMethodNonce,
                         billingHistory);
             } else {
-                if (vorSuccess) {
-                    LOG.warn("refund success message={}", message);
-                    message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
+                TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
+                if (subscriptionCancelDetail.isSuccess()) {
+                    LOG.info("success cancelled subscriptionId={} rid={} and now re-subscribing to newer plan",
+                            paymentGatewayUser.getSubscriptionId(), rid);
+
+                    transactionDetail = updateBilledPayment(
+                            rid,
+                            planId,
+                            firstName,
+                            lastName,
+                            company,
+                            postal,
+                            receiptofiPlan,
+                            billingAccount,
+                            paymentMethodNonce,
+                            billingHistory);
                 } else {
-                    LOG.error("Failed to refund payment and cancel subscription transactionId={} rid={}", billingHistory.getTransactionId(), rid);
-                    message = "Failed to refund payment and cancel subscription.";
+                    if (vorSuccess) {
+                        LOG.warn("refund success message={}", message);
+                        message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
+                    } else {
+                        LOG.error("Failed to refund payment and cancel subscription transactionId={} rid={}", billingHistory.getTransactionId(), rid);
+                        message = "Failed to refund payment and cancel subscription.";
+                    }
                 }
             }
         } else {
