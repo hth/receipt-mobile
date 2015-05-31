@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -43,6 +44,9 @@ public class ExpenseTagController {
 
     private AuthenticateService authenticateService;
     private ExpenseTagMobileService expenseTagMobileService;
+
+    @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
+    private int expenseTagCountMax;
 
     @Autowired
     public ExpenseTagController(
@@ -112,8 +116,17 @@ public class ExpenseTagController {
                 return ErrorEncounteredJson.toJson(errors);
             } else {
                 try {
-                    expenseTagMobileService.save(tagName, rid, tagColor);
-                    return expenseTagMobileService.getUpdates(rid).asJson();
+                    if (expenseTagMobileService.getExpenseTags(rid).size() < expenseTagCountMax) {
+                        expenseTagMobileService.save(tagName, rid, tagColor);
+                        return expenseTagMobileService.getUpdates(rid).asJson();
+                    } else {
+                        Map<String, String> errors = new HashMap<>();
+                        errors.put(ErrorEncounteredJson.REASON, "Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
+                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                        return ErrorEncounteredJson.toJson(errors);
+                    }
                 } catch (Exception e) {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
 
@@ -262,7 +275,7 @@ public class ExpenseTagController {
                 return ErrorEncounteredJson.toJson(errors);
             } else {
                 boolean result = expenseTagMobileService.deleteExpenseTag(tagId, tagName, rid);
-                if(result) {
+                if (result) {
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } else {
                     LOG.error("Failure to delete expense tag rid={} tagId={}", rid, tagId);
