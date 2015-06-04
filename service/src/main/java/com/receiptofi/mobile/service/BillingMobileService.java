@@ -712,7 +712,7 @@ public class BillingMobileService {
     }
 
     /**
-     * Refunds transaction. All transactions are settled at 5:00 PM or 7:00 AM EST.
+     * Refunds transaction. All transactions are settled at 5:00 PM or 7:00 AM CDT.
      */
     private boolean refundTransaction(BillingHistoryEntity billingHistory, String rid) {
         if (StringUtils.isNotBlank(billingHistory.getTransactionId())) {
