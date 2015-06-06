@@ -48,6 +48,9 @@ public class ExpenseTagController {
     @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
     private int expenseTagCountMax;
 
+    @Value ("${UserProfilePreferenceController.ExpenseTagSize:12}")
+    private int expenseTagSize;
+
     @Autowired
     public ExpenseTagController(
             AuthenticateService authenticateService,
@@ -110,6 +113,15 @@ public class ExpenseTagController {
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Expense Tag already exists.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
+            } else if (tagName.length() > expenseTagSize) {
+                LOG.warn("Expense Tag expenseTagName={} for rid={} length size={} greater", tagName, rid, expenseTagSize);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, tagName + " length should not be greater than " + expenseTagSize + " .");
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
