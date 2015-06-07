@@ -92,7 +92,8 @@ public class DeviceService {
             billingMobileService.getBilling(rid, updated, availableAccountUpdates);
         }
 
-        expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
+        //Put this under since update condition; add updated
+        expenseTagMobileService.getAllExpenseTags(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
@@ -125,7 +126,7 @@ public class DeviceService {
         availableAccountUpdates.setJsonNotifications(notificationMobileService.getAllNotifications(rid));
         billingMobileService.getBilling(rid, availableAccountUpdates);
 
-        expenseTagMobileService.getExpenseTag(rid, availableAccountUpdates);
+        expenseTagMobileService.getAllExpenseTags(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
 
         return availableAccountUpdates;

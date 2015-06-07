@@ -49,6 +49,10 @@ public class ExpenseTagMobileService {
         return expenseTagManager.getExpenseTags(rid);
     }
 
+    public List<ExpenseTagEntity> getAllExpenseTags(String rid) {
+        return expenseTagManager.getAllExpenseTags(rid);
+    }
+
     public ExpenseTagEntity getExpenseTag(String rid, String tagId) {
         if (StringUtils.isNotBlank(tagId)) {
             return expenseTagManager.getExpenseTag(rid, tagId);
@@ -81,13 +85,13 @@ public class ExpenseTagMobileService {
 
     public AvailableAccountUpdates getUpdates(String rid) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        getExpenseTag(rid, availableAccountUpdates);
+        getAllExpenseTags(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
         return availableAccountUpdates;
     }
 
-    public void getExpenseTag(String rid, AvailableAccountUpdates availableAccountUpdates) {
-        availableAccountUpdates.addJsonExpenseTag(getExpenseTags(rid));
+    public void getAllExpenseTags(String rid, AvailableAccountUpdates availableAccountUpdates) {
+        availableAccountUpdates.addJsonExpenseTag(getAllExpenseTags(rid));
     }
 
     public boolean softDeleteExpenseTag(String expenseTypeId, String expenseTagName, String rid) {
