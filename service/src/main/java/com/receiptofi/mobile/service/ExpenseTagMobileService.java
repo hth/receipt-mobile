@@ -90,7 +90,7 @@ public class ExpenseTagMobileService {
         availableAccountUpdates.addJsonExpenseTag(getExpenseTags(rid));
     }
 
-    public boolean deleteExpenseTag(String expenseTypeId, String expenseTagName, String rid) {
-        return expensesService.deleteExpenseTag(expenseTypeId, expenseTagName, rid);
+    public boolean softDeleteExpenseTag(String expenseTypeId, String expenseTagName, String rid) {
+        return expensesService.softDeleteExpenseTag(expenseTypeId, expenseTagName, rid);
     }
 }
