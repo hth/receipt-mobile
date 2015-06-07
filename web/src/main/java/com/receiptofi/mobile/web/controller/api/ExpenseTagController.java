@@ -286,7 +286,7 @@ public class ExpenseTagController {
 
                 return ErrorEncounteredJson.toJson(errors);
             } else {
-                boolean result = expenseTagMobileService.deleteExpenseTag(tagId, tagName, rid);
+                boolean result = expenseTagMobileService.softDeleteExpenseTag(tagId, tagName, rid);
                 if (result) {
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } else {
