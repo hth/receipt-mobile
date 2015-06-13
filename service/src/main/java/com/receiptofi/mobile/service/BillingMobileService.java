@@ -3,10 +3,8 @@ package com.receiptofi.mobile.service;
 import static com.receiptofi.domain.BillingHistoryEntity.YYYY_MM;
 
 import com.braintreegateway.AddressRequest;
-import com.braintreegateway.BraintreeGateway;
 import com.braintreegateway.ClientTokenRequest;
 import com.braintreegateway.CustomerRequest;
-import com.braintreegateway.Environment;
 import com.braintreegateway.Plan;
 import com.braintreegateway.Result;
 import com.braintreegateway.Subscription;
@@ -24,6 +22,7 @@ import com.receiptofi.domain.json.JsonBilling;
 import com.receiptofi.domain.types.AccountBillingTypeEnum;
 import com.receiptofi.domain.types.BilledStatusEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
+import com.receiptofi.domain.types.TransactionStatusEnum;
 import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.domain.BraintreeToken;
@@ -34,6 +33,8 @@ import com.receiptofi.mobile.domain.TransactionDetailPayment;
 import com.receiptofi.mobile.domain.TransactionDetailSubscription;
 import com.receiptofi.mobile.repository.BillingAccountManagerMobile;
 import com.receiptofi.mobile.repository.BillingHistoryManagerMobile;
+import com.receiptofi.service.BillingService;
+import com.receiptofi.service.PaymentGatewayService;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -68,9 +69,10 @@ public class BillingMobileService {
     private static final int SIZE_20 = 20;
     private static final int SIZE_1 = 1;
 
-    private BraintreeGateway gateway;
     private BillingAccountManagerMobile billingAccountManager;
     private BillingHistoryManagerMobile billingHistoryManager;
+    private BillingService billingService;
+    private PaymentGatewayService paymentGatewayService;
 
     /** Cache plans. */
     private final Cache<String, List<ReceiptofiPlan>> planCache;
@@ -83,15 +85,6 @@ public class BillingMobileService {
             @Value ("${braintree.environment}")
             String brainTreeEnvironment,
 
-            @Value ("${braintree.merchant_id}")
-            String brainTreeMerchantId,
-
-            @Value ("${braintree.public_key}")
-            String brainTreePublicKey,
-
-            @Value ("${braintree.private_key}")
-            String brainTreePrivateKey,
-
             @Value ("${braintree.merchant_account_id}")
             String merchantAccountId,
 
@@ -99,16 +92,11 @@ public class BillingMobileService {
             int planCacheMinutes,
 
             BillingAccountManagerMobile billingAccountManager,
-            BillingHistoryManagerMobile billingHistoryManager
+            BillingHistoryManagerMobile billingHistoryManager,
+            BillingService billingService,
+            PaymentGatewayService paymentGatewayService
     ) {
         if ("PRODUCTION".equals(brainTreeEnvironment)) {
-            gateway = new BraintreeGateway(
-                    Environment.PRODUCTION,
-                    brainTreeMerchantId,
-                    brainTreePublicKey,
-                    brainTreePrivateKey
-            );
-
             planCache = CacheBuilder.newBuilder()
                     .maximumSize(SIZE_1)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
@@ -124,13 +112,6 @@ public class BillingMobileService {
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
                     .build();
         } else {
-            gateway = new BraintreeGateway(
-                    Environment.SANDBOX,
-                    brainTreeMerchantId,
-                    brainTreePublicKey,
-                    brainTreePrivateKey
-            );
-
             planCache = CacheBuilder.newBuilder()
                     .maximumSize(SIZE_1)
                     .expireAfterWrite(planCacheMinutes, TimeUnit.MINUTES)
@@ -147,9 +128,11 @@ public class BillingMobileService {
                     .build();
         }
 
+        this.merchantAccountId = merchantAccountId;
         this.billingAccountManager = billingAccountManager;
         this.billingHistoryManager = billingHistoryManager;
-        this.merchantAccountId = merchantAccountId;
+        this.billingService = billingService;
+        this.paymentGatewayService = paymentGatewayService;
     }
 
     /**
@@ -216,7 +199,7 @@ public class BillingMobileService {
         if (receiptofiPlans == null) {
             receiptofiPlans = new ArrayList<>();
 
-            List<Plan> plans = gateway.plan().all();
+            List<Plan> plans = paymentGatewayService.getGateway().plan().all();
             for (Plan plan : plans) {
                 ReceiptofiPlan receiptofiPlan = new ReceiptofiPlan();
                 receiptofiPlan.setId(plan.getId());
@@ -244,7 +227,7 @@ public class BillingMobileService {
 
         BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
         if (billingAccount.getPaymentGateway().isEmpty()) {
-            braintreeToken = new BraintreeToken(gateway.clientToken().generate());
+            braintreeToken = new BraintreeToken(paymentGatewayService.getGateway().clientToken().generate());
         } else {
             PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
             if (PaymentGatewayEnum.BT == paymentGatewayUser.getPaymentGateway()) {
@@ -263,7 +246,7 @@ public class BillingMobileService {
     private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
         ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
         /** Token from gateway can be null and should be sent to phone as null. */
-        BraintreeToken braintreeToken = new BraintreeToken(gateway.clientToken().generate(clientTokenRequest));
+        BraintreeToken braintreeToken = new BraintreeToken(paymentGatewayService.getGateway().clientToken().generate(clientTokenRequest));
         if (StringUtils.isBlank(braintreeToken.getToken())) {
             LOG.warn("Token not initialized rid={}", billingAccount.getRid());
         }
@@ -353,7 +336,7 @@ public class BillingMobileService {
                 .done();
         request.recurring(true);
 
-        Result<Transaction> result = gateway.transaction().sale(request);
+        Result<Transaction> result = paymentGatewayService.getGateway().transaction().sale(request);
         Transaction transaction = result.getTarget();
         LOG.info("Processor authorizationCode={} settlementResponseCode={} settlementResponseText={}",
                 transaction.getProcessorAuthorizationCode(),
@@ -422,7 +405,7 @@ public class BillingMobileService {
                 .submitForSettlement(true)
                 .done();
 
-        Result<Transaction> result = gateway.transaction().sale(request);
+        Result<Transaction> result = paymentGatewayService.getGateway().transaction().sale(request);
         Transaction transaction = result.getTarget();
         LOG.info("Processor authorizationCode={} settlementResponseCode={} settlementResponseText={}",
                 transaction.getProcessorAuthorizationCode(),
@@ -478,7 +461,23 @@ public class BillingMobileService {
         if (StringUtils.isNotBlank(billingHistory.getTransactionId()) ||
                 StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
 
-            boolean vorSuccess = voidTransaction(billingHistory, rid);
+            TransactionStatusEnum transactionStatus = billingService.voidTransaction(billingHistory);
+            if (null != transactionStatus) {
+                /** Should only support Void and Refund transaction status. */
+                switch (transactionStatus) {
+                    case R:
+                        break;
+                    case V:
+                        break;
+                    default:
+                        LOG.error("Unknown transactionStatus={}", transactionStatus.getName());
+                }
+
+                billingHistory.setBilledStatus(BilledStatusEnum.R);
+                billingHistory.setTransactionStatus(transactionStatus);
+                billingHistoryManager.save(billingHistory);
+            }
+
             if (StringUtils.isBlank(paymentGatewayUser.getSubscriptionId())) {
                 LOG.info("User not subscribed to any plan. Hence billing and subscribing to a plan");
                 transactionDetail = updateBilledPayment(
@@ -510,7 +509,7 @@ public class BillingMobileService {
                             paymentMethodNonce,
                             billingHistory);
                 } else {
-                    if (vorSuccess) {
+                    if (null != transactionStatus) {
                         LOG.warn("refund success message={}", message);
                         message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
                     } else {
@@ -581,7 +580,7 @@ public class BillingMobileService {
         subscriptionRequest
                 .paymentMethodToken(token)
                 .planId(receiptofiPlan.getId());
-        Result<Subscription> subscriptionResult = gateway.subscription().create(subscriptionRequest);
+        Result<Subscription> subscriptionResult = paymentGatewayService.getGateway().subscription().create(subscriptionRequest);
         if (subscriptionResult.isSuccess()) {
             LOG.info("Added to subscription");
             subscriptionId = subscriptionResult.getTarget().getId();
@@ -633,7 +632,7 @@ public class BillingMobileService {
 
         if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
             try {
-                Result<Subscription> result = gateway.subscription().cancel(paymentGatewayUser.getSubscriptionId());
+                Result<Subscription> result = paymentGatewayService.getGateway().subscription().cancel(paymentGatewayUser.getSubscriptionId());
                 Subscription subscription = result.getTarget();
                 if (result.isSuccess() &&
                         StringUtils.isNotBlank(subscription.getId()) &&
@@ -687,66 +686,6 @@ public class BillingMobileService {
     }
 
     /**
-     * Voids unsettled transaction.
-     */
-    private boolean voidTransaction(BillingHistoryEntity billingHistory, String rid) {
-        if (StringUtils.isNotBlank(billingHistory.getTransactionId())) {
-            try {
-                Result<Transaction> result = gateway.transaction().voidTransaction(billingHistory.getTransactionId());
-                if (result.isSuccess()) {
-                    LOG.info("void success transactionId={} rid={} resultId={}", billingHistory.getTransactionId(), rid, result.getTarget().getId());
-                    markAsNotBilled(billingHistory);
-                    return result.isSuccess();
-                } else {
-                    LOG.warn("void failed transactionId={} rid={} reason={}, trying refund", billingHistory.getTransactionId(), rid, result.getMessage());
-                    return refundTransaction(billingHistory, rid);
-                }
-            } catch (NotFoundException e) {
-                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
-                return false;
-            }
-        } else {
-            LOG.error("TransactionId is empty rid={}", rid);
-            return false;
-        }
-    }
-
-    /**
-     * Refunds transaction. All transactions are settled at 5:00 PM or 7:00 AM CDT.
-     */
-    private boolean refundTransaction(BillingHistoryEntity billingHistory, String rid) {
-        if (StringUtils.isNotBlank(billingHistory.getTransactionId())) {
-            try {
-                Result<Transaction> result = gateway.transaction().refund(billingHistory.getTransactionId());
-                if (result.isSuccess()) {
-                    LOG.info("refund success transactionId={} rid={}", billingHistory.getTransactionId(), rid);
-                    markAsNotBilled(billingHistory);
-                } else {
-                    LOG.warn("refund failed transactionId={} rid={} reason={}", billingHistory.getTransactionId(), rid, result.getMessage());
-                }
-                return result.isSuccess();
-            } catch (NotFoundException e) {
-                LOG.error("Could not find transactionId reason={}", e.getLocalizedMessage(), e);
-                return false;
-            }
-        } else {
-            LOG.error("TransactionId is empty rid={}", rid);
-            return false;
-        }
-    }
-
-    /**
-     * Change the BillingHistory as not billed.
-     */
-    private void markAsNotBilled(BillingHistoryEntity billingHistory) {
-        billingHistory.setBilledStatus(BilledStatusEnum.NB);
-        billingHistory.setAccountBillingType(AccountBillingTypeEnum.NB);
-        billingHistory.setTransactionId("");
-        billingHistory.setUpdated();
-        billingHistoryManager.save(billingHistory);
-    }
-
-    /**
      * Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P.
      */
     private void updateBillingHistory(
@@ -759,7 +698,7 @@ public class BillingMobileService {
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
-        billingHistory.setUpdated();
+        billingHistory.setTransactionStatus(TransactionStatusEnum.S);
     }
 
     /**
@@ -776,6 +715,7 @@ public class BillingMobileService {
         billingHistory.setAccountBillingType(receiptofiPlan.getAccountBillingType());
         billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
         billingHistory.setTransactionId(transactionId);
+        billingHistory.setTransactionStatus(TransactionStatusEnum.S);
         return billingHistory;
     }
 
@@ -809,7 +749,7 @@ public class BillingMobileService {
                     .firstName(firstName)
                     .lastName(lastName)
                     .company(company);
-            gateway.customer().update(paymentGatewayUser.getCustomerId(), customerRequest);
+            paymentGatewayService.getGateway().customer().update(paymentGatewayUser.getCustomerId(), customerRequest);
         }
     }
 
@@ -830,7 +770,7 @@ public class BillingMobileService {
             AddressRequest addressRequest = new AddressRequest();
             addressRequest
                     .postalCode(postal);
-            gateway.address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
+            paymentGatewayService.getGateway().address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
         }
     }
 }
