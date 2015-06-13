@@ -85,7 +85,7 @@ public class BillingController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            LOG.info("Plans fetched for rid={} did={}", rid);
+            LOG.info("Plans fetched for rid={}", rid);
             return billingMobileService.getAllPlans();
         }
     }
