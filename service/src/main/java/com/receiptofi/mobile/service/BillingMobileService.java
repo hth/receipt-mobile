@@ -368,7 +368,8 @@ public class BillingMobileService {
 
             billingAccount.addPaymentGateway(paymentGatewayUser);
             billingAccountManager.save(billingAccount);
-            upsertBillingHistory(rid, receiptofiPlan, transaction, paymentGatewayUser);
+            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, paymentGatewayUser, transaction.getId());
+            billingHistoryManager.save(billingHistory);
 
             String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
             paymentGatewayUser.setSubscriptionId(subscriptionId);
@@ -389,8 +390,7 @@ public class BillingMobileService {
             String postal,
             ReceiptofiPlan receiptofiPlan,
             BillingAccountEntity billingAccount,
-            String paymentMethodNonce,
-            BillingHistoryEntity billingHistory
+            String paymentMethodNonce
     ) {
         PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
 
@@ -423,9 +423,10 @@ public class BillingMobileService {
         );
 
         if (result.isSuccess()) {
-            LOG.info("Paid for rid={} plan={} customerId={}",
-                    rid, receiptofiPlan.getId(), transaction.getCustomer().getId());
-            upsertBillingHistory(rid, receiptofiPlan, transaction, paymentGatewayUser);
+            LOG.info("Paid for rid={} plan={} customerId={}", rid, receiptofiPlan.getId(), transaction.getCustomer().getId());
+
+            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, paymentGatewayUser, transaction.getId());
+            billingHistoryManager.save(billingHistory);
 
             String subscriptionId = subscribe(receiptofiPlan, transaction.getCreditCard().getToken());
             paymentGatewayUser.setSubscriptionId(subscriptionId);
@@ -489,8 +490,7 @@ public class BillingMobileService {
                         postal,
                         receiptofiPlan,
                         billingAccount,
-                        paymentMethodNonce,
-                        billingHistory);
+                        paymentMethodNonce);
             } else {
                 TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
                 if (subscriptionCancelDetail.isSuccess()) {
@@ -506,8 +506,7 @@ public class BillingMobileService {
                             postal,
                             receiptofiPlan,
                             billingAccount,
-                            paymentMethodNonce,
-                            billingHistory);
+                            paymentMethodNonce);
                 } else {
                     if (null != transactionStatus) {
                         LOG.warn("refund success message={}", message);
@@ -531,8 +530,7 @@ public class BillingMobileService {
                     postal,
                     receiptofiPlan,
                     billingAccount,
-                    paymentMethodNonce,
-                    billingHistory);
+                    paymentMethodNonce);
         }
 
         if (null == transactionDetail) {
@@ -548,24 +546,6 @@ public class BillingMobileService {
 
         LOG.debug("at exit {}", transactionDetail);
         return transactionDetail;
-    }
-
-    /**
-     * Create new or update existing billing history.
-     */
-    private void upsertBillingHistory(String rid, ReceiptofiPlan receiptofiPlan, Transaction transaction, PaymentGatewayUser paymentGatewayUser) {
-        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-        if (null == billingHistory || BilledStatusEnum.B == billingHistory.getBilledStatus()) {
-            billingHistory = createBillingHistory(
-                    rid,
-                    receiptofiPlan,
-                    paymentGatewayUser,
-                    transaction.getId());
-        } else {
-            /** Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P. */
-            updateBillingHistory(receiptofiPlan, paymentGatewayUser, transaction.getId(), billingHistory);
-        }
-        billingHistoryManager.save(billingHistory);
     }
 
     /**
@@ -702,7 +682,7 @@ public class BillingMobileService {
     }
 
     /**
-     * Create new when BillingHistory does not exists or previously billed status is BilledStatusEnum.B.
+     * Create new when BillingHistory for a new transaction Id.
      */
     private BillingHistoryEntity createBillingHistory(
             String rid,
