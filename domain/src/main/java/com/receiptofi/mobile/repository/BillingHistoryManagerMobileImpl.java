@@ -60,7 +60,7 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
     @Override
     public BillingHistoryEntity getHistory(String rid, String yyyyMM) {
         return  mongoTemplate.findOne(
-                query(where("RID").is(rid).and("BM").is(yyyyMM)),
+                query(where("RID").is(rid).and("BM").is(yyyyMM)).with(new Sort(DESC, "U")),
                 BillingHistoryEntity.class
         );
     }
