@@ -562,7 +562,7 @@ public class BillingMobileService {
                 .planId(receiptofiPlan.getId());
         Result<Subscription> subscriptionResult = paymentGatewayService.getGateway().subscription().create(subscriptionRequest);
         if (subscriptionResult.isSuccess()) {
-            LOG.info("Added to subscription");
+            LOG.info("Added to subscriptionId={}", subscriptionResult.getTarget().getId());
             subscriptionId = subscriptionResult.getTarget().getId();
         }
         return subscriptionId;
