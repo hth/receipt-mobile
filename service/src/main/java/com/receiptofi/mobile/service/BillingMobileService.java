@@ -606,7 +606,20 @@ public class BillingMobileService {
      */
     public TransactionDetail cancelLastSubscription(String rid) {
         BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
-        return cancelSubscription(rid, billingAccount);
+        TransactionDetail transactionDetail = cancelSubscription(rid, billingAccount);
+        if (!billingAccount.isActive()) {
+            BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
+            newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
+            newBillingAccount.setCustomerId(billingAccount.getCustomerId());
+            newBillingAccount.setFirstName(billingAccount.getFirstName());
+            newBillingAccount.setLastName(billingAccount.getLastName());
+            newBillingAccount.setCompany(billingAccount.getCompany());
+            newBillingAccount.setAddressId(billingAccount.getAddressId());
+            newBillingAccount.setPostalCode(billingAccount.getPostalCode());
+            newBillingAccount.setBillingPlan(BillingPlanEnum.NB);
+            billingAccountManager.save(newBillingAccount);
+        }
+        return transactionDetail;
     }
 
     /**
@@ -629,17 +642,6 @@ public class BillingMobileService {
 
                     billingAccount.inActive();
                     billingAccountManager.save(billingAccount);
-
-                    BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
-                    newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
-                    newBillingAccount.setCustomerId(billingAccount.getCustomerId());
-                    newBillingAccount.setFirstName(billingAccount.getFirstName());
-                    newBillingAccount.setLastName(billingAccount.getLastName());
-                    newBillingAccount.setCompany(billingAccount.getCompany());
-                    newBillingAccount.setAddressId(billingAccount.getAddressId());
-                    newBillingAccount.setPostalCode(billingAccount.getPostalCode());
-                    newBillingAccount.setBillingPlan(BillingPlanEnum.NB);
-                    billingAccountManager.save(newBillingAccount);
 
                     transactionDetail = new TransactionDetailSubscription(
                             result.isSuccess(),
