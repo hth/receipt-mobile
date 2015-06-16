@@ -24,4 +24,12 @@ public interface BillingHistoryManagerMobile extends RepositoryManager<BillingHi
     BillingHistoryEntity getHistory(String rid, String yyyyMM);
 
     void save(BillingHistoryEntity billingHistory);
+
+    /**
+     * Delete billingHistory that have blank transactionId.
+     *
+     * @param billingHistory
+     * @return
+     */
+    void deleteHard(BillingHistoryEntity billingHistory);
 }

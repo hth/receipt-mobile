@@ -8,6 +8,7 @@ import com.receiptofi.domain.BillingAccountEntity;
  */
 public interface BillingAccountManagerMobile extends RepositoryManager<BillingAccountEntity> {
 
-    BillingAccountEntity getBillingAccount(String rid);
+    BillingAccountEntity getLatestBillingAccount(String rid);
+
     void save(BillingAccountEntity billingAccount);
 }

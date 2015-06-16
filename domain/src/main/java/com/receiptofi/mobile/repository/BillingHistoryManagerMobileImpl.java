@@ -8,6 +8,8 @@ import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.repository.BillingHistoryManager;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
 
     @Override
     public BillingHistoryEntity getHistory(String rid, String yyyyMM) {
-        return  mongoTemplate.findOne(
+        return mongoTemplate.findOne(
                 query(where("RID").is(rid).and("BM").is(yyyyMM)).with(new Sort(DESC, "U")),
                 BillingHistoryEntity.class
         );
@@ -68,5 +70,15 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
     @Override
     public void save(BillingHistoryEntity billingHistory) {
         billingHistoryManager.save(billingHistory);
+    }
+
+    @Override
+    public void deleteHard(BillingHistoryEntity billingHistory) {
+        if (StringUtils.isBlank(billingHistory.getTransactionId())) {
+            billingHistoryManager.deleteHard(billingHistory);
+        } else {
+            LOG.error("Should not be deleting billingHistory with rid={} transactionStatus={} transactionId={}",
+                    billingHistory.getRid(), billingHistory.getTransactionStatus(), billingHistory.getTransactionId());
+        }
     }
 }
