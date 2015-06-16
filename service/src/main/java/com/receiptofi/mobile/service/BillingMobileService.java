@@ -19,11 +19,10 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.BillingAccountEntity;
 import com.receiptofi.domain.BillingHistoryEntity;
 import com.receiptofi.domain.json.JsonBilling;
-import com.receiptofi.domain.types.BillingPlanEnum;
 import com.receiptofi.domain.types.BilledStatusEnum;
+import com.receiptofi.domain.types.BillingPlanEnum;
 import com.receiptofi.domain.types.PaymentGatewayEnum;
 import com.receiptofi.domain.types.TransactionStatusEnum;
-import com.receiptofi.domain.value.PaymentGatewayUser;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.domain.BraintreeToken;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
@@ -48,7 +47,6 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -139,7 +137,7 @@ public class BillingMobileService {
      * All billing history.
      */
     public void getBilling(String rid, AvailableAccountUpdates availableAccountUpdates) {
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
         List<BillingHistoryEntity> billings = billingHistoryManager.getHistory(rid);
 
         availableAccountUpdates.setJsonBilling(new JsonBilling(billingAccount, billings));
@@ -149,7 +147,7 @@ public class BillingMobileService {
      * Billing history since last checked time.
      */
     public void getBilling(String rid, Date since, AvailableAccountUpdates availableAccountUpdates) {
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
         List<BillingHistoryEntity> billings = billingHistoryManager.getHistory(rid, since);
 
         availableAccountUpdates.setJsonBilling(new JsonBilling(billingAccount, billings));
@@ -225,13 +223,12 @@ public class BillingMobileService {
     public Token getBrianTreeClientToken(String rid) {
         BraintreeToken braintreeToken;
 
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
-        if (billingAccount.getPaymentGateway().isEmpty()) {
+        BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
+        if (StringUtils.isBlank(billingAccount.getCustomerId())) {
             braintreeToken = new BraintreeToken(paymentGatewayService.getGateway().clientToken().generate());
         } else {
-            PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
-            if (PaymentGatewayEnum.BT == paymentGatewayUser.getPaymentGateway()) {
-                braintreeToken = getBraintreeToken(billingAccount, paymentGatewayUser);
+            if (PaymentGatewayEnum.BT == billingAccount.getPaymentGateway()) {
+                braintreeToken = getBraintreeToken(billingAccount);
             } else {
                 LOG.error("Reached unreachable condition {}", billingAccount.getPaymentGateway());
                 throw new IllegalStateException("Reached unreachable condition for payment gateway");
@@ -243,17 +240,17 @@ public class BillingMobileService {
     /**
      * Populate token with user information.
      */
-    private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount, PaymentGatewayUser paymentGatewayUser) {
-        ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(paymentGatewayUser.getCustomerId());
+    private BraintreeToken getBraintreeToken(BillingAccountEntity billingAccount) {
+        ClientTokenRequest clientTokenRequest = new ClientTokenRequest().customerId(billingAccount.getCustomerId());
         /** Token from gateway can be null and should be sent to phone as null. */
         BraintreeToken braintreeToken = new BraintreeToken(paymentGatewayService.getGateway().clientToken().generate(clientTokenRequest));
         if (StringUtils.isBlank(braintreeToken.getToken())) {
             LOG.warn("Token not initialized rid={}", billingAccount.getRid());
         }
         braintreeToken.setHasCustomerInfo(true);
-        braintreeToken.setFirstName(paymentGatewayUser.getFirstName());
-        braintreeToken.setLastName(paymentGatewayUser.getLastName());
-        braintreeToken.setPostalCode(paymentGatewayUser.getPostalCode());
+        braintreeToken.setFirstName(billingAccount.getFirstName());
+        braintreeToken.setLastName(billingAccount.getLastName());
+        braintreeToken.setPostalCode(billingAccount.getPostalCode());
         braintreeToken.setPlanId(billingAccount.getBillingPlan().name());
         return braintreeToken;
     }
@@ -272,12 +269,30 @@ public class BillingMobileService {
             String postal,
             String paymentMethodNonce
     ) {
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
+        BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
+
         ReceiptofiPlan receiptofiPlan = getPlan(planId);
         Assert.notNull(receiptofiPlan, "Could not find a plan for id=" + planId);
-        if (billingAccount.getPaymentGateway().isEmpty()) {
-            /** Means customer does not exists on payment gateway. */
-            return newPayment(
+
+        BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
+        if (null != billingHistory && BillingPlanEnum.P == billingHistory.getBillingPlan()) {
+            LOG.info("User under promotional plan. Ignore this transaction and notify user.");
+            return new TransactionDetailSubscription(
+                    firstName,
+                    lastName,
+                    postal,
+                    planId,
+                    new StringBuilder().append("We appreciate your patronage to join ")
+                            .append(receiptofiPlan.getName())
+                            .append(" subscription plan, but you are currently enrolled for free promotional plan. ")
+                            .append("Please sign up on a later date after promotional plan has ended.").toString());
+
+        } else if (null != billingHistory && StringUtils.isBlank(billingHistory.getTransactionId())) {
+            /**
+             * This happens when user is not signed up for any subscription.
+             * And nor signed up for promotional plan either.
+             */
+            TransactionDetail transaction = newPayment(
                     rid,
                     planId,
                     firstName,
@@ -285,21 +300,106 @@ public class BillingMobileService {
                     company,
                     postal,
                     receiptofiPlan,
-                    billingAccount,
                     paymentMethodNonce);
+
+
+            if (transaction.isSuccess()) {
+                /**
+                 * After new billing history is created. Delete the existing billingHistory with no transaction id.
+                 * Do not mark any history with valid transaction id as inactive.
+                 */
+                billingHistoryManager.deleteHard(billingHistory);
+
+                /** When new billing account is created with new subscription id. Mark existing billing account inactive. */
+                billingAccount.inActive();
+                billingAccountManager.save(billingAccount);
+            } else {
+                transaction = new TransactionDetailSubscription(
+                        firstName,
+                        lastName,
+                        postal,
+                        planId,
+                        ""
+                );
+            }
+
+            return transaction;
+        } else if (null != billingHistory) {
+            LOG.info("Subscribing to planId={} and cancel transactionId={} and un-subscribe from planId={} where subscriptionId={} for rid={}",
+                    planId, billingHistory.getTransactionId(), billingAccount.getBillingPlan().name(), billingAccount.getSubscriptionId(), rid);
+
+            TransactionDetail transaction = null;
+            StringBuilder message = new StringBuilder();
+
+            if (cancelPayment(billingHistory)) {
+
+                boolean cancelSubscriptionStatus;
+                if (StringUtils.isNotBlank(billingAccount.getSubscriptionId())) {
+                    cancelSubscriptionStatus = cancelSubscription(rid, billingAccount).isSuccess();
+                    if (!cancelSubscriptionStatus) {
+
+                        /** When we confirm subscription was cancelled successfully. */
+                        message.append("Cancelled previous transaction successfully but failed to cancel subscription. ")
+                                .append("Please un-subscribe and then try again to subscribe to new plan ")
+                                .append(receiptofiPlan.getBillingPlan().getDescription())
+                                .append(".");
+
+                        return new TransactionDetailSubscription(
+                                firstName,
+                                lastName,
+                                postal,
+                                planId,
+                                message.toString());
+                    }
+                }
+
+                transaction = updateBilledPayment(
+                        rid,
+                        planId,
+                        firstName,
+                        lastName,
+                        company,
+                        postal,
+                        receiptofiPlan,
+                        paymentMethodNonce,
+                        billingAccount);
+
+                if (!transaction.isSuccess()) {
+                    message.append("Cancelled previous transaction and subscription successfully. ")
+                            .append("But failed to join to subscription plan ")
+                            .append(receiptofiPlan.getBillingPlan().getDescription())
+                            .append(". Please try later to subscribe to your selected plan.");
+
+                    transaction = null;
+                } else {
+                    /** Mark the account as inactive since the new account is active. */
+                    billingAccount.inActive();
+                    billingAccountManager.save(billingAccount);
+                }
+
+            } else {
+                LOG.error("Failed to cancel previous transaction rid={} transactionId={}", rid, billingHistory.getTransactionId());
+                message.append("Failed to cancel previous transaction. Engineers are looking into this. Please try again later.");
+            }
+
+            if (transaction == null) {
+                transaction = new TransactionDetailSubscription(
+                        firstName,
+                        lastName,
+                        postal,
+                        planId,
+                        message.toString());
+            }
+
+            return transaction;
         } else {
-            BillingHistoryEntity billingHistory = billingHistoryManager.getHistory(rid, YYYY_MM.format(new Date()));
-            return cancelAndCreateNewPayment(
-                    rid,
-                    planId,
+            LOG.error("Failed to find any billing for month rid={} planId={}", rid, planId);
+            return new TransactionDetailSubscription(
                     firstName,
                     lastName,
-                    company,
                     postal,
-                    receiptofiPlan,
-                    billingAccount,
-                    paymentMethodNonce,
-                    billingHistory);
+                    planId,
+                    "Failed to find any billing for month");
         }
     }
 
@@ -314,7 +414,6 @@ public class BillingMobileService {
             String company,
             String postal,
             ReceiptofiPlan receiptofiPlan,
-            BillingAccountEntity billingAccount,
             String paymentMethodNonce
     ) {
         TransactionRequest request = new TransactionRequest();
@@ -340,8 +439,8 @@ public class BillingMobileService {
         Transaction transaction = result.getTarget();
         LOG.info("Processor authorizationCode={} settlementResponseCode={} settlementResponseText={}",
                 transaction.getProcessorAuthorizationCode(),
-                transaction.getProcessorSettlementResponseCode(),
-                transaction.getProcessorSettlementResponseText());
+                transaction.getProcessorResponseCode(),
+                transaction.getProcessorResponseText());
 
         TransactionDetail transactionDetail = new TransactionDetailPayment(
                 result.isSuccess(),
@@ -357,23 +456,25 @@ public class BillingMobileService {
             LOG.info("Paid for rid={} plan={} customerId={}",
                     rid, receiptofiPlan.getId(), transaction.getCustomer().getId());
 
-            PaymentGatewayUser paymentGatewayUser = new PaymentGatewayUser(
-                    PaymentGatewayEnum.BT,
-                    transaction.getCustomer().getId(),
-                    firstName,
-                    lastName,
-                    company,
-                    transaction.getBillingAddress().getId(),
-                    postal);
-
-            billingAccount.addPaymentGateway(paymentGatewayUser);
+            BillingAccountEntity billingAccount = new BillingAccountEntity(rid);
+            billingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
+            billingAccount.setCustomerId(transaction.getCustomer().getId());
+            billingAccount.setFirstName(firstName);
+            billingAccount.setLastName(lastName);
+            billingAccount.setCompany(company);
+            billingAccount.setAddressId(transaction.getBillingAddress().getId());
+            billingAccount.setPostalCode(postal);
+            billingAccount.setBillingPlan(receiptofiPlan.getBillingPlan());
+            /** Save early as adding user to subscription plan can fail. We would not like to lose this information. */
             billingAccountManager.save(billingAccount);
-            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, paymentGatewayUser, transaction.getId());
+
+            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, PaymentGatewayEnum.BT, transaction.getId());
             billingHistoryManager.save(billingHistory);
 
             String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
-            paymentGatewayUser.setSubscriptionId(subscriptionId);
-            billingAccount.setBillingPlan(receiptofiPlan.getBillingPlan());
+            billingAccount.setSubscriptionId(subscriptionId);
+
+            /** Adding subscription id to billing account. */
             billingAccountManager.save(billingAccount);
         }
 
@@ -389,16 +490,17 @@ public class BillingMobileService {
             String company,
             String postal,
             ReceiptofiPlan receiptofiPlan,
-            BillingAccountEntity billingAccount,
-            String paymentMethodNonce
-    ) {
-        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+            String paymentMethodNonce,
+            BillingAccountEntity billingAccount) {
 
-        updateCustomer(firstName, lastName, company, paymentGatewayUser, billingAccount);
-        updateBillingAddress(postal, paymentGatewayUser, billingAccount);
+        /** Updates existing billing account customer information. */
+        updateCustomer(firstName, lastName, company, billingAccount);
+
+        /** Updates existing billing account customer address information. */
+        updateBillingAddress(postal, billingAccount);
 
         TransactionRequest request = new TransactionRequest();
-        request.customerId(paymentGatewayUser.getCustomerId());
+        request.customerId(billingAccount.getCustomerId());
         request.amount(receiptofiPlan.getPrice())
                 .paymentMethodNonce(paymentMethodNonce)
                 .options()
@@ -425,14 +527,26 @@ public class BillingMobileService {
         if (result.isSuccess()) {
             LOG.info("Paid for rid={} plan={} customerId={}", rid, receiptofiPlan.getId(), transaction.getCustomer().getId());
 
-            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, paymentGatewayUser, transaction.getId());
+            BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
+            newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
+            newBillingAccount.setCustomerId(transaction.getCustomer().getId());
+            newBillingAccount.setFirstName(firstName);
+            newBillingAccount.setLastName(lastName);
+            newBillingAccount.setCompany(company);
+            newBillingAccount.setAddressId(transaction.getBillingAddress().getId());
+            newBillingAccount.setPostalCode(postal);
+            newBillingAccount.setBillingPlan(receiptofiPlan.getBillingPlan());
+            /** Save early as adding user to subscription plan can fail. We would not like to lose this information. */
+            billingAccountManager.save(newBillingAccount);
+
+            BillingHistoryEntity billingHistory = createBillingHistory(rid, receiptofiPlan, PaymentGatewayEnum.BT, transaction.getId());
             billingHistoryManager.save(billingHistory);
 
-            String subscriptionId = subscribe(receiptofiPlan, transaction.getCreditCard().getToken());
-            paymentGatewayUser.setSubscriptionId(subscriptionId);
-            paymentGatewayUser.setUpdated(new Date());
-            billingAccount.setBillingPlan(receiptofiPlan.getBillingPlan());
-            billingAccountManager.save(billingAccount);
+            String subscriptionId = subscribe(receiptofiPlan, result.getTarget().getCreditCard().getToken());
+            newBillingAccount.setSubscriptionId(subscriptionId);
+
+            /** Adding subscription id to billing account. */
+            billingAccountManager.save(newBillingAccount);
         }
 
         LOG.debug("at exit {}", transactionDetail);
@@ -442,111 +556,30 @@ public class BillingMobileService {
     /**
      * Void or Refund existing transaction and then cancels subscription before signing up with new plan.
      */
-    private TransactionDetail cancelAndCreateNewPayment(
-            String rid,
-            String planId,
-            String firstName,
-            String lastName,
-            String company,
-            String postal,
-            ReceiptofiPlan receiptofiPlan,
-            BillingAccountEntity billingAccount,
-            String paymentMethodNonce,
-            BillingHistoryEntity billingHistory
-    ) {
-        TransactionDetail transactionDetail = null;
-        String message = null;
-        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
+    private boolean cancelPayment(BillingHistoryEntity billingHistory) {
 
         /** Highly unlikely to happen that refund will fail. Hence condition of 'OR' to complete un-subscribe. */
-        if (StringUtils.isNotBlank(billingHistory.getTransactionId()) ||
-                StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
-
-            TransactionStatusEnum transactionStatus = billingService.voidTransaction(billingHistory);
-            if (null != transactionStatus) {
-                /** Should only support Void and Refund transaction status. */
-                switch (transactionStatus) {
-                    case R:
-                        break;
-                    case V:
-                        break;
-                    default:
-                        LOG.error("Unknown transactionStatus={}", transactionStatus.getName());
-                }
-
-                billingHistory.setBilledStatus(BilledStatusEnum.R);
-                billingHistory.setTransactionStatus(transactionStatus);
-                billingHistoryManager.save(billingHistory);
+        TransactionStatusEnum transactionStatus = billingService.voidTransaction(billingHistory);
+        if (null != transactionStatus) {
+            /** Should only support Void and Refund transaction status. */
+            switch (transactionStatus) {
+                case R:
+                    break;
+                case V:
+                    break;
+                default:
+                    LOG.error("Unknown transactionStatus={}", transactionStatus.getName());
             }
 
-            if (StringUtils.isBlank(paymentGatewayUser.getSubscriptionId())) {
-                LOG.info("User not subscribed to any plan. Hence billing and subscribing to a plan");
-                transactionDetail = updateBilledPayment(
-                        rid,
-                        planId,
-                        firstName,
-                        lastName,
-                        company,
-                        postal,
-                        receiptofiPlan,
-                        billingAccount,
-                        paymentMethodNonce);
-            } else {
-                TransactionDetail subscriptionCancelDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
-                if (subscriptionCancelDetail.isSuccess()) {
-                    LOG.info("success cancelled subscriptionId={} rid={} and now re-subscribing to newer plan",
-                            paymentGatewayUser.getSubscriptionId(), rid);
-
-                    transactionDetail = updateBilledPayment(
-                            rid,
-                            planId,
-                            firstName,
-                            lastName,
-                            company,
-                            postal,
-                            receiptofiPlan,
-                            billingAccount,
-                            paymentMethodNonce);
-                } else {
-                    if (null != transactionStatus) {
-                        LOG.warn("refund success message={}", message);
-                        message = "Payment refunded. " + subscriptionCancelDetail.getMessage();
-                    } else {
-                        LOG.error("Failed to refund payment and cancel subscription transactionId={} rid={}", billingHistory.getTransactionId(), rid);
-                        message = "Failed to refund payment and cancel subscription.";
-                    }
-                }
-            }
+            billingHistory.setBilledStatus(BilledStatusEnum.R);
+            billingHistory.setTransactionStatus(transactionStatus);
+            billingHistoryManager.save(billingHistory);
         } else {
-            LOG.info("Subscribing to new plan since transactionId or subscriptionId is empty transactionId={} subscriptionId={} rid={}",
-                    billingHistory.getTransactionId(), paymentGatewayUser.getSubscriptionId(), rid);
-
-            transactionDetail = updateBilledPayment(
-                    rid,
-                    planId,
-                    firstName,
-                    lastName,
-                    company,
-                    postal,
-                    receiptofiPlan,
-                    billingAccount,
-                    paymentMethodNonce);
+            LOG.error("Failed to refund payment transactionId={} rid={}", billingHistory.getTransactionId(), billingHistory.getRid());
         }
-
-        if (null == transactionDetail) {
-            Assert.hasLength(message, "Message for TransactionDetailPayment is null");
-            transactionDetail = new TransactionDetailPayment(
-                    firstName,
-                    lastName,
-                    postal,
-                    planId,
-                    message
-            );
-        }
-
-        LOG.debug("at exit {}", transactionDetail);
-        return transactionDetail;
+        return transactionStatus != null;
     }
+
 
     /**
      * Subscribe the plan.
@@ -569,71 +602,52 @@ public class BillingMobileService {
     }
 
     /**
-     * Cancels all subscription.
-     */
-    public List<TransactionDetail> cancelAllSubscription(String rid) {
-        int count = 0, success = 0, failure = 0;
-        List<TransactionDetail> transactionDetails = new LinkedList<>();
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
-        for (PaymentGatewayUser paymentGatewayUser : billingAccount.getPaymentGateway()) {
-            count++;
-            TransactionDetail transactionDetail = cancelSubscription(rid, billingAccount, paymentGatewayUser);
-            if (transactionDetail.isSuccess()) {
-                success++;
-            } else {
-                failure++;
-            }
-            transactionDetails.add(transactionDetail);
-        }
-        LOG.info("Cancelled subscriptions count={} success={} failure={}", count, success, failure);
-
-        return transactionDetails;
-    }
-
-    /**
      * Cancels last subscription.
      */
     public TransactionDetail cancelLastSubscription(String rid) {
-        BillingAccountEntity billingAccount = billingAccountManager.getBillingAccount(rid);
-        PaymentGatewayUser paymentGatewayUser = billingAccount.getPaymentGateway().getLast();
-        return cancelSubscription(rid, billingAccount, paymentGatewayUser);
+        BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
+        return cancelSubscription(rid, billingAccount);
     }
 
     /**
      * Cancels an existing subscription.
      */
-    private TransactionDetail cancelSubscription(
-            String rid,
-            BillingAccountEntity billingAccount,
-            PaymentGatewayUser paymentGatewayUser
-    ) {
+    private TransactionDetail cancelSubscription(String rid, BillingAccountEntity billingAccount) {
         TransactionDetail transactionDetail = null;
         String message = null;
 
-        if (StringUtils.isNotBlank(paymentGatewayUser.getSubscriptionId())) {
+        if (StringUtils.isNotBlank(billingAccount.getSubscriptionId())) {
             try {
-                Result<Subscription> result = paymentGatewayService.getGateway().subscription().cancel(paymentGatewayUser.getSubscriptionId());
+                Result<Subscription> result = paymentGatewayService.getGateway().subscription().cancel(billingAccount.getSubscriptionId());
                 Subscription subscription = result.getTarget();
                 if (result.isSuccess() &&
                         StringUtils.isNotBlank(subscription.getId()) &&
-                        paymentGatewayUser.getSubscriptionId().equals(subscription.getId())) {
+                        billingAccount.getSubscriptionId().equals(subscription.getId())) {
 
                     LOG.info("Success canceled subscription subscriptionId={} rid={} status={} resultId={}",
-                            paymentGatewayUser.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
+                            billingAccount.getSubscriptionId(), rid, subscription.getStatus(), result.getTarget().getId());
 
-                    /** Payment Gateway is updated with BillingAccount. */
-                    paymentGatewayUser.setSubscriptionId("");
-                    paymentGatewayUser.setUpdated(new Date());
-                    billingAccount.setBillingPlan(BillingPlanEnum.NB);
+                    billingAccount.inActive();
                     billingAccountManager.save(billingAccount);
+
+                    BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
+                    newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
+                    newBillingAccount.setCustomerId(billingAccount.getCustomerId());
+                    newBillingAccount.setFirstName(billingAccount.getFirstName());
+                    newBillingAccount.setLastName(billingAccount.getLastName());
+                    newBillingAccount.setCompany(billingAccount.getCompany());
+                    newBillingAccount.setAddressId(billingAccount.getAddressId());
+                    newBillingAccount.setPostalCode(billingAccount.getPostalCode());
+                    newBillingAccount.setBillingPlan(BillingPlanEnum.NB);
+                    billingAccountManager.save(newBillingAccount);
 
                     transactionDetail = new TransactionDetailSubscription(
                             result.isSuccess(),
                             subscription.getStatus().name(),
                             subscription.getPlanId(),
-                            paymentGatewayUser.getFirstName(),
-                            paymentGatewayUser.getLastName(),
-                            paymentGatewayUser.getPostalCode(),
+                            billingAccount.getFirstName(),
+                            billingAccount.getLastName(),
+                            billingAccount.getPostalCode(),
                             billingAccount.getBillingPlan().getName(),
                             subscription.getId()
                     );
@@ -646,16 +660,16 @@ public class BillingMobileService {
                 message = "Could not find users subscription.";
             }
         } else {
-            LOG.error("Subscription not found subscriptionId={} rid={}", paymentGatewayUser.getSubscriptionId(), rid);
+            LOG.error("Subscription not found subscriptionId={} rid={}", billingAccount.getSubscriptionId(), rid);
             message = "Subscription could not be found.";
         }
 
         if (null == transactionDetail) {
             Assert.hasLength(message, "Message for TransactionDetailPayment is null");
             transactionDetail = new TransactionDetailSubscription(
-                    paymentGatewayUser.getFirstName(),
-                    paymentGatewayUser.getLastName(),
-                    paymentGatewayUser.getPostalCode(),
+                    billingAccount.getFirstName(),
+                    billingAccount.getLastName(),
+                    billingAccount.getPostalCode(),
                     billingAccount.getBillingPlan().getName(),
                     message
             );
@@ -666,34 +680,18 @@ public class BillingMobileService {
     }
 
     /**
-     * Update BillingHistory when bill status is either BilledStatusEnum.NB or BilledStatusEnum.P.
-     */
-    private void updateBillingHistory(
-            ReceiptofiPlan receiptofiPlan,
-            PaymentGatewayUser paymentGatewayUser,
-            String transactionId,
-            BillingHistoryEntity billingHistory
-    ) {
-        billingHistory.setBilledStatus(BilledStatusEnum.B);
-        billingHistory.setBillingPlan(receiptofiPlan.getBillingPlan());
-        billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
-        billingHistory.setTransactionId(transactionId);
-        billingHistory.setTransactionStatus(TransactionStatusEnum.S);
-    }
-
-    /**
      * Create new when BillingHistory for a new transaction Id.
      */
     private BillingHistoryEntity createBillingHistory(
             String rid,
             ReceiptofiPlan receiptofiPlan,
-            PaymentGatewayUser paymentGatewayUser,
+            PaymentGatewayEnum paymentGatewayEnum,
             String transactionId
     ) {
         BillingHistoryEntity billingHistory = new BillingHistoryEntity(rid, new Date());
         billingHistory.setBilledStatus(BilledStatusEnum.B);
         billingHistory.setBillingPlan(receiptofiPlan.getBillingPlan());
-        billingHistory.setPaymentGateway(paymentGatewayUser.getPaymentGateway());
+        billingHistory.setPaymentGateway(paymentGatewayEnum);
         billingHistory.setTransactionId(transactionId);
         billingHistory.setTransactionStatus(TransactionStatusEnum.S);
         return billingHistory;
@@ -703,22 +701,21 @@ public class BillingMobileService {
             String firstName,
             String lastName,
             String company,
-            PaymentGatewayUser paymentGatewayUser,
             BillingAccountEntity billingAccount
     ) {
         boolean modified = false;
 
-        if (!firstName.equals(paymentGatewayUser.getFirstName())) {
-            paymentGatewayUser.setFirstName(firstName);
+        if (!firstName.equals(billingAccount.getFirstName())) {
+            billingAccount.setFirstName(firstName);
             modified = true;
         }
-        if (!lastName.equals(paymentGatewayUser.getLastName())) {
-            paymentGatewayUser.setLastName(lastName);
+        if (!lastName.equals(billingAccount.getLastName())) {
+            billingAccount.setLastName(lastName);
             modified = true;
         }
 
-        if (null != company && null != paymentGatewayUser.getCompany() && !company.equals(paymentGatewayUser.getCompany())) {
-            paymentGatewayUser.setCompany(company);
+        if (null != company && null != billingAccount.getCompany() && !company.equals(billingAccount.getCompany())) {
+            billingAccount.setCompany(company);
             modified = true;
         }
 
@@ -729,19 +726,18 @@ public class BillingMobileService {
                     .firstName(firstName)
                     .lastName(lastName)
                     .company(company);
-            paymentGatewayService.getGateway().customer().update(paymentGatewayUser.getCustomerId(), customerRequest);
+            paymentGatewayService.getGateway().customer().update(billingAccount.getCustomerId(), customerRequest);
         }
     }
 
     private void updateBillingAddress(
             String postal,
-            PaymentGatewayUser paymentGatewayUser,
             BillingAccountEntity billingAccount
     ) {
         boolean modified = false;
 
-        if (!postal.equals(paymentGatewayUser.getPostalCode())) {
-            paymentGatewayUser.setPostalCode(postal);
+        if (!postal.equals(billingAccount.getPostalCode())) {
+            billingAccount.setPostalCode(postal);
             modified = true;
         }
 
@@ -750,7 +746,7 @@ public class BillingMobileService {
             AddressRequest addressRequest = new AddressRequest();
             addressRequest
                     .postalCode(postal);
-            paymentGatewayService.getGateway().address().update(paymentGatewayUser.getCustomerId(), paymentGatewayUser.getAddressId(), addressRequest);
+            paymentGatewayService.getGateway().address().update(billingAccount.getCustomerId(), billingAccount.getAddressId(), addressRequest);
         }
     }
 }
