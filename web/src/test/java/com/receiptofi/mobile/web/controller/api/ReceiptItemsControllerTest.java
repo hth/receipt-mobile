@@ -23,6 +23,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,7 +70,7 @@ public class ReceiptItemsControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(receiptEntity);
         when(receiptEntity.getId()).thenReturn("id");
-        when(itemService.getAllItemsOfReceipt("id")).thenReturn(new ArrayList<ItemEntity>());
+        when(itemService.getAllItemsOfReceipt("id")).thenReturn(new ArrayList<>());
         assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "", httpServletResponse).isEmpty());
     }
 
@@ -88,7 +89,7 @@ public class ReceiptItemsControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(receiptEntity);
         when(receiptEntity.getId()).thenReturn("id");
-        when(itemService.getAllItemsOfReceipt("id")).thenReturn(Arrays.asList(itemEntity));
+        when(itemService.getAllItemsOfReceipt("id")).thenReturn(Collections.singletonList(itemEntity));
         when(itemEntity.getId()).thenReturn("");
         when(itemEntity.getSequence()).thenReturn(0);
         when(itemEntity.getQuantity()).thenReturn(0.0);
