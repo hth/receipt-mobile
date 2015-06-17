@@ -82,7 +82,7 @@ public class ReceiptControllerTest {
     @Test
     public void testYtdReceiptsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(new ArrayList<ReceiptEntity>());
+        when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(new ArrayList<>());
         assertTrue(receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
     }
 

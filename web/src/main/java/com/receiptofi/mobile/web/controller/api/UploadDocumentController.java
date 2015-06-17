@@ -9,8 +9,6 @@ import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.service.LandingService;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,17 +17,14 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -59,9 +54,9 @@ public class UploadDocumentController {
     /**
      * TODO(hth) look into @RequestPart("meta-data") MetaData metadata, @RequestPart("file-data") MultipartFile file
      * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+     *
      * @param mail
      * @param auth
-     * @param request
      * @param response
      * @return
      * @throws IOException
@@ -78,7 +73,9 @@ public class UploadDocumentController {
             @RequestHeader ("X-R-AUTH")
             String auth,
 
-            HttpServletRequest request,
+            @RequestParam ("qqfile")
+            MultipartFile file,
+
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -87,55 +84,37 @@ public class UploadDocumentController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
-        LOG.info("upload document begins rid={} content-type={}", rid, request.getContentType());
+        LOG.info("upload document begins rid={}", rid);
 
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-        if (isMultipart) {
-            MultipartHttpServletRequest multipartHttpRequest =
-                    WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class);
-
-            final List<MultipartFile> files = multipartHttpRequest.getFiles("qqfile");
-
-            if (files.isEmpty()) {
-                LOG.error("qqfile name missing in request or no file uploaded");
-                return ErrorEncounteredJson.toJson(
-                        "qqfile name missing in request or no file uploaded", DOCUMENT_UPLOAD);
-            }
-
-            boolean upload = false;
-            MultipartFile multipartFile = files.iterator().next();
-            try {
-                if (multipartFile.getSize() <= 0) {
-                    LOG.error("upload document empty rid={} size={}", rid, multipartFile.getSize());
-                    throw new Exception("upload document is empty");
-                }
-
-                UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
-                uploadDocumentImage.setFileData(multipartFile);
-                uploadDocumentImage.setRid(rid);
-                uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
-                landingService.uploadDocument(uploadDocumentImage);
-                upload = true;
-                LOG.info("upload document successfully complete for rid={}", rid);
-                return DocumentUpload.newInstance(
-                        multipartFile.getOriginalFilename(),
-                        uploadDocumentImage.getBlobId(),
-                        landingService.pendingReceipt(rid)
-                ).asJson();
-            } catch (Exception exce) {
-                LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Failed to upload file.");
-                errors.put("document", multipartFile.getOriginalFilename());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, DOCUMENT_UPLOAD.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, DOCUMENT_UPLOAD.getCode());
-
-                return ErrorEncounteredJson.toJson(errors);
-            } finally {
-                LOG.info("upload document processed with success={} rid={}", upload, rid);
-            }
+        if (file.isEmpty()) {
+            LOG.error("qqfile name missing in request or no file uploaded");
+            return ErrorEncounteredJson.toJson("File qqfile missing in request or no file uploaded.", DOCUMENT_UPLOAD);
         }
-        return ErrorEncounteredJson.toJson("Failed to upload file.", DOCUMENT_UPLOAD);
+
+        try {
+            UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
+            uploadDocumentImage.setFileData(file);
+            uploadDocumentImage.setRid(rid);
+            uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
+            landingService.uploadDocument(uploadDocumentImage);
+
+            return DocumentUpload.newInstance(
+                    file.getOriginalFilename(),
+                    uploadDocumentImage.getBlobId(),
+                    landingService.pendingReceipt(rid)
+            ).asJson();
+        } catch (Exception exce) {
+            LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
+
+            Map<String, String> errors = new HashMap<>();
+            errors.put(ErrorEncounteredJson.REASON, "Failed to upload file.");
+            errors.put("document", file.getOriginalFilename());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, DOCUMENT_UPLOAD.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, DOCUMENT_UPLOAD.getCode());
+
+            return ErrorEncounteredJson.toJson(errors);
+        } finally {
+            LOG.info("upload document successfully complete for rid={}", rid);
+        }
     }
 }
