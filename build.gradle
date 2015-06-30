@@ -20,14 +20,6 @@ ext {
 
     unzipDir = file("${buildDir}/unpacked/dist")
     unzipLibDir = file("$unzipDir$lib")
-
-    springGroup = 'org.springframework'
-    springVersion = '4.1.6.RELEASE'
-
-    springSecurityGroup = 'org.springframework.security'
-    springSecurityVersion = '3.2.7.RELEASE'
-
-    springDataGroup = 'org.springframework.data'
 }
 
 allprojects {
@@ -167,15 +159,15 @@ subprojects {
         compile "$springSecurityGroup:spring-security-taglibs:$springSecurityVersion"
         compile "$springSecurityGroup:spring-security-web:$springSecurityVersion"
 
-        compile "$springDataGroup:spring-data-mongodb:1.7.0.RELEASE"
-        compile "$springDataGroup:spring-data-commons:1.10.0.RELEASE"
-        compile 'org.mongodb:mongo-java-driver:3.0.2'
+        compile "$springDataGroup:spring-data-mongodb:$springDataMongo"
+        compile "$springDataGroup:spring-data-commons:$springDataCommon"
+        compile "org.mongodb:mongo-java-driver:$mongoDriver"
 
         compile 'com.braintreepayments.gateway:braintree-java:2.43.0'
 
         /** --- Specific to Receipt Mobile Web Application ---- */
-        compile "io.springfox:springfox-swagger2:2.0.0"
-        compile "io.springfox:springfox-swagger-ui:2.0.0"
+        compile "io.springfox:springfox-swagger2:2.0.3"
+        compile "io.springfox:springfox-swagger-ui:2.0.3"
         /** ------- */
 
         compile 'org.apache.commons:commons-collections4:4.0'

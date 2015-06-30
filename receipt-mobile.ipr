@@ -165,6 +165,18 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-core/3.1.2/224f03afd2521c6c94632f566beb1bb5ee32cf07/metrics-core-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-annotation/3.1.2/7ee8e9afe8e15f921a3bc9f8d4b1109b58b63d46/metrics-annotation-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-graphite/3.1.2/15a68399652c6123fe6e4c82ac4f0749e2eb6583/metrics-graphite-3.1.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.2/7d3880dec6c8a2f07c1f544776c326834b513712/mongo-java-driver-3.0.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.0.3/31a49fa258286e98924bb3caf59aba57ae9ca639/springfox-swagger2-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.0.3/fecd54acf905a823e84de406997a4b72f2ffdea8/springfox-swagger-ui-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.0/f7497f7887e65277c0dab1da1148cf211083f3d4/swagger-annotations-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.0/d2566bfc270073a559b342089f54086ee64ca5b1/swagger-models-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.0.3/86d46cd9f8ccdd1f6971ad782c7ad0fa351bf54d/springfox-spi-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.0.3/97164a54fafa469e55e73e07282fbff93b2a42f4/springfox-schema-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.0.3/e9413c28f8e232f4a35a13bdd61ed4f4d96b5eb/springfox-swagger-common-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.0.3/ec4b1d3afb64f5142ca25b90bdd67c8bce9595b4/springfox-spring-web-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.0.3/3adcac62198d0e9091311925241f646300ed3581/springfox-core-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.2.0/3df977abee5df39041e60c763840cd948581971/classmate-1.2.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.8/9f2785d7184b97d005a44241ccaf980f43b9ccdb/joda-time-2.8.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -276,7 +288,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:3.2.7.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.7.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.10.0.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.0.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.43.0" />
@@ -315,8 +326,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.7.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.10" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Beta4" />
-            <element id="library" level="project" name="Gradle: com.wordnik:swagger-annotations:1.5.3-M1" />
-            <element id="library" level="project" name="Gradle: com.wordnik:swagger-models:1.5.3-M1" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.0.0" />
@@ -496,6 +505,18 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-core/3.1.2/224f03afd2521c6c94632f566beb1bb5ee32cf07/metrics-core-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-annotation/3.1.2/7ee8e9afe8e15f921a3bc9f8d4b1109b58b63d46/metrics-annotation-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-graphite/3.1.2/15a68399652c6123fe6e4c82ac4f0749e2eb6583/metrics-graphite-3.1.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.2/7d3880dec6c8a2f07c1f544776c326834b513712/mongo-java-driver-3.0.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.0.3/31a49fa258286e98924bb3caf59aba57ae9ca639/springfox-swagger2-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.0.3/fecd54acf905a823e84de406997a4b72f2ffdea8/springfox-swagger-ui-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.0/f7497f7887e65277c0dab1da1148cf211083f3d4/swagger-annotations-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.0/d2566bfc270073a559b342089f54086ee64ca5b1/swagger-models-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.0.3/86d46cd9f8ccdd1f6971ad782c7ad0fa351bf54d/springfox-spi-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.0.3/97164a54fafa469e55e73e07282fbff93b2a42f4/springfox-schema-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.0.3/e9413c28f8e232f4a35a13bdd61ed4f4d96b5eb/springfox-swagger-common-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.0.3/ec4b1d3afb64f5142ca25b90bdd67c8bce9595b4/springfox-spring-web-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.0.3/3adcac62198d0e9091311925241f646300ed3581/springfox-core-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.2.0/3df977abee5df39041e60c763840cd948581971/classmate-1.2.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.8/9f2785d7184b97d005a44241ccaf980f43b9ccdb/joda-time-2.8.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -584,7 +605,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:3.2.7.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.7.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.10.0.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.0.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.43.0" />
@@ -623,8 +643,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:3.2.7.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.10" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Beta4" />
-            <element id="library" level="project" name="Gradle: com.wordnik:swagger-annotations:1.5.3-M1" />
-            <element id="library" level="project" name="Gradle: com.wordnik:swagger-models:1.5.3-M1" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.0.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.0.0" />
@@ -796,6 +814,18 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-core/3.1.2/224f03afd2521c6c94632f566beb1bb5ee32cf07/metrics-core-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-annotation/3.1.2/7ee8e9afe8e15f921a3bc9f8d4b1109b58b63d46/metrics-annotation-3.1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-graphite/3.1.2/15a68399652c6123fe6e4c82ac4f0749e2eb6583/metrics-graphite-3.1.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.2/7d3880dec6c8a2f07c1f544776c326834b513712/mongo-java-driver-3.0.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.0.3/31a49fa258286e98924bb3caf59aba57ae9ca639/springfox-swagger2-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.0.3/fecd54acf905a823e84de406997a4b72f2ffdea8/springfox-swagger-ui-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.0/f7497f7887e65277c0dab1da1148cf211083f3d4/swagger-annotations-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.0/d2566bfc270073a559b342089f54086ee64ca5b1/swagger-models-1.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.0.3/86d46cd9f8ccdd1f6971ad782c7ad0fa351bf54d/springfox-spi-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.0.3/97164a54fafa469e55e73e07282fbff93b2a42f4/springfox-schema-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.0.3/e9413c28f8e232f4a35a13bdd61ed4f4d96b5eb/springfox-swagger-common-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.0.3/ec4b1d3afb64f5142ca25b90bdd67c8bce9595b4/springfox-spring-web-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.0.3/3adcac62198d0e9091311925241f646300ed3581/springfox-core-2.0.3.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.2.0/3df977abee5df39041e60c763840cd948581971/classmate-1.2.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.8/9f2785d7184b97d005a44241ccaf980f43b9ccdb/joda-time-2.8.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1296,28 +1326,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uwyn/jhighlight/1.0/e3200d8bd33baa572d7db647839d5f2ade58efc1/jhighlight-1.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.wordnik:swagger-annotations:1.5.3-M1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.5.3-M1/af8399fdbf8283a9f2b26808f5fa963b98d21f09/swagger-annotations-1.5.3-M1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.5.3-M1/e423fc4b8ef43607a56bf28eee845df8f6492450/swagger-annotations-1.5.3-M1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-annotations/1.5.3-M1/73707f4ae221822dae2c75f524ba59dc5fc40ab2/swagger-annotations-1.5.3-M1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.wordnik:swagger-models:1.5.3-M1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-models/1.5.3-M1/39d56e97d6a0569c9704cec813eaef81d8d6b2c0/swagger-models-1.5.3-M1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-models/1.5.3-M1/5494be56889be7874ca331a6d8da79ad96df1c8b/swagger-models-1.5.3-M1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wordnik/swagger-models/1.5.3-M1/65fae2420ebbc0846cfa5d07ae6950ae40b7703c/swagger-models-1.5.3-M1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: commons-beanutils:commons-beanutils:1.8.3">
@@ -2057,17 +2065,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-all/1.10.19/8269667b73d9616600359a9b0ba1b1c7d0cf7a97/mockito-all-1.10.19-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.mongodb:mongo-java-driver:3.0.0">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/734a5acccbd07a545c22244159e373aba9e963f6/mongo-java-driver-3.0.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/76ede768484ed56653e31d9a06389ed884cff237/mongo-java-driver-3.0.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.0/9c40e11260277a7ced6692a1ef6d008ded4a615a/mongo-java-driver-3.0.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.objenesis:objenesis:2.1">
