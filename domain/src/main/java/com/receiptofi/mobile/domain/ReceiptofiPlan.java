@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import com.receiptofi.domain.types.BillingPlanEnum;
@@ -23,13 +24,28 @@ import java.math.BigDecimal;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class ReceiptofiPlan {
 
+    @JsonProperty ("id")
     private String id;
+
+    @JsonProperty ("name")
     private String name;
+
+    @JsonProperty ("description")
     private String description;
+
+    @JsonProperty ("price")
     private BigDecimal price;
+
+    @JsonProperty ("billingFrequency")
     private int billingFrequency;
+
+    @JsonProperty ("billingDayOfMonth")
     private int billingDayOfMonth;
+
+    @JsonProperty ("paymentGateway")
     private PaymentGatewayEnum paymentGateway;
+
+    @JsonProperty ("billingPlan")
     private BillingPlanEnum billingPlan;
 
     /**
