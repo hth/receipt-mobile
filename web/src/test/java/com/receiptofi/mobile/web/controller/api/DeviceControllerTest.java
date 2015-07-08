@@ -68,7 +68,7 @@ public class DeviceControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_INPUT.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("something went wrong", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Something went wrong. Engineers are looking into this.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("did", jo.get(ERROR).getAsJsonObject().get("did").getAsString());
     }
 

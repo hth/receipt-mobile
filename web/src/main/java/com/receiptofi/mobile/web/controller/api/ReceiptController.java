@@ -243,7 +243,7 @@ public class ReceiptController {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
 
                     Map<String, String> errors = new HashMap<>();
-                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong");
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
                     errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
                     errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
