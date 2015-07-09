@@ -605,20 +605,21 @@ public class BillingMobileService {
      * Cancels last subscription.
      */
     public TransactionDetail cancelLastSubscription(String rid) {
+        /** Existing billingAccount with be marked as inActive and instead new BillingAccount would be created. */
         BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
         TransactionDetail transactionDetail = cancelSubscription(rid, billingAccount);
-        if (!billingAccount.isActive()) {
-            BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
-            newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
-            newBillingAccount.setCustomerId(billingAccount.getCustomerId());
-            newBillingAccount.setFirstName(billingAccount.getFirstName());
-            newBillingAccount.setLastName(billingAccount.getLastName());
-            newBillingAccount.setCompany(billingAccount.getCompany());
-            newBillingAccount.setAddressId(billingAccount.getAddressId());
-            newBillingAccount.setPostalCode(billingAccount.getPostalCode());
-            newBillingAccount.setBillingPlan(BillingPlanEnum.NB);
-            billingAccountManager.save(newBillingAccount);
-        }
+
+        BillingAccountEntity newBillingAccount = new BillingAccountEntity(rid);
+        newBillingAccount.setPaymentGateway(PaymentGatewayEnum.BT);
+        newBillingAccount.setCustomerId(billingAccount.getCustomerId());
+        newBillingAccount.setFirstName(billingAccount.getFirstName());
+        newBillingAccount.setLastName(billingAccount.getLastName());
+        newBillingAccount.setCompany(billingAccount.getCompany());
+        newBillingAccount.setAddressId(billingAccount.getAddressId());
+        newBillingAccount.setPostalCode(billingAccount.getPostalCode());
+        newBillingAccount.setBillingPlan(BillingPlanEnum.NB);
+        billingAccountManager.save(newBillingAccount);
+
         return transactionDetail;
     }
 
