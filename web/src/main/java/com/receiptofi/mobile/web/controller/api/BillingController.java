@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +118,7 @@ public class BillingController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public Token brainTreeClientToken(
+    public String brainTreeClientToken(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -139,8 +137,22 @@ public class BillingController {
             return null;
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
-                LOG.info("Generating client token for rid={} did={}", rid, did);
-                return billingMobileService.getBrianTreeClientToken(rid);
+                try {
+                    LOG.info("Generating client token for rid={} did={}", rid, did);
+                    Token token = billingMobileService.getBrianTreeClientToken(rid);
+
+                    ObjectWriter ow = new ObjectMapper().writer();
+                    return ow.writeValueAsString(token);
+                } catch (Exception e) {
+                    LOG.error("reason=", e.getLocalizedMessage(), e);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
@@ -258,7 +270,7 @@ public class BillingController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public TransactionDetail cancelSubscription(
+    public String cancelSubscription(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -277,8 +289,22 @@ public class BillingController {
             return null;
         } else {
             if (deviceService.isDeviceRegistered(rid, did)) {
-                LOG.info("Cancel subscription for rid={} did={}", rid, did);
-                return billingMobileService.cancelLastSubscription(rid);
+                try {
+                    LOG.info("Cancel subscription for rid={} did={}", rid, did);
+                    TransactionDetail transactionDetail = billingMobileService.cancelLastSubscription(rid);
+
+                    ObjectWriter ow = new ObjectMapper().writer();
+                    return ow.writeValueAsString(transactionDetail);
+                } catch (Exception e) {
+                    LOG.error("reason=", e.getLocalizedMessage(), e);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
