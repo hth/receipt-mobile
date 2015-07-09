@@ -197,7 +197,6 @@ public class BillingController {
                 String postal = map.containsKey("postal") ? map.get("postal").getText() : null;
                 String company = map.containsKey("company") ? map.get("company").getText() : null;
                 String paymentMethodNonce = map.containsKey("payment-method-nonce") ? map.get("payment-method-nonce").getText() : null;
-                LOG.info("payment planId={} firstName={} lastName={} postal={} company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
 
                 if (StringUtils.isBlank(planId) ||
                         StringUtils.isBlank(firstName) ||
@@ -205,6 +204,8 @@ public class BillingController {
                         StringUtils.isBlank(postal) ||
                         StringUtils.isBlank(company) ||
                         StringUtils.isBlank(paymentMethodNonce)) {
+
+                    LOG.error("payment planId={} firstName={} lastName={} postal={} company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
 
                     Map<String, String> errors = new HashMap<>();
                     errors.put(ErrorEncounteredJson.REASON, "Missing required fields. Please verify all fields are being sent for payment processing.");
