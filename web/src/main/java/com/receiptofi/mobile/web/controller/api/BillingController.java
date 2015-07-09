@@ -202,10 +202,9 @@ public class BillingController {
                         StringUtils.isBlank(firstName) ||
                         StringUtils.isBlank(lastName) ||
                         StringUtils.isBlank(postal) ||
-                        StringUtils.isBlank(company) ||
                         StringUtils.isBlank(paymentMethodNonce)) {
 
-                    LOG.error("payment planId={} firstName={} lastName={} postal={} company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
+                    LOG.error("payment planId={} firstName={} lastName={} postal={} (optional) company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
 
                     Map<String, String> errors = new HashMap<>();
                     errors.put(ErrorEncounteredJson.REASON, "Missing required fields. Please verify all fields are being sent for payment processing.");
