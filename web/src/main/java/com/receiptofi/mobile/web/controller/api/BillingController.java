@@ -187,17 +187,23 @@ public class BillingController {
                 String postal = map.containsKey("postal") ? map.get("postal").getText() : null;
                 String company = map.containsKey("company") ? map.get("company").getText() : null;
                 String paymentMethodNonce = map.containsKey("payment-method-nonce") ? map.get("payment-method-nonce").getText() : null;
+                LOG.info("payment planId={} firstName={} lastName={} postal={} company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
 
                 //TODO add validation
 
-                return billingMobileService.payment(
-                        rid,
-                        planId,
-                        firstName,
-                        lastName,
-                        company,
-                        postal,
-                        paymentMethodNonce);
+                try {
+                    return billingMobileService.payment(
+                            rid,
+                            planId,
+                            firstName,
+                            lastName,
+                            company,
+                            postal,
+                            paymentMethodNonce);
+                } catch (Exception e) {
+                    LOG.error("reason=", e.getLocalizedMessage(), e);
+                    return null;
+                }
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
