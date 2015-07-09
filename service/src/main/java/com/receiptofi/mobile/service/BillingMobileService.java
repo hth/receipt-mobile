@@ -165,8 +165,8 @@ public class BillingMobileService {
                 if (PaymentGatewayEnum.BT == billingProvider) {
                     receiptofiPlans.addAll(getAllBraintreePlans(billingProvider));
                 } else {
-                    LOG.error("Reached unreachable condition for Billing Provider");
-                    throw new IllegalStateException("Reached unreachable condition for Billing Provider");
+                    LOG.error("Reached invalid PaymentGatewayEnum");
+                    throw new IllegalStateException("Reached invalid payment gateway");
                 }
             }
 
@@ -230,8 +230,8 @@ public class BillingMobileService {
             if (PaymentGatewayEnum.BT == billingAccount.getPaymentGateway()) {
                 braintreeToken = getBraintreeToken(billingAccount);
             } else {
-                LOG.error("Reached unreachable condition {}", billingAccount.getPaymentGateway());
-                throw new IllegalStateException("Reached unreachable condition for payment gateway");
+                LOG.error("Reached invalid PaymentGatewayEnum {}", billingAccount.getPaymentGateway());
+                throw new IllegalStateException("Reached invalid payment gateway");
             }
         }
         return braintreeToken;
