@@ -1,13 +1,20 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.domain.Token;
 import com.receiptofi.mobile.domain.TransactionDetail;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -156,7 +166,7 @@ public class BillingController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public TransactionDetail brainTreePayment(
+    public String brainTreePayment(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -189,10 +199,23 @@ public class BillingController {
                 String paymentMethodNonce = map.containsKey("payment-method-nonce") ? map.get("payment-method-nonce").getText() : null;
                 LOG.info("payment planId={} firstName={} lastName={} postal={} company={} paymentMethodNonce={}", planId, firstName, lastName, postal, company, paymentMethodNonce);
 
-                //TODO add validation
+                if (StringUtils.isBlank(planId) ||
+                        StringUtils.isBlank(firstName) ||
+                        StringUtils.isBlank(lastName) ||
+                        StringUtils.isBlank(postal) ||
+                        StringUtils.isBlank(company) ||
+                        StringUtils.isBlank(paymentMethodNonce)) {
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Missing required fields. Please verify all fields are being sent for payment processing.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+                }
 
                 try {
-                    return billingMobileService.payment(
+                    TransactionDetail transactionDetail = billingMobileService.payment(
                             rid,
                             planId,
                             firstName,
@@ -200,9 +223,18 @@ public class BillingController {
                             company,
                             postal,
                             paymentMethodNonce);
+
+                    ObjectWriter ow = new ObjectMapper().writer();
+                    return ow.writeValueAsString(transactionDetail);
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
-                    return null;
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
                 }
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
