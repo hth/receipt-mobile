@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public class TransactionDetailSubscription implements TransactionDetail {
+public class TransactionDetailSubscription extends AbstractDomain implements TransactionDetail {
 
     @JsonProperty ("type")
     private final TYPE type;
@@ -108,6 +108,11 @@ public class TransactionDetailSubscription implements TransactionDetail {
         this.accountPlanId = accountPlanId;
         this.subscriptionId = "";
         this.message = message;
+    }
+
+    @Override
+    public TYPE getType() {
+        return type;
     }
 
     @Override

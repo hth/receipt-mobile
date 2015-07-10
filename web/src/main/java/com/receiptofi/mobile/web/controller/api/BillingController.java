@@ -3,9 +3,12 @@ package com.receiptofi.mobile.web.controller.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import com.receiptofi.mobile.domain.BraintreeToken;
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
 import com.receiptofi.mobile.domain.Token;
 import com.receiptofi.mobile.domain.TransactionDetail;
+import com.receiptofi.mobile.domain.TransactionDetailPayment;
+import com.receiptofi.mobile.domain.TransactionDetailSubscription;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
 import com.receiptofi.mobile.service.DeviceService;
@@ -139,10 +142,7 @@ public class BillingController {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 try {
                     LOG.info("Generating client token for rid={} did={}", rid, did);
-                    Token token = billingMobileService.getBrianTreeClientToken(rid);
-
-                    ObjectWriter ow = new ObjectMapper().writer();
-                    return ow.writeValueAsString(token);
+                    return ((BraintreeToken) billingMobileService.getBrianTreeClientToken(rid)).asJson();
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -236,8 +236,14 @@ public class BillingController {
                             postal,
                             paymentMethodNonce);
 
-                    ObjectWriter ow = new ObjectMapper().writer();
-                    return ow.writeValueAsString(transactionDetail);
+                    switch(transactionDetail.getType()) {
+                        case PAY:
+                            return ((TransactionDetailPayment) transactionDetail).asJson();
+                        case SUB:
+                            return ((TransactionDetailSubscription) transactionDetail).asJson();
+                        default:
+                            throw new RuntimeException("Reached unreachable condition for transactionDetail");
+                    }
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -293,8 +299,14 @@ public class BillingController {
                     LOG.info("Cancel subscription for rid={} did={}", rid, did);
                     TransactionDetail transactionDetail = billingMobileService.cancelLastSubscription(rid);
 
-                    ObjectWriter ow = new ObjectMapper().writer();
-                    return ow.writeValueAsString(transactionDetail);
+                    switch(transactionDetail.getType()) {
+                        case PAY:
+                            return ((TransactionDetailPayment) transactionDetail).asJson();
+                        case SUB:
+                            return ((TransactionDetailSubscription) transactionDetail).asJson();
+                        default:
+                            throw new RuntimeException("Reached unreachable condition for transactionDetail");
+                    }
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
