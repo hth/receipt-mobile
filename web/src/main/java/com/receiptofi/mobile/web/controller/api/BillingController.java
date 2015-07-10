@@ -1,15 +1,11 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 
-import com.receiptofi.mobile.domain.BraintreeToken;
+import com.google.gson.Gson;
+
 import com.receiptofi.mobile.domain.ReceiptofiPlan;
-import com.receiptofi.mobile.domain.Token;
 import com.receiptofi.mobile.domain.TransactionDetail;
-import com.receiptofi.mobile.domain.TransactionDetailPayment;
-import com.receiptofi.mobile.domain.TransactionDetailSubscription;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.BillingMobileService;
 import com.receiptofi.mobile.service.DeviceService;
@@ -143,8 +139,8 @@ public class BillingController {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 try {
                     LOG.info("Generating client token for rid={} did={}", rid, did);
-                    ObjectMapper ow = new ObjectMapper();
-                    return ow.writeValueAsString(billingMobileService.getBrianTreeClientToken(rid));
+                    Gson gson = new Gson();
+                    return gson.toJson(billingMobileService.getBrianTreeClientToken(rid));
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -313,12 +309,12 @@ public class BillingController {
     }
 
     private String getTransactionAsJsonString(TransactionDetail transactionDetail) throws JsonProcessingException {
-        ObjectMapper ow = new ObjectMapper();
-        switch(transactionDetail.getType()) {
+        Gson gson = new Gson();
+        switch (transactionDetail.getType()) {
             case PAY:
-                return ow.writeValueAsString(transactionDetail);
+                return gson.toJson(transactionDetail);
             case SUB:
-                return ow.writeValueAsString(transactionDetail);
+                return gson.toJson(transactionDetail);
             default:
                 throw new RuntimeException("Reached unreachable condition for transactionDetail");
         }
