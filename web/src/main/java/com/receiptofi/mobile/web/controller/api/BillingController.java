@@ -140,7 +140,9 @@ public class BillingController {
                 try {
                     LOG.info("Generating client token for rid={} did={}", rid, did);
                     Gson gson = new Gson();
-                    return gson.toJson(billingMobileService.getBrianTreeClientToken(rid));
+                    String json = gson.toJson(billingMobileService.getBrianTreeClientToken(rid));
+                    LOG.info(json);
+                    return json;
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -310,11 +312,16 @@ public class BillingController {
 
     private String getTransactionAsJsonString(TransactionDetail transactionDetail) throws JsonProcessingException {
         Gson gson = new Gson();
+        String json;
         switch (transactionDetail.getType()) {
             case PAY:
-                return gson.toJson(transactionDetail);
+                json = gson.toJson(transactionDetail);
+                LOG.info(json);
+                return json;
             case SUB:
-                return gson.toJson(transactionDetail);
+                json = gson.toJson(transactionDetail);
+                LOG.info(json);
+                return json;
             default:
                 throw new RuntimeException("Reached unreachable condition for transactionDetail");
         }
