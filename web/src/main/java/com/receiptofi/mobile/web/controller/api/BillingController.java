@@ -236,14 +236,7 @@ public class BillingController {
                             postal,
                             paymentMethodNonce);
 
-                    switch(transactionDetail.getType()) {
-                        case PAY:
-                            return ((TransactionDetailPayment) transactionDetail).asJson();
-                        case SUB:
-                            return ((TransactionDetailSubscription) transactionDetail).asJson();
-                        default:
-                            throw new RuntimeException("Reached unreachable condition for transactionDetail");
-                    }
+                    return getTransactionAsJsonString(transactionDetail);
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -299,14 +292,7 @@ public class BillingController {
                     LOG.info("Cancel subscription for rid={} did={}", rid, did);
                     TransactionDetail transactionDetail = billingMobileService.cancelLastSubscription(rid);
 
-                    switch(transactionDetail.getType()) {
-                        case PAY:
-                            return ((TransactionDetailPayment) transactionDetail).asJson();
-                        case SUB:
-                            return ((TransactionDetailSubscription) transactionDetail).asJson();
-                        default:
-                            throw new RuntimeException("Reached unreachable condition for transactionDetail");
-                    }
+                    return getTransactionAsJsonString(transactionDetail);
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -321,6 +307,17 @@ public class BillingController {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
                 return null;
             }
+        }
+    }
+
+    private String getTransactionAsJsonString(TransactionDetail transactionDetail) {
+        switch(transactionDetail.getType()) {
+            case PAY:
+                return ((TransactionDetailPayment) transactionDetail).asJson();
+            case SUB:
+                return ((TransactionDetailSubscription) transactionDetail).asJson();
+            default:
+                throw new RuntimeException("Reached unreachable condition for transactionDetail");
         }
     }
 }
