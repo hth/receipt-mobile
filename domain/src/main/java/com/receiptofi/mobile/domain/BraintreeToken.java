@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public class BraintreeToken implements Token {
+public class BraintreeToken extends AbstractDomain implements Token {
     private static final Logger LOG = LoggerFactory.getLogger(BraintreeToken.class);
 
     @SuppressWarnings ({"unused"})

@@ -20,6 +20,8 @@ public interface TransactionDetail {
 
     enum TYPE {PAY, SUB}
 
+    TYPE getType();
+
     boolean isSuccess();
 
     String getMessage();
