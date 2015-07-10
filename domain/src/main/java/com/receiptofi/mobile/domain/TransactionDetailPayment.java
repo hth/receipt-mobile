@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public class TransactionDetailPayment extends AbstractDomain implements TransactionDetail {
+public class TransactionDetailPayment implements TransactionDetail {
 
     @JsonProperty ("type")
     private final TYPE type;

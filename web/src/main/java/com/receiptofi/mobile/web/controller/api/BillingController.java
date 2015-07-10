@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
@@ -142,7 +143,8 @@ public class BillingController {
             if (deviceService.isDeviceRegistered(rid, did)) {
                 try {
                     LOG.info("Generating client token for rid={} did={}", rid, did);
-                    return ((BraintreeToken) billingMobileService.getBrianTreeClientToken(rid)).asJson();
+                    ObjectMapper ow = new ObjectMapper();
+                    return ow.writeValueAsString(billingMobileService.getBrianTreeClientToken(rid));
                 } catch (Exception e) {
                     LOG.error("reason=", e.getLocalizedMessage(), e);
 
@@ -310,12 +312,13 @@ public class BillingController {
         }
     }
 
-    private String getTransactionAsJsonString(TransactionDetail transactionDetail) {
+    private String getTransactionAsJsonString(TransactionDetail transactionDetail) throws JsonProcessingException {
+        ObjectMapper ow = new ObjectMapper();
         switch(transactionDetail.getType()) {
             case PAY:
-                return ((TransactionDetailPayment) transactionDetail).asJson();
+                return ow.writeValueAsString(transactionDetail);
             case SUB:
-                return ((TransactionDetailSubscription) transactionDetail).asJson();
+                return ow.writeValueAsString(transactionDetail);
             default:
                 throw new RuntimeException("Reached unreachable condition for transactionDetail");
         }
