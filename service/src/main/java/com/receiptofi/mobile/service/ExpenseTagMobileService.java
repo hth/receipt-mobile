@@ -46,16 +46,16 @@ public class ExpenseTagMobileService {
     }
 
     public List<ExpenseTagEntity> getExpenseTags(String rid) {
-        return expenseTagManager.getExpenseTags(rid);
+        return expensesService.getExpenseTags(rid);
     }
 
     public List<ExpenseTagEntity> getAllExpenseTags(String rid) {
-        return expenseTagManager.getAllExpenseTags(rid);
+        return expensesService.getAllExpenseTypes(rid);
     }
 
     public ExpenseTagEntity getExpenseTag(String rid, String tagId) {
         if (StringUtils.isNotBlank(tagId)) {
-            return expenseTagManager.getExpenseTag(rid, tagId);
+            return expensesService.getExpenseTag(rid, tagId);
         }
         return null;
     }
@@ -78,9 +78,9 @@ public class ExpenseTagMobileService {
     }
 
     public void update(String tagId, String tagName, String rid, String tagColor) {
-        ExpenseTagEntity expenseTag = expenseTagManager.getExpenseTag(rid, tagId);
+        ExpenseTagEntity expenseTag = expensesService.getExpenseTag(rid, tagId);
         Assert.notNull(expenseTag, "Expense Tag does not exists.");
-        expenseTagManager.updateExpenseTag(tagId, tagName, tagColor, rid);
+        expensesService.updateExpenseTag(tagId, tagName, tagColor, rid);
     }
 
     public AvailableAccountUpdates getUpdates(String rid) {
