@@ -57,7 +57,7 @@ public class MobileAppVersionController {
             @RequestHeader ("X-R-AUTH")
             String auth
     ) {
-        LOG.debug("Latest APK mail={}", mail);
+        LOG.info("Latest APK mail={}", mail);
         return json.toString();
     }
 }
