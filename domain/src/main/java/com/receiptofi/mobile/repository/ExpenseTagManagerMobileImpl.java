@@ -53,4 +53,17 @@ public class ExpenseTagManagerMobileImpl implements ExpenseTagManagerMobile {
                 TABLE
         );
     }
+
+    @Override
+    public boolean doesExits(String rid, String tagName) {
+        return mongoTemplate.count(
+                query(where("RID").is(rid)
+                        .and("TAG").is(tagName)
+                        .andOperator(
+                                isActive(),
+                                isNotDeleted()
+                        )),
+                ExpenseTagEntity.class
+        ) > 0;
+    }
 }

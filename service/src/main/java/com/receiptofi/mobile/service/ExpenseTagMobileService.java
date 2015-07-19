@@ -3,7 +3,6 @@ package com.receiptofi.mobile.service;
 import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.ExpenseTagManagerMobile;
-import com.receiptofi.repository.ExpenseTagManager;
 import com.receiptofi.service.ExpensesService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,19 +26,16 @@ import java.util.List;
 @Service
 public class ExpenseTagMobileService {
 
-    private ExpenseTagManager expenseTagManager;
     private DocumentMobileService documentMobileService;
     private ExpensesService expensesService;
     private ExpenseTagManagerMobile expenseTagManagerMobile;
 
     @Autowired
     public ExpenseTagMobileService(
-            ExpenseTagManager expenseTagManager,
             ExpensesService expensesService,
             DocumentMobileService documentMobileService,
             ExpenseTagManagerMobile expenseTagManagerMobile
     ) {
-        this.expenseTagManager = expenseTagManager;
         this.expensesService = expensesService;
         this.documentMobileService = documentMobileService;
         this.expenseTagManagerMobile = expenseTagManagerMobile;
@@ -68,7 +64,7 @@ public class ExpenseTagMobileService {
     }
 
     public boolean doesExists(String rid, String tagName) {
-        return expenseTagManager.doesExits(rid, tagName);
+        return expenseTagManagerMobile.doesExits(rid, tagName);
     }
 
     public ExpenseTagEntity save(String tagName, String rid, String tagColor) {
