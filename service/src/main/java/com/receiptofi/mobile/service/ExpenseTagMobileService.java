@@ -73,7 +73,7 @@ public class ExpenseTagMobileService {
 
     public ExpenseTagEntity save(String tagName, String rid, String tagColor) {
         ExpenseTagEntity expenseTag = ExpenseTagEntity.newInstance(tagName, rid, tagColor);
-        expenseTagManager.save(expenseTag);
+        expensesService.saveExpenseTag(expenseTag);
         return expenseTag;
     }
 
