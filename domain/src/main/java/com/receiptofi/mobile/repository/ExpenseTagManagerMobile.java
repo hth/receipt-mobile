@@ -8,4 +8,6 @@ import com.receiptofi.domain.ExpenseTagEntity;
  */
 public interface ExpenseTagManagerMobile extends RepositoryManager<ExpenseTagEntity> {
     ExpenseTagEntity getExpenseTag(String rid, String tagId, String tagName);
+
+    boolean doesExits(String rid, String tagName);
 }
