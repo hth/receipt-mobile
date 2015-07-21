@@ -267,6 +267,13 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0/1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d/jackson-core-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.1.RELEASE/677c1e8667bbda58557b61eef50b72f9588b68d4/spring-data-mongodb-1.7.1.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.1.RELEASE/a71ac3ffd9843198b4981288ab17faf048c34d00/spring-data-commons-1.10.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.1.1/27c964865223089f95bb05704b22bfa72cee451f/springfox-swagger2-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.1.1/76271f0f768273aa6056461dd03fdf9a24cd927a/springfox-swagger-ui-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.1.1/8aed4db0ce4c57912c670a6fbda64b1f11417107/springfox-spi-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.1.1/ccc0c0697f3e037c6e09630100fc7e6e35ead691/springfox-schema-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.1.1/f7d016db18c5ce92588d7e7abcf1340da9aac1f9/springfox-swagger-common-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.1.1/132602c1602ac2b06f832aff4fcd789d1bdb3f5/springfox-spring-web-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.1.1/4423ac63f26319d0a8e02e542b58055a1a1789ec/springfox-core-2.1.1.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -638,6 +645,13 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0/1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d/jackson-core-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.1.RELEASE/677c1e8667bbda58557b61eef50b72f9588b68d4/spring-data-mongodb-1.7.1.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.1.RELEASE/a71ac3ffd9843198b4981288ab17faf048c34d00/spring-data-commons-1.10.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.1.1/27c964865223089f95bb05704b22bfa72cee451f/springfox-swagger2-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.1.1/76271f0f768273aa6056461dd03fdf9a24cd927a/springfox-swagger-ui-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.1.1/8aed4db0ce4c57912c670a6fbda64b1f11417107/springfox-spi-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.1.1/ccc0c0697f3e037c6e09630100fc7e6e35ead691/springfox-schema-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.1.1/f7d016db18c5ce92588d7e7abcf1340da9aac1f9/springfox-swagger-common-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.1.1/132602c1602ac2b06f832aff4fcd789d1bdb3f5/springfox-spring-web-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.1.1/4423ac63f26319d0a8e02e542b58055a1a1789ec/springfox-core-2.1.1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -978,6 +992,13 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0/1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d/jackson-core-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.7.1.RELEASE/677c1e8667bbda58557b61eef50b72f9588b68d4/spring-data-mongodb-1.7.1.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.10.1.RELEASE/a71ac3ffd9843198b4981288ab17faf048c34d00/spring-data-commons-1.10.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.1.1/27c964865223089f95bb05704b22bfa72cee451f/springfox-swagger2-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.1.1/76271f0f768273aa6056461dd03fdf9a24cd927a/springfox-swagger-ui-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.1.1/8aed4db0ce4c57912c670a6fbda64b1f11417107/springfox-spi-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.1.1/ccc0c0697f3e037c6e09630100fc7e6e35ead691/springfox-schema-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.1.1/f7d016db18c5ce92588d7e7abcf1340da9aac1f9/springfox-swagger-common-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.1.1/132602c1602ac2b06f832aff4fcd789d1bdb3f5/springfox-spring-web-2.1.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.1.1/4423ac63f26319d0a8e02e542b58055a1a1789ec/springfox-core-2.1.1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
