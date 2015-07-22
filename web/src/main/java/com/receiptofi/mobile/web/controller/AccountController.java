@@ -216,7 +216,7 @@ public class AccountController {
             if (null == userProfile) {
                 LOG.info("User does not exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "User does not exists.");
+                errors.put(ErrorEncounteredJson.REASON, "User with this email address is not registered. Would you like to sign up?");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_NOT_FOUND.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_NOT_FOUND.getCode());

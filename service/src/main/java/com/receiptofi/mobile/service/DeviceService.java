@@ -113,7 +113,7 @@ public class DeviceService {
      */
     public AvailableAccountUpdates getAll(String rid) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        LOG.info("Device registered now. Getting all updated.");
+        LOG.info("Device registered now. Getting all data.");
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
         receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
