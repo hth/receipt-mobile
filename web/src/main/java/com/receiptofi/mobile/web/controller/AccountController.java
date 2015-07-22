@@ -158,7 +158,7 @@ public class AccountController {
                 LOG.error("Failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
+                errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
@@ -242,13 +242,19 @@ public class AccountController {
                     response.setStatus(HttpServletResponse.SC_OK);
                 } else {
                     LOG.warn("Failed sending recovery email={}", mail);
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Failed sending recovery email. Please try again soon.");
+                    errors.put(REGISTRATION.EM.name(), mail);
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
+                    return ErrorEncounteredJson.toJson(errors);
                 }
             } catch (Exception e) {
-                LOG.error("Failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
+                LOG.error("Failed sending recovery email for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
+                errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
