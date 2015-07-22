@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -156,7 +157,7 @@ public class AccountController {
                 LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "failed creating account");
+                errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
                 errors.put(REGISTRATION.EM.name(), mail);
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
@@ -256,7 +257,7 @@ public class AccountController {
 
     private Set<String> invalidElementsInMapDuringRecovery(Map<String, ScrubbedInput> map) {
         Set<String> keys = new HashSet<>(map.keySet());
-        List<REGISTRATION> enums = new ArrayList<>(Arrays.asList(REGISTRATION.EM));
+        List<REGISTRATION> enums = new ArrayList<>(Collections.singletonList(REGISTRATION.EM));
         for (REGISTRATION registration : enums) {
             keys.remove(registration.name());
         }
