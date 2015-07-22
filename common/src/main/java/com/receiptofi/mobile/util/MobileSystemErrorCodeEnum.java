@@ -19,6 +19,7 @@ public enum MobileSystemErrorCodeEnum {
     AUTHENTICATION("400"),
     USER_EXISTING("410"),
     USER_NOT_FOUND("412"),
+    USER_SOCIAL("416"),
     REGISTRATION_TURNED_OFF("430"),
 
     /** Mobile application related issue. */

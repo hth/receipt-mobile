@@ -7,6 +7,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_EXISTING;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_NOT_FOUND;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_SOCIAL;
 
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.service.AccountMobileService;
@@ -88,8 +89,8 @@ public class AccountController {
         try {
             map = ParseJsonStringToMap.jsonStringToMap(registrationJson);
         } catch (IOException e) {
-            LOG.error("could not parse json={} reason={}", registrationJson, e.getLocalizedMessage(), e);
-            return ErrorEncounteredJson.toJson("could not parse JSON", MOBILE_JSON);
+            LOG.error("Could not parse json={} reason={}", registrationJson, e.getLocalizedMessage(), e);
+            return ErrorEncounteredJson.toJson("Could not parse JSON", MOBILE_JSON);
         }
 
         if (map.isEmpty()) {
@@ -99,7 +100,7 @@ public class AccountController {
             Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
             if (!unknownKeys.isEmpty()) {
                 /** Validation failure as there are unknown keys. */
-                return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
+                return ErrorEncounteredJson.toJson("Could not parse " + unknownKeys, MOBILE_JSON);
             }
 
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
@@ -126,7 +127,7 @@ public class AccountController {
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
             if (userProfile != null) {
-                LOG.info("failed user registration as already exists mail={}", mail);
+                LOG.info("Failed user registration as already exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "User already exists. Did you forget password?");
                 errors.put(REGISTRATION.EM.name(), mail);
@@ -154,7 +155,7 @@ public class AccountController {
 
                 }
             } catch (Exception e) {
-                LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
+                LOG.error("Failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
@@ -186,7 +187,7 @@ public class AccountController {
         try {
             map = ParseJsonStringToMap.jsonStringToMap(recoverJson);
         } catch (IOException e) {
-            LOG.error("could not parse json={} reason={}", recoverJson, e.getLocalizedMessage(), e);
+            LOG.error("Could not parse json={} reason={}", recoverJson, e.getLocalizedMessage(), e);
             return ErrorEncounteredJson.toJson("Could not parse JSON.", MOBILE_JSON);
         }
 
@@ -197,12 +198,12 @@ public class AccountController {
             Set<String> unknownKeys = invalidElementsInMapDuringRecovery(map);
             if (!unknownKeys.isEmpty()) {
                 /** Validation failure as there are unknown keys. */
-                return ErrorEncounteredJson.toJson("could not parse " + unknownKeys, MOBILE_JSON);
+                return ErrorEncounteredJson.toJson("Could not parse " + unknownKeys, MOBILE_JSON);
             }
 
             String mail = StringUtils.lowerCase(map.get(REGISTRATION.EM.name()).getText());
             if (StringUtils.isBlank(mail) || userInfoValidator.getMailLength() > mail.length()) {
-                LOG.info("failed data validation={}", mail);
+                LOG.info("Failed data validation={}", mail);
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
                 errors.put(REGISTRATION.EM.name(), StringUtils.isBlank(mail) ? UserInfoValidator.EMPTY : mail);
@@ -213,7 +214,7 @@ public class AccountController {
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
             if (null == userProfile) {
-                LOG.info("user does not exists mail={}", mail);
+                LOG.info("User does not exists mail={}", mail);
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "User does not exists.");
                 errors.put(REGISTRATION.EM.name(), mail);
@@ -222,16 +223,29 @@ public class AccountController {
                 return ErrorEncounteredJson.toJson(errors);
             }
 
+            /** Remove this code to allow user from social login to change password. */
+            if (null != userProfile.getProviderId()) {
+                LOG.info("Social account user trying to recover password mail={} pid={}", mail, userProfile.getProviderId());
+                Map<String, String> errors = new HashMap<>();
+                errors.put(
+                        ErrorEncounteredJson.REASON,
+                        "Cannot change password for your account. As you signed up using social login from Facebook or Google+.");
+                errors.put(REGISTRATION.EM.name(), mail);
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_SOCIAL.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_SOCIAL.getCode());
+                return ErrorEncounteredJson.toJson(errors);
+            }
+
             try {
                 if (accountMobileService.recoverAccount(mail)) {
-                    LOG.info("sent recovery mail={}", mail);
+                    LOG.info("Sent recovery mail={}", mail);
                     response.setStatus(HttpServletResponse.SC_OK);
                 } else {
-                    LOG.warn("failed sending recovery email={}", mail);
+                    LOG.warn("Failed sending recovery email={}", mail);
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 }
             } catch (Exception e) {
-                LOG.error("failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
+                LOG.error("Failed signup for user={} reason={}", mail, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Failed creating account.");
