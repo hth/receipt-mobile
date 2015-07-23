@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
@@ -331,12 +332,18 @@ public class AccountControllerTest {
     public void testRecoverFalse() throws IOException {
         String json = createJsonForRecover("test@receiptofi.com");
         when(accountService.doesUserExists(anyString())).thenReturn(userProfile);
+        when(userProfile.getProviderId()).thenReturn(null);
         when(accountMobileService.recoverAccount(anyString())).thenReturn(false);
         String responseJson = accountController.recover(json, response);
 
+        JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
+        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("Failed sending recovery email. Please try again soon.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
+
         verify(accountService, times(1)).doesUserExists(any(String.class));
         verify(accountMobileService, times(1)).recoverAccount(anyString());
-        assertEquals("{}", responseJson);
     }
 
     @Test

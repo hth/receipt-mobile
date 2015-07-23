@@ -57,8 +57,8 @@ public class SocialAuthenticationControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
         assertEquals("Something went wrong. Engineers are looking into this.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
-        assertEquals("SEVERE", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("500", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals("USER_INPUT", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("100", jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
     }
 
     @Test
