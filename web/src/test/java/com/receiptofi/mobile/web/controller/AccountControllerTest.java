@@ -76,7 +76,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(MOBILE_JSON.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("could not parse JSON", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Could not parse JSON", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).doesUserExists(any(String.class));
     }
@@ -126,7 +126,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(MOBILE_JSON.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("could not parse [DB]", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Could not parse [DB]", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).doesUserExists(anyString());
     }
@@ -175,7 +175,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("failed creating account", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Something went wrong. Engineers are looking into this.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
@@ -271,7 +271,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(MOBILE_JSON.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(MOBILE_JSON.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("could not parse [ME]", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Could not parse [ME]", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
 
         verify(accountService, never()).doesUserExists(anyString());
     }
@@ -304,7 +304,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("Failed creating account.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Something went wrong. Engineers are looking into this.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());
