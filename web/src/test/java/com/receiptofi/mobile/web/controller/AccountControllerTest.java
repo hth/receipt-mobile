@@ -320,7 +320,7 @@ public class AccountControllerTest {
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_NOT_FOUND.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(USER_NOT_FOUND.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("User does not exists.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("User with this email address is not registered. Would you like to sign up?", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
         assertEquals("test@receiptofi.com", jo.get(ERROR).getAsJsonObject().get(REGISTRATION.EM.name()).getAsString());
 
         verify(accountService, times(1)).doesUserExists(anyString());

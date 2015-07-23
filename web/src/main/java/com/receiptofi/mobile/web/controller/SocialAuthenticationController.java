@@ -4,6 +4,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
 
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -129,9 +130,10 @@ public class SocialAuthenticationController {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
             Map<String, String> errors = new HashMap<>();
-            errors.put(ErrorEncounteredJson.REASON, "Internal error, please try some time later.");
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, SEVERE.name());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, SEVERE.getCode());
+            errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
             return ErrorEncounteredJson.toJson(errors);
         }
     }
