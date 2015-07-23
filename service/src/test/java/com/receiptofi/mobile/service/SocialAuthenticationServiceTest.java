@@ -111,7 +111,7 @@ public class SocialAuthenticationServiceTest {
 
         assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("not a valid status from server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals("Not a valid status from server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
