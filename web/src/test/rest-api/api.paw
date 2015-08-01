@@ -118,7 +118,7 @@
     <object type="LMREQUEST" id="z109">
         <attribute name="body" type="string">[{"data":{"keyValues":[["mail","test@receiptofi.com",true],["password","testtest",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">40B48555-7744-4D2E-87DE-07F4EF8AB73E</attribute>
-        <attribute name="url" type="string">https://test.receiptofi.com/receipt-mobile/j_spring_security_check </attribute>
+        <attribute name="url" type="string">https://test.receiptofi.com/receipt-mobile/login </attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -268,7 +268,7 @@
     </object>
     <object type="LMREQUEST" id="z125">
         <attribute name="uuid" type="string">20375950-C31E-4D91-A1AE-DBF9A31FAF22</attribute>
-        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/registration.json/receipt-mobile/j_spring_security_check </attribute>
+        <attribute name="url" type="string">http://localhost:9090/receipt-mobile/registration.json/receipt-mobile/login </attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
