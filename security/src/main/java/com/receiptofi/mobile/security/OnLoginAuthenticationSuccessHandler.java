@@ -69,7 +69,7 @@ public class OnLoginAuthenticationSuccessHandler extends SimpleUrlAuthentication
          * curl -i -X POST
          * -d emailId=some@mail.com
          * -d password=realPassword
-         * http://localhost:8080/receipt/j_spring_security_check
+         * http://localhost:8080/receipt/login
          */
         final SavedRequest savedRequest = requestCache.getRequest(request, response);
         if (savedRequest == null) {
