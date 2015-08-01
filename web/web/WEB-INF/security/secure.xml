@@ -31,6 +31,8 @@
                 delete-cookies="JSESSIONID"
                 invalidate-session="true" />
 
+        <csrf disabled="true"/>
+
         <headers>
             <cache-control />
             <content-type-options />
