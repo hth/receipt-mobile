@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.repository;
 
+import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
 import static org.springframework.data.domain.Sort.Direction;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -41,7 +42,11 @@ public class BillingAccountManagerMobileImpl implements BillingAccountManagerMob
     @Override
     public BillingAccountEntity getLatestBillingAccount(String rid) {
         return mongoTemplate.findOne(
-                query(where("RID").is(rid).and("A").is(true)).with(new Sort(Direction.DESC, "C")),
+                query(where("RID").is(rid)
+                                .andOperator(
+                                        isActive()
+                                )
+                ).with(new Sort(Direction.DESC, "C")),
                 BillingAccountEntity.class
         );
     }
