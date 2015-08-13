@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/static/css/receipt.css'>
 
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/images/circle-leaf-sized_small.png" />
-    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/images/circle-leaf-sized_small.png" />
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/images/Receipt-46x46.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/images/Receipt-46x46.png" />
 </head>
 <body>
 <div class="wrapper">
-    <img src="${pageContext.request.contextPath}/static/images/circle-leaf-sized_small.png" alt="receipt-o-fi logo" height="46px"/>
+    <img src="${pageContext.request.contextPath}/static/images/Receipt-46x46.png" alt="receipt-o-fi logo" height="46px"/>
     <p>
         Mobile Receiptofi APIs;
 
