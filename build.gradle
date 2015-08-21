@@ -20,6 +20,10 @@ ext {
 
     unzipDir = file("${buildDir}/unpacked/dist")
     unzipLibDir = file("$unzipDir$lib")
+
+    passFileLocal = file('web/resources/conf/pass.properties')
+    passFileTest = file(passwordTestFileLocation)
+    passFileProd = file(passwordProdFileLocation)
 }
 
 allprojects {
@@ -396,6 +400,32 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
 
     copy {
         from 'web/resources/conf/application-messages.properties'
+
+        if (env == 'prod') {
+            if (passFileProd.exists()) {
+                from passwordProdFileLocation
+            } else {
+                throw new Exception("Required pass file does not exists: $passFileProd.canonicalPath")
+            }
+        }
+
+        if (env == 'test') {
+            if (passFileTest.exists()) {
+                from passwordTestFileLocation
+            } else {
+                throw new Exception("Required pass file does not exists: $passFileTest.canonicalPath")
+            }
+        }
+
+        if (env == 'dev') {
+            println "Development environment, getting local pass file $passFileLocal.canonicalPath"
+            if (passFileLocal.exists()) {
+                from 'web/resources/conf/pass.properties'
+            } else {
+                throw new Exception("Required pass file does not exists: $passFileLocal.canonicalPath")
+            }
+        }
+
         into warConfDir
     }
 

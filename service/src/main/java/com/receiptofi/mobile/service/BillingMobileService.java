@@ -126,6 +126,7 @@ public class BillingMobileService {
                     .build();
         }
 
+        Assert.hasLength(merchantAccountId, "Merchant account id is empty");
         this.merchantAccountId = merchantAccountId;
         this.billingAccountManager = billingAccountManager;
         this.billingHistoryManager = billingHistoryManager;
