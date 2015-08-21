@@ -287,7 +287,7 @@ public class BillingMobileService {
                             .append(receiptofiPlan.getName())
                             .append(" subscription plan, but you are currently enrolled for free promotional plan. ")
                             .append("Please sign up on a later date after promotional plan has ended. ")
-                            .append("Billing History, lists all the months you have been signed up for promotional plans.")
+                            .append("Billing History, lists the months you have been signed up for promotional plans.")
                             .toString());
 
         } else if (null != billingHistory && StringUtils.isBlank(billingHistory.getTransactionId())) {
