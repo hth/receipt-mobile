@@ -23,6 +23,8 @@
     <!--suppress SpringModelInspection -->
     <context:property-placeholder location="classpath:/conf/test.properties"                    order="1" ignore-unresolvable="true" />
     <!--suppress SpringModelInspection -->
+    <context:property-placeholder location="classpath:/conf/pass.properties"                    order="1" ignore-unresolvable="true" />
+    <!--suppress SpringModelInspection -->
     <context:property-placeholder location="classpath:/conf/application-messages.properties"    order="1" ignore-unresolvable="true" />
 
     <!-- Configures the @Controller programming model -->
