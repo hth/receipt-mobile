@@ -128,14 +128,7 @@ public class AccountController {
                 return ErrorEncounteredJson.toJson(userInfoValidator.validate(mail, firstName, password, birthday));
             }
 
-            if (StringUtils.isNotBlank(birthday)) {
-                if (birthday.contains("-")) {
-                    String[] range = birthday.split("-");
-                    birthday = DateUtil.covertAgeToBirthday(range[0]);
-                } else {
-                    birthday = DateUtil.covertAgeToBirthday(birthday);
-                }
-            }
+            birthday = DateUtil.parseAgeForBirthday(birthday);
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);
             if (userProfile != null) {
