@@ -14,6 +14,8 @@ import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
+import com.receiptofi.utils.Constants;
+import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -95,7 +97,7 @@ public class AccountController {
 
         if (map.isEmpty()) {
             /** Validation failure as there is not data in the map. */
-            return ErrorEncounteredJson.toJson(userInfoValidator.validate(null, null, null));
+            return ErrorEncounteredJson.toJson(userInfoValidator.validate(null, null, null, null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
             if (!unknownKeys.isEmpty()) {
@@ -120,9 +122,19 @@ public class AccountController {
 
             if (StringUtils.isBlank(mail) || userInfoValidator.getMailLength() > mail.length() ||
                     StringUtils.isBlank(firstName) || userInfoValidator.getNameLength() > firstName.length() ||
-                    StringUtils.isBlank(password) || userInfoValidator.getPasswordLength() > password.length()) {
+                    StringUtils.isBlank(password) || userInfoValidator.getPasswordLength() > password.length() ||
+                    StringUtils.isNotBlank(birthday) && !Constants.AGE_RANGE.matcher(birthday).matches()) {
 
-                return ErrorEncounteredJson.toJson(userInfoValidator.validate(mail, firstName, password));
+                return ErrorEncounteredJson.toJson(userInfoValidator.validate(mail, firstName, password, birthday));
+            }
+
+            if (StringUtils.isNotBlank(birthday)) {
+                if (birthday.contains("-")) {
+                    String[] range = birthday.split("-");
+                    birthday = DateUtil.covertAgeToBirthday(range[0]);
+                } else {
+                    birthday = DateUtil.covertAgeToBirthday(birthday);
+                }
             }
 
             UserProfileEntity userProfile = accountService.doesUserExists(mail);

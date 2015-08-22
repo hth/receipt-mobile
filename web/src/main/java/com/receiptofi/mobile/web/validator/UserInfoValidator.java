@@ -4,7 +4,9 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
 import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.web.controller.AccountController;
 import com.receiptofi.mobile.web.controller.api.UtilityController;
+import com.receiptofi.utils.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -47,7 +49,7 @@ public class UserInfoValidator {
         this.passwordLength = passwordLength;
     }
 
-    public Map<String, String> validate(String mail, String firstName, String password) {
+    public Map<String, String> validate(String mail, String firstName, String password, String birthday) {
         LOG.info("failed validation mail={} firstName={} password={}", mail, firstName, UtilityController.AUTH_KEY_HIDDEN);
 
         Map<String, String> errors = new HashMap<>();
@@ -56,6 +58,9 @@ public class UserInfoValidator {
         firstNameValidation(firstName, errors);
         mailValidation(mail, errors);
         passwordValidation(password, errors);
+        if (StringUtils.isNotBlank(birthday)) {
+            birthdayValidation(birthday, errors);
+        }
 
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
@@ -93,6 +98,16 @@ public class UserInfoValidator {
             LOG.info("failed validation firstName={}", firstName);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
             errors.put(AccountMobileService.REGISTRATION.FN.name(), StringUtils.isBlank(firstName) ? EMPTY : firstName);
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+        }
+    }
+
+    public void birthdayValidation(String birthday, Map<String, String> errors) {
+        if (StringUtils.isNotBlank(birthday) && !Constants.AGE_RANGE.matcher(birthday).matches()) {
+            LOG.info("failed validation birthday={}", birthday);
+            errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
+            errors.put(AccountMobileService.REGISTRATION.BD.name(), StringUtils.isBlank(birthday) ? EMPTY : birthday);
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         }
