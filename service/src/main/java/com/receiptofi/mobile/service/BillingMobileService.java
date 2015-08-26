@@ -158,7 +158,6 @@ public class BillingMobileService {
      * Get all plans under all payment provider.
      */
     public List<ReceiptofiPlan> getAllPlans() {
-        LOG.info("Getting all plans");
         List<ReceiptofiPlan> receiptofiPlans = planCache.getIfPresent(PLANS);
         if (null == receiptofiPlans) {
             receiptofiPlans = new ArrayList<>();
@@ -174,7 +173,6 @@ public class BillingMobileService {
 
             planCache.put(PLANS, receiptofiPlans);
         }
-        LOG.info("Total plans fetched size={}", receiptofiPlans.size());
         return receiptofiPlans;
     }
 
