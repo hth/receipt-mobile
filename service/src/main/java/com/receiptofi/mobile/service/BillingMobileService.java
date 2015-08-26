@@ -158,6 +158,7 @@ public class BillingMobileService {
      * Get all plans under all payment provider.
      */
     public List<ReceiptofiPlan> getAllPlans() {
+        LOG.info("Getting all plans");
         List<ReceiptofiPlan> receiptofiPlans = planCache.getIfPresent(PLANS);
         if (null == receiptofiPlans) {
             receiptofiPlans = new ArrayList<>();
@@ -173,6 +174,7 @@ public class BillingMobileService {
 
             planCache.put(PLANS, receiptofiPlans);
         }
+        LOG.info("Total plans fetched size={}", receiptofiPlans.size());
         return receiptofiPlans;
     }
 
@@ -196,6 +198,7 @@ public class BillingMobileService {
     private List<ReceiptofiPlan> getAllBraintreePlans(PaymentGatewayEnum paymentGateway) {
         List<ReceiptofiPlan> receiptofiPlans = planProviderCache.getIfPresent(paymentGateway);
         if (receiptofiPlans == null) {
+            LOG.info("No plans found");
             receiptofiPlans = new ArrayList<>();
 
             List<Plan> plans = paymentGatewayService.getGateway().plan().all();
@@ -215,6 +218,7 @@ public class BillingMobileService {
             }
             planProviderCache.put(paymentGateway, receiptofiPlans);
         }
+        LOG.info("Populated plans size={}", receiptofiPlans.size());
         return receiptofiPlans;
     }
 
