@@ -201,22 +201,27 @@ public class BillingMobileService {
             LOG.info("No plans found");
             receiptofiPlans = new ArrayList<>();
 
-            List<Plan> plans = paymentGatewayService.getGateway().plan().all();
-            for (Plan plan : plans) {
-                ReceiptofiPlan receiptofiPlan = new ReceiptofiPlan();
-                receiptofiPlan.setId(plan.getId());
-                receiptofiPlan.setName(plan.getName());
-                receiptofiPlan.setDescription(plan.getDescription());
-                receiptofiPlan.setPrice(plan.getPrice());
-                receiptofiPlan.setBillingFrequency(plan.getBillingFrequency());
-                receiptofiPlan.setBillingDayOfMonth(plan.getBillingDayOfMonth());
-                receiptofiPlan.setPaymentGateway(paymentGateway);
-                Assert.notNull(receiptofiPlan.getBillingPlan(), "Undefined plan " + plan.getId());
+            try {
+                List<Plan> plans = paymentGatewayService.getGateway().plan().all();
+                for (Plan plan : plans) {
+                    ReceiptofiPlan receiptofiPlan = new ReceiptofiPlan();
+                    receiptofiPlan.setId(plan.getId());
+                    receiptofiPlan.setName(plan.getName());
+                    receiptofiPlan.setDescription(plan.getDescription());
+                    receiptofiPlan.setPrice(plan.getPrice());
+                    receiptofiPlan.setBillingFrequency(plan.getBillingFrequency());
+                    receiptofiPlan.setBillingDayOfMonth(plan.getBillingDayOfMonth());
+                    receiptofiPlan.setPaymentGateway(paymentGateway);
+                    Assert.notNull(receiptofiPlan.getBillingPlan(), "Undefined plan " + plan.getId());
 
-                receiptofiPlans.add(receiptofiPlan);
-                plansMap.put(plan.getId(), receiptofiPlan);
+                    receiptofiPlans.add(receiptofiPlan);
+                    plansMap.put(plan.getId(), receiptofiPlan);
+                }
+                planProviderCache.put(paymentGateway, receiptofiPlans);
+            } catch (Exception e) {
+                LOG.error("Error getting all the plans reason={}", e.getLocalizedMessage(), e);
             }
-            planProviderCache.put(paymentGateway, receiptofiPlans);
+
         }
         LOG.info("Populated plans size={}", receiptofiPlans.size());
         return receiptofiPlans;
