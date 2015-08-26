@@ -167,7 +167,7 @@ subprojects {
         compile "$springDataGroup:spring-data-commons:$springDataCommon"
         compile "org.mongodb:mongo-java-driver:$mongoDriver"
 
-        compile 'com.braintreepayments.gateway:braintree-java:2.45.0'
+        compile "com.braintreepayments.gateway:braintree-java:$braintree"
 
         /** --- Specific to Receipt Mobile Web Application ---- */
         compile "io.springfox:springfox-swagger2:2.2.2"
