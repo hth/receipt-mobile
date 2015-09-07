@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.service;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_SOCIAL;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -100,18 +101,18 @@ public class SocialAuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticateWebStatus501() throws IOException {
+    public void testAuthenticateWebStatus416() throws IOException {
         when(webConnectorService.getHttpPost(anyString(), any(HttpClient.class))).thenReturn(httpPost);
         when(httpClient.execute(httpPost)).thenReturn(httpResponse);
         when(httpResponse.getStatusLine()).thenReturn(basicStatusLine);
         when(basicStatusLine.getStatusCode()).thenReturn(WebConnectorServiceTest.HTTP_CODE_ERROR);
 
-        String jsonResponse = socialAuthenticationService.authenticateWeb("", "", httpClient);
+        String jsonResponse = socialAuthenticationService.authenticateWeb("GOOGLE", "", httpClient);
         JsonObject jo = (JsonObject) new JsonParser().parse(jsonResponse);
 
-        assertEquals(SEVERE.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
-        assertEquals(SEVERE.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
-        assertEquals("Not a valid status from server", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
+        assertEquals(USER_SOCIAL.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
+        assertEquals(USER_SOCIAL.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
+        assertEquals("GOOGLE sign in failed.", jo.get(ERROR).getAsJsonObject().get(REASON).getAsString());
     }
 
     @Test
