@@ -20,7 +20,7 @@
         <fieldset class="cd-form floating-labels" id="login-title-fieldset">
             <h2>ReceiptApp<span class="tm">&#8482;</span> for receipts</h2>
             <p>Mobile ReceiptApp APIs</p>
-            <p>All request needs authorization.</p>
+            <p>All requests need authorization.</p>
         </fieldset>
     </div>
 </section>
