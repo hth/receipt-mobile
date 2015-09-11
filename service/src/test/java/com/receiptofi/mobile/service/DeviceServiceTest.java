@@ -17,11 +17,13 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.types.BilledStatusEnum;
+import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.UserProfilePreferenceService;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -83,7 +85,7 @@ public class DeviceServiceTest {
     @Test
     public void testHasUpdateWhenNull() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(null);
-        assertTrue("Receipt empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
+        assertTrue("Receipt empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getJsonReceipts().isEmpty());
     }
 
     @Test
@@ -92,7 +94,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Collections.singletonList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString()).getProfile());
+        assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getProfile());
     }
 
     @Test
@@ -101,18 +103,18 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
-        assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString()).getJsonReceipts().isEmpty());
+        assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getJsonReceipts().isEmpty());
     }
 
     @Test
     public void testRegisterDeviceFalse() {
-        when(registeredDeviceManager.registerDevice(anyString(), anyString())).thenReturn(null);
-        assertFalse("Device registration failure", deviceService.registerDevice(anyString(), anyString()));
+        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(null);
+        assertFalse("Device registration failure", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class)));
     }
 
     @Test
     public void testRegisterDeviceTrue() {
-        when(registeredDeviceManager.registerDevice(anyString(), anyString())).thenReturn(registeredDeviceEntity);
-        assertTrue("Device registration success", deviceService.registerDevice(anyString(), anyString()));
+        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(registeredDeviceEntity);
+        assertTrue("Device registration success", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class)));
     }
 }

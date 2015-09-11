@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.DeviceRegistered;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
@@ -76,6 +77,9 @@ public class DeviceController {
             @RequestHeader ("X-R-DID")
             String deviceId,
 
+            @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
+            String deviceType,
+
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("Updated data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -85,8 +89,22 @@ public class DeviceController {
             return null;
         }
 
+        DeviceTypeEnum deviceTypeEnum;
         try {
-            return deviceService.getUpdates(rid, deviceId).asJson();
+            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
+        } catch (Exception e) {
+            LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
+
+            Map<String, String> errors = new HashMap<>();
+            errors.put(ErrorEncounteredJson.REASON, "Incorrect device type.");
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+            return ErrorEncounteredJson.toJson(errors);
+        }
+
+        try {
+            return deviceService.getUpdates(rid, deviceId, deviceTypeEnum).asJson();
         } catch (Exception e) {
             LOG.error("fetching updates for device failed deviceId={} reason={}",
                     deviceId, e.getLocalizedMessage(), e);
@@ -164,7 +182,7 @@ public class DeviceController {
             value = "/register",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public DeviceRegistered registerDevice(
+    public String registerDevice(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -174,6 +192,9 @@ public class DeviceController {
             @RequestHeader ("X-R-DID")
             String did,
 
+            @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
+            String deviceType,
+
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -182,7 +203,21 @@ public class DeviceController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did));
+            DeviceTypeEnum deviceTypeEnum;
+            try {
+                deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
+            } catch (Exception e) {
+                LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "Incorrect device type.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
+            }
+
+            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum)).asJson();
         }
     }
 }
