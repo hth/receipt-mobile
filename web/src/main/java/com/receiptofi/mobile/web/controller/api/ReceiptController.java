@@ -216,7 +216,7 @@ public class ReceiptController {
                 }
 
                 if (StringUtils.isNotBlank(expenseTagId)) {
-                    ExpenseTagEntity expenseTag  = expenseTagMobileService.getExpenseTag(rid, expenseTagId);
+                    ExpenseTagEntity expenseTag = expenseTagMobileService.getExpenseTag(rid, expenseTagId);
                     if (null != expenseTag) {
                         receiptMobileService.updateReceiptExpenseTag(receipt, expenseTagId);
                     } else {
