@@ -4,6 +4,7 @@ import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.RegisteredDeviceEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.repository.RegisteredDeviceManager;
 import com.receiptofi.service.UserProfilePreferenceService;
@@ -65,11 +66,11 @@ public class DeviceService {
      * @param did Device Id
      * @return
      */
-    public AvailableAccountUpdates getUpdates(String rid, String did) {
+    public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
         if (null == registeredDevice) {
-            registeredDevice = registeredDeviceManager.registerDevice(rid, did);
+            registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType);
         }
 
         if (null != registeredDevice) {
@@ -132,7 +133,6 @@ public class DeviceService {
         return availableAccountUpdates;
     }
 
-
     /**
      * Checks if the device is registered, if not registered then it registers the device.
      *
@@ -140,9 +140,9 @@ public class DeviceService {
      * @param did
      * @return
      */
-    public boolean registerDevice(String rid, String did) {
+    public boolean registerDevice(String rid, String did, DeviceTypeEnum deviceType) {
         boolean registrationSuccess = false;
-        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did);
+        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType);
         if (null == registeredDevice) {
             LOG.error("Failure device registration rid={} did={}", rid, did);
         } else {

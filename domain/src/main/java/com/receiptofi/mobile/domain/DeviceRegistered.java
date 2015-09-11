@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder (alphabetic = true)
 @JsonIgnoreProperties (ignoreUnknown = true)
 //@JsonInclude (JsonInclude.Include.NON_NULL)
-public class DeviceRegistered {
+public class DeviceRegistered extends AbstractDomain {
 
     @SuppressWarnings ({"unused"})
     @JsonProperty ("registered")
