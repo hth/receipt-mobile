@@ -56,6 +56,7 @@ public class DeviceController {
      * @param mail
      * @param auth
      * @param deviceId - Device id
+     * @param deviceType iPhone or Android
      * @param response
      * @return
      * @throws IOException
@@ -171,6 +172,7 @@ public class DeviceController {
      * @param mail
      * @param auth
      * @param did
+     * @param deviceType iPhone or Android
      * @param response
      * @return
      * @throws IOException

@@ -64,6 +64,7 @@ public class DeviceService {
      *
      * @param rid
      * @param did Device Id
+     * @param deviceType iPhone or Android
      * @return
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType) {
@@ -138,6 +139,7 @@ public class DeviceService {
      *
      * @param rid
      * @param did
+     * @param deviceType iPhone or Android
      * @return
      */
     public boolean registerDevice(String rid, String did, DeviceTypeEnum deviceType) {
