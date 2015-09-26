@@ -86,7 +86,7 @@ public class ReceiptController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         } else {
@@ -119,7 +119,7 @@ public class ReceiptController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         } else {
@@ -150,7 +150,7 @@ public class ReceiptController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         }
@@ -196,7 +196,7 @@ public class ReceiptController {
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
-        if (rid == null) {
+        if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
