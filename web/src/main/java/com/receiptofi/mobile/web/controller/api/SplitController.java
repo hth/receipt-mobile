@@ -19,6 +19,7 @@ import com.codahale.metrics.annotation.ExceptionMetered;
 import com.codahale.metrics.annotation.Timed;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class SplitController {
             produces = "application/json"
     )
     @ResponseBody
-    public List<JsonFriend> getFriends(
+    public Collection<JsonFriend> getFriends(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -76,7 +77,7 @@ public class SplitController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
         } else {
-            return friendService.getFriends(rid);
+            return friendService.getFriends(rid).values();
         }
     }
 }
