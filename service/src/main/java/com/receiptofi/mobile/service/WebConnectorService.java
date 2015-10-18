@@ -137,7 +137,7 @@ public class WebConnectorService {
             if (status >= HTTP_STATUS_200 && status < HTTP_STATUS_300) {
                 return response.getFirstHeader("X-CSRF-TOKEN");
             }
-            LOG.warn("could not make successful call to path={} status={}", apiMobileGetPath, status);
+            LOG.error("could not make successful call to path={} status={}", apiMobileGetPath, status);
             return null;
         } catch (IOException e) {
             LOG.error("{} reason={}", noResponseFromWebServer, e.getLocalizedMessage(), e);

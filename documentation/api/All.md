@@ -19,6 +19,8 @@ All different kind of data available in this API
     PROFILE
     RECEIPTS
     UNPROCESSED COUNT
+    FRIENDS
+    PENDING & AWAITING FRIENDS
     
 JSON HTTP Response
 
@@ -166,7 +168,27 @@ JSON Response data
       ],
       "unprocessedDocuments": {
         "unprocessedCount": 1
-      }
+      },
+      "awaitingFriends": [],
+      "friends": [
+        {
+          "in": "BB",
+          "na": "BR BR",
+          "rid": "10000000002"
+        }
+      ],
+      "pendingFriends": [
+        {
+          "a": true,
+          "au": "xtk3d0qwjrpkt7ag2f2175xmx414aoty",
+          "c": 1445075325745,
+          "em": "jkl@r.com",
+          "id": "5622197dad116ed79ee94985",
+          "in": "vb",
+          "na": "vbxcvbcv bxcvbc",
+          "pr": ""
+        }
+      ]
     }
     
 ### Field References    
@@ -273,4 +295,43 @@ Receipt field name
     private String billedStatus = BilledStatusEnum.NB.getName();
 
     @JsonProperty ("expenseTagId")
-    private String expenseTagId;        
+    private String expenseTagId;    
+        
+Friends
+
+    @JsonProperty ("rid")
+    private String rid;
+    
+    @JsonProperty ("in")
+    private String initials;
+    
+    @JsonProperty ("na")
+    private String name;
+
+Awaiting and Pending Friends 
+
+    @JsonProperty ("id")
+    private String id;
+
+    @JsonProperty ("au")
+    private String authKey;
+
+    @JsonProperty ("c")
+    private Date created;
+
+    @JsonProperty ("in")
+    private String initials;
+
+    @JsonProperty ("na")
+    private String name;
+
+    @JsonProperty ("em")
+    private String email;
+
+    @JsonProperty ("pr")
+    private String provider = "";      // FACEBOOK or GOOGLE
+
+    @JsonProperty ("a")
+    private boolean active;
+        
+        
