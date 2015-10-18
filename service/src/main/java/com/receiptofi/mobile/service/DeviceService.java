@@ -101,6 +101,11 @@ public class DeviceService {
         expenseTagMobileService.getAllExpenseTags(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
 
+        //TODO remove me or change this to get only updates. I have not yet decided.
+        friendMobileService.getActiveFriends(rid, availableAccountUpdates);
+        friendMobileService.getPendingFriends(rid, availableAccountUpdates);
+        friendMobileService.getAwaitingFriends(rid, availableAccountUpdates);
+
         return availableAccountUpdates;
     }
 
