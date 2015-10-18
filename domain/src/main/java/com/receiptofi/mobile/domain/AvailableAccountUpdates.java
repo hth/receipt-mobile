@@ -9,13 +9,16 @@ import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.NotificationEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
+import com.receiptofi.domain.json.JsonAwaitingAcceptance;
 import com.receiptofi.domain.json.JsonBilling;
 import com.receiptofi.domain.json.JsonExpenseTag;
+import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonNotification;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,6 +60,15 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("billing")
     private JsonBilling jsonBilling;
+
+    @JsonProperty ("friends")
+    private Collection<JsonFriend> activeFriends = new ArrayList<>();
+
+    @JsonProperty ("pendingFriends")
+    private List<JsonAwaitingAcceptance> pendingFriends = new ArrayList<>();
+
+    @JsonProperty ("awaitingFriends")
+    private List<JsonAwaitingAcceptance> awaitingFriends = new ArrayList<>();
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -116,5 +128,29 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setJsonBilling(JsonBilling jsonBilling) {
         this.jsonBilling = jsonBilling;
+    }
+
+    public Collection<JsonFriend> getActiveFriends() {
+        return activeFriends;
+    }
+
+    public void setActiveFriends(Collection<JsonFriend> activeFriends) {
+        this.activeFriends = activeFriends;
+    }
+
+    public List<JsonAwaitingAcceptance> getPendingFriends() {
+        return pendingFriends;
+    }
+
+    public void setPendingFriends(List<JsonAwaitingAcceptance> pendingFriends) {
+        this.pendingFriends = pendingFriends;
+    }
+
+    public List<JsonAwaitingAcceptance> getAwaitingFriends() {
+        return awaitingFriends;
+    }
+
+    public void setAwaitingFriends(List<JsonAwaitingAcceptance> awaitingFriends) {
+        this.awaitingFriends = awaitingFriends;
     }
 }

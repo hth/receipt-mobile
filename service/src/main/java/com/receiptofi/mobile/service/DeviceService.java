@@ -39,6 +39,7 @@ public class DeviceService {
     private NotificationMobileService notificationMobileService;
     private DocumentMobileService documentMobileService;
     private BillingMobileService billingMobileService;
+    private FriendMobileService friendMobileService;
 
     @Autowired
     public DeviceService(
@@ -48,7 +49,8 @@ public class DeviceService {
             NotificationMobileService notificationMobileService,
             ReceiptMobileService receiptMobileService,
             DocumentMobileService documentMobileService,
-            BillingMobileService billingMobileService
+            BillingMobileService billingMobileService,
+            FriendMobileService friendMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
@@ -57,13 +59,14 @@ public class DeviceService {
         this.receiptMobileService = receiptMobileService;
         this.documentMobileService = documentMobileService;
         this.billingMobileService = billingMobileService;
+        this.friendMobileService = friendMobileService;
     }
 
     /**
      * Finds if there are new updates since last checked on server.
      *
      * @param rid
-     * @param did Device Id
+     * @param did        Device Id
      * @param deviceType iPhone or Android
      * @return
      */
@@ -109,6 +112,9 @@ public class DeviceService {
      * ExpenseTag
      * Unprocessed Document
      * Notification
+     * Friends
+     * PendingFriends
+     * AwaitingFriends
      *
      * @param rid
      * @return
@@ -130,6 +136,10 @@ public class DeviceService {
 
         expenseTagMobileService.getAllExpenseTags(rid, availableAccountUpdates);
         documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
+
+        friendMobileService.getActiveFriends(rid, availableAccountUpdates);
+        friendMobileService.getPendingFriends(rid, availableAccountUpdates);
+        friendMobileService.getAwaitingFriends(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
     }
