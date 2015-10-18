@@ -9,6 +9,8 @@ import com.receiptofi.service.CommentService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.ReceiptService;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -102,7 +104,11 @@ public class ReceiptMobileService {
         if (!receipts.isEmpty()) {
             availableAccountUpdates.addJsonReceipts(receipts);
             for (ReceiptEntity receipt : receipts) {
-                availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+                if (StringUtils.isBlank(receipt.getReferToReceiptId())) {
+                    availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getId()));
+                } else {
+                    availableAccountUpdates.addJsonReceiptItems(itemService.getAllItemsOfReceipt(receipt.getReferToReceiptId()));
+                }
             }
         }
     }
