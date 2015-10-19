@@ -82,7 +82,7 @@ public class DeviceService {
             LOG.info("Device last updated date={}", updated);
 
             List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
-            receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+            receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
 
             UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
             if (null != userProfile) {
@@ -129,7 +129,7 @@ public class DeviceService {
         LOG.info("Device registered now. Getting all data.");
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
-        receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, receipts);
+        receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
 
         UserProfileEntity userProfile = userProfilePreferenceService.findByReceiptUserId(rid);
         if (null != userProfile) {

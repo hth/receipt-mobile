@@ -16,6 +16,9 @@ import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonNotification;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
+import com.receiptofi.domain.json.JsonReceiptSplit;
+
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,6 +45,9 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("receipts")
     private List<JsonReceipt> jsonReceipts = new LinkedList<>();
+
+    @JsonProperty ("receiptSplits")
+    private List<JsonReceiptSplit> jsonReceiptSplits = new ArrayList<>();
 
     @JsonProperty ("items")
     private List<JsonReceiptItem> jsonReceiptItems = new LinkedList<>();
@@ -80,6 +86,15 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void addJsonReceipts(List<ReceiptEntity> receipts) {
         this.jsonReceipts.addAll(receipts.stream().map(JsonReceipt::new).collect(Collectors.toList()));
+    }
+
+    public List<JsonReceiptSplit> getJsonReceiptSplits() {
+        return jsonReceiptSplits;
+    }
+
+    public void addJsonReceiptSplits(JsonReceiptSplit jsonReceiptSplit) {
+        Assert.notEmpty(jsonReceiptSplit.getSplits(), "Split list is empty for rdid=" + jsonReceiptSplit.getReceiptId());
+        this.jsonReceiptSplits.add(jsonReceiptSplit);
     }
 
     public Profile getProfile() {
