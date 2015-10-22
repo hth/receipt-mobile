@@ -302,10 +302,10 @@ Friends
     @JsonProperty ("rid")
     private String rid;
     
-    @JsonProperty ("in")
+    @JsonProperty ("initials")
     private String initials;
     
-    @JsonProperty ("na")
+    @JsonProperty ("name")
     private String name;
 
 Awaiting and Pending Friends 
@@ -319,10 +319,10 @@ Awaiting and Pending Friends
     @JsonProperty ("c")
     private Date created;
 
-    @JsonProperty ("in")
+    @JsonProperty ("initials")
     private String initials;
 
-    @JsonProperty ("na")
+    @JsonProperty ("name")
     private String name;
 
     @JsonProperty ("em")
