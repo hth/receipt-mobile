@@ -34,7 +34,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.mail/mail/1.4.7/9add058589d5d85adeb625859bf2c5eeaaedf12d/mail-1.4.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/c621b54583719ac0310404463d6d99db27e1052c/commons-fileupload-1.3.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jrobin/jrobin/1.5.9/bd9a84484c67de930fa841f23cd6a93108b05cd0/jrobin-1.5.9.jar" />
-            <element id="file-copy" path="$PROJECT_DIR$/lib/spring-social-facebook-2.0.2.BUILD-SNAPSHOT.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.gagravarr/vorbis-java-tika/0.6/be5b08ff4c45632975646f286a1d13e325bec59a/vorbis-java-tika-0.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.jmatio/jmatio/1.0/df72993ea17d34c3bacd983558d2970a866abaf6/jmatio-1.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.james/apache-mime4j-core/0.7.2/a81264fe0265ebe8fd1d8128aad06dc320de6eef/apache-mime4j-core-0.7.2.jar" />
@@ -142,9 +141,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/regexp/regexp/1.3/973df2b78b67bcd3144c3dbbb88da691065a3f8d/regexp-1.3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.5.4/7a93b60f5d2d43024f34e15893552ee6defdb971/jackson-annotations-2.5.4.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.5.4/a57a2df1a23ca1ee32f129173ba7f5feaa9ac24/jackson-core-2.5.4.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.5.4/5dfa42af84584b4a862ea488da84bbbebbb06c35/jackson-databind-2.5.4.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.1/761ea405b9b37ced573d2df0d1e3a4e0f9edc668/commons-collections-3.2.1.jar" />
@@ -197,6 +193,31 @@
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
             <element id="library" level="project" name="Gradle: org.quartz-scheduler:quartz:2.2.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.2.RELEASE/d7ad18d97aeb322b5381e46c676f5c92e5b1d9a/spring-social-facebook-2.0.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.2.RELEASE/b8d352f994790af6b54a5028255232316b74ca20/spring-aop-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.2.2.RELEASE/e035a1585201170b92c5c1d460b83694dc31cd3d/spring-aspects-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.2.2.RELEASE/c0384c9b077c02ce34234ba258a5161c30ac6895/spring-beans-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.2.2.RELEASE/f384619756dc640498cfbb955352ca9546c4630d/spring-context-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context-support/4.2.2.RELEASE/cfa157cb014248ebeaab19757605f2fc6267d2bd/spring-context-support-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.2.2.RELEASE/963d6c9d0b546b6313fb51618ed5c080e8981ddc/spring-core-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.2.2.RELEASE/966ab265ede093a8cd24a09f32cf7ad96a24dc71/spring-expression-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument/4.2.2.RELEASE/1453a271de3c56bfe65da34ae5001971f703162a/spring-instrument-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-instrument-tomcat/4.2.2.RELEASE/598668188d77e0c562658a6e2d9d1899e360d858/spring-instrument-tomcat-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/4.2.2.RELEASE/43df0cfc0b87162bc1055c3e1922966558cbbb5a/spring-jms-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-oxm/4.2.2.RELEASE/298105ea2c069f9c0d8d1dd132a2471bc12a9063/spring-oxm-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.2.2.RELEASE/39330e8e825ea9fd789684b8667248e31ccc2163/spring-test-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.2.2.RELEASE/bc04eea145c8d7099b997c1436afcfc8b9bddf6b/spring-tx-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.2.RELEASE/1e5dc84520538d166c8b7a7186b9cf4e8f265694/spring-web-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.2.RELEASE/4c929309bc6b7f3642c7d500e2ea11edca7270e8/spring-webmvc-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.0.4/f9caed188f03990204f3381d01d44f70fc93acec/mongo-java-driver-3.0.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.2.RELEASE/7f7d71605755ccf9002bc620c8d9066fda0a2770/spring-messaging-4.2.2.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/2.2.0/2eb16fce055d5f3c9d65420f6fc4efd3a079a3d8/quartz-2.2.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -238,7 +259,6 @@
           <element id="directory" name="classes">
             <element id="module-output" name="web" />
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
-            <element id="file-copy" path="$PROJECT_DIR$/lib/spring-social-facebook-2.0.2.BUILD-SNAPSHOT.jar" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
@@ -295,10 +315,6 @@
             <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.1.3.Final" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
-              <element id="module-output" name="common" />
-              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
-            </element>
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -334,9 +350,6 @@
             <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.12" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.2.0" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
             <element id="library" level="project" name="Gradle: org.json:json:20141113" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
@@ -417,6 +430,14 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
+            <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.1" />
+            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
+              <element id="module-output" name="common" />
+              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
+            </element>
             <element id="archive" name="com.receiptofi.mobile-domain-0.9.0.jar">
               <element id="module-output" name="domain" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
@@ -447,7 +468,6 @@
           <element id="directory" name="classes">
             <element id="module-output" name="security" />
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
-            <element id="file-copy" path="$PROJECT_DIR$/lib/spring-social-facebook-2.0.2.BUILD-SNAPSHOT.jar" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
@@ -504,10 +524,6 @@
             <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.1.3.Final" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
-              <element id="module-output" name="common" />
-              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
-            </element>
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -543,9 +559,6 @@
             <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.12" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.2.0" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
             <element id="library" level="project" name="Gradle: org.json:json:20141113" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
@@ -601,6 +614,7 @@
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-vfs2:2.0" />
             <element id="library" level="project" name="Gradle: org.apache.opennlp:opennlp-maxent:3.0.3" />
             <element id="library" level="project" name="Gradle: net.sf.jwordnet:jwnl:1.3.3" />
+            <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: net.java.dev.jna:jna:4.1.0" />
             <element id="library" level="project" name="Gradle: com.google.protobuf:protobuf-java:2.5.0" />
             <element id="library" level="project" name="Gradle: org.jdom:jdom2:2.0.4" />
@@ -617,6 +631,7 @@
             <element id="library" level="project" name="Gradle: javax.measure:jsr-275:0.9.3" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-api:1.4" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svnexe:1.4" />
+            <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: c3p0:c3p0:0.9.1.1" />
             <element id="library" level="project" name="Gradle: org.codehaus.plexus:plexus-utils:1.5.6" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
@@ -624,8 +639,14 @@
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
-            <element id="library" level="project" name="Gradle: junit:junit:4.10" />
-            <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
+            <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.1" />
+            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
+              <element id="module-output" name="common" />
+              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
+            </element>
             <element id="archive" name="com.receiptofi.mobile-domain-0.9.0.jar">
               <element id="module-output" name="domain" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
@@ -648,7 +669,6 @@
           <element id="directory" name="classes">
             <element id="module-output" name="security" />
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
-            <element id="file-copy" path="$PROJECT_DIR$/lib/spring-social-facebook-2.0.2.BUILD-SNAPSHOT.jar" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
@@ -705,10 +725,6 @@
             <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.1.3.Final" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
-              <element id="module-output" name="common" />
-              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
-            </element>
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -744,9 +760,6 @@
             <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.12" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.2.0" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
             <element id="library" level="project" name="Gradle: org.json:json:20141113" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
@@ -802,6 +815,7 @@
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-vfs2:2.0" />
             <element id="library" level="project" name="Gradle: org.apache.opennlp:opennlp-maxent:3.0.3" />
             <element id="library" level="project" name="Gradle: net.sf.jwordnet:jwnl:1.3.3" />
+            <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: net.java.dev.jna:jna:4.1.0" />
             <element id="library" level="project" name="Gradle: com.google.protobuf:protobuf-java:2.5.0" />
             <element id="library" level="project" name="Gradle: org.jdom:jdom2:2.0.4" />
@@ -818,6 +832,7 @@
             <element id="library" level="project" name="Gradle: javax.measure:jsr-275:0.9.3" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-api:1.4" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svnexe:1.4" />
+            <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: c3p0:c3p0:0.9.1.1" />
             <element id="library" level="project" name="Gradle: org.codehaus.plexus:plexus-utils:1.5.6" />
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
@@ -825,8 +840,14 @@
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
-            <element id="library" level="project" name="Gradle: junit:junit:4.10" />
-            <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
+            <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.1" />
+            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
+              <element id="module-output" name="common" />
+              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
+            </element>
             <element id="archive" name="com.receiptofi.mobile-domain-0.9.0.jar">
               <element id="module-output" name="domain" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
@@ -849,7 +870,6 @@
           <element id="directory" name="classes">
             <element id="module-output" name="web" />
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
-            <element id="file-copy" path="$PROJECT_DIR$/lib/spring-social-facebook-2.0.2.BUILD-SNAPSHOT.jar" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
@@ -906,10 +926,6 @@
             <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.1.3.Final" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
-              <element id="module-output" name="common" />
-              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
-            </element>
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -945,9 +961,6 @@
             <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.12" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.2.0" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4" />
             <element id="library" level="project" name="Gradle: org.json:json:20141113" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
@@ -1028,6 +1041,14 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
+            <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.1" />
+            <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
+              <element id="module-output" name="common" />
+              <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
+            </element>
             <element id="archive" name="com.receiptofi.mobile-domain-0.9.0.jar">
               <element id="module-output" name="domain" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
@@ -1344,37 +1365,37 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.drewnoakes/metadata-extractor/2.8.0/951ce42c0258c855dfee56a5b6577e7f66416258/metadata-extractor-2.8.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.5.4">
+    <library name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.5.4/7a93b60f5d2d43024f34e15893552ee6defdb971/jackson-annotations-2.5.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.5.4/3c2eed06d48fefe7f98bbba5158bf0fad79ca441/jackson-annotations-2.5.4-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/b7a12d75e34d22aa43be6ea32ca7ef076011d301/jackson-annotations-2.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.5.4/ea497e77b3695405373364f8d1d6d9513ef2c8b1/jackson-annotations-2.5.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/4081928da698dc7e6a797485839b5b699d40eec4/jackson-annotations-2.6.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-core:2.5.4">
+    <library name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.5.4/a57a2df1a23ca1ee32f129173ba7f5feaa9ac24/jackson-core-2.5.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.5.4/2fce3f409f9c6070ef1e88ef04aa01855ab1652a/jackson-core-2.5.4-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/79e30272a5625562c9b17d13b5f3fcf99eb27760/jackson-core-2.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.5.4/c906e414014890b228358bfcbeeb6b29afa62276/jackson-core-2.5.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/c0063bb450c53bfa3136dc868e1062d714187e2/jackson-core-2.6.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.5.4">
+    <library name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.5.4/5dfa42af84584b4a862ea488da84bbbebbb06c35/jackson-databind-2.5.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.5.4/661dfef53af20a1f6ca77edfab5efef5f3ca6105/jackson-databind-2.5.4-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/31db75abb2521a977000b302331436a1b500e34e/jackson-databind-2.6.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.5.4/5d94b8a16dc19bddcf5394af6d23f32b62ed71dd/jackson-databind-2.5.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/56c55af2ce78286195b16521a82b331cc92cae0/jackson-databind-2.6.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.fasterxml:classmate:1.2.0">
@@ -2922,6 +2943,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-core/1.1.0.RELEASE/2f6f836d7ee473681a3cde7de89ccdf68432f2aa/spring-social-core-1.1.0.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.2.RELEASE/d7ad18d97aeb322b5381e46c676f5c92e5b1d9a/spring-social-facebook-2.0.2.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.2.RELEASE/7d42245681349e71e78e138293b2258525f7b374/spring-social-facebook-2.0.2.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.2.RELEASE/1617bce8bd99e288428ef18b7ce5efc2a4c87279/spring-social-facebook-2.0.2.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE">
