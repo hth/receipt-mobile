@@ -108,9 +108,15 @@ public class ReceiptMobileService {
      * Gets item updates for the set of receipts.
      *
      * @param availableAccountUpdates
+     * @param rid
      * @param receipts
      */
-    public void getReceiptAndItemUpdates(AvailableAccountUpdates availableAccountUpdates, String rid, List<ReceiptEntity> receipts) {
+    public void getReceiptAndItemUpdates(
+            AvailableAccountUpdates availableAccountUpdates,
+            String rid,
+            List<ReceiptEntity> receipts
+    ) {
+        //TODO match with ReceiptController.loadForm
         if (!receipts.isEmpty()) {
             availableAccountUpdates.addJsonReceipts(receipts);
             Map<String, JsonFriend> jsonFriendMap;
