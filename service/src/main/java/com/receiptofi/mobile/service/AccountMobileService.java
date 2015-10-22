@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
 import com.receiptofi.mobile.domain.AccountRecover;
+import com.receiptofi.mobile.domain.InviteUser;
 import com.receiptofi.mobile.domain.SignupUserInfo;
 import com.receiptofi.service.AccountService;
 import com.receiptofi.service.EmailValidateService;
@@ -49,6 +50,8 @@ public class AccountMobileService {
     private String accountValidationEndPoint;
     private String accountRecoverEndPoint;
     private String registrationAcceptingEndPoint;
+    private String inviteUserEndPoint;
+
     private WebConnectorService webConnectorService;
     private EmailValidateService emailValidateService;
     private AccountService accountService;
@@ -64,6 +67,9 @@ public class AccountMobileService {
             @Value ("${registrationAccepting:/webapi/mobile/registration/accepting.htm}")
             String registrationAcceptingEndPoint,
 
+            @Value ("${inviteUser:/webapi/mobile/mail/invite.htm}")
+            String inviteUserEndPoint,
+
             WebConnectorService webConnectorService,
             EmailValidateService emailValidateService,
             AccountService accountService
@@ -71,6 +77,8 @@ public class AccountMobileService {
         this.accountValidationEndPoint = accountSignupEndPoint;
         this.accountRecoverEndPoint = accountRecoverEndPoint;
         this.registrationAcceptingEndPoint = registrationAcceptingEndPoint;
+        this.inviteUserEndPoint = inviteUserEndPoint;
+
         this.webConnectorService = webConnectorService;
         this.emailValidateService = emailValidateService;
         this.accountService = accountService;
@@ -250,6 +258,45 @@ public class AccountMobileService {
                 LOG.error("failed parsing data={} reason={}", response.getEntity(), e.getLocalizedMessage(), e);
                 return false;
             }
+        }
+
+        LOG.error("server responded with response code={}", status);
+        return false;
+    }
+
+    /**
+     * Sent Invite email or add existing user as pending approval.
+     * @param inviteEmail
+     * @param rid
+     * @return
+     */
+    public boolean inviteUser(String inviteEmail, String rid) {
+        LOG.debug("rid={} webApiAccessToken={}", rid, "*******");
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = webConnectorService.getHttpPost(inviteUserEndPoint, httpClient);
+        if (null == httpPost) {
+            LOG.warn("failed connecting, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        setEntity(InviteUser.newInstance(inviteEmail, rid), httpPost);
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(httpPost);
+        } catch (IOException e) {
+            LOG.error("error occurred while executing request path={} reason={}",
+                    httpPost.getURI(), e.getLocalizedMessage(), e);
+        }
+
+        if (null == response) {
+            LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
+            return false;
+        }
+
+        int status = response.getStatusLine().getStatusCode();
+        LOG.debug("status={}", status);
+        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
+            return true;
         }
 
         LOG.error("server responded with response code={}", status);

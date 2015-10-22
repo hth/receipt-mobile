@@ -58,6 +58,7 @@ public class AccountMobileServiceTest {
                 "accountValidationEndPoint",
                 "accountRecover",
                 "registrationAcceptingEndPoint",
+                "inviteUserEndPoint",
                 webConnectorService,
                 emailValidateService,
                 accountService
