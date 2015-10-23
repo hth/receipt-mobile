@@ -242,39 +242,39 @@ API call <code>/receipt-mobile/api/friend.json</code>
 
     - Response       
 
-        HTTP/1.1 200 OK
-        Server: Apache-Coyote/1.1
-        
-        {
-          "awaitingFriends": [],
-          "billing": null,
-          "expenseTags": [],
-          "friends": [
+            HTTP/1.1 200 OK
+            Server: Apache-Coyote/1.1
+            
             {
-              "initials": "BB",
-              "name": "BB BB",
-              "rid": "10000000003"
+              "awaitingFriends": [],
+              "billing": null,
+              "expenseTags": [],
+              "friends": [
+                {
+                  "initials": "BB",
+                  "name": "BB BB",
+                  "rid": "10000000003"
+                }
+              ],
+              "items": [],
+              "notifications": [],
+              "pendingFriends": [
+                {
+                  "a": false,
+                  "au": "124i8nnfm11wa4cemo4nvjvz53m3z18m",
+                  "c": 1445501020201,
+                  "em": "z@r.com",
+                  "id": "5628985c191035550d80b802",
+                  "initials": "z@",
+                  "name": null,
+                  "pr": ""
+                }
+              ],
+              "profile": null,
+              "receiptSplits": [],
+              "receipts": [],
+              "unprocessedDocuments": null
             }
-          ],
-          "items": [],
-          "notifications": [],
-          "pendingFriends": [
-            {
-              "a": false,
-              "au": "124i8nnfm11wa4cemo4nvjvz53m3z18m",
-              "c": 1445501020201,
-              "em": "z@r.com",
-              "id": "5628985c191035550d80b802",
-              "initials": "z@",
-              "name": null,
-              "pr": ""
-            }
-          ],
-          "profile": null,
-          "receiptSplits": [],
-          "receipts": [],
-          "unprocessedDocuments": null
-        }
 
 ## UnFriend API
                         
