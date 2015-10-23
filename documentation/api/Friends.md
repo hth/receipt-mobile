@@ -1,6 +1,6 @@
 # Friends
 
-Supported Apis' [Invite](#Invite), [Friend](#Friend) and [UnFriend](#UnFriend)
+Supported Apis' [Invite](#invite-api), [Friend](#friend-api) and [UnFriend](#unfriend-api)
  
 Friends and Awaiting or Pending Friends (same data response)  would look as below.  
 
@@ -27,7 +27,7 @@ Friends and Awaiting or Pending Friends (same data response)  would look as belo
       "awaitingFriends": [],
     }
     
-## Invite API [Invite]
+## Invite API
 
 To invite a user, invoke API call as below. You will receive the whole object with just `pendingFriends` populated. 
 Delete all the pending friends and re-create data associated with Pending Friends. 
@@ -143,7 +143,7 @@ API call <code>/receipt-mobile/api/invite.json</code>
               "unprocessedDocuments": null
             }            
         
-## Friend API [Friend]
+## Friend API
 
 When Friend API is invoked you would get all the `friends`, `pendingFriends`, `awaitingFriends` 
             
@@ -276,6 +276,6 @@ API call <code>/receipt-mobile/api/friend.json</code>
           "unprocessedDocuments": null
         }
 
-## UnFriend API [UnFriend]
+## UnFriend API
                         
                             
