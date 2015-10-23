@@ -7,6 +7,7 @@ package com.receiptofi.mobile.util;
  */
 public enum MobileSystemErrorCodeEnum {
 
+    /** Can be user input or mobile submission. */
     USER_INPUT("100"),
 
     /** Mobile data submitted. */
