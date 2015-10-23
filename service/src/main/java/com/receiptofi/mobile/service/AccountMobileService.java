@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
+import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AccountRecover;
 import com.receiptofi.mobile.domain.InviteUser;
 import com.receiptofi.mobile.domain.SignupUserInfo;
@@ -301,6 +302,10 @@ public class AccountMobileService {
 
         LOG.error("server responded with response code={}", status);
         return false;
+    }
+
+    public UserAccountEntity findByRid(String rid) {
+        return accountService.findByReceiptUserId(rid);
     }
 
     /**

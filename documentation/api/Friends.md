@@ -159,7 +159,7 @@ API call <code>/receipt-mobile/api/friend.json</code>
     	-H "X-R-AUTH: $2a$15$0zzqwJommKS" 
     	-H "Content-Type: application/json" 
     	-H "X-R-MAIL: a@r.com" 
-    	-d "{"id":"562a8fa01910357467763f23","auth":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"A"}"
+    	-d "{"id":"562a8fa01910357467763f23","au":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"A"}"
                                                                           
 ### HTTP header response when to different requests  
                   
@@ -195,7 +195,7 @@ API call <code>/receipt-mobile/api/friend.json</code>
             -H "X-R-AUTH: $2a$15$0zzqwJommKS" 
             -H "Content-Type: application/json" 
             -H "X-R-MAIL: a@r.com" 
-            -d "{"id":"562a8fa01910357467763f23","auth":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"R"}"
+            -d "{"id":"562a8fa01910357467763f23","au":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"R"}"
             
     - Response        
 
@@ -221,7 +221,7 @@ API call <code>/receipt-mobile/api/friend.json</code>
             -H "X-R-AUTH: $2a$15$0zzqwJommKS" 
             -H "Content-Type: application/json" 
             -H "X-R-MAIL: a@r.com" 
-            -d "{"id":"562a8fa01910357467763f23","auth":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"A"}"
+            -d "{"id":"562a8fa01910357467763f23","au":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"A"}"
             
     - Response               
 
@@ -238,7 +238,7 @@ API call <code>/receipt-mobile/api/friend.json</code>
             -H "X-R-AUTH: $2a$15$0zzqwJomm"
             -H "Content-Type: application/json"
             -H "X-R-MAIL: a@r.com"
-            -d "{"id":"562a8fa01910357467763f23","auth":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"C"}"
+            -d "{"id":"562a8fa01910357467763f23","au":"3v10d1tdd81max3xrsboz2iympykt1fu","ct":"C"}"
 
     - Response       
 
@@ -246,7 +246,18 @@ API call <code>/receipt-mobile/api/friend.json</code>
             Server: Apache-Coyote/1.1
             
             {
-              "awaitingFriends": [],
+              "awaitingFriends": [
+                {
+                  "a": true,
+                  "au": "cu8bi5s38mmrh2cg9pp21dm54ir78but",
+                  "c": 1445637977654,
+                  "em": "d@r.com",
+                  "id": "562aaf591910357467763f32",
+                  "initials": "DD",
+                  "name": "DD DD",
+                  "pr": ""
+                }
+              ],
               "billing": null,
               "expenseTags": [],
               "friends": [
@@ -278,4 +289,82 @@ API call <code>/receipt-mobile/api/friend.json</code>
 
 ## UnFriend API
                         
-                            
+When UnFriend API is invoked you would get just the `friends`. 
+`fid` is Friend Id
+
+API call <code>/receipt-mobile/api/unfriend.json</code> 
+                         
+    curl -X "POST" "http://localhost:9090/receipt-mobile/api/unfriend.json" 
+        -H "X-R-AUTH: $2a$15$0zzqwJomm" 
+        -H "Content-Type: application/json" 
+        -H "X-R-MAIL: a@r.com" 
+        -d "{"fid":"10000000003"}"    
+                     
+                                 
+### HTTP header response when to different requests
+                                 
+- Invalid `fid` value    
+                                 
+        curl -X "POST" "http://localhost:9090/receipt-mobile/api/unfriend.json" 
+             -H "X-R-AUTH: $2a$15$0zzqwJomm" 
+             -H "Content-Type: application/json" 
+             -H "X-R-MAIL: a@r.com" 
+             -d "{"fid":""}" 
+             
+    - Response
+    
+        {
+          "error": {
+            "reason": "Missing required data.",
+            "systemErrorCode": "100",
+            "systemError": "USER_INPUT"
+          }
+        }
+        
+- Provided correct `fid` and DOES NOT `connection`
+        
+        curl -X "POST" "http://localhost:9090/receipt-mobile/api/unfriend.json" 
+                        -H "X-R-AUTH: $2a$15$0zzqwJomm" 
+                        -H "Content-Type: application/json" 
+                        -H "X-R-MAIL: a@r.com" 
+                        -d "{"fid":"10000000003"}"    
+                        
+    - Response  
+          
+          HTTP/1.1 200 OK
+          Server: Apache-Coyote/1.1
+          
+          {"success":false}
+                         
+- Provided correct `fid` and has `connection`  
+
+        curl -X "POST" "http://localhost:9090/receipt-mobile/api/unfriend.json" 
+                -H "X-R-AUTH: $2a$15$0zzqwJomm" 
+                -H "Content-Type: application/json" 
+                -H "X-R-MAIL: a@r.com" 
+                -d "{"fid":"10000000003"}"    
+                
+    - Response
+
+            HTTP/1.1 200 OK
+            Server: Apache-Coyote/1.1
+                         
+            {
+            "awaitingFriends": [],
+            "billing": null,
+            "expenseTags": [],
+            "friends": [
+             {
+               "initials": "DD",
+               "name": "DD DD",
+               "rid": "10000000006"
+             }
+            ],
+            "items": [],
+            "notifications": [],
+            "pendingFriends": [],
+            "profile": null,
+            "receiptSplits": [],
+            "receipts": [],
+            "unprocessedDocuments": null
+            }
