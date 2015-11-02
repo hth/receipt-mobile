@@ -79,7 +79,7 @@ public class DeviceService {
 
         if (null != registeredDevice) {
             Date updated = registeredDevice.getUpdated();
-            LOG.info("rid={} device={} last updated={}", rid, did, updated);
+            LOG.info("rid={} did={} last updated={}", rid, did, updated);
 
             List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
             receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
