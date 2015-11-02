@@ -79,7 +79,7 @@ public class DeviceService {
 
         if (null != registeredDevice) {
             Date updated = registeredDevice.getUpdated();
-            LOG.info("Device last updated date={}", updated);
+            LOG.info("rid={} did={} last updated={}", rid, did, updated);
 
             List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
             receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
@@ -126,7 +126,7 @@ public class DeviceService {
      */
     public AvailableAccountUpdates getAll(String rid) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        LOG.info("Device registered now. Getting all data.");
+        LOG.info("Device registered now. Getting all data rid={}", rid);
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
         receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);

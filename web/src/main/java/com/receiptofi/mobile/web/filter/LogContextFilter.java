@@ -62,11 +62,11 @@ public class LogContextFilter implements Filter {
         String query = httpServletRequest.getQueryString();
 
         LOG.info("Request received:"
-                        + " Host=\"" + getHeader(headerMap, "host") + "\""
-                        + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
-                        + " Accept=\"" + getHeader(headerMap, "accept") + "\""
                         + " ForwardedFor=\"" + getHeader(headerMap, "x-forwarded-for") + "\""
                         + " Endpoint=\"" + extractDataFromURL(url, "$5") + "\""
+                        + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
+                        + " Host=\"" + getHeader(headerMap, "host") + "\""
+                        + " Accept=\"" + getHeader(headerMap, "accept") + "\""
                         + " Query=\"" + (query == null ? "none" : query) + "\""
                         + " URL=\"" + url + "\""
         );
