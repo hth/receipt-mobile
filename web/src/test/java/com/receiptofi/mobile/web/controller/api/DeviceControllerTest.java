@@ -60,15 +60,15 @@ public class DeviceControllerTest {
     @Test
     public void testHasUpdateFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        deviceController.updates("", "", "did", "", httpServletResponse);
-        verify(deviceService, never()).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class));
+        deviceController.updates("", "", "did", "", "", httpServletResponse);
+        verify(deviceService, never()).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
     }
 
     @Test
     public void testHasUpdateException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        doThrow(new RuntimeException()).when(deviceService).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class));
-        String responseJson = deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), httpServletResponse);
+        doThrow(new RuntimeException()).when(deviceService).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
+        String responseJson = deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -80,22 +80,22 @@ public class DeviceControllerTest {
     @Test
     public void testHasUpdate() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(deviceService.getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(availableAccountUpdates);
-        deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), httpServletResponse);
-        verify(deviceService, times(1)).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class));
+        when(deviceService.getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(availableAccountUpdates);
+        deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
+        verify(deviceService, times(1)).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
     }
 
     @Test
     public void testRegisterDeviceFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        assertNull(deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), httpServletResponse));
+        assertNull(deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse));
     }
 
     @Test
     public void testRegisterDevice() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(true);
-        String responseJson = deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), httpServletResponse);
+        when(deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(true);
+        String responseJson = deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertTrue(jo.getAsJsonPrimitive("registered").getAsBoolean());
     }

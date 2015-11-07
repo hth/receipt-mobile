@@ -70,11 +70,11 @@ public class DeviceService {
      * @param deviceType iPhone or Android
      * @return
      */
-    public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType) {
+    public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
         if (null == registeredDevice) {
-            registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType);
+            registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType, token);
         }
 
         if (null != registeredDevice) {
@@ -157,9 +157,9 @@ public class DeviceService {
      * @param deviceType iPhone or Android
      * @return
      */
-    public boolean registerDevice(String rid, String did, DeviceTypeEnum deviceType) {
+    public boolean registerDevice(String rid, String did, DeviceTypeEnum deviceType, String token) {
         boolean registrationSuccess = false;
-        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType);
+        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType, token);
         if (null == registeredDevice) {
             LOG.error("Failure device registration rid={} did={}", rid, did);
         } else {

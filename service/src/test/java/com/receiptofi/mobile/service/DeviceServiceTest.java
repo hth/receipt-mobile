@@ -87,7 +87,7 @@ public class DeviceServiceTest {
     @Test
     public void testHasUpdateWhenNull() {
         when(registeredDeviceManager.lastAccessed(anyString(), anyString())).thenReturn(null);
-        assertTrue("Receipt empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getJsonReceipts().isEmpty());
+        assertTrue("Receipt empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A, anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(Collections.singletonList(receipt));
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(null);
-        assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getProfile());
+        assertNull("UserProfile empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A, anyString()).getProfile());
     }
 
     @Test
@@ -105,18 +105,18 @@ public class DeviceServiceTest {
         when(registeredDeviceEntity.getUpdated()).thenReturn(new Date());
         when(receiptMobileService.getAllUpdatedReceiptSince(anyString(), any(Date.class))).thenReturn(new ArrayList<>());
         when(userProfilePreferenceService.getProfileUpdateSince(anyString(), any(Date.class))).thenReturn(userProfile);
-        assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A).getJsonReceipts().isEmpty());
+        assertTrue("Receipts is empty", deviceService.getUpdates(anyString(), anyString(), DeviceTypeEnum.A, anyString()).getJsonReceipts().isEmpty());
     }
 
     @Test
     public void testRegisterDeviceFalse() {
-        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(null);
-        assertFalse("Device registration failure", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class)));
+        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(null);
+        assertFalse("Device registration failure", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString()));
     }
 
     @Test
     public void testRegisterDeviceTrue() {
-        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class))).thenReturn(registeredDeviceEntity);
-        assertTrue("Device registration success", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class)));
+        when(registeredDeviceManager.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(registeredDeviceEntity);
+        assertTrue("Device registration success", deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString()));
     }
 }
