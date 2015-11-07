@@ -24,10 +24,6 @@ ext {
     passFileLocal = file('web/resources/conf/pass.properties')
     passFileTest = file(passwordTestFileLocation)
     passFileProd = file(passwordProdFileLocation)
-
-    apnsCertLocal = file('web/resources/conf/Certificates.p12')
-    apnsCertTest = file(apnsCertificateTestFileLocation)
-    apnsCertProd = file(apnsCertificateProdFileLocation)
 }
 
 allprojects {
@@ -408,30 +404,27 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
         from 'web/resources/conf/application-messages.properties'
 
         if (env == 'prod') {
-            if (passFileProd.exists() && apnsCertProd.exists()) {
+            if (passFileProd.exists()) {
                 from passwordProdFileLocation
-                from apnsCertificateProdFileLocation
             } else {
-                throw new Exception("Required pass or cert file does not exists: $passFileProd.canonicalPath")
+                throw new Exception("Required pass file does not exists: $passFileProd.canonicalPath")
             }
         }
 
         if (env == 'test') {
-            if (passFileTest.exists() && apnsCertTest.exists()) {
+            if (passFileTest.exists()) {
                 from passwordTestFileLocation
-                from apnsCertificateTestFileLocation
             } else {
-                throw new Exception("Required pass or cert file does not exists: $passFileTest.canonicalPath")
+                throw new Exception("Required pass file does not exists: $passFileTest.canonicalPath")
             }
         }
 
         if (env == 'dev') {
             println "Development environment, getting local pass file $passFileLocal.canonicalPath"
-            if (passFileLocal.exists() && apnsCertLocal.exists()) {
+            if (passFileLocal.exists()) {
                 from 'web/resources/conf/pass.properties'
-                from 'web/resources/conf/Certificates.p12'
             } else {
-                throw new Exception("Required pass or cert file does not exists: $passFileLocal.canonicalPath")
+                throw new Exception("Required pass file does not exists: $passFileLocal.canonicalPath")
             }
         }
 
