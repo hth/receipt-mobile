@@ -81,6 +81,9 @@ public class DeviceController {
             @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
             String deviceType,
 
+            @RequestHeader (value = "X-R-TK", required = false)
+            String deviceToken,
+
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("Updated data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -105,7 +108,7 @@ public class DeviceController {
         }
 
         try {
-            return deviceService.getUpdates(rid, deviceId, deviceTypeEnum).asJson();
+            return deviceService.getUpdates(rid, deviceId, deviceTypeEnum, deviceToken).asJson();
         } catch (Exception e) {
             LOG.error("fetching updates for device failed deviceId={} reason={}",
                     deviceId, e.getLocalizedMessage(), e);
@@ -197,6 +200,9 @@ public class DeviceController {
             @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
             String deviceType,
 
+            @RequestHeader (value = "X-R-TK", required = false)
+            String deviceToken,
+
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -219,7 +225,7 @@ public class DeviceController {
                 return ErrorEncounteredJson.toJson(errors);
             }
 
-            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum)).asJson();
+            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
         }
     }
 }
