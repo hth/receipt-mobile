@@ -96,7 +96,7 @@ public class ExpenseTagController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String tagName = map.containsKey("tagName") ? map.get("tagName").getText() : null;
+            String tagName = map.containsKey("tagName") ? map.get("tagName").getText().toUpperCase() : null;
             String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText() : null;
 
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor)) {
