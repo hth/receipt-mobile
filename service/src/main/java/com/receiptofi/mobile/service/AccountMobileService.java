@@ -158,27 +158,7 @@ public class AccountMobileService {
         }
 
         setEntity(SignupUserInfo.newInstance(userId, name, auth), httpPost);
-        HttpResponse response = null;
-        try {
-            response = httpClient.execute(httpPost);
-        } catch (IOException e) {
-            LOG.error("error occurred while executing request path={} reason={}",
-                    httpPost.getURI(), e.getLocalizedMessage(), e);
-        }
-
-        if (null == response) {
-            LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
-            return false;
-        }
-
-        int status = response.getStatusLine().getStatusCode();
-        LOG.debug("status={}", status);
-        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
-            return true;
-        }
-
-        LOG.error("server responded with response code={}", status);
-        return false;
+        return invokeHttpPost(httpClient, httpPost);
     }
 
     /**
@@ -195,27 +175,7 @@ public class AccountMobileService {
         }
 
         setEntity(AccountRecover.newInstance(userId), httpPost);
-        HttpResponse response = null;
-        try {
-            response = httpClient.execute(httpPost);
-        } catch (IOException e) {
-            LOG.error("error occurred while executing request path={} reason={}",
-                    httpPost.getURI(), e.getLocalizedMessage(), e);
-        }
-
-        if (null == response) {
-            LOG.warn("failed response, reason={}", webConnectorService.getNoResponseFromWebServer());
-            return false;
-        }
-
-        int status = response.getStatusLine().getStatusCode();
-        LOG.debug("status={}", status);
-        if (WebConnectorService.HTTP_STATUS_200 <= status && WebConnectorService.HTTP_STATUS_300 > status) {
-            return true;
-        }
-
-        LOG.error("server responded with response code={}", status);
-        return false;
+        return invokeHttpPost(httpClient, httpPost);
     }
 
     /**
@@ -281,6 +241,10 @@ public class AccountMobileService {
         }
 
         setEntity(InviteUser.newInstance(inviteEmail, rid), httpPost);
+        return invokeHttpPost(httpClient, httpPost);
+    }
+
+    private boolean invokeHttpPost(HttpClient httpClient, HttpPost httpPost) {
         HttpResponse response = null;
         try {
             response = httpClient.execute(httpPost);
