@@ -149,7 +149,12 @@ public class BillingMobileService {
      */
     public void getBilling(String rid, Date since, AvailableAccountUpdates availableAccountUpdates) {
         BillingAccountEntity billingAccount = billingAccountManager.getLatestBillingAccount(rid);
+
+        /** Billing History can be null as no new history has been added since last checked. */
         List<BillingHistoryEntity> billings = billingHistoryManager.getHistory(rid, since);
+        if (null == billings) {
+            billings = new ArrayList<>();
+        }
 
         availableAccountUpdates.setJsonBilling(new JsonBilling(billingAccount, billings));
     }
