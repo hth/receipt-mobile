@@ -74,10 +74,9 @@ public class DeviceService {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
         if (null == registeredDevice) {
-            registeredDevice = registeredDeviceManager.registerDevice(rid, did, deviceType, token);
-        }
-
-        if (null != registeredDevice) {
+            registeredDeviceManager.registerDevice(rid, did, deviceType, token);
+            return getAll(rid);
+        } else {
             Date updated = registeredDevice.getUpdated();
             LOG.info("rid={} did={} last updated={}", rid, did, updated);
 
