@@ -55,7 +55,7 @@ public class DeviceController {
      *
      * @param mail
      * @param auth
-     * @param deviceId - Device id
+     * @param deviceId   - Device id
      * @param deviceType iPhone or Android
      * @param response
      * @return
@@ -98,13 +98,7 @@ public class DeviceController {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
-
-            Map<String, String> errors = new HashMap<>();
-            errors.put(ErrorEncounteredJson.REASON, "Incorrect device type.");
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
-            return ErrorEncounteredJson.toJson(errors);
+            return getErrorReason("Incorrect device type.");
         }
 
         try {
@@ -159,13 +153,7 @@ public class DeviceController {
             return deviceService.getAll(rid).asJson();
         } catch (Exception e) {
             LOG.error("fetching all reason={}", e.getLocalizedMessage(), e);
-
-            Map<String, String> errors = new HashMap<>();
-            errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
-            return ErrorEncounteredJson.toJson(errors);
+            return getErrorReason("Something went wrong. Engineers are looking into this.");
         }
     }
 
@@ -210,22 +198,30 @@ public class DeviceController {
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
-        } else {
-            DeviceTypeEnum deviceTypeEnum;
-            try {
-                deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
-            } catch (Exception e) {
-                LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Incorrect device type.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
-                return ErrorEncounteredJson.toJson(errors);
-            }
-
-            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
         }
+
+        DeviceTypeEnum deviceTypeEnum;
+        try {
+            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
+        } catch (Exception e) {
+            LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
+            return getErrorReason("Incorrect device type.");
+        }
+
+        try {
+            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
+        } catch (Exception e) {
+            LOG.error("Failed registering deviceType={}, reason={}", deviceTypeEnum, e.getLocalizedMessage(), e);
+            return getErrorReason("Something went wrong. Engineers are looking into this.");
+        }
+    }
+
+    private String getErrorReason(String reason) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, reason);
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+        return ErrorEncounteredJson.toJson(errors);
     }
 }
