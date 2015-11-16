@@ -72,7 +72,7 @@ public class DeviceService {
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        RegisteredDeviceEntity registeredDevice = registeredDeviceManager.lastAccessed(rid, did);
+        RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
         if (null == registeredDevice) {
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
             return getAll(rid);
@@ -170,5 +170,9 @@ public class DeviceService {
 
     public boolean isDeviceRegistered(String rid, String did) {
         return registeredDeviceManager.find(rid, did) != null;
+    }
+
+    public RegisteredDeviceEntity lastAccessed(String rid, String did) {
+        return registeredDeviceManager.lastAccessed(rid, did);
     }
 }
