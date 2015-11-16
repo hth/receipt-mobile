@@ -74,6 +74,7 @@ public class DeviceService {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
         if (null == registeredDevice) {
+            LOG.info("Device registered rid={} did={}", rid, did);
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
             return getAll(rid);
         } else {
@@ -125,7 +126,7 @@ public class DeviceService {
      */
     public AvailableAccountUpdates getAll(String rid) {
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        LOG.info("Device registered now. Getting all data rid={}", rid);
+        LOG.info("Getting all data rid={}", rid);
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);
         receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
