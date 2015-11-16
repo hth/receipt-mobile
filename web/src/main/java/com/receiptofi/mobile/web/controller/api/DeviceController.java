@@ -209,7 +209,12 @@ public class DeviceController {
         }
 
         try {
-            return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
+            if (deviceService.lastAccessed(rid, did) != null) {
+                LOG.info("Device already registered rid={} did={}", rid, did);
+                return DeviceRegistered.newInstance(true).asJson();
+            } else {
+                return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
+            }
         } catch (Exception e) {
             LOG.error("Failed registering deviceType={}, reason={}", deviceTypeEnum, e.getLocalizedMessage(), e);
             return getErrorReason("Something went wrong. Engineers are looking into this.");
