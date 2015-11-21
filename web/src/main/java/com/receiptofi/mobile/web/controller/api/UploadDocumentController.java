@@ -2,17 +2,24 @@ package com.receiptofi.mobile.web.controller.api;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
 
+import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.shared.UploadDocumentImage;
+import com.receiptofi.domain.types.DocumentOfTypeEnum;
+import com.receiptofi.domain.types.DocumentRejectReasonEnum;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.service.DocumentUpdateService;
+import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.service.MessageDocumentService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,11 +51,28 @@ public class UploadDocumentController {
 
     private AuthenticateService authenticateService;
     private LandingService landingService;
+    private FileSystemService fileSystemService;
+    private DocumentUpdateService documentUpdateService;
+    private MessageDocumentService messageDocumentService;
+
+    @Value ("${duplicate.document.reject.user}")
+    private String documentRejectUserId;
+
+    @Value("${duplicate.document.reject.rid}")
+    private String documentRejectRid;
 
     @Autowired
-    public UploadDocumentController(LandingService landingService, AuthenticateService authenticateService) {
+    public UploadDocumentController(
+            LandingService landingService,
+            AuthenticateService authenticateService,
+            FileSystemService fileSystemService,
+            DocumentUpdateService documentUpdateService,
+            MessageDocumentService messageDocumentService) {
         this.landingService = landingService;
         this.authenticateService = authenticateService;
+        this.fileSystemService = fileSystemService;
+        this.documentUpdateService = documentUpdateService;
+        this.messageDocumentService = messageDocumentService;
     }
 
     /**
@@ -96,7 +120,19 @@ public class UploadDocumentController {
             uploadDocumentImage.setFileData(file);
             uploadDocumentImage.setRid(rid);
             uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
-            landingService.uploadDocument(uploadDocumentImage);
+
+            boolean duplicateFile = fileSystemService.fileWithSimilarNameDoesNotExists(rid, uploadDocumentImage.getOriginalFileName());
+            DocumentEntity document = landingService.uploadDocument(uploadDocumentImage);
+
+            if (!duplicateFile) {
+                LOG.info("Found existing file with name={} rid={}", uploadDocumentImage.getOriginalFileName(), rid);
+                messageDocumentService.markMessageForReceiptAsDuplicate(document.getId(), documentRejectUserId, documentRejectRid);
+                documentUpdateService.processDocumentForReject(
+                        documentRejectRid,
+                        document.getId(),
+                        DocumentOfTypeEnum.RECEIPT,
+                        DocumentRejectReasonEnum.D);
+            }
 
             return DocumentUpload.newInstance(
                     file.getOriginalFilename(),
