@@ -17,7 +17,10 @@ import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.service.DocumentUpdateService;
+import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.service.MessageDocumentService;
 
 import org.joda.time.DateTime;
 
@@ -47,6 +50,9 @@ public class UploadDocumentControllerTest {
 
     @Mock private AuthenticateService authenticateService;
     @Mock private LandingService landingService;
+    @Mock private FileSystemService fileSystemService;
+    @Mock private DocumentUpdateService documentUpdateService;
+    @Mock private MessageDocumentService messageDocumentService;
     @Mock private HttpServletResponse httpServletResponse;
     @Mock private ServletRequestWrapper servletRequestWrapper;
     @Mock private HttpServletRequest httpServletRequest;
@@ -57,7 +63,7 @@ public class UploadDocumentControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        uploadDocumentController = new UploadDocumentController(landingService, authenticateService);
+        uploadDocumentController = new UploadDocumentController(landingService, authenticateService, fileSystemService, documentUpdateService, messageDocumentService);
         when(servletRequestWrapper.getRequest()).thenReturn(httpServletRequest);
     }
 
@@ -85,6 +91,7 @@ public class UploadDocumentControllerTest {
         when(multipartFile.getSize()).thenReturn(1L);
         when(multipartFile.getOriginalFilename()).thenReturn("filename");
         when(landingService.pendingReceipt(anyString())).thenReturn(1L);
+        when(fileSystemService.fileWithSimilarNameDoesNotExists(anyString(), anyString())).thenReturn(true);
         String responseJson = uploadDocumentController.upload("mail@mail.com", "", multipartFile, httpServletResponse);
         responseJson = StringUtils.replace(responseJson, "null", "\"blobId\"");
 
