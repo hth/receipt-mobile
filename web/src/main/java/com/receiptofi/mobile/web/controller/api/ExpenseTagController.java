@@ -101,30 +101,15 @@ public class ExpenseTagController {
 
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor)) {
                 LOG.warn("Null tagName={} or tagColor={}", tagName, tagColor);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Either Expense Tag or Color received as empty.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                Map<String, String> errors = getErrorUserInput("Either Expense Tag or Color received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (expenseTagMobileService.doesExists(rid, tagName)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Expense Tag already exists.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (tagName.length() > expenseTagSize) {
                 LOG.warn("Expense Tag expenseTagName={} for rid={} length size={} greater", tagName, rid, expenseTagSize);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, tagName + " length should not be greater than " + expenseTagSize + " .");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                Map<String, String> errors = getErrorUserInput(tagName + " length should not be greater than " + expenseTagSize + " .");
                 return ErrorEncounteredJson.toJson(errors);
             } else {
                 try {
@@ -132,21 +117,12 @@ public class ExpenseTagController {
                         expenseTagMobileService.save(tagName, rid, tagColor);
                         return expenseTagMobileService.getUpdates(rid).asJson();
                     } else {
-                        Map<String, String> errors = new HashMap<>();
-                        errors.put(ErrorEncounteredJson.REASON, "Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
-                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                        Map<String, String> errors = getErrorUserInput("Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
                         return ErrorEncounteredJson.toJson(errors);
                     }
                 } catch (Exception e) {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
-
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                    Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
                     return ErrorEncounteredJson.toJson(errors);
                 }
             }
@@ -195,21 +171,11 @@ public class ExpenseTagController {
 
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) || StringUtils.isBlank(tagId)) {
                 LOG.warn("Null tagName={} or tagColor={} or tagId={}", tagName, tagColor, tagId);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Either Expense Tag or Color or Id received as empty.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
-
+                Map<String, String> errors = getErrorSevere("Either Expense Tag or Color or Id received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} could not be found", tagName, rid);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Expense Tag does not exists.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
-
+                Map<String, String> errors = getErrorSevere("Expense Tag does not exists.");
                 return ErrorEncounteredJson.toJson(errors);
             } else {
                 try {
@@ -217,16 +183,19 @@ public class ExpenseTagController {
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } catch (Exception e) {
                     LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
-
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                    Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
                     return ErrorEncounteredJson.toJson(errors);
                 }
             }
         }
+    }
+
+    private Map<String, String> getErrorUserInput(String reason) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, reason);
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+        return errors;
     }
 
     /**
@@ -269,21 +238,11 @@ public class ExpenseTagController {
 
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagId)) {
                 LOG.warn("Null tagName={} or tagId={}", tagName, tagId);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Either Expense Tag or Color or Id received as empty.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
-
+                Map<String, String> errors = getErrorSevere("Either Expense Tag or Color or Id received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId, tagName)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} does not exists", tagName, rid);
-
-                Map<String, String> errors = new HashMap<>();
-                errors.put(ErrorEncounteredJson.REASON, "Expense Tag does not exists.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
-
+                Map<String, String> errors = getErrorSevere("Expense Tag does not exists.");
                 return ErrorEncounteredJson.toJson(errors);
             } else {
                 boolean result = expenseTagMobileService.softDeleteExpenseTag(tagId, tagName, rid);
@@ -291,16 +250,19 @@ public class ExpenseTagController {
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } else {
                     LOG.error("Failure to delete expense tag rid={} tagId={}", rid, tagId);
-
-                    Map<String, String> errors = new HashMap<>();
-                    errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-
+                    Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
                     return ErrorEncounteredJson.toJson(errors);
                 }
             }
         }
 
+    }
+
+    private Map<String, String> getErrorSevere(String reason) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, reason);
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+        return errors;
     }
 }
