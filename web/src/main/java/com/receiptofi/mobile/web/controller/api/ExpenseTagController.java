@@ -190,14 +190,6 @@ public class ExpenseTagController {
         }
     }
 
-    private Map<String, String> getErrorUserInput(String reason) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put(ErrorEncounteredJson.REASON, reason);
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
-        return errors;
-    }
-
     /**
      * Delete expense tag.
      *
@@ -255,7 +247,14 @@ public class ExpenseTagController {
                 }
             }
         }
+    }
 
+    private Map<String, String> getErrorUserInput(String reason) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put(ErrorEncounteredJson.REASON, reason);
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+        return errors;
     }
 
     private Map<String, String> getErrorSevere(String reason) {
