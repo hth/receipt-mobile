@@ -71,31 +71,37 @@ public class DeviceService {
      * @return
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
-        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
         if (null == registeredDevice) {
             LOG.info("Device registered rid={} did={}", rid, did);
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
             return getAll(rid);
         } else {
-            Date updated = registeredDevice.getUpdated();
-            LOG.info("rid={} did={} last updated={}", rid, did, updated);
-
-            List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
-            receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
-
-            UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
-            if (null != userProfile) {
-                availableAccountUpdates.setProfile(userProfile);
-            }
-
-            List<NotificationEntity> notifications = notificationMobileService.getNotifications(rid, updated);
-            if (!notifications.isEmpty()) {
-                availableAccountUpdates.setJsonNotifications(notifications);
-            }
-
-            billingMobileService.getBilling(rid, updated, availableAccountUpdates);
+            return getUpdates(rid, did);
         }
+    }
+
+    public AvailableAccountUpdates getUpdates(String rid, String did) {
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+
+        RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
+        Date updated = registeredDevice.getUpdated();
+        LOG.info("rid={} did={} last updated={}", rid, did, updated);
+
+        List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
+        receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
+
+        UserProfileEntity userProfile = userProfilePreferenceService.getProfileUpdateSince(rid, updated);
+        if (null != userProfile) {
+            availableAccountUpdates.setProfile(userProfile);
+        }
+
+        List<NotificationEntity> notifications = notificationMobileService.getNotifications(rid, updated);
+        if (!notifications.isEmpty()) {
+            availableAccountUpdates.setJsonNotifications(notifications);
+        }
+
+        billingMobileService.getBilling(rid, updated, availableAccountUpdates);
 
         //Put this under since update condition; add updated
         expenseTagMobileService.getAllExpenseTags(rid, availableAccountUpdates);
