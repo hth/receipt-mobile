@@ -28,7 +28,7 @@ Table of content
 16. [Password change](documentation/api/PasswordChange.md)
 17. [UserId/Email/Rid change](documentation/api/RidChange.md)
 18. [Expense Tag actions](documentation/api/ExpenseTag.md)
-19. [Billing TODO] (documentation/api/Billing.md)
+19. [Billing] (documentation/api/Billing.md)
 20. [Payment] (documentation/api/Payment.md)
 21. [Friends] (documentation/api/Friends.md)
 22. [Receipt Split] (documentation/api/ReceiptSplit.md)
