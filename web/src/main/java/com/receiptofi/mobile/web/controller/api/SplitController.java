@@ -2,12 +2,9 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonFriend;
-import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
-import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.FriendService;
 import com.receiptofi.service.ReceiptService;
 import com.receiptofi.utils.ParseJsonStringToMap;
@@ -33,7 +30,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -143,16 +139,13 @@ public class SplitController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String fid = map.containsKey("fid") ? map.get("fid").getText() : null;
+            String fidRemove = map.containsKey("fidRemove") ? map.get("fidRemove").getText() : null;
+            String fidAdd = map.containsKey("fidAdd") ? map.get("fidAdd").getText() : null;
             String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
-            SplitActionEnum splitAction = map.containsKey("splitAction") ? SplitActionEnum.valueOf(map.get("splitAction").getText()) : null;
-            LOG.debug("Receipt id={} fid={} splitAction={}", receiptId, fid, splitAction);
+            LOG.debug("Receipt id={} fidRemove={} fidAdd={}", receiptId, fidRemove, fidAdd);
 
-            List<String> fids = new ArrayList<>();
-            StringTokenizer stringTokenizer = new StringTokenizer(fid, ",");
-            while (stringTokenizer.hasMoreTokens()) {
-                fids.add(stringTokenizer.nextToken());
-            }
+            List<String> removeFids = populateFids(fidRemove);
+            List<String> addFids = populateFids(fidAdd);
 
             ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
             if (null == receipt) {
@@ -160,12 +153,25 @@ public class SplitController {
                 httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                 return null;
             } else {
-                for (String friendId : fids) {
-                    receiptService.splitAction(friendId, splitAction, receipt);
+                for (String friendId : removeFids) {
+                    receiptService.splitAction(friendId, SplitActionEnum.R, receipt);
+                }
+
+                for (String friendId : addFids) {
+                    receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
                 }
             }
 
             return deviceService.getUpdates(rid, deviceId).asJson();
         }
+    }
+
+    private List<String> populateFids(String fids) {
+        List<String> fidList = new ArrayList<>();
+        StringTokenizer stringTokenizer = new StringTokenizer(fids, ",");
+        while (stringTokenizer.hasMoreTokens()) {
+            fidList.add(stringTokenizer.nextToken());
+        }
+        return fidList;
     }
 }
