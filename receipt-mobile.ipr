@@ -202,6 +202,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.3.RELEASE/98eea3fbe01450fff18aeb7e6003f80a879a049e/spring-web-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.3.RELEASE/46803840259c6d51c531e4f07f4213d758c6ee1d/spring-webmvc-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -281,7 +284,6 @@
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.3.1" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.0.4" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.11.1" />
@@ -318,7 +320,6 @@
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.57.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
@@ -386,7 +387,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
@@ -583,6 +583,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.3.RELEASE/98eea3fbe01450fff18aeb7e6003f80a879a049e/spring-web-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.3.RELEASE/46803840259c6d51c531e4f07f4213d758c6ee1d/spring-webmvc-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -640,7 +643,6 @@
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.3.1" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.0.4" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.11.1" />
@@ -677,7 +679,6 @@
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.57.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
@@ -747,7 +748,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
@@ -933,6 +933,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.3.RELEASE/98eea3fbe01450fff18aeb7e6003f80a879a049e/spring-web-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.3.RELEASE/46803840259c6d51c531e4f07f4213d758c6ee1d/spring-webmvc-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -990,7 +993,6 @@
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.3.1" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.0.4" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.11.1" />
@@ -1027,7 +1029,6 @@
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.57.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
@@ -1097,7 +1098,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
@@ -1283,6 +1283,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.3.RELEASE/98eea3fbe01450fff18aeb7e6003f80a879a049e/spring-web-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.3.RELEASE/46803840259c6d51c531e4f07f4213d758c6ee1d/spring-webmvc-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1339,7 +1342,6 @@
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.3.1" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.0.4" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.11.1" />
@@ -1376,7 +1378,6 @@
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.9" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.57.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
@@ -1444,7 +1445,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0-rc2" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
@@ -1641,6 +1641,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.3.RELEASE/98eea3fbe01450fff18aeb7e6003f80a879a049e/spring-web-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.3.RELEASE/46803840259c6d51c531e4f07f4213d758c6ee1d/spring-webmvc-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -2032,28 +2035,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/563dcb685903c96ce8abbd03adf7fa49e19aa8b4/gson-2.3.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.google.guava:guava:19.0-rc2">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc2/93e17f60bc524c2610b41c494bb829c11ca89436/guava-19.0-rc2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc2/5df750be4b45a1c667e1a9d641523b178c216b12/guava-19.0-rc2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc2/7062f808c0a1084902d75b2841e0cd3168b1cf0/guava-19.0-rc2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.google.maps:google-maps-services:0.1.6">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/bfbcfdd207c971f31b274c463620af90b6dcff0d/google-maps-services-0.1.6.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/96ce88e53c7a21ac49fe89f0ce2f0e87358e13a4/google-maps-services-0.1.6-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.6/b39d0e76a017245b9fe2a73540e9e24632bde807/google-maps-services-0.1.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.google.protobuf:protobuf-java:2.5.0">
@@ -2651,17 +2632,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: net.bull.javamelody:javamelody-core:1.57.0">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.57.0/4a02d05e9b6261f78ce83a685ad277c0c5f79b89/javamelody-core-1.57.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.57.0/350eb48bd4a5865c077343f505aaa5a77deaea48/javamelody-core-1.57.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.57.0/35be2900317c5fd6c5bc99168c333525c3fc14e8/javamelody-core-1.57.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: net.java.dev.jna:jna-platform:4.0.0">
