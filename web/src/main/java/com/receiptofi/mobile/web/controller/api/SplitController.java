@@ -1,12 +1,14 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ReceiptEntity;
+import com.receiptofi.domain.SplitExpensesEntity;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
 import com.receiptofi.service.FriendService;
 import com.receiptofi.service.ReceiptService;
+import com.receiptofi.service.SplitExpensesService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -55,18 +57,21 @@ public class SplitController {
     private AuthenticateService authenticateService;
     private ReceiptService receiptService;
     private DeviceService deviceService;
+    private SplitExpensesService splitExpensesService;
 
     @Autowired
     public SplitController(
             FriendService friendService,
             AuthenticateService authenticateService,
             ReceiptService receiptService,
-            DeviceService deviceService
+            DeviceService deviceService,
+            SplitExpensesService splitExpensesService
     ) {
         this.friendService = friendService;
         this.authenticateService = authenticateService;
         this.receiptService = receiptService;
         this.deviceService = deviceService;
+        this.splitExpensesService = splitExpensesService;
     }
 
     @Timed
@@ -139,13 +144,9 @@ public class SplitController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String fidRemove = map.containsKey("fidRemove") ? map.get("fidRemove").getText() : null;
             String fidAdd = map.containsKey("fidAdd") ? map.get("fidAdd").getText() : null;
             String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
-            LOG.debug("Receipt id={} fidRemove={} fidAdd={}", receiptId, fidRemove, fidAdd);
-
-            List<String> removeFids = populateFids(fidRemove);
-            List<String> addFids = populateFids(fidAdd);
+            LOG.debug("Receipt id={} fidAdd={}", receiptId, fidAdd);
 
             ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
             if (null == receipt) {
@@ -153,10 +154,12 @@ public class SplitController {
                 httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                 return null;
             } else {
-                for (String friendId : removeFids) {
-                    receiptService.splitAction(friendId, SplitActionEnum.R, receipt);
+                List<SplitExpensesEntity> splitExpenses = splitExpensesService.getSplitExpensesFriendsForReceipt(receiptId);
+                for(SplitExpensesEntity splitExpense : splitExpenses) {
+                    receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
                 }
 
+                List<String> addFids = populateFids(fidAdd);
                 for (String friendId : addFids) {
                     receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
                 }
