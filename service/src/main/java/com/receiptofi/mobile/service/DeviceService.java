@@ -71,8 +71,7 @@ public class DeviceService {
      * @return
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
-        RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
-        if (null == registeredDevice) {
+        if (!isDeviceRegistered(rid, did)) {
             LOG.info("Device registered rid={} did={}", rid, did);
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
             return getAll(rid);
