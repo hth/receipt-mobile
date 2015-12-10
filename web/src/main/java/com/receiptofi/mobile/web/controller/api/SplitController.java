@@ -137,16 +137,17 @@ public class SplitController {
 
             HttpServletResponse httpServletResponse
     ) throws IOException {
-        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        LOG.info("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (rid == null) {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
+            LOG.info("complete auth mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
             String fidAdd = map.containsKey("fidAdd") ? map.get("fidAdd").getText() : null;
             String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
-            LOG.debug("Receipt id={} fidAdd={}", receiptId, fidAdd);
+            LOG.info("Receipt id={} fidAdd={}", receiptId, fidAdd);
 
             ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
             if (null == receipt) {
