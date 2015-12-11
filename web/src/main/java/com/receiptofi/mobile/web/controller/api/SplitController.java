@@ -76,12 +76,11 @@ public class SplitController {
 
     @Timed
     @ExceptionMetered
-    @PreAuthorize ("hasRole('ROLE_USER')")
     @RequestMapping (
             value = "/friends",
             method = RequestMethod.GET,
-            headers = "Accept=application/json",
-            produces = "application/json"
+            headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     @ResponseBody
     public Collection<JsonFriend> getFriends(
@@ -116,7 +115,6 @@ public class SplitController {
      */
     @Timed
     @ExceptionMetered
-    @PreAuthorize ("hasRole('ROLE_USER')")
     @RequestMapping (
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
