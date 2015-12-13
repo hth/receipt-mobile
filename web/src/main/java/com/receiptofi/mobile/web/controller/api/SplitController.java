@@ -170,7 +170,7 @@ public class SplitController {
 
     private List<String> populateFids(String fids) {
         List<String> fidList = new ArrayList<>();
-        StringTokenizer stringTokenizer = new StringTokenizer(fids, ",");
+        StringTokenizer stringTokenizer = new StringTokenizer(fids, " ,");
         while (stringTokenizer.hasMoreTokens()) {
             fidList.add(stringTokenizer.nextToken());
         }
