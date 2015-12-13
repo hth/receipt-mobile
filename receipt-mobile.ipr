@@ -146,7 +146,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.plexus/plexus-utils/1.5.6/8fb6b798a4036048b3005e058553bf21a87802ed/plexus-utils-1.5.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.3.GA/64499e907f19e5e1b3fdc02f81440c1832fe3545/jboss-logging-3.1.3.GA.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.hateoas/spring-hateoas/0.18.0.RELEASE/e73a53123825bfca0a48c8283af03ccd7e20e848/spring-hateoas-0.18.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.8.0.RELEASE/3a8b9eb57caceb7ae44128feb29846bf1b0b0918/spring-data-mongodb-1.8.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.11.0.RELEASE/935cd4ab0a1a07358d7f0c9c808f9113dc177bd8/spring-data-commons-1.11.0.RELEASE.jar" />
@@ -156,7 +155,6 @@
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
             <element id="library" level="project" name="Gradle: org.quartz-scheduler:quartz:2.2.0" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-facebook/2.0.2.RELEASE/d7ad18d97aeb322b5381e46c676f5c92e5b1d9a/spring-social-facebook-2.0.2.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar" />
@@ -164,7 +162,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-aspects/4.0.3.RELEASE/d2f7111ad2d5f1623cdbec228a087df763cfe7a9/spring-security-aspects-4.0.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.0.3.RELEASE/31c0a4d0159f1b668d9512f57fb46aac29949b08/spring-security-config-4.0.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.0.3.RELEASE/9f420c5742ad063970c5d33f60680a1cee777aa5/spring-security-core-4.0.3.RELEASE.jar" />
@@ -192,7 +189,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.0/f4ddcfb77ad8fb40d647d65ba6e08784d6aba615/springfox-swagger2-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.0/8dfc729962bc639e6001183b474a65e9d71b681f/springfox-swagger-ui-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.5/39a8ff2d1f79267907f5573c090b342b040b9682/aspectjrt-1.8.5.jar" />
@@ -205,6 +201,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.0/9aa273e84ba25af81699562426fc5150b6615bc/springfox-spring-web-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.0/32fe407471bd68a19614d495d3907e3a9a42189c/springfox-core-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -320,7 +317,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
-            <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.hateoas:spring-hateoas:0.18.0.RELEASE" />
@@ -377,7 +373,6 @@
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
@@ -456,7 +451,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.hateoas/spring-hateoas/0.18.0.RELEASE/e73a53123825bfca0a48c8283af03ccd7e20e848/spring-hateoas-0.18.0.RELEASE.jar" />
@@ -541,7 +535,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.10/e4f1766ce7404a08f45d859fb9c226fc9e41a861/junit-4.10.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.1/860340562250678d1a344907ac75754e259cdb14/hamcrest-core-1.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/jstl/1.2/74aca283cd4f4b4f3e425f5820cda58f44409547/jstl-1.2.jar" />
@@ -564,7 +557,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.0/f4ddcfb77ad8fb40d647d65ba6e08784d6aba615/springfox-swagger2-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.0/8dfc729962bc639e6001183b474a65e9d71b681f/springfox-swagger-ui-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.5/39a8ff2d1f79267907f5573c090b342b040b9682/aspectjrt-1.8.5.jar" />
@@ -577,6 +569,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.0/9aa273e84ba25af81699562426fc5150b6615bc/springfox-spring-web-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.0/32fe407471bd68a19614d495d3907e3a9a42189c/springfox-core-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -670,7 +663,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
-            <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.hateoas:spring-hateoas:0.18.0.RELEASE" />
@@ -729,7 +721,6 @@
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
@@ -797,7 +788,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.hateoas/spring-hateoas/0.18.0.RELEASE/e73a53123825bfca0a48c8283af03ccd7e20e848/spring-hateoas-0.18.0.RELEASE.jar" />
@@ -884,7 +874,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/jstl/1.2/74aca283cd4f4b4f3e425f5820cda58f44409547/jstl-1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.1.1/354c47a5f0e69dc555bb61a1fee3db829240ff2e/mongo-java-driver-3.1.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.3.RELEASE/6384a57a024df03bfcb1eeccd3d820da98125b92/spring-aop-4.2.3.RELEASE.jar" />
@@ -905,7 +894,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.0/f4ddcfb77ad8fb40d647d65ba6e08784d6aba615/springfox-swagger2-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.0/8dfc729962bc639e6001183b474a65e9d71b681f/springfox-swagger-ui-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.5/39a8ff2d1f79267907f5573c090b342b040b9682/aspectjrt-1.8.5.jar" />
@@ -918,6 +906,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.0/9aa273e84ba25af81699562426fc5150b6615bc/springfox-spring-web-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.0/32fe407471bd68a19614d495d3907e3a9a42189c/springfox-core-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1011,7 +1000,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
-            <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.hateoas:spring-hateoas:0.18.0.RELEASE" />
@@ -1070,7 +1058,6 @@
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.1" />
@@ -1138,7 +1125,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.hateoas/spring-hateoas/0.18.0.RELEASE/e73a53123825bfca0a48c8283af03ccd7e20e848/spring-hateoas-0.18.0.RELEASE.jar" />
@@ -1225,7 +1211,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/jstl/1.2/74aca283cd4f4b4f3e425f5820cda58f44409547/jstl-1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.1.1/354c47a5f0e69dc555bb61a1fee3db829240ff2e/mongo-java-driver-3.1.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.3.RELEASE/6384a57a024df03bfcb1eeccd3d820da98125b92/spring-aop-4.2.3.RELEASE.jar" />
@@ -1246,7 +1231,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.0/f4ddcfb77ad8fb40d647d65ba6e08784d6aba615/springfox-swagger2-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.0/8dfc729962bc639e6001183b474a65e9d71b681f/springfox-swagger-ui-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.5/39a8ff2d1f79267907f5573c090b342b040b9682/aspectjrt-1.8.5.jar" />
@@ -1259,6 +1243,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.0/9aa273e84ba25af81699562426fc5150b6615bc/springfox-spring-web-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.0/32fe407471bd68a19614d495d3907e3a9a42189c/springfox-core-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1351,7 +1336,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.7" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.12" />
-            <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.hateoas:spring-hateoas:0.18.0.RELEASE" />
@@ -1408,7 +1392,6 @@
             <element id="library" level="project" name="Gradle: org.apache.maven.scm:maven-scm-provider-svn-commons:1.4" />
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.1.3.GA" />
-            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.6" />
             <element id="library" level="project" name="Gradle: junit:junit:4.10" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.1" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-facebook:2.0.2.RELEASE" />
@@ -1487,7 +1470,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.0.RELEASE/7103e311e82ac0ebe64defec176d626d083f36ae/spring-social-config-1.1.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.hateoas/spring-hateoas/0.18.0.RELEASE/e73a53123825bfca0a48c8283af03ccd7e20e848/spring-hateoas-0.18.0.RELEASE.jar" />
@@ -1572,7 +1554,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.1/f9661ddd2456d523b9428651c61e34b4ebf79f4e/jackson-annotations-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.1/892d15011456ea3563319b27bdd612dbc89bb776/jackson-core-2.6.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.10/e4f1766ce7404a08f45d859fb9c226fc9e41a861/junit-4.10.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.1/860340562250678d1a344907ac75754e259cdb14/hamcrest-core-1.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/jstl/1.2/74aca283cd4f4b4f3e425f5820cda58f44409547/jstl-1.2.jar" />
@@ -1595,7 +1576,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-messaging/4.2.3.RELEASE/a81c0d6ae0d8770fc1f303401f0e51377add744d/spring-messaging-4.2.3.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.9/91d22435795d83dd186cacf6508e0aa4874d5905/google-maps-services-0.1.9.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.58.0/5f1b3c3c1d037e4d62605b9ca6e15da390f8bc6a/javamelody-core-1.58.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0-rc3/ffe5638f514e43ffb71163bbd453b1f9cc218426/guava-19.0-rc3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.0/f4ddcfb77ad8fb40d647d65ba6e08784d6aba615/springfox-swagger2-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.0/8dfc729962bc639e6001183b474a65e9d71b681f/springfox-swagger-ui-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.5/39a8ff2d1f79267907f5573c090b342b040b9682/aspectjrt-1.8.5.jar" />
@@ -1608,6 +1588,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.0/9aa273e84ba25af81699562426fc5150b6615bc/springfox-spring-web-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.0/32fe407471bd68a19614d495d3907e3a9a42189c/springfox-core-2.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -2934,17 +2915,6 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: org.aspectj:aspectjrt:1.8.6">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/a7db7ea5f7bb18a1cbd9f24edd0e666504800be/aspectjrt-1.8.6.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/ec2d34ee513d11f3c31b15e9e0babbc4385bfac5/aspectjrt-1.8.6-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.6/4cc5b7ac5c2c314fbb00c76bd2924c75f7c1ca5d/aspectjrt-1.8.6-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: org.aspectj:aspectjweaver:1.8.7">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar!/" />
@@ -3161,17 +3131,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.7.2/833f425e7a40d7fc88922370a072965dda8ee216/jsoup-1.7.2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.mapstruct:mapstruct:1.0.0.CR1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/a1b8ecbddfc7772bf7f1a7d4e73f7cefb900bad4/mapstruct-1.0.0.CR1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/216b13fc90e46c589ed0cb2df5bf509a2f392fc2/mapstruct-1.0.0.CR1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.0.0.CR1/98fb7c2443fc0ae62d074e3d7de6e2a936b97d9c/mapstruct-1.0.0.CR1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.mockito:mockito-all:1.10.19">
