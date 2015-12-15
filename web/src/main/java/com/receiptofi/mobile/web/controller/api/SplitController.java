@@ -6,6 +6,8 @@ import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
+import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.FriendService;
 import com.receiptofi.service.ReceiptService;
 import com.receiptofi.service.SplitExpensesService;
@@ -17,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -141,30 +143,41 @@ public class SplitController {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            LOG.info("complete auth mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String fidAdd = map.containsKey("fidAdd") ? map.get("fidAdd").getText() : null;
-            String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
-            LOG.info("Receipt id={} fidAdd={}", receiptId, fidAdd);
+            try {
+                LOG.info("complete auth mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+                Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
+                String fidAdd = map.containsKey("fidAdd") ? map.get("fidAdd").getText() : null;
+                String receiptId = map.containsKey("receiptId") ? map.get("receiptId").getText() : null;
+                LOG.info("Receipt id={} fidAdd={}", receiptId, fidAdd);
 
-            ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
-            if (null == receipt) {
-                LOG.warn("No Receipt found to Split with receiptId={}", receiptId);
-                httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
-                return null;
-            } else {
-                List<SplitExpensesEntity> splitExpenses = splitExpensesService.getSplitExpensesFriendsForReceipt(receiptId);
-                for(SplitExpensesEntity splitExpense : splitExpenses) {
-                    receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
+                ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
+                if (null == receipt) {
+                    LOG.warn("No Receipt found to Split with receiptId={}", receiptId);
+                    httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
+                    return null;
+                } else {
+                    List<SplitExpensesEntity> splitExpenses = splitExpensesService.getSplitExpensesFriendsForReceipt(receiptId);
+                    for (SplitExpensesEntity splitExpense : splitExpenses) {
+                        receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
+                    }
+
+                    List<String> addFids = populateFids(fidAdd);
+                    for (String friendId : addFids) {
+                        receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
+                    }
                 }
 
-                List<String> addFids = populateFids(fidAdd);
-                for (String friendId : addFids) {
-                    receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
-                }
+                return deviceService.getUpdates(rid, deviceId).asJson();
+            } catch (Exception e) {
+                LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
             }
-
-            return deviceService.getUpdates(rid, deviceId).asJson();
         }
     }
 
