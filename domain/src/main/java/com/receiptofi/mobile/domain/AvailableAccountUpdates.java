@@ -14,6 +14,7 @@ import com.receiptofi.domain.json.JsonBilling;
 import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonNotification;
+import com.receiptofi.domain.json.JsonOweExpenses;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
 import com.receiptofi.domain.json.JsonReceiptSplit;
@@ -75,6 +76,12 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("awaitingFriends")
     private List<JsonAwaitingAcceptance> awaitingFriends = new ArrayList<>();
+
+    @JsonProperty ("owes")
+    private List<JsonOweExpenses> owes = new ArrayList<>();
+
+    @JsonProperty ("owesOther")
+    private List<JsonOweExpenses> owesOther = new ArrayList<>();
 
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
@@ -167,5 +174,21 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setAwaitingFriends(List<JsonAwaitingAcceptance> awaitingFriends) {
         this.awaitingFriends = awaitingFriends;
+    }
+
+    public List<JsonOweExpenses> getOwes() {
+        return owes;
+    }
+
+    public void setOwes(List<JsonOweExpenses> owes) {
+        this.owes = owes;
+    }
+
+    public List<JsonOweExpenses> getOwesOther() {
+        return owesOther;
+    }
+
+    public void setOwesOther(List<JsonOweExpenses> owesOther) {
+        this.owesOther = owesOther;
     }
 }
