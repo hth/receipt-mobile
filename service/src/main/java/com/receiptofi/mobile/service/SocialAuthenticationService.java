@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.service;
 
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_SOCIAL;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_SOCIAL;
 
 import com.google.gson.Gson;
 
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ import java.io.IOException;
         "PMD.MethodArgumentCouldBeFinal",
         "PMD.LongVariable"
 })
-@Component
+@Service
 public class SocialAuthenticationService {
     public static final int MAX_RESPONSE_SIZE = 2048;
     public static final int MIN_RESPONSE_SIZE = -1;

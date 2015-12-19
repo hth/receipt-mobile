@@ -40,6 +40,7 @@ public class DeviceService {
     private DocumentMobileService documentMobileService;
     private BillingMobileService billingMobileService;
     private FriendMobileService friendMobileService;
+    private SplitExpensesMobileService splitExpensesMobileService;
 
     @Autowired
     public DeviceService(
@@ -50,7 +51,8 @@ public class DeviceService {
             ReceiptMobileService receiptMobileService,
             DocumentMobileService documentMobileService,
             BillingMobileService billingMobileService,
-            FriendMobileService friendMobileService
+            FriendMobileService friendMobileService,
+            SplitExpensesMobileService splitExpensesMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
@@ -60,6 +62,7 @@ public class DeviceService {
         this.documentMobileService = documentMobileService;
         this.billingMobileService = billingMobileService;
         this.friendMobileService = friendMobileService;
+        this.splitExpensesMobileService = splitExpensesMobileService;
     }
 
     /**
@@ -111,6 +114,9 @@ public class DeviceService {
         friendMobileService.getPendingFriends(rid, availableAccountUpdates);
         friendMobileService.getAwaitingFriends(rid, availableAccountUpdates);
 
+        splitExpensesMobileService.getJsonOwe(rid, availableAccountUpdates);
+        splitExpensesMobileService.getJsonOwesOther(rid, availableAccountUpdates);
+
         return availableAccountUpdates;
     }
 
@@ -150,6 +156,9 @@ public class DeviceService {
         friendMobileService.getActiveFriends(rid, availableAccountUpdates);
         friendMobileService.getPendingFriends(rid, availableAccountUpdates);
         friendMobileService.getAwaitingFriends(rid, availableAccountUpdates);
+
+        splitExpensesMobileService.getJsonOwe(rid, availableAccountUpdates);
+        splitExpensesMobileService.getJsonOwesOther(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
     }

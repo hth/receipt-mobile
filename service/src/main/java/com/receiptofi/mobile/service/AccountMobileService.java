@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.EmailValidateEntity;
 import com.receiptofi.domain.UserAccountEntity;
-import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.mobile.domain.AccountRecover;
 import com.receiptofi.mobile.domain.InviteUser;
 import com.receiptofi.mobile.domain.SignupUserInfo;

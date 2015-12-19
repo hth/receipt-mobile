@@ -6,7 +6,7 @@ import com.receiptofi.mobile.repository.NotificationManagerMobile;
 import com.receiptofi.repository.NotificationManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
         "PMD.MethodArgumentCouldBeFinal",
         "PMD.LongVariable"
 })
-@Component
+@Service
 public class NotificationMobileService {
 
     @Autowired NotificationManager notificationManager;

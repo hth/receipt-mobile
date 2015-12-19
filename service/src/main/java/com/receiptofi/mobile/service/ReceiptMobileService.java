@@ -3,7 +3,6 @@ package com.receiptofi.mobile.service;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonFriend;
-import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptSplit;
 import com.receiptofi.domain.types.CommentTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
@@ -15,10 +14,8 @@ import com.receiptofi.service.ReceiptService;
 import com.receiptofi.service.SplitExpensesService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
-import org.apache.commons.lang3.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Collections;
@@ -36,7 +33,7 @@ import java.util.Map;
         "PMD.MethodArgumentCouldBeFinal",
         "PMD.LongVariable"
 })
-@Component
+@Service
 public class ReceiptMobileService {
     @Autowired private ReceiptService receiptService;
     @Autowired private CommentService commentService;
