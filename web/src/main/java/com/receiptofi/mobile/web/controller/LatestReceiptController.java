@@ -1,6 +1,6 @@
 package com.receiptofi.mobile.web.controller;
 
-import com.receiptofi.domain.json.JsonReceipt;
+import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.mobile.service.ReceiptMobileService;
 
 import org.slf4j.Logger;
@@ -11,10 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: hitender
@@ -38,7 +34,7 @@ public class LatestReceiptController {
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public JsonReceipt getLatestReceipt() {
+    public JsonReceiptSanitized getLatestReceipt() {
         return receiptMobileService.getRecentReceipts();
     }
 }
