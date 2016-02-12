@@ -7,6 +7,7 @@ import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonReceipt;
+import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.domain.json.JsonReceiptSplit;
 import com.receiptofi.domain.types.CommentTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -42,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class ReceiptMobileService {
     private static final int SIZE_1 = 1;
     private static final int LIMIT_SIZE_5 = 5;
-    private static Cache<String, List<JsonReceipt>> recentReceipts = CacheBuilder.newBuilder()
+    private static Cache<String, List<JsonReceiptSanitized>> recentReceipts = CacheBuilder.newBuilder()
             .maximumSize(SIZE_1)
             .expireAfterWrite(60, TimeUnit.MINUTES)
             .build();
@@ -176,16 +178,17 @@ public class ReceiptMobileService {
      *
      * @return
      */
-    public JsonReceipt getRecentReceipts() {
-        JsonReceipt jsonReceipt;
+    public JsonReceiptSanitized getRecentReceipts() {
+        int random = new Random().nextInt(5);
+        JsonReceiptSanitized jsonReceiptSanitized;
         if (recentReceipts.getIfPresent("RECENT_RECEIPTS") == null) {
-            List<JsonReceipt> jsonReceipts = receiptService.getRecentReceipts(LIMIT_SIZE_5);
+            List<JsonReceiptSanitized> jsonReceipts = receiptService.getRecentReceipts(LIMIT_SIZE_5);
             recentReceipts.put("RECENT_RECEIPTS", jsonReceipts);
-            jsonReceipt = jsonReceipts.get(2);
+            jsonReceiptSanitized = jsonReceipts.get(random);
         } else {
-            jsonReceipt = recentReceipts.getIfPresent("RECENT_RECEIPTS").get(2);
+            jsonReceiptSanitized = recentReceipts.getIfPresent("RECENT_RECEIPTS").get(random);
         }
 
-        return jsonReceipt;
+        return jsonReceiptSanitized;
     }
 }
