@@ -6,7 +6,6 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.json.JsonFriend;
-import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.domain.json.JsonReceiptSplit;
 import com.receiptofi.domain.types.CommentTypeEnum;
@@ -43,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class ReceiptMobileService {
     private static final int SIZE_1 = 1;
-    private static final int LIMIT_SIZE_5 = 5;
+    private static final int LIMIT_SIZE = 25;
     private static Cache<String, List<JsonReceiptSanitized>> recentReceipts = CacheBuilder.newBuilder()
             .maximumSize(SIZE_1)
             .expireAfterWrite(60, TimeUnit.MINUTES)
@@ -179,10 +178,10 @@ public class ReceiptMobileService {
      * @return
      */
     public JsonReceiptSanitized getRecentReceipts() {
-        int random = new Random().nextInt(5);
+        int random = new Random().nextInt(LIMIT_SIZE);
         JsonReceiptSanitized jsonReceiptSanitized;
         if (recentReceipts.getIfPresent("RECENT_RECEIPTS") == null) {
-            List<JsonReceiptSanitized> jsonReceipts = receiptService.getRecentReceipts(LIMIT_SIZE_5);
+            List<JsonReceiptSanitized> jsonReceipts = receiptService.getRecentReceipts(LIMIT_SIZE);
             recentReceipts.put("RECENT_RECEIPTS", jsonReceipts);
             jsonReceiptSanitized = jsonReceipts.get(random);
         } else {
