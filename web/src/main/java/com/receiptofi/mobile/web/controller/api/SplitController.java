@@ -6,6 +6,7 @@ import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.mobile.service.ReceiptMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.FriendService;
@@ -13,6 +14,8 @@ import com.receiptofi.service.ReceiptService;
 import com.receiptofi.service.SplitExpensesService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +62,7 @@ public class SplitController {
     private AuthenticateService authenticateService;
     private ReceiptService receiptService;
     private DeviceService deviceService;
-    private SplitExpensesService splitExpensesService;
+    private ReceiptMobileService receiptMobileService;
 
     @Autowired
     public SplitController(
@@ -67,13 +70,13 @@ public class SplitController {
             AuthenticateService authenticateService,
             ReceiptService receiptService,
             DeviceService deviceService,
-            SplitExpensesService splitExpensesService
+            ReceiptMobileService receiptMobileService
     ) {
         this.friendService = friendService;
         this.authenticateService = authenticateService;
         this.receiptService = receiptService;
         this.deviceService = deviceService;
-        this.splitExpensesService = splitExpensesService;
+        this.receiptMobileService = receiptMobileService;
     }
 
     @Timed
@@ -155,16 +158,15 @@ public class SplitController {
                     LOG.warn("No Receipt found to Split with receiptId={}", receiptId);
                     httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                     return null;
-                } else {
-                    List<SplitExpensesEntity> splitExpenses = splitExpensesService.getSplitExpensesFriendsForReceipt(receiptId);
-                    for (SplitExpensesEntity splitExpense : splitExpenses) {
-                        receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
-                    }
+                } else if (StringUtils.isNotBlank(receipt.getReferReceiptId())) {
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Cannot spilt shared receipt.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.MOBILE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.MOBILE.getCode());
 
-                    List<String> addFids = populateFids(fidAdd);
-                    for (String friendId : addFids) {
-                        receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
-                    }
+                    return ErrorEncounteredJson.toJson(errors);
+                } else {
+                    receiptMobileService.executeSplit(fidAdd, receiptId, receipt);
                 }
 
                 return deviceService.getUpdates(rid, deviceId).asJson();
@@ -179,14 +181,5 @@ public class SplitController {
                 return ErrorEncounteredJson.toJson(errors);
             }
         }
-    }
-
-    private List<String> populateFids(String fids) {
-        List<String> fidList = new ArrayList<>();
-        StringTokenizer stringTokenizer = new StringTokenizer(fids, " ,");
-        while (stringTokenizer.hasMoreTokens()) {
-            fidList.add(stringTokenizer.nextToken());
-        }
-        return fidList;
     }
 }
