@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.repository;
 
+import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
+import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -56,5 +59,18 @@ public class ReceiptManagerMobileImpl implements ReceiptManagerMobile {
                 ReceiptEntity.class,
                 TABLE
         );
+    }
+
+    @Override
+    public List<ReceiptEntity> getRecentReceipts(int limit) {
+        return mongoTemplate.find(
+                query(new Criteria()
+                        .andOperator(
+                                isActive(),
+                                isNotDeleted()
+                        )
+                ).with(new Sort(DESC, "U")).limit(limit),
+                ReceiptEntity.class,
+                TABLE);
     }
 }

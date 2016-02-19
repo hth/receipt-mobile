@@ -25,4 +25,12 @@ public interface ReceiptManagerMobile extends RepositoryManager<ReceiptEntity> {
      * @return
      */
     List<ReceiptEntity> getAllUpdatedReceiptSince(String receiptUserId, Date since);
+
+    /**
+     * Gets recently processed receipts.
+     *
+     * @param limit
+     * @return
+     */
+    List<ReceiptEntity> getRecentReceipts(int limit);
 }
