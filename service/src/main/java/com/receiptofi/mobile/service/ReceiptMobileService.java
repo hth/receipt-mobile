@@ -6,6 +6,7 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.SplitExpensesEntity;
+import com.receiptofi.domain.annotation.Mobile;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.domain.json.JsonReceiptSplit;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * User: hitender
@@ -205,7 +207,7 @@ public class ReceiptMobileService {
         int random = new Random().nextInt(LIMIT_SIZE);
         JsonReceiptSanitized jsonReceiptSanitized;
         if (recentReceipts.getIfPresent("RECENT_RECEIPTS") == null) {
-            List<JsonReceiptSanitized> jsonReceipts = receiptService.getRecentReceipts(LIMIT_SIZE);
+            List<JsonReceiptSanitized> jsonReceipts = getRecentReceipts(LIMIT_SIZE);
             recentReceipts.put("RECENT_RECEIPTS", jsonReceipts);
             jsonReceiptSanitized = jsonReceipts.get(random);
         } else {
@@ -222,5 +224,9 @@ public class ReceiptMobileService {
             fidList.add(stringTokenizer.nextToken());
         }
         return fidList;
+    }
+
+    private List<JsonReceiptSanitized> getRecentReceipts(int limit) {
+        return receiptManagerMobile.getRecentReceipts(limit).stream().map(JsonReceiptSanitized::new).collect(Collectors.toList());
     }
 }
