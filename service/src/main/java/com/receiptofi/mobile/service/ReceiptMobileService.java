@@ -5,10 +5,12 @@ import com.google.common.cache.CacheBuilder;
 
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
+import com.receiptofi.domain.SplitExpensesEntity;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.domain.json.JsonReceiptSplit;
 import com.receiptofi.domain.types.CommentTypeEnum;
+import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.ReceiptManagerMobile;
 import com.receiptofi.service.CommentService;
@@ -18,15 +20,20 @@ import com.receiptofi.service.ReceiptService;
 import com.receiptofi.service.SplitExpensesService;
 import com.receiptofi.service.UserProfilePreferenceService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,6 +48,8 @@ import java.util.concurrent.TimeUnit;
 })
 @Service
 public class ReceiptMobileService {
+    private static final Logger LOG = LoggerFactory.getLogger(ReceiptMobileService.class);
+
     private static final int SIZE_1 = 1;
     private static final int LIMIT_SIZE = 25;
     private static Cache<String, List<JsonReceiptSanitized>> recentReceipts = CacheBuilder.newBuilder()
@@ -148,6 +157,7 @@ public class ReceiptMobileService {
                                 jsonFriendMap
                         )));
 
+                        LOG.debug("Found split count={}", receipt.getSplitCount());
                         availableAccountUpdates.addJsonReceiptSplits(jsonReceiptSplit);
                     }
                 } else {
@@ -172,6 +182,20 @@ public class ReceiptMobileService {
         }
     }
 
+    public void executeSplit(String fidAdd, String receiptId, ReceiptEntity receipt) {
+        List<SplitExpensesEntity> splitExpenses = splitExpensesService.getSplitExpensesFriendsForReceipt(receiptId);
+        for (SplitExpensesEntity splitExpense : splitExpenses) {
+            LOG.debug("{} fid={}", SplitActionEnum.R, splitExpense.getFriendUserId());
+            receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
+        }
+
+        List<String> addFids = populateFids(fidAdd);
+        for (String friendId : addFids) {
+            LOG.debug("{} fid={}", SplitActionEnum.A, friendId);
+            receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
+        }
+    }
+
     /**
      * Gets one of the recently processed receipt.
      *
@@ -189,5 +213,14 @@ public class ReceiptMobileService {
         }
 
         return jsonReceiptSanitized;
+    }
+
+    private List<String> populateFids(String fids) {
+        List<String> fidList = new ArrayList<>();
+        StringTokenizer stringTokenizer = new StringTokenizer(fids, " ,");
+        while (stringTokenizer.hasMoreTokens()) {
+            fidList.add(stringTokenizer.nextToken());
+        }
+        return fidList;
     }
 }
