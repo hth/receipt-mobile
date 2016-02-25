@@ -6,7 +6,6 @@ import com.google.common.cache.CacheBuilder;
 import com.receiptofi.domain.CommentEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.SplitExpensesEntity;
-import com.receiptofi.domain.annotation.Mobile;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.domain.json.JsonReceiptSplit;
@@ -205,13 +204,17 @@ public class ReceiptMobileService {
      */
     public JsonReceiptSanitized getRecentReceipts() {
         int random = new Random().nextInt(LIMIT_SIZE);
-        JsonReceiptSanitized jsonReceiptSanitized;
-        if (recentReceipts.getIfPresent("RECENT_RECEIPTS") == null) {
-            List<JsonReceiptSanitized> jsonReceipts = getRecentReceipts(LIMIT_SIZE);
-            recentReceipts.put("RECENT_RECEIPTS", jsonReceipts);
-            jsonReceiptSanitized = jsonReceipts.get(random);
-        } else {
-            jsonReceiptSanitized = recentReceipts.getIfPresent("RECENT_RECEIPTS").get(random);
+        JsonReceiptSanitized jsonReceiptSanitized = new JsonReceiptSanitized();
+        try {
+            if (recentReceipts.getIfPresent("RECENT_RECEIPTS") == null) {
+                List<JsonReceiptSanitized> jsonReceipts = getRecentReceipts(LIMIT_SIZE);
+                recentReceipts.put("RECENT_RECEIPTS", jsonReceipts);
+                jsonReceiptSanitized = jsonReceipts.get(random);
+            } else {
+                jsonReceiptSanitized = recentReceipts.getIfPresent("RECENT_RECEIPTS").get(random);
+            }
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.error("Failed to find receipt at random location={} in list size={}", random, recentReceipts.size());
         }
 
         return jsonReceiptSanitized;
