@@ -171,7 +171,7 @@ public class SplitController {
 
                 return deviceService.getUpdates(rid, deviceId).asJson();
             } catch (Exception e) {
-                LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                LOG.error("Failure during split rid={} reason={}", rid, e.getLocalizedMessage(), e);
 
                 Map<String, String> errors = new HashMap<>();
                 errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");

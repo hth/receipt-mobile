@@ -171,7 +171,6 @@ public class ReceiptController {
      * @param mail
      * @param auth
      * @param requestBodyJson
-     * @param request
      * @param response
      * @return
      * @throws IOException
@@ -191,7 +190,6 @@ public class ReceiptController {
             @RequestBody
             String requestBodyJson,
 
-            HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
@@ -240,7 +238,7 @@ public class ReceiptController {
                             receiptMobileService.findReceiptForMobile(receiptId, rid)
                     ).asJson();
                 } catch (Exception e) {
-                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                    LOG.error("Failure during receiptAction rid={} reason={}", rid, e.getLocalizedMessage(), e);
 
                     Map<String, String> errors = new HashMap<>();
                     errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
