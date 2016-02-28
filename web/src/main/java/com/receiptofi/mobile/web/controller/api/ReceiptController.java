@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -92,10 +91,8 @@ public class ReceiptController {
         } else {
             List<JsonReceipt> jsonReceipts = new ArrayList<>();
             try {
-                List<ReceiptEntity> receiptEntities =
-                        landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
-
-                jsonReceipts.addAll(receiptEntities.stream().map(JsonReceipt::new).collect(Collectors.toList()));
+                List<ReceiptEntity> receipts = landingService.getAllReceiptsForTheYear(rid, DateUtil.startOfYear());
+                jsonReceipts.addAll(receipts.stream().map(JsonReceipt::new).collect(Collectors.toList()));
             } catch (Exception e) {
                 LOG.error("Found error reason={}", e.getLocalizedMessage(), e);
             }
@@ -247,6 +244,71 @@ public class ReceiptController {
 
                     return ErrorEncounteredJson.toJson(errors);
                 }
+            }
+        }
+    }
+
+    /**
+     * Set of actions to be performed on receipt.
+     *
+     * @param mail
+     * @param auth
+     * @param requestBodyJson
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping (
+            method = RequestMethod.POST,
+            value = "/receipt/delete",
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public String delete(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            @RequestBody
+            String requestBodyJson,
+
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (null == rid) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
+            String receiptId = map.get("receiptId").getText();
+            LOG.info("Delete receiptId={}", receiptId);
+
+            try {
+                boolean result = receiptMobileService.deleteReceipt(receiptId, rid);
+                if (result) {
+                    return receiptMobileService.getUpdateForChangedReceipt(
+                            receiptMobileService.findReceiptForMobile(receiptId, rid)
+                    ).asJson();
+                } else {
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ErrorEncounteredJson.REASON, "Failed to delete receipt.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.SEVERE.getCode());
+
+                    return ErrorEncounteredJson.toJson(errors);
+
+                }
+            } catch (Exception e) {
+                LOG.error("Failure during receipt delete rid={} reason={}", rid, e.getLocalizedMessage(), e);
+
+                Map<String, String> errors = new HashMap<>();
+                errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+
+                return ErrorEncounteredJson.toJson(errors);
             }
         }
     }

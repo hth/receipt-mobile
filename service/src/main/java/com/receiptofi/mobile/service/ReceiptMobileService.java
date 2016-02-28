@@ -124,6 +124,10 @@ public class ReceiptMobileService {
         return receiptManagerMobile.getAllUpdatedReceiptSince(profileId, since);
     }
 
+    public boolean deleteReceipt(String receiptId, String rid) {
+        return receiptService.deleteReceipt(receiptId, rid);
+    }
+
     /**
      * Gets item updates for the set of receipts.
      *
