@@ -121,7 +121,7 @@ public class ExpenseTagController {
                         return ErrorEncounteredJson.toJson(errors);
                     }
                 } catch (Exception e) {
-                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                    LOG.error("Failure during addition of expense tag rid={} reason={}", rid, e.getLocalizedMessage(), e);
                     Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
                     return ErrorEncounteredJson.toJson(errors);
                 }
@@ -182,7 +182,7 @@ public class ExpenseTagController {
                     expenseTagMobileService.update(tagId, tagName, rid, tagColor);
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } catch (Exception e) {
-                    LOG.error("Failure during recheck rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                    LOG.error("Failure during expense tag update rid={} reason={}", rid, e.getLocalizedMessage(), e);
                     Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
                     return ErrorEncounteredJson.toJson(errors);
                 }
