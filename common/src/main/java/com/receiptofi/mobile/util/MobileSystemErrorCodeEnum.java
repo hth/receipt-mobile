@@ -13,6 +13,7 @@ public enum MobileSystemErrorCodeEnum {
     /** Mobile data submitted. */
     MOBILE("200"),
 
+    /** When cannot parse JSON sent to Mobile Server from mobile devices. */
     MOBILE_JSON("210"),
 
     DOCUMENT_UPLOAD("300"),
