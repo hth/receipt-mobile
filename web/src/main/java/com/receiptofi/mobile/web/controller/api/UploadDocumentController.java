@@ -58,7 +58,7 @@ public class UploadDocumentController {
     @Value ("${duplicate.document.reject.user}")
     private String documentRejectUserId;
 
-    @Value("${duplicate.document.reject.rid}")
+    @Value ("${duplicate.document.reject.rid}")
     private String documentRejectRid;
 
     @Autowired
@@ -134,11 +134,14 @@ public class UploadDocumentController {
                         DocumentRejectReasonEnum.D);
             }
 
-            return DocumentUpload.newInstance(
+            DocumentUpload documentUpload = DocumentUpload.newInstance(
                     file.getOriginalFilename(),
                     uploadDocumentImage.getBlobId(),
                     landingService.pendingReceipt(rid)
-            ).asJson();
+            );
+
+            LOG.info("upload document successfully complete for rid={}", rid);
+            return documentUpload.asJson();
         } catch (Exception exce) {
             LOG.error("upload document failed reason={} rid={}", exce.getLocalizedMessage(), rid, exce);
 
@@ -149,8 +152,6 @@ public class UploadDocumentController {
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, DOCUMENT_UPLOAD.getCode());
 
             return ErrorEncounteredJson.toJson(errors);
-        } finally {
-            LOG.info("upload document successfully complete for rid={}", rid);
         }
     }
 }
