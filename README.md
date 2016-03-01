@@ -32,4 +32,6 @@ Table of content
 20. [Payment] (documentation/api/Payment.md)
 21. [Friends] (documentation/api/Friends.md)
 22. [Receipt Split] (documentation/api/ReceiptSplit.md)
-23. [How to check if user has access?](documentation/api/DoesUserHasAccess.md) -- Not being used	
+23. [How to check if user has access?](documentation/api/DoesUserHasAccess.md) -- Not being used
+23. [Receipt Delete](documentation/api/ReceiptDelete.md) -- Not being used
+	
