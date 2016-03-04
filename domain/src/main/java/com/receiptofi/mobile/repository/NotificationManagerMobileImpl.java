@@ -6,6 +6,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.NotificationEntity;
+import com.receiptofi.domain.types.NotificationMarkerEnum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class NotificationManagerMobileImpl implements NotificationManagerMobile 
     @Override
     public List<NotificationEntity> getNotifications(String rid, Date since) {
         return mongoTemplate.find(
-                query(where("RID").is(rid).and("ND").is(true).and("U").gte(since))
+                query(where("RID").is(rid).and("NM").ne(NotificationMarkerEnum.I).and("U").gte(since))
                         .addCriteria(isNotDeleted())
                         .with(new Sort(Sort.Direction.DESC, "C")),
                 NotificationEntity.class
