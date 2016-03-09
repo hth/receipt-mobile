@@ -229,7 +229,7 @@ public class ReceiptController {
 
                 try {
                     if (StringUtils.isNotBlank(recheck) && ("RECHECK").equals(recheck)) {
-                        receiptMobileService.reopen(receiptId, rid);
+                        receiptMobileService.recheck(receiptId, rid);
                     }
                     return receiptMobileService.getUpdateForChangedReceipt(
                             receiptMobileService.findReceiptForMobile(receiptId, rid)

@@ -98,8 +98,8 @@ public class ReceiptMobileService {
         receiptService.save(receipt);
     }
 
-    public void reopen(String receiptId, String rid) throws Exception {
-        receiptService.reopen(receiptId, rid);
+    public void recheck(String receiptId, String rid) throws Exception {
+        receiptService.recheck(receiptId, rid);
     }
 
     public AvailableAccountUpdates getUpdateForChangedReceipt(ReceiptEntity receipt) {
