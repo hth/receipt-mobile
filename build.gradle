@@ -105,6 +105,10 @@ subprojects {
         }
     }
 
+    jacoco {
+        toolVersion = "0.7.6.201602180812"
+    }
+
     jacocoTestReport {
         reports {
             xml.enabled false
