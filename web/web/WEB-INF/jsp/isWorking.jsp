@@ -18,7 +18,7 @@
 <section class="cd-fixed-background" style="background-color: #93a748" data-type="slider-item">
     <div class="cd-content">
         <fieldset class="cd-form floating-labels" id="login-title-fieldset">
-            <h2>ReceiptApp<span class="tm">&#8482;</span> for receipts</h2>
+            <h2>ReceiptApp for receipts</h2>
             <p>Mobile ReceiptApp APIs</p>
             <p>All requests need authorization.</p>
         </fieldset>

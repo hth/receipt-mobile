@@ -89,6 +89,7 @@ public class DeviceController {
         LOG.info("Updated data available for mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
+            LOG.info("Un-authorized access to /api/update by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
@@ -145,6 +146,7 @@ public class DeviceController {
         LOG.debug("All data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
+            LOG.info("Un-authorized access to /api/all by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
@@ -196,6 +198,7 @@ public class DeviceController {
         LOG.info("Register mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
+            LOG.info("Un-authorized access to /api/register by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
