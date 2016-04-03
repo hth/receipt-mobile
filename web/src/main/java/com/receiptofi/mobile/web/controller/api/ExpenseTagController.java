@@ -177,6 +177,10 @@ public class ExpenseTagController {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} could not be found", tagName, rid);
                 Map<String, String> errors = getErrorSevere("Expense Tag does not exists.");
                 return ErrorEncounteredJson.toJson(errors);
+            } else if (expenseTagMobileService.doesExists(rid, tagName)) {
+                LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
+                Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
+                return ErrorEncounteredJson.toJson(errors);
             } else {
                 try {
                     expenseTagMobileService.update(tagId, tagName, rid, tagColor);
