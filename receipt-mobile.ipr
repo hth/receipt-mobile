@@ -298,7 +298,6 @@
             <element id="library" level="project" name="Gradle: org.ccil.cowan.tagsoup:tagsoup:1.2.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.mp4parser:isoparser:1.0.2" />
             <element id="library" level="project" name="Gradle: de.l3s.boilerpipe:boilerpipe:1.1.0" />
-            <element id="library" level="project" name="Gradle: rome:rome:1.0" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-core:0.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" />
             <element id="library" level="project" name="Gradle: com.pff:java-libpst:0.8.1" />
@@ -317,7 +316,6 @@
             <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.11" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-tika:0.6" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
-            <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -410,17 +408,8 @@
             <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.13" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.11" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.2.6" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.2" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.11" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.11" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.5" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.5" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.59.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
@@ -714,7 +703,6 @@
             <element id="library" level="project" name="Gradle: org.ccil.cowan.tagsoup:tagsoup:1.2.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.mp4parser:isoparser:1.0.2" />
             <element id="library" level="project" name="Gradle: de.l3s.boilerpipe:boilerpipe:1.1.0" />
-            <element id="library" level="project" name="Gradle: rome:rome:1.0" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-core:0.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" />
             <element id="library" level="project" name="Gradle: com.pff:java-libpst:0.8.1" />
@@ -732,7 +720,6 @@
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.0.0" />
             <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.11" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
-            <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
@@ -825,17 +812,8 @@
             <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.13" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.11" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.2.6" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.2" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.11" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.11" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.5" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.5" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.59.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
@@ -1121,7 +1099,6 @@
             <element id="library" level="project" name="Gradle: org.ccil.cowan.tagsoup:tagsoup:1.2.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.mp4parser:isoparser:1.0.2" />
             <element id="library" level="project" name="Gradle: de.l3s.boilerpipe:boilerpipe:1.1.0" />
-            <element id="library" level="project" name="Gradle: rome:rome:1.0" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-core:0.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" />
             <element id="library" level="project" name="Gradle: com.pff:java-libpst:0.8.1" />
@@ -1139,7 +1116,6 @@
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.0.0" />
             <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.11" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
-            <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
@@ -1232,17 +1208,8 @@
             <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.13" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.11" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.2.6" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.2" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.11" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.11" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.5" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.5" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.59.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
@@ -1527,7 +1494,6 @@
             <element id="library" level="project" name="Gradle: org.ccil.cowan.tagsoup:tagsoup:1.2.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.mp4parser:isoparser:1.0.2" />
             <element id="library" level="project" name="Gradle: de.l3s.boilerpipe:boilerpipe:1.1.0" />
-            <element id="library" level="project" name="Gradle: rome:rome:1.0" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-core:0.6" />
             <element id="library" level="project" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" />
             <element id="library" level="project" name="Gradle: com.pff:java-libpst:0.8.1" />
@@ -1546,7 +1512,6 @@
             <element id="library" level="project" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.11" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-tika:0.6" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
-            <element id="library" level="project" name="Gradle: jdom:jdom:1.0" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-core:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-annotation:3.1.2" />
             <element id="library" level="project" name="Gradle: io.dropwizard.metrics:metrics-graphite:3.1.2" />
@@ -1639,17 +1604,8 @@
             <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.13" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.11" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.2.6" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.2" />
-            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.2" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.11" />
-            <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.11" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.5" />
-            <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.5" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.59.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
@@ -2148,28 +2104,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/c3p0/c3p0/0.9.1.1/5a069468419fe3910c80d13a8971fd50ff2c77a6/c3p0-0.9.1.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: ch.qos.logback:logback-classic:1.1.5">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.5/92353eb144695bba80b31f7bec4f36d871f230ac/logback-classic-1.1.5.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.5/39a7bd7567ad8b313919954fff1144163fedc9d2/logback-classic-1.1.5-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.5/4372823823e22954aea97fb0bd27c4c0dba0ede/logback-classic-1.1.5-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: ch.qos.logback:logback-core:1.1.5">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.5/16722afde74444716e299bee1f60aec9f6d1f0dc/logback-core-1.1.5.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.5/a6a0543d1e063495fc6b3447ce0c1704ca9676ac/logback-core-1.1.5-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.5/a920a1f85c501420332e867740ea5ae648655da7/logback-core-1.1.5-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: com.adobe.xmp:xmpcore:5.1.2">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.adobe.xmp/xmpcore/5.1.2/55615fa2582424e38705487d1d3969af8554f637/xmpcore-5.1.2.jar!/" />
@@ -2201,39 +2135,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.drewnoakes/metadata-extractor/2.8.0/951ce42c0258c855dfee56a5b6577e7f66416258/metadata-extractor-2.8.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.2">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.2/ce122c3256837d08593ea368882a9c7c69aedb4b/jackson-annotations-2.7.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.2/bdcf448626fc4f04480139238db5c06164059127/jackson-annotations-2.7.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.2/7da2b068a1255c7111944c334dee8ca239f28eb/jackson-annotations-2.7.2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.2">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/7f7c17391af4daa4b755d9e912891a1847fb1c6d/jackson-core-2.7.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/246b6fcc79ac1ebabd4c2539b050e464220ad16/jackson-core-2.7.2-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.2">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/3a79ffbdb9e5909a6024658639265ec22c4eb963/jackson-databind-2.7.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/65a55c109b35fba171b21a2d97edd84670af55a0/jackson-databind-2.7.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.fasterxml:classmate:1.3.1">
@@ -2291,17 +2192,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/91a4d115400e904f22b03a78deb355e9ea803cd4/guava-19.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.google.maps:google-maps-services:0.1.11">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.11/8c57d2637e38955dbe12bdf57f5c084a5d82d0f7/google-maps-services-0.1.11.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.11/674e49e4cf620454bfc29d50e493c64b17d0baf5/google-maps-services-0.1.11-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.11/e8deebec5897f894df0309d99ee08b9497c13fe9/google-maps-services-0.1.11-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: com.google.protobuf:protobuf-java:2.5.0">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.5.0/a10732c76bfacdbd633a7eb0f7968b1059a65dfa/protobuf-java-2.5.0.jar!/" />
@@ -2333,17 +2223,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/77979eaa98f90806f984155f44f63cc1fb60ac25/juniversalchardet-1.0.3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.2.6">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.2.6/628a21e5c5dfd3665fe631b3d3e586b6c3633430/libphonenumber-7.2.6.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.2.6/5ff2dc7dcc4085bbab453977e2ec198ea6feb97d/libphonenumber-7.2.6-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.2.6/3eebfff33578b72ae948be0534bf8912b2522606/libphonenumber-7.2.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.googlecode.mp4parser:isoparser:1.0.2">
@@ -2801,15 +2680,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.ws.rs/javax.ws.rs-api/2.0.1/a20db7429fd8dfff74335ec867472b71c345049b/javax.ws.rs-api-2.0.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: jdom:jdom:1.0">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jdom/jdom/1.0/a2ac1cd690ab4c80defe7f9bce14d35934c35cec/jdom-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jdom/jdom/1.0/662abe0196cf554d4d7374f5d6382034171b652c/jdom-1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: joda-time:joda-time:2.9.2">
@@ -3288,28 +3158,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.sis.storage/sis-storage/0.5/359913e858aba6b28e3a9d03906e58904562c62a/sis-storage-0.5-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.apache.tika:tika-core:1.11">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-core/1.11/d37a6b9080c8361e47b2050f69833fd61501ede9/tika-core-1.11.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-core/1.11/6eceaa5484881a09a9bdcf12635754c2e04c2a01/tika-core-1.11-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-core/1.11/2967c4b6b1977e41dc1f61245b61812a4ec9dcbe/tika-core-1.11-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.apache.tika:tika-parsers:1.11">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-parsers/1.11/355dc05d842ed223fc682da472229473ba706d68/tika-parsers-1.11.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-parsers/1.11/26015ee6d71683c66e6b8e5818342ffa39b1021f/tika-parsers-1.11-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-parsers/1.11/38b4d7f282d7db7c5967c8d33598f1acb49caf0/tika-parsers-1.11-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.apache.ws.xmlschema:xmlschema-core:2.1.0">
@@ -3993,17 +3841,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/regexp/regexp/1.3/51ba0f7629a69bf12d31177f409a78672069f632/regexp-1.3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: rome:rome:1.0">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rome/rome/1.0/22b33347f315833e9348cec2751af1a5d5656e4/rome-1.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rome/rome/1.0/499d1d78c757c08d6ccc83a940b820160c19ce2f/rome-1.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/rome/rome/1.0/195e9a962672c32943ec8883e010b6a5ea568745/rome-1.0-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
