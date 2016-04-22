@@ -74,13 +74,17 @@ public class DeviceService {
      * @return
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
+        AvailableAccountUpdates availableAccountUpdates;
         if (!isDeviceRegistered(rid, did)) {
             LOG.info("Device registered rid={} did={}", rid, did);
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
-            return getAll(rid);
+            availableAccountUpdates = getAll(rid);
         } else {
-            return getUpdates(rid, did);
+            availableAccountUpdates = getUpdates(rid, did);
         }
+
+        LOG.info("{} {}", availableAccountUpdates.getType(), availableAccountUpdates);
+        return availableAccountUpdates;
     }
 
     public AvailableAccountUpdates getUpdates(String rid, String did) {
@@ -136,7 +140,7 @@ public class DeviceService {
      * @return
      */
     public AvailableAccountUpdates getAll(String rid) {
-        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance(AvailableAccountUpdates.Type.ALL);
         LOG.info("Getting all data rid={}", rid);
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllReceipts(rid);

@@ -44,6 +44,10 @@ import java.util.stream.Collectors;
 //@JsonInclude (JsonInclude.Include.NON_NULL)
 public class AvailableAccountUpdates extends AbstractDomain {
 
+    public enum Type {UPDATE, ALL}
+
+    private Type type;
+
     @JsonProperty ("receipts")
     private List<JsonReceipt> jsonReceipts = new LinkedList<>();
 
@@ -83,8 +87,24 @@ public class AvailableAccountUpdates extends AbstractDomain {
     @JsonProperty ("owesOther")
     private List<JsonOweExpenses> owesOther = new ArrayList<>();
 
+    private AvailableAccountUpdates() {
+        this.type = Type.UPDATE;
+    }
+
+    private AvailableAccountUpdates(Type type) {
+        this.type = type;
+    }
+
     public static AvailableAccountUpdates newInstance() {
         return new AvailableAccountUpdates();
+    }
+
+    public static AvailableAccountUpdates newInstance(Type type) {
+        return new AvailableAccountUpdates(type);
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public List<JsonReceipt> getJsonReceipts() {
@@ -190,5 +210,22 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setOwesOther(List<JsonOweExpenses> owesOther) {
         this.owesOther = owesOther;
+    }
+
+    @Override
+    public String toString() {
+        return "AvailableAccountUpdates{" +
+                "jsonReceipts=" + jsonReceipts.size() +
+                ", jsonReceiptSplits=" + jsonReceiptSplits.size() +
+                ", jsonReceiptItems=" + jsonReceiptItems.size() +
+                ", jsonExpenseTags=" + jsonExpenseTags.size() +
+                ", unprocessedDocuments=" + unprocessedDocuments +
+                ", jsonNotifications=" + jsonNotifications.size() +
+                ", activeFriends=" + activeFriends.size() +
+                ", pendingFriends=" + pendingFriends.size() +
+                ", awaitingFriends=" + awaitingFriends.size() +
+                ", owes=" + owes.size() +
+                ", owesOther=" + owesOther.size() +
+                '}';
     }
 }
