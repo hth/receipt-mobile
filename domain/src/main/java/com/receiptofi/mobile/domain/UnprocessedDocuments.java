@@ -35,4 +35,11 @@ public class UnprocessedDocuments {
     public long getNumberOfUnprocessedFiles() {
         return numberOfUnprocessedFiles;
     }
+
+    @Override
+    public String toString() {
+        return "UnprocessedDocuments{" +
+                "numberOfUnprocessedFiles=" + numberOfUnprocessedFiles +
+                '}';
+    }
 }
