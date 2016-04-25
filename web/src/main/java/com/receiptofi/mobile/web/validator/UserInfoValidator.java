@@ -93,7 +93,7 @@ public class UserInfoValidator {
         }
     }
 
-    public void firstNameValidation(String firstName, Map<String, String> errors) {
+    private void firstNameValidation(String firstName, Map<String, String> errors) {
         if (StringUtils.isBlank(firstName) || firstName.length() < nameLength) {
             LOG.info("failed validation firstName={}", firstName);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
@@ -103,7 +103,7 @@ public class UserInfoValidator {
         }
     }
 
-    public void birthdayValidation(String birthday, Map<String, String> errors) {
+    private void birthdayValidation(String birthday, Map<String, String> errors) {
         if (StringUtils.isNotBlank(birthday) && !Constants.AGE_RANGE.matcher(birthday).matches()) {
             LOG.info("failed validation birthday={}", birthday);
             errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
