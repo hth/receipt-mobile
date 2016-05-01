@@ -2,13 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/data/mongo
-          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
-          http://www.springframework.org/schema/util
-          http://www.springframework.org/schema/util/spring-util.xsd">
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoClientFactoryBean">
         <property name="host" value="${mongo-host}"/>
@@ -35,10 +32,8 @@
         <!--suppress SpringModelInspection -->
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
         <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
-        <property name="writeConcern">
-            <!--http://jonathan-whywecanthavenicethings.blogspot.com/2011/11/wheres-my-exceptions-spring-data.html-->
-            <util:constant static-field="com.mongodb.WriteConcern.SAFE" />
-        </property>
+        <property name="writeConcern" value="JOURNALED" />
+        <property name="writeResultChecking" value="EXCEPTION" />
     </bean>
 
     <bean id="gridfsDb" factory-bean="mongoTemplate" factory-method="getDb" />
