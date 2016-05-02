@@ -111,6 +111,21 @@ public class ReceiptMobileService {
     }
 
     /**
+     * Get all the receipt updates.
+     * Fail safe mechanism.
+     *
+     * @param rid
+     * @return
+     */
+    public AvailableAccountUpdates getUpdateForAllReceipt(String rid) {
+        List<ReceiptEntity> receipts = getAllReceipts(rid);
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+        getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
+        documentMobileService.getUnprocessedDocuments(rid, availableAccountUpdates);
+        return availableAccountUpdates;
+    }
+
+    /**
      * Do not use this open end query.
      *
      * @param profileId

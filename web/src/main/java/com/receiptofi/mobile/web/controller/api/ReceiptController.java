@@ -288,9 +288,14 @@ public class ReceiptController {
             try {
                 boolean result = receiptMobileService.deleteReceipt(receiptId, rid);
                 if (result) {
-                    return receiptMobileService.getUpdateForChangedReceipt(
-                            receiptMobileService.findReceiptForMobile(receiptId, rid)
-                    ).asJson();
+                    ReceiptEntity receipt = receiptMobileService.findReceiptForMobile(receiptId, rid);
+                    if (null != receipt) {
+                        return receiptMobileService.getUpdateForChangedReceipt(receipt).asJson();
+                    } else {
+                        LOG.warn("Could not find receipt with id={} rid={} returning all receipts", receiptId, rid);
+                        /** Since cannot find this receipt, instead return all the receipts. */
+                        return receiptMobileService.getUpdateForAllReceipt(rid).asJson();
+                    }
                 } else {
                     Map<String, String> errors = new HashMap<>();
                     errors.put(ErrorEncounteredJson.REASON, "Failed to delete receipt.");
