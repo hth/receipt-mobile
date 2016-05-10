@@ -13,6 +13,7 @@ import com.receiptofi.domain.types.CommentTypeEnum;
 import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.ReceiptManagerMobile;
+import com.receiptofi.mobile.util.Util;
 import com.receiptofi.service.CommentService;
 import com.receiptofi.service.FriendService;
 import com.receiptofi.service.ItemService;
@@ -209,7 +210,7 @@ public class ReceiptMobileService {
             receiptService.splitAction(splitExpense.getFriendUserId(), SplitActionEnum.R, receipt);
         }
 
-        List<String> addFids = populateFids(fidAdd);
+        List<String> addFids = Util.convertCommaSeparatedStringToList(fidAdd);
         for (String friendId : addFids) {
             LOG.debug("{} fid={}", SplitActionEnum.A, friendId);
             receiptService.splitAction(friendId, SplitActionEnum.A, receipt);
@@ -237,15 +238,6 @@ public class ReceiptMobileService {
         }
 
         return jsonReceiptSanitized;
-    }
-
-    private List<String> populateFids(String fids) {
-        List<String> fidList = new ArrayList<>();
-        StringTokenizer stringTokenizer = new StringTokenizer(fids, " ,");
-        while (stringTokenizer.hasMoreTokens()) {
-            fidList.add(stringTokenizer.nextToken());
-        }
-        return fidList;
     }
 
     private List<JsonReceiptSanitized> getRecentReceipts(int limit) {

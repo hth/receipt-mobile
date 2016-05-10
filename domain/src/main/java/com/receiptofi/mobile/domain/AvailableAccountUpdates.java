@@ -11,6 +11,7 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.json.JsonAwaitingAcceptance;
 import com.receiptofi.domain.json.JsonBilling;
+import com.receiptofi.domain.json.JsonCoupon;
 import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonNotification;
@@ -86,6 +87,9 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("owesOther")
     private List<JsonOweExpenses> owesOther = new ArrayList<>();
+
+    @JsonProperty ("coupons")
+    private List<JsonCoupon> jsonCoupons = new ArrayList<>();
 
     private AvailableAccountUpdates() {
         this.type = Type.UPDATE;
@@ -210,6 +214,18 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void setOwesOther(List<JsonOweExpenses> owesOther) {
         this.owesOther = owesOther;
+    }
+
+    public List<JsonCoupon> getJsonCoupons() {
+        return jsonCoupons;
+    }
+
+    public void setJsonCoupons(List<JsonCoupon> jsonCoupons) {
+        this.jsonCoupons = jsonCoupons;
+    }
+
+    public void addJsonCoupons(JsonCoupon jsonCoupon) {
+        this.jsonCoupons.add(jsonCoupon);
     }
 
     @Override
