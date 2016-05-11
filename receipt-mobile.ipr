@@ -239,15 +239,12 @@
         <element id="directory" name="static">
           <element id="directory" name="images">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/no_image.gif" />
-            <element id="file-copy" path="$PROJECT_DIR$/web/web/static/images/Receipt-46x46.png" />
-          </element>
-          <element id="directory" name="css">
-            <element id="file-copy" path="$PROJECT_DIR$/web/web/static/css/receipt.css" />
           </element>
         </element>
         <element id="directory" name="api-docs">
           <element id="dir-copy" path="$PROJECT_DIR$/web/web/api-docs" />
         </element>
+        <element id="file-copy" path="$PROJECT_DIR$/web/web/favicon.ico" />
       </root>
     </artifact>
     <artifact type="war" name="Gradle : com.receiptofi.mobile : security-0.9.0.war">
