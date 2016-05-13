@@ -119,7 +119,7 @@ public class UploadDocumentController {
             UploadDocumentImage uploadDocumentImage = UploadDocumentImage.newInstance();
             uploadDocumentImage.setFileData(file);
             uploadDocumentImage.setRid(rid);
-            uploadDocumentImage.setFileType(FileTypeEnum.RECEIPT);
+            uploadDocumentImage.setFileType(FileTypeEnum.R);
 
             boolean duplicateFile = fileSystemService.fileWithSimilarNameDoesNotExists(rid, uploadDocumentImage.getOriginalFileName());
             DocumentEntity document = landingService.uploadDocument(uploadDocumentImage);
