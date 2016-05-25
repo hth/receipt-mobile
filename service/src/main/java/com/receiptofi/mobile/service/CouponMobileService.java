@@ -48,6 +48,10 @@ public class CouponMobileService {
         couponManager.save(coupon);
     }
 
+    public CouponEntity findOne(String couponId) {
+        return couponManager.findOne(couponId);
+    }
+
     public CouponEntity parseCoupon(String couponJson) throws IOException, ParseException {
         try {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(couponJson);
