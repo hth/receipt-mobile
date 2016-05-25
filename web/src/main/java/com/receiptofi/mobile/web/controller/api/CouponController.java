@@ -1,19 +1,11 @@
 package com.receiptofi.mobile.web.controller.api;
 
-import static com.receiptofi.domain.json.JsonReceipt.ISO8601_FMT;
-
 import com.receiptofi.domain.CouponEntity;
 import com.receiptofi.domain.json.JsonCoupon;
-import com.receiptofi.domain.types.CouponTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.service.CouponMobileService;
-import com.receiptofi.mobile.service.ReceiptMobileService;
-import com.receiptofi.mobile.util.Util;
-import com.receiptofi.utils.ParseJsonStringToMap;
-import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -86,6 +77,12 @@ public class CouponController {
             HttpServletResponse response
     ) throws IOException, ParseException {
         CouponEntity coupon = couponMobileService.parseCoupon(requestBodyJson);
+        if (StringUtils.isNotBlank(coupon.getId())) {
+            CouponEntity couponEntity = couponMobileService.findOne(coupon.getId());
+            if (null != couponEntity) {
+                coupon.setVersion(couponEntity.getVersion());
+            }
+        }
         couponMobileService.save(coupon);
         AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
