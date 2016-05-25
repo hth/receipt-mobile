@@ -9,6 +9,7 @@ import com.receiptofi.repository.CouponManager;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -51,7 +52,7 @@ public class CouponMobileService {
         try {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(couponJson);
             CouponEntity coupon = new CouponEntity();
-            if (Boolean.valueOf(map.get("a").toString())) {
+            if (BooleanUtils.toBoolean(Integer.parseInt(map.get("a").toString()))) {
                 coupon.active();
             } else {
                 coupon.inActive();
@@ -81,11 +82,11 @@ public class CouponMobileService {
             coupon.setRid(map.get("rid").toString())
                     .setBusinessName(map.get("bn").toString())
                     .setFreeText(map.get("ft").toString())
-                    .setReminder(Boolean.valueOf(map.get("rm").toString()))
+                    .setReminder(BooleanUtils.toBoolean(Integer.parseInt(map.get("rm").toString())))
                     .setImagePath(map.get("ip").toString())
                     .setSharedWithRids(Util.convertCommaSeparatedStringToList(map.get("sh").toString()))
                     .setOriginId(map.get("oi").toString())
-                    .setUsedCoupon(Boolean.valueOf(map.get("uc").toString()));
+                    .setUsedCoupon(BooleanUtils.toBoolean(Integer.parseInt(map.get("uc").toString())));
 
             return coupon;
         } catch (ParseException e) {
