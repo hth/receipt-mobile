@@ -3,7 +3,10 @@ package com.receiptofi.mobile.service;
 import static com.receiptofi.domain.json.JsonReceipt.ISO8601_FMT;
 
 import com.receiptofi.domain.CouponEntity;
+import com.receiptofi.domain.json.JsonCoupon;
 import com.receiptofi.domain.types.CouponTypeEnum;
+import com.receiptofi.mobile.domain.AvailableAccountUpdates;
+import com.receiptofi.mobile.repository.CouponManagerMobile;
 import com.receiptofi.mobile.util.Util;
 import com.receiptofi.repository.CouponManager;
 import com.receiptofi.utils.ParseJsonStringToMap;
@@ -21,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,10 +43,12 @@ public class CouponMobileService {
     private static final Logger LOG = LoggerFactory.getLogger(CouponMobileService.class);
 
     private CouponManager couponManager;
+    private CouponManagerMobile couponManagerMobile;
 
     @Autowired
-    public CouponMobileService(CouponManager couponManager) {
+    public CouponMobileService(CouponManager couponManager, CouponManagerMobile couponManagerMobile) {
         this.couponManager = couponManager;
+        this.couponManagerMobile = couponManagerMobile;
     }
 
     public void save(CouponEntity coupon) {
@@ -50,6 +57,14 @@ public class CouponMobileService {
 
     public CouponEntity findOne(String couponId) {
         return couponManager.findOne(couponId);
+    }
+
+    void getAll(String rid, AvailableAccountUpdates availableAccountUpdates) {
+        populateAvailableAccountUpdate(availableAccountUpdates, couponManagerMobile.findAll(rid));
+    }
+
+    void getCouponUpdateSince(String rid, Date since, AvailableAccountUpdates availableAccountUpdates) {
+        populateAvailableAccountUpdate(availableAccountUpdates, couponManagerMobile.getCouponUpdateSince(rid, since));
     }
 
     public CouponEntity parseCoupon(String couponJson) throws IOException, ParseException {
@@ -96,6 +111,13 @@ public class CouponMobileService {
         } catch (ParseException e) {
             LOG.error("Exception {}", e.getLocalizedMessage(), e);
             throw e;
+        }
+    }
+
+    private void populateAvailableAccountUpdate(AvailableAccountUpdates availableAccountUpdates, List<CouponEntity> coupons) {
+        for (CouponEntity coupon : coupons) {
+            JsonCoupon jsonCoupon = JsonCoupon.newInstance(coupon);
+            availableAccountUpdates.addJsonCoupons(jsonCoupon);
         }
     }
 }
