@@ -1,5 +1,11 @@
 package com.receiptofi.mobile.repository;
 
+
+
+import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
+import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.CouponEntity;
 
@@ -9,7 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * User: hitender
@@ -37,10 +47,28 @@ public class CouponManagerMobileImpl implements CouponManagerMobile {
     }
 
     @Override
-    public void save(CouponEntity object) {
-        if (object.getId() != null) {
-            object.setUpdated();
-        }
-        mongoTemplate.save(object, TABLE);
+    public List<CouponEntity> findAll(String rid) {
+        return mongoTemplate.find(
+                Query.query(
+                        where("RID").is(rid)
+                                .andOperator(
+                                        isNotDeleted()
+                                )
+                ),
+                CouponEntity.class,
+                TABLE);
+    }
+
+    @Override
+    public List<CouponEntity> getCouponUpdateSince(String rid, Date since) {
+        return mongoTemplate.find(
+                Query.query(
+                        where("RID").is(rid).and("U").gte(since)
+                                .andOperator(
+                                        isNotDeleted()
+                                )
+                ),
+                CouponEntity.class,
+                TABLE);
     }
 }
