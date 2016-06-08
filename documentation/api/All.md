@@ -265,7 +265,7 @@ Notification field names
     private String message;
 
     @JsonProperty ("n")
-    private boolean notified = false;
+    private boolean notify;
 
     @JsonProperty ("nt")
     private String notificationType;
@@ -279,12 +279,18 @@ Notification field names
      */
     @JsonProperty ("ri")
     private String referenceId;
+    
+    @JsonProperty("mr")
+    private boolean markedRead;
 
     @JsonProperty ("c")
     private String created;
 
     @JsonProperty ("u")
     private String updated;
+    
+    @JsonProperty ("a")
+    private boolean active;
     
 Receipt field name
         
