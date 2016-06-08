@@ -42,6 +42,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class LogContextFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
 
+    private static final String SKIP_APP_NAME = "/receipt-mobile";
+
     /* https://stackoverflow.com/questions/24894093/ruby-regular-expression-extracting-part-of-url */
     private static final Pattern EXTRACT_ENDPOINT_PATTERN =
             Pattern.compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
@@ -86,7 +88,7 @@ public class LogContextFilter implements Filter {
     }
 
     private String extractDataFromURL(String uri, String group) {
-        return EXTRACT_ENDPOINT_PATTERN.matcher(uri).replaceFirst(group);
+        return EXTRACT_ENDPOINT_PATTERN.matcher(uri).replaceFirst(group).replaceFirst(SKIP_APP_NAME, "");
     }
 
     private Map<String, String> getHeadersInfo(HttpServletRequest request) {
