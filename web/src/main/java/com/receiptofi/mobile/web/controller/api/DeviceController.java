@@ -86,7 +86,7 @@ public class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.info("Updated data available for mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
+        LOG.debug("Update for mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
             LOG.info("Un-authorized access to /api/update by mail={}", mail);
@@ -143,7 +143,7 @@ public class DeviceController {
 
             HttpServletResponse response
     ) throws IOException {
-        LOG.debug("All data available for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        LOG.debug("All for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
         String rid = authenticateService.getReceiptUserId(mail, auth);
         if (null == rid) {
             LOG.info("Un-authorized access to /api/all by mail={}", mail);
