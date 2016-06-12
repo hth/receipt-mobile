@@ -3,7 +3,9 @@ package com.receiptofi.mobile.web.controller.api;
 import com.receiptofi.domain.CouponEntity;
 import com.receiptofi.domain.json.JsonCoupon;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
+import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.CouponMobileService;
+import com.receiptofi.mobile.util.ErrorEncounteredJson;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,10 +43,15 @@ import javax.servlet.http.HttpServletResponse;
 public class CouponController {
     private static final Logger LOG = LoggerFactory.getLogger(CouponController.class);
 
+    private AuthenticateService authenticateService;
     private CouponMobileService couponMobileService;
 
     @Autowired
-    public CouponController(CouponMobileService couponMobileService) {
+    public CouponController(
+            AuthenticateService authenticateService,
+            CouponMobileService couponMobileService
+    ) {
+        this.authenticateService = authenticateService;
         this.couponMobileService = couponMobileService;
     }
 
@@ -76,16 +84,29 @@ public class CouponController {
 
             HttpServletResponse response
     ) throws IOException, ParseException {
-        CouponEntity coupon = couponMobileService.parseCoupon(requestBodyJson);
-        if (StringUtils.isNotBlank(coupon.getId())) {
-            CouponEntity couponEntity = couponMobileService.findOne(coupon.getId());
-            if (null != couponEntity) {
-                coupon.setVersion(couponEntity.getVersion());
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        String rid = authenticateService.getReceiptUserId(mail, auth);
+        if (rid == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            try {
+                CouponEntity coupon = couponMobileService.parseCoupon(requestBodyJson);
+                if (StringUtils.isNotBlank(coupon.getId())) {
+                    CouponEntity couponEntity = couponMobileService.findOne(coupon.getId());
+                    if (null != couponEntity) {
+                        coupon.setVersion(couponEntity.getVersion());
+                    }
+                }
+                couponMobileService.save(coupon);
+                AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+                availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
+                return availableAccountUpdates.asJson();
+            } catch (Exception e) {
+                LOG.error("Failure during coupon save rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");
+                return ErrorEncounteredJson.toJson(errors);
             }
         }
-        couponMobileService.save(coupon);
-        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-        availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
-        return availableAccountUpdates.asJson();
     }
 }
