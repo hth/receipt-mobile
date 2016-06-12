@@ -125,8 +125,16 @@ public class UploadDocumentController {
             DocumentEntity document = landingService.uploadDocument(uploadDocumentImage);
 
             if (!duplicateFile) {
-                LOG.info("Found existing file with name={} rid={}", uploadDocumentImage.getOriginalFileName(), rid);
-                messageDocumentService.markMessageForReceiptAsDuplicate(document.getId(), documentRejectUserId, documentRejectRid);
+                LOG.info("{} receipt found, delete, name={} rid={}",
+                        DocumentRejectReasonEnum.D.getName(),
+                        uploadDocumentImage.getOriginalFileName(),
+                        rid);
+
+                messageDocumentService.markMessageForReceiptAsDuplicate(
+                        document.getId(),
+                        documentRejectUserId,
+                        documentRejectRid);
+
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
                         document.getId(),

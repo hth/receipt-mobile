@@ -253,7 +253,7 @@ public class ExpenseTagController {
         }
     }
 
-    private Map<String, String> getErrorUserInput(String reason) {
+    static Map<String, String> getErrorUserInput(String reason) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ErrorEncounteredJson.REASON, reason);
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
@@ -261,7 +261,7 @@ public class ExpenseTagController {
         return errors;
     }
 
-    private Map<String, String> getErrorSevere(String reason) {
+    static Map<String, String> getErrorSevere(String reason) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ErrorEncounteredJson.REASON, reason);
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.SEVERE.name());
