@@ -45,8 +45,12 @@ public class ReceiptManagerMobileImpl implements ReceiptManagerMobile {
     @Override
     public List<ReceiptEntity> getAllReceipts(String receiptUserId) {
         return mongoTemplate.find(
-                query(where("RID").is(receiptUserId))
-                        .with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
+                query(where("RID").is(receiptUserId)
+                        .andOperator(
+                                isActive(),
+                                isNotDeleted()
+                        )
+                ).with(new Sort(DESC, "RTXD").and(new Sort(DESC, "C"))),
                 ReceiptEntity.class,
                 TABLE);
     }
