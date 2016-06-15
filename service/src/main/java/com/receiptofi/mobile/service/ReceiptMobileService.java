@@ -186,13 +186,12 @@ public class ReceiptMobileService {
                     ReceiptEntity originalReceipt = receiptManagerMobile.findReceipt(receipt.getReferReceiptId());
                     jsonFriendMap = friendService.getFriends(originalReceipt.getReceiptUserId());
 
-                    JsonReceiptSplit jsonReceiptSplit = new JsonReceiptSplit();
-
-                    jsonReceiptSplit.setReceiptId(receipt.getId());
-                    jsonReceiptSplit.setSplits((splitExpensesService.populateProfileOfFriends(
-                            fetchReceiptId,
-                            jsonFriendMap
-                    )));
+                    JsonReceiptSplit jsonReceiptSplit = new JsonReceiptSplit()
+                            .setReceiptId(receipt.getId())
+                            .setSplits((splitExpensesService.populateProfileOfFriends(
+                                    fetchReceiptId,
+                                    jsonFriendMap
+                            )));
 
                     jsonReceiptSplit.getSplits().remove(new JsonFriend(rid, "", ""));
                     jsonReceiptSplit.addSplit(new JsonFriend(userProfilePreferenceService.findByReceiptUserId(originalReceipt.getReceiptUserId())));
