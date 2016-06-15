@@ -33,4 +33,12 @@ public interface ReceiptManagerMobile extends RepositoryManager<ReceiptEntity> {
      * @return
      */
     List<ReceiptEntity> getRecentReceipts(int limit);
+
+    /**
+     * Used mostly for loading receipt by Id. Should be refrained from using as this query is not secure.
+     *
+     * @param id
+     * @return
+     */
+    ReceiptEntity findReceipt(String id);
 }
