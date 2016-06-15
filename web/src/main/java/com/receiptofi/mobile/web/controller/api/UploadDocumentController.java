@@ -61,7 +61,6 @@ public class UploadDocumentController {
     @Value ("${duplicate.document.reject.rid}")
     private String documentRejectRid;
 
-    @SuppressWarnings ("all")
     @Autowired
     public UploadDocumentController(
             LandingService landingService,

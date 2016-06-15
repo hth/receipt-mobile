@@ -50,10 +50,22 @@ import javax.servlet.http.HttpServletResponse;
 public class FriendController {
     private static final Logger LOG = LoggerFactory.getLogger(FriendController.class);
 
-    @Autowired private AuthenticateService authenticateService;
-    @Autowired private UserInfoValidator userInfoValidator;
-    @Autowired private AccountMobileService accountMobileService;
-    @Autowired private FriendMobileService friendMobileService;
+    private AuthenticateService authenticateService;
+    private UserInfoValidator userInfoValidator;
+    private AccountMobileService accountMobileService;
+    private FriendMobileService friendMobileService;
+
+    @Autowired
+    public FriendController(
+            AuthenticateService authenticateService,
+            UserInfoValidator userInfoValidator,
+            AccountMobileService accountMobileService,
+            FriendMobileService friendMobileService) {
+        this.authenticateService = authenticateService;
+        this.userInfoValidator = userInfoValidator;
+        this.accountMobileService = accountMobileService;
+        this.friendMobileService = friendMobileService;
+    }
 
     /**
      * Invite new user or send invites to existing user.
