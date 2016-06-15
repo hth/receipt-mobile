@@ -170,13 +170,12 @@ public class ReceiptMobileService {
                     jsonFriendMap = friendService.getFriends(rid);
 
                     if (receipt.getSplitCount() > 1) {
-                        JsonReceiptSplit jsonReceiptSplit = new JsonReceiptSplit();
-
-                        jsonReceiptSplit.setReceiptId(receipt.getId());
-                        jsonReceiptSplit.setSplits((splitExpensesService.populateProfileOfFriends(
-                                fetchReceiptId,
-                                jsonFriendMap
-                        )));
+                        JsonReceiptSplit jsonReceiptSplit = new JsonReceiptSplit()
+                                .setReceiptId(receipt.getId())
+                                .setSplits((splitExpensesService.populateProfileOfFriends(
+                                        fetchReceiptId,
+                                        jsonFriendMap
+                                )));
 
                         LOG.debug("Found split count={}", receipt.getSplitCount());
                         availableAccountUpdates.addJsonReceiptSplits(jsonReceiptSplit);
