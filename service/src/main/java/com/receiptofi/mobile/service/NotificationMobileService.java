@@ -52,6 +52,6 @@ public class NotificationMobileService {
         List<String> list = Util.convertCommaSeparatedStringToList(notificationIds);
         LOG.info("Notification marked read count={} rid={}", list.size(), rid);
 
-        notificationManager.markNotificationRead(Util.convertCommaSeparatedStringToList(notificationIds), rid);
+        notificationManager.markNotificationRead(list, rid);
     }
 }
