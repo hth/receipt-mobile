@@ -183,7 +183,7 @@ public class ReceiptMobileService {
                     }
                 } else {
                     /** Refers to split user accessing shared receipt. */
-                    ReceiptEntity originalReceipt = receiptService.findReceipt(receipt.getReferReceiptId());
+                    ReceiptEntity originalReceipt = receiptManagerMobile.findReceipt(receipt.getReferReceiptId());
                     jsonFriendMap = friendService.getFriends(originalReceipt.getReceiptUserId());
 
                     JsonReceiptSplit jsonReceiptSplit = new JsonReceiptSplit();

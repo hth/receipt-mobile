@@ -5,7 +5,9 @@ import com.receiptofi.domain.types.PaginationEnum;
 import com.receiptofi.mobile.repository.NotificationManagerMobile;
 import com.receiptofi.mobile.util.Util;
 import com.receiptofi.repository.NotificationManager;
-import com.receiptofi.service.NotificationService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.List;
 })
 @Service
 public class NotificationMobileService {
+    private static final Logger LOG = LoggerFactory.getLogger(NotificationMobileService.class);
 
     private NotificationManager notificationManager;
     private NotificationManagerMobile notificationManagerMobile;
@@ -46,6 +49,9 @@ public class NotificationMobileService {
     }
 
     public void markNotificationRead(String notificationIds, String rid) {
-        notificationManager.markNotificationRead(Util.convertCommaSeparatedStringToList(notificationIds), rid);
+        List<String> list = Util.convertCommaSeparatedStringToList(notificationIds);
+        LOG.info("Notification marked read count={} rid={}", list.size(), rid);
+
+        notificationManager.markNotificationRead(list, rid);
     }
 }
