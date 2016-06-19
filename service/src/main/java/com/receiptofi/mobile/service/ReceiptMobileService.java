@@ -89,8 +89,8 @@ public class ReceiptMobileService {
     public void saveComment(String notes, ReceiptEntity receipt) {
         CommentEntity comment = receipt.getNotes();
         if (null == comment) {
-            comment = CommentEntity.newInstance(CommentTypeEnum.NOTES);
-            comment.setText(notes);
+            comment = CommentEntity.newInstance(CommentTypeEnum.N)
+                    .setText(notes);
         } else {
             comment.setText(notes);
         }
