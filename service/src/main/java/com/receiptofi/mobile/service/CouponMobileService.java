@@ -59,6 +59,10 @@ public class CouponMobileService {
         return couponManager.findOne(couponId);
     }
 
+    public CouponEntity findOne(String couponId, String rid) {
+        return couponManagerMobile.findOne(couponId, rid);
+    }
+
     void getAll(String rid, AvailableAccountUpdates availableAccountUpdates) {
         populateAvailableAccountUpdate(availableAccountUpdates, couponManagerMobile.findAll(rid));
     }
