@@ -71,4 +71,17 @@ public class CouponManagerMobileImpl implements CouponManagerMobile {
                 CouponEntity.class,
                 TABLE);
     }
+
+    @Override
+    public CouponEntity findOne(String couponId, String rid) {
+        return mongoTemplate.findOne(
+                Query.query(
+                        where("id").is(couponId).and("RID").is(rid)
+                                .andOperator(
+                                        isNotDeleted()
+                                )
+                ),
+                CouponEntity.class,
+                TABLE);
+    }
 }
