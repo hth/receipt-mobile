@@ -162,7 +162,7 @@ public class CouponController {
             try {
                 LOG.info("Starting coupon upload");
                 Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-                String couponId = map.containsKey("couponId") ? map.get("couponId").getText() : null;
+                String couponId = map.containsKey("id") ? map.get("id").getText() : null;
                 LOG.info("Starting coupon upload couponId={}", couponId);
 
                 CouponEntity coupon = couponMobileService.findOne(couponId, rid);
