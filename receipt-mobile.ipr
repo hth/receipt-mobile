@@ -221,6 +221,11 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.2.6.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.4.2" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:common:1.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:domain:1.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:service:1.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:social:1.0.0" />
+            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -261,10 +266,6 @@
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -445,6 +446,11 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/1.0.0/common-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/1.0.0/domain-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/1.0.0/service-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/1.0.0/social-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/d76f6013a81d0c3762da6fe69fa0f93bb7ec08b1/javamelody-core-1.60.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -465,10 +471,6 @@
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -649,6 +651,11 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/1.0.0/common-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/1.0.0/domain-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/1.0.0/service-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/1.0.0/social-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/d76f6013a81d0c3762da6fe69fa0f93bb7ec08b1/javamelody-core-1.60.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -669,10 +676,6 @@
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -731,7 +734,9 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.3" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.3" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
+            <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
+            <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.2" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.12" />
@@ -739,7 +744,6 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.59.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-0.9.0.jar">
               <element id="module-output" name="common_main" />
@@ -861,6 +865,11 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/1.0.0/common-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/1.0.0/domain-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/1.0.0/service-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/1.0.0/social-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/d76f6013a81d0c3762da6fe69fa0f93bb7ec08b1/javamelody-core-1.60.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -881,10 +890,6 @@
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="library" level="project" name="Gradle: com.receiptofi:common:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:domain:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:service:0.9.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:social:0.9.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -1073,6 +1078,11 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/1.0.0/common-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/1.0.0/domain-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/1.0.0/service-1.0.0.jar" />
+            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/1.0.0/social-1.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/d76f6013a81d0c3762da6fe69fa0f93bb7ec08b1/javamelody-core-1.60.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1121,9 +1131,10 @@
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="org.springframework.stereotype.Repository" />
-      <item index="1" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestController" />
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.stereotype.Controller" />
+      <item index="1" class="java.lang.String" itemvalue="org.springframework.stereotype.Repository" />
+      <item index="2" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestController" />
     </list>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
@@ -1605,16 +1616,16 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pff/java-libpst/0.8.1/3c72ce76f314d442b65d06d005e8b0dab1b5078b/java-libpst-0.8.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.receiptofi:common:0.9.0">
+    <library name="Gradle: com.receiptofi:common:1.0.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/common/0.9.0/common-0.9.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/common/1.0.0/common-1.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: com.receiptofi:domain:0.9.0">
+    <library name="Gradle: com.receiptofi:domain:1.0.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/domain/0.9.0/domain-0.9.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/domain/1.0.0/domain-1.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
@@ -1631,16 +1642,16 @@
         <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.receiptofi:service:0.9.0">
+    <library name="Gradle: com.receiptofi:service:1.0.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/0.9.0/service-0.9.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/1.0.0/service-1.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: com.receiptofi:social:0.9.0">
+    <library name="Gradle: com.receiptofi:social:1.0.0">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/0.9.0/social-0.9.0.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/1.0.0/social-1.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -2139,15 +2150,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.bull.javamelody:javamelody-core:1.59.0">
+    <library name="Gradle: net.bull.javamelody:javamelody-core:1.60.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.59.0/a62546ae063493041fe55b3b323f88ae06151e9a/javamelody-core-1.59.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/d76f6013a81d0c3762da6fe69fa0f93bb7ec08b1/javamelody-core-1.60.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.59.0/4b416783a9c1335af1d107e6d28193827d1f6c61/javamelody-core-1.59.0-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/876cbc0f07cf2236b8215fed23f710e8f374beb9/javamelody-core-1.60.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.59.0/91adc72d80cebb811e393243bc497fccba173973/javamelody-core-1.59.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.60.0/ee56f9424b48318b9505dfdd35f62c4a061e8651/javamelody-core-1.60.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: net.java.dev.jna:jna-platform:4.0.0">
