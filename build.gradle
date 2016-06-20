@@ -139,10 +139,10 @@ subprojects {
     }
 
     dependencies {
-        compile 'com.receiptofi:common:0.9.0'
-        compile 'com.receiptofi:domain:0.9.0'
-        compile 'com.receiptofi:service:0.9.0'
-        compile 'com.receiptofi:social:0.9.0'
+        compile 'com.receiptofi:common:1.0.0'
+        compile 'com.receiptofi:domain:1.0.0'
+        compile 'com.receiptofi:service:1.0.0'
+        compile 'com.receiptofi:social:1.0.0'
 
         compile 'org.springframework.social:spring-social-core:1.1.4.RELEASE'
         compile 'org.springframework.social:spring-social-google:1.0.0.RELEASE'
