@@ -3,12 +3,17 @@ package com.receiptofi.mobile.service;
 import static com.receiptofi.domain.json.JsonReceipt.ISO8601_FMT;
 
 import com.receiptofi.domain.CouponEntity;
+import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.json.JsonCoupon;
+import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.CouponTypeEnum;
+import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.CouponManagerMobile;
 import com.receiptofi.mobile.util.Util;
 import com.receiptofi.repository.CouponManager;
+import com.receiptofi.service.BusinessCampaignService;
+import com.receiptofi.service.ImageSplitService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -21,9 +26,12 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +52,19 @@ public class CouponMobileService {
 
     private CouponManager couponManager;
     private CouponManagerMobile couponManagerMobile;
+    private ImageSplitService imageSplitService;
+    private BusinessCampaignService businessCampaignService;
 
     @Autowired
-    public CouponMobileService(CouponManager couponManager, CouponManagerMobile couponManagerMobile) {
+    public CouponMobileService(
+            CouponManager couponManager,
+            CouponManagerMobile couponManagerMobile,
+            ImageSplitService imageSplitService,
+            BusinessCampaignService businessCampaignService) {
         this.couponManager = couponManager;
         this.couponManagerMobile = couponManagerMobile;
+        this.imageSplitService = imageSplitService;
+        this.businessCampaignService = businessCampaignService;
     }
 
     public void save(CouponEntity coupon) {
@@ -123,5 +139,20 @@ public class CouponMobileService {
             JsonCoupon jsonCoupon = JsonCoupon.newInstance(coupon);
             availableAccountUpdates.addJsonCoupons(jsonCoupon);
         }
+    }
+
+    public void uploadCoupon(MultipartFile multipartFile, String rid, CouponEntity coupon) throws IOException {
+        UploadDocumentImage image = UploadDocumentImage.newInstance(FileTypeEnum.C)
+                .setFileData(multipartFile)
+                .setRid(rid);
+
+        BufferedImage bufferedImage = imageSplitService.bufferedImage(image.getFileData().getInputStream());
+        Collection<FileSystemEntity> fileSystems = businessCampaignService.deleteAndCreateNewImage(
+                bufferedImage,
+                image,
+                coupon.getFileSystemEntities());
+
+        coupon.setFileSystemEntities(fileSystems);
+        save(coupon);
     }
 }

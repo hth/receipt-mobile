@@ -58,19 +58,13 @@ public class CouponController {
 
     private AuthenticateService authenticateService;
     private CouponMobileService couponMobileService;
-    private BusinessCampaignService businessCampaignService;
-    private ImageSplitService imageSplitService;
 
     @Autowired
     public CouponController(
             AuthenticateService authenticateService,
-            CouponMobileService couponMobileService,
-            BusinessCampaignService businessCampaignService,
-            ImageSplitService imageSplitService) {
+            CouponMobileService couponMobileService) {
         this.authenticateService = authenticateService;
         this.couponMobileService = couponMobileService;
-        this.businessCampaignService = businessCampaignService;
-        this.imageSplitService = imageSplitService;
     }
 
     /**
@@ -171,7 +165,7 @@ public class CouponController {
                 LOG.info("Starting coupon upload couponId={}", couponId);
 
                 CouponEntity coupon = couponMobileService.findOne(couponId, rid);
-                if (coupon == null) {
+                if (null == coupon) {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
                     return null;
                 }
@@ -181,18 +175,7 @@ public class CouponController {
                     return ErrorEncounteredJson.toJson("File qqfile missing in request or no file uploaded.", DOCUMENT_UPLOAD);
                 }
 
-                UploadDocumentImage image = UploadDocumentImage.newInstance(FileTypeEnum.C)
-                        .setFileData(multipartFile)
-                        .setRid(rid);
-
-                BufferedImage bufferedImage = imageSplitService.bufferedImage(image.getFileData().getInputStream());
-                Collection<FileSystemEntity> fileSystems = businessCampaignService.deleteAndCreateNewImage(
-                        bufferedImage,
-                        image,
-                        coupon.getFileSystemEntities());
-
-                coupon.setFileSystemEntities(fileSystems);
-                couponMobileService.save(coupon);
+                couponMobileService.uploadCoupon(multipartFile, rid, coupon);
 
                 AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
                 availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
