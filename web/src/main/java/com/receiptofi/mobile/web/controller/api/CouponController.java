@@ -12,6 +12,7 @@ import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.CouponMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.service.BusinessCampaignService;
+import com.receiptofi.service.ImageSplitService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
@@ -57,15 +59,18 @@ public class CouponController {
     private AuthenticateService authenticateService;
     private CouponMobileService couponMobileService;
     private BusinessCampaignService businessCampaignService;
+    private ImageSplitService imageSplitService;
 
     @Autowired
     public CouponController(
             AuthenticateService authenticateService,
             CouponMobileService couponMobileService,
-            BusinessCampaignService businessCampaignService) {
+            BusinessCampaignService businessCampaignService,
+            ImageSplitService imageSplitService) {
         this.authenticateService = authenticateService;
         this.couponMobileService = couponMobileService;
         this.businessCampaignService = businessCampaignService;
+        this.imageSplitService = imageSplitService;
     }
 
     /**
@@ -180,7 +185,9 @@ public class CouponController {
                         .setFileData(multipartFile)
                         .setRid(rid);
 
+                BufferedImage bufferedImage = imageSplitService.bufferedImage(image.getFileData().getInputStream());
                 Collection<FileSystemEntity> fileSystems = businessCampaignService.deleteAndCreateNewImage(
+                        bufferedImage,
                         image,
                         coupon.getFileSystemEntities());
 
