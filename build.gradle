@@ -28,7 +28,7 @@ ext {
 
 allprojects {
     group = 'com.receiptofi.mobile'
-    version = '1.0.0'
+    version = '2.0.0'
 }
 
 subprojects {
@@ -139,10 +139,10 @@ subprojects {
     }
 
     dependencies {
-        compile 'com.receiptofi:common:1.0.0'
-        compile 'com.receiptofi:domain:1.0.0'
-        compile 'com.receiptofi:service:1.0.0'
-        compile 'com.receiptofi:social:1.0.0'
+        compile "com.receiptofi:common:${version}"
+        compile "com.receiptofi:domain:${version}"
+        compile "com.receiptofi:service:${version}"
+        compile "com.receiptofi:social:${version}"
 
         compile 'org.springframework.social:spring-social-core:1.1.4.RELEASE'
         compile 'org.springframework.social:spring-social-google:1.0.0.RELEASE'
@@ -397,7 +397,7 @@ task copyJars(type: Copy) {
 }
 
 task unzip(type: Copy, dependsOn: [':web:war']) {
-    def zipFile = file('web/build/libs/receiptofi.mobile-web-1.0.0.war')
+    def zipFile = file("web/build/libs/receiptofi.mobile-web-${version}.war")
 
     from zipTree(zipFile)
     into unzipDir
