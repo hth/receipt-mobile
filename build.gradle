@@ -28,7 +28,7 @@ ext {
 
 allprojects {
     group = 'com.receiptofi.mobile'
-    version = '0.9.0'
+    version = '1.0.0'
 }
 
 subprojects {
@@ -182,7 +182,7 @@ subprojects {
 
         compile "$springDataGroup:spring-data-mongodb:$springDataMongo"
         compile "$springDataGroup:spring-data-commons:$springDataCommon"
-        compile "org.mongodb:mongo-java-driver:$mongoDriver"
+        compile "org.mongodb:mongo-java-driver:$mongoJavaDriver"
 
         compile "com.braintreepayments.gateway:braintree-java:$braintree"
 
@@ -397,7 +397,7 @@ task copyJars(type: Copy) {
 }
 
 task unzip(type: Copy, dependsOn: [':web:war']) {
-    def zipFile = file('web/build/libs/receiptofi.mobile-web-0.9.0.war')
+    def zipFile = file('web/build/libs/receiptofi.mobile-web-1.0.0.war')
 
     from zipTree(zipFile)
     into unzipDir
