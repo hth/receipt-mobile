@@ -1,9 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ReceiptEntity;
-import com.receiptofi.domain.SplitExpensesEntity;
 import com.receiptofi.domain.json.JsonFriend;
-import com.receiptofi.domain.types.SplitActionEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
 import com.receiptofi.mobile.service.ReceiptMobileService;
@@ -11,7 +9,6 @@ import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.service.FriendService;
 import com.receiptofi.service.ReceiptService;
-import com.receiptofi.service.SplitExpensesService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -33,13 +30,10 @@ import com.codahale.metrics.annotation.ExceptionMetered;
 import com.codahale.metrics.annotation.Timed;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 
