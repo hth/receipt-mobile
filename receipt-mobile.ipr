@@ -26,10 +26,6 @@
           <element id="directory" name="lib">
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1/c872b46c601d8dc03633288b81269f9e42762cea/geronimo-jms_1.1_spec-1.1.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1/5372615b0c04c1913c95c34a0414cef720ca2855/geronimo-j2ee-management_1.1_spec-1.0.1.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/0.9.0/common-0.9.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/0.9.0/domain-0.9.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/0.9.0/service-0.9.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/0.9.0/social-0.9.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.0/da217367fd25e88df52ba79e47658d4cf928b0d1/commons-collections4-4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.mail/mail/1.4.7/9add058589d5d85adeb625859bf2c5eeaaedf12d/mail-1.4.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/c621b54583719ac0310404463d6d99db27e1052c/commons-fileupload-1.3.1.jar" />
@@ -124,7 +120,6 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.osgi/org.osgi.core/4.2.0/66ab449ff3aa5c4adfc82c89025cc983b422eb95/org.osgi.core-4.2.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.social/spring-social-config/1.1.4.RELEASE/c341d4dca239dbd2a50bc94cc294ea80b5658700/spring-social-config-1.1.4.RELEASE.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.1/2ad2fd09dcf5607ca96f8ef432096a96986c40a/classmate-1.3.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.59.0/a62546ae063493041fe55b3b323f88ae06151e9a/javamelody-core-1.59.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.8/7c5b26f24375685e34a50c2d765ebc40a96a5280/aspectjrt-1.8.8.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.4.Final/fb18766b576aa6632bcfe9a20a023cbd52bf9769/hibernate-validator-5.2.4.Final.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.2/36d6e77a419cb455e6fd5909f6f96b168e21e9d0/joda-time-2.9.2.jar" />
@@ -162,14 +157,7 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.ws.rs/javax.ws.rs-api/2.0.1/104e9c2b5583cfcfeac0402316221648d6d8ea6b/javax.ws.rs-api-2.0.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.annotation/javax.annotation-api/1.2/479c1e06db31c432330183f5cae684163f186146/javax.annotation-api-1.2.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.woodstox/stax2-api/3.1.4/ac19014b1e6a7c08aad07fe114af792676b685b7/stax2-api-3.1.4.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.2/bc66297bbb254df63a197ffe978765eca5947863/activemq-client-5.13.2.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.9.1.RELEASE/a3ff72b826f634b8617f574d3c600985664d23f5/spring-data-mongodb-1.9.1.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.12.1.RELEASE/f6042d4400a43e687ac090d6ffd22b0e1f23d02a/spring-data-commons-1.12.1.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.braintreepayments.gateway/braintree-java/2.59.0/2ea1b39c70e62df15fed3e04d8935e8094112397/braintree-java-2.59.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.4.0/c6919bdec913eb5e8204a7757cf86f34201f6aac/springfox-swagger2-2.4.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.4.0/1205fbe70fbbcf6c87b3059a45772e56d8ce6615/springfox-swagger-ui-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.12/d7345eb663805e63d5e8456c88d19c0880375710/google-maps-services-0.1.12.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.3.0/44e51fad90786da6c57d241a5ab166955937939d/libphonenumber-7.3.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.3/e250c11c1329c7b6b62442a9743befad78be553c/jackson-annotations-2.7.3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.3/1499b854ae9f370409792db5af1b552dc7d9682f/jackson-core-2.7.3.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.3/f12e6cd05cbaecd74d16e685d45b627732939e42/jackson-databind-2.7.3.jar" />
@@ -177,40 +165,9 @@
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tika/tika-core/1.12/5ab95580d22fe1dee79cffbcd98bb509a32da09b/tika-core-1.12.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.19/44a8aec96a518fc7728a6b1d2fa5aa83b944d586/jcl-over-slf4j-1.7.19.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.6/feb5c3bbf4d4c16b24bcccef23d234451e95abf3/swagger-annotations-1.5.6.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.6/e5c36321b8bbd1e4f10858b5ceededdeeb4844e1/swagger-models-1.5.6.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.4.0/c822599f794e24f3b9350cde430e848d80032306/springfox-spi-2.4.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.4.0/5ccdc3f47cf6b888bcf8fd2c127a9dc7b68057d7/springfox-schema-2.4.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.4.0/8fe40ed5b97575890c82a04511e57f4c089c9a7b/springfox-swagger-common-2.4.0.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.4.0/3cbfea59cc9eec05f278e68d1cbf85de98bab563/springfox-spring-web-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.rometools/rome/1.5.1/cc3489f066749bede7fc81f4e80c0d8c9534a210/rome-1.5.1.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.4.0/e11854b8ede27b6eafa56c29e08e6a0e7ac4c278/springfox-core-2.4.0.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.rometools/rome-utils/1.5.1/3a3d6473a2f5d55fb31bf6c269af963fdea13b54/rome-utils-1.5.1.jar" />
             <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jdom/jdom/2.0.2/d06c71e0df0ac4b94deb737718580ccce22d92e8/jdom-2.0.2.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.20/867d63093eff0a0cb527bf13d397d850af3dcae3/slf4j-api-1.7.20.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/inject/javax.inject/1/javax.inject-1.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.5.6/plexus-utils-1.5.6.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/regexp/regexp/1.3/regexp-1.3.jar" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-aspects:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument-tomcat:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-jms:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-test:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.2.6.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.2.6.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.0.RELEASE" />
@@ -218,13 +175,8 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
-            <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.2.6.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.0.RELEASE" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.4.2" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:common:1.0.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:domain:1.0.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:service:1.0.0" />
-            <element id="library" level="project" name="Gradle: com.receiptofi:social:1.0.0" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.3.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-aspects:4.3.0.RELEASE" />
@@ -244,23 +196,24 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.9.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.12.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.63.0" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.3.1" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.3.1" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
             <element id="library" level="project" name="Gradle: com.receiptofi:common:2.0.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:domain:2.0.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:service:2.0.0" />
             <element id="library" level="project" name="Gradle: com.receiptofi:social:2.0.0" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.9" />
+            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.9" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.5.0" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.5.0" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -301,6 +254,10 @@
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
           </element>
           <element id="directory" name="lib">
+            <element id="library" level="project" name="Gradle: com.receiptofi:common:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:domain:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:service:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:social:2.0.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -336,8 +293,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.12.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.2.2" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.63.0" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.3.1" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
@@ -364,7 +319,7 @@
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.2" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
@@ -383,12 +338,6 @@
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.3.1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
@@ -440,7 +389,6 @@
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.3" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.2.5.RELEASE" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.3.1" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
             <element id="library" level="project" name="Gradle: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Gradle: org.apache.pdfbox:fontbox:1.8.10" />
@@ -491,10 +439,15 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/2.0.0/common-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -515,6 +468,10 @@
             <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
           </element>
           <element id="directory" name="lib">
+            <element id="library" level="project" name="Gradle: com.receiptofi:common:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:domain:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:service:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:social:2.0.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -550,8 +507,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.12.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.2.2" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.63.0" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.3.1" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
@@ -578,7 +533,7 @@
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.2" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
@@ -597,12 +552,6 @@
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.3.1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
@@ -654,7 +603,6 @@
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.3" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.2.5.RELEASE" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.3.1" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
             <element id="library" level="project" name="Gradle: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Gradle: org.apache.pdfbox:fontbox:1.8.10" />
@@ -705,10 +653,15 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/2.0.0/common-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -729,6 +682,10 @@
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
+            <element id="library" level="project" name="Gradle: com.receiptofi:common:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:domain:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:service:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:social:2.0.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -764,8 +721,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.12.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.2.2" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.63.0" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.3.1" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
@@ -792,7 +747,7 @@
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.2" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
@@ -811,12 +766,6 @@
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.3.1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
@@ -868,7 +817,6 @@
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.3" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.2.5.RELEASE" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.3.1" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
             <element id="library" level="project" name="Gradle: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Gradle: org.apache.pdfbox:fontbox:1.8.10" />
@@ -927,10 +875,15 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/2.0.0/common-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -951,6 +904,10 @@
             <element id="dir-copy" path="$PROJECT_DIR$/web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
+            <element id="library" level="project" name="Gradle: com.receiptofi:common:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:domain:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:service:2.0.0" />
+            <element id="library" level="project" name="Gradle: com.receiptofi:social:2.0.0" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-core:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-google:1.0.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-web:1.1.4.RELEASE" />
@@ -986,8 +943,6 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.12.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.2.2" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.63.0" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.3.1" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
@@ -1014,7 +969,7 @@
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.2" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.12" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
@@ -1033,12 +988,6 @@
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.5" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.3.1" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.3.1" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
@@ -1090,7 +1039,6 @@
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.3" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.2.5.RELEASE" />
-            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.3.1" />
             <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.0.0" />
             <element id="library" level="project" name="Gradle: commons-lang:commons-lang:2.6" />
             <element id="library" level="project" name="Gradle: org.apache.pdfbox:fontbox:1.8.10" />
@@ -1149,10 +1097,15 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/common/2.0.0/common-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar" />
-            <element id="file-copy" path="$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1698,19 +1651,7 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:service:2.0.0">
       <CLASSES>
@@ -2008,103 +1949,103 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard.metrics/metrics-graphite/3.1.2/64508d6f32a3e502ee4905cfe773a8c81d75cab1/metrics-graphite-3.1.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-core:2.3.1">
+    <library name="Gradle: io.springfox:springfox-core:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.1/9f270d7e98fba8bccf000609bf13c72cf42d9c21/springfox-core-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.1/2480323fd0f15fb09724d992d0581bfd1d51695e/springfox-core-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5be3d5d246afd20156b8f6af5294c1a29dfc98ff/springfox-core-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.3.1/afb09b0071cf98a5e71fa1fba0ba1e40b4e8fcb5/springfox-core-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/60fc98f381dbd6260bd369d7b5f85b2fc93f8151/springfox-core-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-schema:2.3.1">
+    <library name="Gradle: io.springfox:springfox-schema:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.3.1/18e08cf7494aeab9a15ac32c51aeb49a4d13b357/springfox-schema-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.3.1/54b0eec9e92fa49c01ed78c555e2c4d0d8dc8d26/springfox-schema-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/e51f8afa423dfa329bf059aa8e785c587b64615f/springfox-schema-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.3.1/e14c0f1491e7625f10e6f6860264b488fb99f451/springfox-schema-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/4d9b3a18be302d795bd51688bae75ba441fa4d6f/springfox-schema-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-spi:2.3.1">
+    <library name="Gradle: io.springfox:springfox-spi:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.3.1/4e60eee6d736c35a6604631969554dfaa2bd1e5c/springfox-spi-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.3.1/1059107eb12ff5c258b92318855f3a04add2c48c/springfox-spi-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/447a3ccab7401bc3b4dc461b38d0ab25b0b9b192/springfox-spi-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.3.1/e511f0901bc6911f9c62f85b76fdeb8e287200de/springfox-spi-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/c3213ceb37e0a2a8cc9b962e7ad418240c99311/springfox-spi-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-spring-web:2.3.1">
+    <library name="Gradle: io.springfox:springfox-spring-web:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.1/fcef6bba63132cd00b28dee7628ab9244d137e20/springfox-spring-web-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.1/224cf9b8da35a2b690e13141306e3c2a52d33a1b/springfox-spring-web-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3a0ff040cd2cba0bcb6425789f89cea491d94885/springfox-spring-web-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.3.1/223637645c9d39da1bafa4d690f9b549724d0f33/springfox-spring-web-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3fb5bafe4e8b004d88e8278b99e2e2fe1eca46b4/springfox-spring-web-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-swagger-common:2.3.1">
+    <library name="Gradle: io.springfox:springfox-swagger-common:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.3.1/22467d5c76645ece0ff7f353b753f4170d7b33b7/springfox-swagger-common-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.3.1/de348ad004ff0f56b7ddbb886e8d2e041de946cd/springfox-swagger-common-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/64e30057b202716c3d8ad8c21912bd7dd3f7abe7/springfox-swagger-common-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.3.1/357be35c7d0d4ccc0b6cde90263ee7bbf907b067/springfox-swagger-common-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/c43771e9504b3970479706a89bcb67d805704378/springfox-swagger-common-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-swagger-ui:2.3.1">
+    <library name="Gradle: io.springfox:springfox-swagger-ui:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.1/a172cb9785ed1c3ddd3bd9c54e0ad80abb0dea33/springfox-swagger-ui-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.1/98d78da501838cc429fd8d22821656d4dd7df4af/springfox-swagger-ui-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/3bc4c7b8c0aa10313a836870dbf3a424797323ae/springfox-swagger-ui-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.3.1/e769e64af39cfe2bd3244f32a520956762b6415a/springfox-swagger-ui-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/71ecd1f88b4547dcb662771f9fee3f8d9521bca1/springfox-swagger-ui-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.springfox:springfox-swagger2:2.3.1">
+    <library name="Gradle: io.springfox:springfox-swagger2:2.5.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.1/d69071f2daa51b350924544d981e7a1f2a0779c5/springfox-swagger2-2.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.1/a126f9f20ce58d1326dd5d008c0f9339f54b53b7/springfox-swagger2-2.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/37e495ce27deef06ebeaa96f89c00d4779c583b7/springfox-swagger2-2.5.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.3.1/504e2d8ef105c95a3df281bc4a4cb817a786a3d9/springfox-swagger2-2.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/1fcee7a8940eed948887a0585488b90ae669f23c/springfox-swagger2-2.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.swagger:swagger-annotations:1.5.5">
+    <library name="Gradle: io.swagger:swagger-annotations:1.5.9">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.5/e819f460ee6bacd98da217f21e9ca54b23181887/swagger-annotations-1.5.5.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.5/8d05c7c5165e1d4ce070ccf300168cf6bfaf4489/swagger-annotations-1.5.5-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/95f1b65d5cefd1614a04734f8a69641ee02bae8a/swagger-annotations-1.5.9-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.5/797db29f5a0beb194f37fbaf1f626a90c7fbccec/swagger-annotations-1.5.5-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/12a6e044c9cbbd51629578da30c6bc343526ffee/swagger-annotations-1.5.9-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: io.swagger:swagger-models:1.5.5">
+    <library name="Gradle: io.swagger:swagger-models:1.5.9">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.5/9924e7a21acbaa14a435b60dc272fcf145b5d539/swagger-models-1.5.5.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.5/80a9a94ae4f8ecbd86b7d2e66d19c24cdbc726a6/swagger-models-1.5.5-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/9099b2f8457df6d630f28eec2631c965f275a307/swagger-models-1.5.9-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.5/c95a02887c0be8e2c4a64dc2cb0818b7d7ae4289/swagger-models-1.5.5-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7bf0d6703bd21e77d88b3ec38713e472fa396c1c/swagger-models-1.5.9-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: javax.activation:activation:1.1">
@@ -2306,15 +2247,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.jmatio/jmatio/1.0/ad4536babac74b401af4655c7270afa9b0361fc0/jmatio-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.apache.activemq:activemq-client:5.13.2">
+    <library name="Gradle: org.apache.activemq:activemq-client:5.13.3">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.2/bc66297bbb254df63a197ffe978765eca5947863/activemq-client-5.13.2.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.3/deaafde093d424fddf681e4337c6397a54d7ae30/activemq-client-5.13.3.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.2/1afd19075d1690c8e4753fabbb357f897d33a301/activemq-client-5.13.2-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.3/730db1f20431f0371731315e2108aafe37245811/activemq-client-5.13.3-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.2/ad4005d3e746a632abe61c7f8db0934ca069bd41/activemq-client-5.13.2-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.13.3/22937c10956c1bf544191a35f6e24322f23356fc/activemq-client-5.13.3-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.apache.commons:commons-collections4:4.0">
