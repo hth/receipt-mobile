@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,6 +103,8 @@ public class CouponController {
                     if (null != couponEntity) {
                         coupon.setVersion(couponEntity.getVersion());
                     }
+                } else {
+                    coupon.setRid(rid);
                 }
                 couponMobileService.save(coupon);
                 AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
@@ -127,7 +130,7 @@ public class CouponController {
      */
     @RequestMapping (
             method = RequestMethod.POST,
-            value = "/upload",
+            value = "/upload/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public String upload(
@@ -137,7 +140,7 @@ public class CouponController {
             @RequestHeader ("X-R-AUTH")
             String auth,
 
-            @RequestParam ("id")
+            @PathVariable ("id")
             ScrubbedInput id,
 
             @RequestPart ("qqfile")
