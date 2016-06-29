@@ -101,7 +101,8 @@ public class CouponController {
                 if (StringUtils.isNotBlank(coupon.getId())) {
                     CouponEntity couponEntity = couponMobileService.findOne(coupon.getId());
                     if (null != couponEntity) {
-                        coupon.setVersion(couponEntity.getVersion());
+                        coupon.setFileSystemEntities(couponEntity.getFileSystemEntities())
+                                .setVersion(couponEntity.getVersion());
                     }
                 } else {
                     coupon.setRid(rid);
