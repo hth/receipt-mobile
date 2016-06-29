@@ -7,6 +7,7 @@ import com.receiptofi.domain.FileSystemEntity;
 import com.receiptofi.domain.json.JsonCoupon;
 import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.CouponTypeEnum;
+import com.receiptofi.domain.types.CouponUploadStatusEnum;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.CouponManagerMobile;
@@ -80,8 +81,8 @@ public class CouponMobileService {
                     /** Ignore user delete as this is deleted when campaign is deleted. */
                     break;
                 case I:
-                    /** For individual, OriginId is blank for unshared coupons. */
-                    if (StringUtils.isBlank(coupon.getOriginId())) {
+                    /** For individual, OriginId is blank for unshared coupons or the original owner of the coupon. */
+                    if (StringUtils.isBlank(coupon.getOriginId()) && null != coupon.getFileSystemEntities()) {
                         fileSystemService.deleteSoft(coupon.getFileSystemEntities());
                     }
                     break;
@@ -178,7 +179,8 @@ public class CouponMobileService {
                 image,
                 coupon.getFileSystemEntities());
 
-        coupon.setFileSystemEntities(fileSystems);
+        coupon.setFileSystemEntities(fileSystems)
+        .setCouponUploadStatus(CouponUploadStatusEnum.A);
         save(coupon);
     }
 }
