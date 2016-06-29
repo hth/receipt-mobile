@@ -13,6 +13,7 @@ import com.receiptofi.mobile.repository.CouponManagerMobile;
 import com.receiptofi.mobile.util.Util;
 import com.receiptofi.repository.CouponManager;
 import com.receiptofi.service.BusinessCampaignService;
+import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.ImageSplitService;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
@@ -54,21 +55,41 @@ public class CouponMobileService {
     private CouponManagerMobile couponManagerMobile;
     private ImageSplitService imageSplitService;
     private BusinessCampaignService businessCampaignService;
+    private FileSystemService fileSystemService;
 
     @Autowired
     public CouponMobileService(
             CouponManager couponManager,
             CouponManagerMobile couponManagerMobile,
             ImageSplitService imageSplitService,
-            BusinessCampaignService businessCampaignService) {
+            BusinessCampaignService businessCampaignService,
+            FileSystemService fileSystemService) {
         this.couponManager = couponManager;
         this.couponManagerMobile = couponManagerMobile;
         this.imageSplitService = imageSplitService;
         this.businessCampaignService = businessCampaignService;
+        this.fileSystemService = fileSystemService;
     }
 
     public void save(CouponEntity coupon) {
         couponManager.save(coupon);
+
+        if (!coupon.isActive()) {
+            switch (coupon.getCouponType()) {
+                case B:
+                    /** Ignore user delete as this is deleted when campaign is deleted. */
+                    break;
+                case I:
+                    /** For individual, OriginId is blank for unshared coupons. */
+                    if (StringUtils.isBlank(coupon.getOriginId())) {
+                        fileSystemService.deleteSoft(coupon.getFileSystemEntities());
+                    }
+                    break;
+                default:
+                    LOG.error("Reached unsupported condition={}", coupon.getCouponType());
+                    throw new UnsupportedOperationException("Reached unsupported condition " + coupon.getCouponType());
+            }
+        }
     }
 
     public CouponEntity findOne(String couponId) {
@@ -99,14 +120,18 @@ public class CouponMobileService {
 
             switch (CouponTypeEnum.valueOf(map.get("ct").toString())) {
                 case B:
-                    coupon.setId(map.get("id").toString());
+                    coupon.setRid(map.get("rid").toString())
+                            .setId(map.get("id").toString());
+
                     coupon.setUpdated();
                     break;
                 case I:
                     if (StringUtils.isBlank(map.get("id").toString())) {
+                        /** Do not set the rid when id is blank as its a new Coupon. */
                         coupon.setCreateAndUpdate(DateUtils.parseDate(map.get("c").toString(), ISO8601_FMT));
                     } else {
-                        coupon.setId(map.get("id").toString());
+                        coupon.setRid(map.get("rid").toString())
+                                .setId(map.get("id").toString());
                     }
 
                     coupon.setAvailable(DateUtils.parseDate(map.get("av").toString(), ISO8601_FMT))
@@ -115,11 +140,12 @@ public class CouponMobileService {
                             .setLocalId(map.get("lid").toString());
                     break;
                 default:
+                    LOG.error("Reached unsupported condition={}", CouponTypeEnum.valueOf(map.get("ct").toString()));
+                    throw new UnsupportedOperationException("Reached unsupported condition " + CouponTypeEnum.valueOf(map.get("ct").toString()));
             }
 
 
-            coupon.setRid(map.get("rid").toString())
-                    .setBusinessName(map.get("bn").toString())
+            coupon.setBusinessName(map.get("bn").toString())
                     .setFreeText(map.get("ft").toString())
                     .setReminder(BooleanUtils.toBoolean(Integer.parseInt(map.get("rm").toString())))
                     .setImagePath(map.get("ip").toString())
