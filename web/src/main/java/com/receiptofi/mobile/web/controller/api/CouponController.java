@@ -103,6 +103,10 @@ public class CouponController {
                     if (null != couponEntity) {
                         coupon.setFileSystemEntities(couponEntity.getFileSystemEntities())
                                 .setVersion(couponEntity.getVersion());
+                    } else {
+                        LOG.error("Tried modifying coupon that did not exists rid={} id={}", coupon.getRid(), coupon.getId());
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND, "NotFound");
+                        return null;
                     }
                 } else {
                     coupon.setRid(rid);
