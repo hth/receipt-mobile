@@ -33,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -99,23 +98,29 @@ public class CouponMobileService {
     public void shareCoupon(CouponEntity coupon) {
         List<String> rids = coupon.getSharedWithRids();
         for (String rid : rids) {
-            CouponEntity sharedCoupon = couponManagerMobile.findSharedCoupon(rid, coupon.getId());
-            if (null == sharedCoupon) {
-                sharedCoupon = new CouponEntity()
-                        .setRid(rid)
-                        .setBusinessName(coupon.getBusinessName())
-                        .setFreeText(coupon.getFreeText())
-                        .setAvailable(coupon.getAvailable())
-                        .setExpire(coupon.getExpire())
-                        .setCouponType(coupon.getCouponType())
-                        .setImagePath(coupon.getImagePath())
-                        .setSharedWithRids(Arrays.asList(coupon.getRid()))
-                        .setOriginId(coupon.getId())
-                        .setFileSystemEntities(coupon.getFileSystemEntities())
-                        .setCouponUploadStatus(CouponUploadStatusEnum.S);
+                CouponEntity sharedCoupon = couponManagerMobile.findSharedCoupon(
+                        rid,
+                        StringUtils.isBlank(coupon.getOriginId()) ? coupon.getId() : coupon.getOriginId());
 
-                couponManager.save(sharedCoupon);
-            }
+                if (null == sharedCoupon) {
+                    sharedCoupon = new CouponEntity()
+                            .setRid(rid)
+                            .setBusinessName(coupon.getBusinessName())
+                            .setFreeText(coupon.getFreeText())
+                            .setAvailable(coupon.getAvailable())
+                            .setExpire(coupon.getExpire())
+                            .setCouponType(coupon.getCouponType())
+                            .setImagePath(coupon.getImagePath())
+                            .setSharedWithRids(Arrays.asList(coupon.getRid()))
+                            .setOriginId(coupon.getId())
+                            .setFileSystemEntities(coupon.getFileSystemEntities())
+                            .setCouponUploadStatus(CouponUploadStatusEnum.S);
+
+                    couponManager.save(sharedCoupon);
+                } else {
+                    //TODO remove log
+                    LOG.info("Found shared coupon with rid={} originId={}", rid, coupon.getId());
+                }
         }
     }
 
