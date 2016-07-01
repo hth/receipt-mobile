@@ -33,6 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -83,12 +85,36 @@ public class CouponMobileService {
                 case I:
                     /** For individual, OriginId is blank for unshared coupons or the original owner of the coupon. */
                     if (StringUtils.isBlank(coupon.getOriginId()) && null != coupon.getFileSystemEntities()) {
+                        LOG.info("FileSystem for coupon marked for soft delete id={} rid={}", coupon.getId(), coupon.getRid());
                         fileSystemService.deleteSoft(coupon.getFileSystemEntities());
                     }
                     break;
                 default:
                     LOG.error("Reached unsupported condition={}", coupon.getCouponType());
                     throw new UnsupportedOperationException("Reached unsupported condition " + coupon.getCouponType());
+            }
+        }
+    }
+
+    public void shareCoupon(CouponEntity coupon) {
+        List<String> rids = coupon.getSharedWithRids();
+        for (String rid : rids) {
+            CouponEntity sharedCoupon = couponManagerMobile.findSharedCoupon(rid, coupon.getId());
+            if (null == sharedCoupon) {
+                sharedCoupon = new CouponEntity()
+                        .setRid(rid)
+                        .setBusinessName(coupon.getBusinessName())
+                        .setFreeText(coupon.getFreeText())
+                        .setAvailable(coupon.getAvailable())
+                        .setExpire(coupon.getExpire())
+                        .setCouponType(coupon.getCouponType())
+                        .setImagePath(coupon.getImagePath())
+                        .setSharedWithRids(Arrays.asList(coupon.getRid()))
+                        .setOriginId(coupon.getId())
+                        .setFileSystemEntities(coupon.getFileSystemEntities())
+                        .setCouponUploadStatus(CouponUploadStatusEnum.S);
+
+                couponManager.save(sharedCoupon);
             }
         }
     }
@@ -180,7 +206,7 @@ public class CouponMobileService {
                 coupon.getFileSystemEntities());
 
         coupon.setFileSystemEntities(fileSystems)
-        .setCouponUploadStatus(CouponUploadStatusEnum.A);
+                .setCouponUploadStatus(CouponUploadStatusEnum.A);
         save(coupon);
     }
 }
