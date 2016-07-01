@@ -1,10 +1,9 @@
 package com.receiptofi.mobile.repository;
 
 
-
-import static com.receiptofi.repository.util.AppendAdditionalFields.isActive;
 import static com.receiptofi.repository.util.AppendAdditionalFields.isNotDeleted;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 import com.receiptofi.domain.BaseEntity;
 import com.receiptofi.domain.CouponEntity;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -49,11 +47,10 @@ public class CouponManagerMobileImpl implements CouponManagerMobile {
     @Override
     public List<CouponEntity> findAll(String rid) {
         return mongoTemplate.find(
-                Query.query(
-                        where("RID").is(rid)
-                                .andOperator(
-                                        isNotDeleted()
-                                )
+                query(where("RID").is(rid)
+                        .andOperator(
+                                isNotDeleted()
+                        )
                 ),
                 CouponEntity.class,
                 TABLE);
@@ -62,11 +59,11 @@ public class CouponManagerMobileImpl implements CouponManagerMobile {
     @Override
     public List<CouponEntity> getCouponUpdateSince(String rid, Date since) {
         return mongoTemplate.find(
-                Query.query(
-                        where("RID").is(rid).and("U").gte(since)
-                                .andOperator(
-                                        isNotDeleted()
-                                )
+                query(where("RID").is(rid)
+                        .and("U").gte(since)
+                        .andOperator(
+                                isNotDeleted()
+                        )
                 ),
                 CouponEntity.class,
                 TABLE);
@@ -75,13 +72,25 @@ public class CouponManagerMobileImpl implements CouponManagerMobile {
     @Override
     public CouponEntity findOne(String couponId, String rid) {
         return mongoTemplate.findOne(
-                Query.query(
-                        where("id").is(couponId).and("RID").is(rid)
-                                .andOperator(
-                                        isNotDeleted()
-                                )
+                query(where("id").is(couponId)
+                        .and("RID").is(rid)
+                        .andOperator(
+                                isNotDeleted()
+                        )
                 ),
                 CouponEntity.class,
                 TABLE);
+    }
+
+    @Override
+    public CouponEntity findSharedCoupon(String rid, String originId) {
+        return mongoTemplate.findOne(
+                query(where("RID").is(rid)
+                        .and("OI").is(originId)
+                ),
+                CouponEntity.class,
+                TABLE
+
+        );
     }
 }

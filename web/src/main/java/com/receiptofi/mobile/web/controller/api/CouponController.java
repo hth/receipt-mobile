@@ -108,6 +108,7 @@ public class CouponController {
                     coupon.setRid(rid);
                 }
                 couponMobileService.save(coupon);
+                couponMobileService.shareCoupon(coupon);
                 AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
                 availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
                 return availableAccountUpdates.asJson();

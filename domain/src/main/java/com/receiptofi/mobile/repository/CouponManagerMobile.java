@@ -15,4 +15,6 @@ public interface CouponManagerMobile extends RepositoryManager<CouponEntity> {
     List<CouponEntity> getCouponUpdateSince(String rid, Date since);
 
     CouponEntity findOne(String couponId, String rid);
+
+    CouponEntity findSharedCoupon(String rid, String originId);
 }
