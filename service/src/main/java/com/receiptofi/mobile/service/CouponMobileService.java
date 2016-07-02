@@ -58,6 +58,7 @@ public class CouponMobileService {
     private ImageSplitService imageSplitService;
     private BusinessCampaignService businessCampaignService;
     private FileSystemService fileSystemService;
+    private FriendMobileService friendMobileService;
 
     @Autowired
     public CouponMobileService(
@@ -65,12 +66,14 @@ public class CouponMobileService {
             CouponManagerMobile couponManagerMobile,
             ImageSplitService imageSplitService,
             BusinessCampaignService businessCampaignService,
-            FileSystemService fileSystemService) {
+            FileSystemService fileSystemService,
+            FriendMobileService friendMobileService) {
         this.couponManager = couponManager;
         this.couponManagerMobile = couponManagerMobile;
         this.imageSplitService = imageSplitService;
         this.businessCampaignService = businessCampaignService;
         this.fileSystemService = fileSystemService;
+        this.friendMobileService = friendMobileService;
     }
 
     public void save(CouponEntity coupon) {
@@ -98,6 +101,8 @@ public class CouponMobileService {
     public void shareCoupon(CouponEntity coupon) {
         List<String> rids = coupon.getSharedWithRids();
         for (String rid : rids) {
+            /** When users are connected as a friend, then share coupon. */
+            if (friendMobileService.isConnected(coupon.getRid(), rid)) {
                 CouponEntity sharedCoupon = couponManagerMobile.findSharedCoupon(
                         rid,
                         StringUtils.isBlank(coupon.getOriginId()) ? coupon.getId() : coupon.getOriginId());
@@ -118,9 +123,11 @@ public class CouponMobileService {
 
                     couponManager.save(sharedCoupon);
                 } else {
-                    //TODO remove log
                     LOG.info("Found shared coupon with rid={} originId={}", rid, coupon.getId());
                 }
+            } else {
+                LOG.info("Cannot share coupon as friends not connected rid={} fid={} id={}", coupon.getRid(), rid, coupon.getId());
+            }
         }
     }
 

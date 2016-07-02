@@ -44,4 +44,8 @@ public class FriendMobileService {
         UserAccountEntity userAccount = accountMobileService.findByRid(fid);
         return null != userAccount && friendService.unfriend(receiptUserId, userAccount.getUserId());
     }
+
+    public boolean isConnected(String rid, String fid) {
+        return friendService.isConnected(rid, fid);
+    }
 }
