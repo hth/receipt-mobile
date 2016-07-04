@@ -118,10 +118,17 @@ public class CouponMobileService {
                             .setImagePath(coupon.getImagePath())
                             .setSharedWithRids(Arrays.asList(coupon.getRid()))
                             .setOriginId(coupon.getId())
+                            .setInitiatedFromId(coupon.getInitiatedFromId())
                             .setFileSystemEntities(coupon.getFileSystemEntities())
                             .setCouponUploadStatus(CouponUploadStatusEnum.S);
 
-                    couponManager.save(sharedCoupon);
+                    try {
+                        couponManager.save(sharedCoupon);
+                    } catch (Exception e) {
+                        /** Can happen when saving duplicate coupon with same RID and INITIATED_FROM. */
+                        LOG.warn("Failed to save coupon rid={} initiatedFrom={} reason={}",
+                                rid, coupon.getInitiatedFromId(), e.getLocalizedMessage(), e);
+                    }
                 } else {
                     LOG.info("Found shared coupon with rid={} originId={}", rid, coupon.getId());
                 }

@@ -12,6 +12,8 @@ import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.bson.types.ObjectId;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +104,7 @@ public class CouponController {
                     CouponEntity couponEntity = couponMobileService.findOne(coupon.getId());
                     if (null != couponEntity) {
                         coupon.setFileSystemEntities(couponEntity.getFileSystemEntities())
+                                .setInitiatedFromId(couponEntity.getInitiatedFromId())
                                 .setVersion(couponEntity.getVersion());
                     } else {
                         LOG.error("Tried modifying coupon that did not exists rid={} id={}", coupon.getRid(), coupon.getId());
@@ -109,7 +112,11 @@ public class CouponController {
                         return null;
                     }
                 } else {
-                    coupon.setRid(rid);
+                    /** Create new Id for the coupon. */
+                    String id = ObjectId.get().toString();
+                    coupon.setRid(rid)
+                            .setInitiatedFromId(id)
+                            .setId(id);
                 }
                 couponMobileService.save(coupon);
                 couponMobileService.shareCoupon(coupon);
