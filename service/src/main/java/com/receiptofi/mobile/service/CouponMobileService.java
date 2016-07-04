@@ -13,7 +13,7 @@ import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.CouponManagerMobile;
 import com.receiptofi.mobile.util.Util;
 import com.receiptofi.repository.CouponManager;
-import com.receiptofi.service.BusinessCampaignService;
+import com.receiptofi.service.CampaignService;
 import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.ImageSplitService;
 import com.receiptofi.utils.ParseJsonStringToMap;
@@ -56,7 +56,7 @@ public class CouponMobileService {
     private CouponManager couponManager;
     private CouponManagerMobile couponManagerMobile;
     private ImageSplitService imageSplitService;
-    private BusinessCampaignService businessCampaignService;
+    private CampaignService campaignService;
     private FileSystemService fileSystemService;
     private FriendMobileService friendMobileService;
 
@@ -65,13 +65,13 @@ public class CouponMobileService {
             CouponManager couponManager,
             CouponManagerMobile couponManagerMobile,
             ImageSplitService imageSplitService,
-            BusinessCampaignService businessCampaignService,
+            CampaignService campaignService,
             FileSystemService fileSystemService,
             FriendMobileService friendMobileService) {
         this.couponManager = couponManager;
         this.couponManagerMobile = couponManagerMobile;
         this.imageSplitService = imageSplitService;
-        this.businessCampaignService = businessCampaignService;
+        this.campaignService = campaignService;
         this.fileSystemService = fileSystemService;
         this.friendMobileService = friendMobileService;
     }
@@ -219,7 +219,7 @@ public class CouponMobileService {
                 .setRid(rid);
 
         BufferedImage bufferedImage = imageSplitService.bufferedImage(image.getFileData().getInputStream());
-        Collection<FileSystemEntity> fileSystems = businessCampaignService.deleteAndCreateNewImage(
+        Collection<FileSystemEntity> fileSystems = campaignService.deleteAndCreateNewImage(
                 bufferedImage,
                 image,
                 coupon.getFileSystemEntities());
