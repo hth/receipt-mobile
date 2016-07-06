@@ -38,7 +38,7 @@ public class UserInfoValidator {
             @Value ("${UserInfoValidator.mailLength:5}")
             int mailLength,
 
-            @Value ("${UserInfoValidator.nameLength:2}")
+            @Value ("${UserInfoValidator.nameLength:3}")
             int nameLength,
 
             @Value ("${UserInfoValidator.passwordLength:6}")
