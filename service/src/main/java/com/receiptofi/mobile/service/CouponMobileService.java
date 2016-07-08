@@ -88,7 +88,7 @@ public class CouponMobileService {
                     /** For individual, OriginId is blank for unshared coupons or the original owner of the coupon. */
                     if (StringUtils.isBlank(coupon.getOriginId()) && null != coupon.getFileSystemEntities()) {
                         LOG.info("FileSystem for coupon marked for soft delete id={} rid={}", coupon.getId(), coupon.getRid());
-                        fileSystemService.deleteSoft(coupon.getFileSystemEntities());
+                        fileSystemService.deleteSoft(coupon.getFileSystemEntities(), FileTypeEnum.C);
                     }
                     break;
                 default:

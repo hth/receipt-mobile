@@ -57,7 +57,7 @@ public class ProfileControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userInfoValidator = new UserInfoValidator(5, 2, 6);
+        userInfoValidator = new UserInfoValidator(5, 3, 6);
         profileController = new ProfileController(
                 authenticateService,
                 accountService,
