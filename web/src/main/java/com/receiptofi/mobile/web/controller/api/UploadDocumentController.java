@@ -125,7 +125,7 @@ public class UploadDocumentController {
 
             if (!duplicateFile) {
                 LOG.info("{} receipt found, delete, name={} rid={}",
-                        DocumentRejectReasonEnum.D.getName(),
+                        DocumentRejectReasonEnum.D.getDescription(),
                         uploadDocumentImage.getOriginalFileName(),
                         rid);
 
