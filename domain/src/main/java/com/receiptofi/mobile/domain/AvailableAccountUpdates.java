@@ -231,8 +231,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
     @Override
     public String toString() {
         return "AvailableAccountUpdates{" +
-                "rid=" + profile.getReceiptUserId() +
-                ", jsonReceipts=" + jsonReceipts.size() +
+                "jsonReceipts=" + jsonReceipts.size() +
                 ", jsonReceiptSplits=" + jsonReceiptSplits.size() +
                 ", jsonReceiptItems=" + jsonReceiptItems.size() +
                 ", jsonExpenseTags=" + jsonExpenseTags.size() +
