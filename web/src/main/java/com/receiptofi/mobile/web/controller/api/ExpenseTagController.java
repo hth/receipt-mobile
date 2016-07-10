@@ -48,7 +48,7 @@ public class ExpenseTagController {
     @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
     private int expenseTagCountMax;
 
-    @Value ("${UserProfilePreferenceController.ExpenseTagSize:12}")
+    @Value ("${UserProfilePreferenceController.ExpenseTagSize:22}")
     private int expenseTagSize;
 
     @Autowired
@@ -103,28 +103,32 @@ public class ExpenseTagController {
                 LOG.warn("Null tagName={} or tagColor={}", tagName, tagColor);
                 Map<String, String> errors = getErrorUserInput("Either Expense Tag or Color received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
-            } else if (expenseTagMobileService.doesExists(rid, tagName)) {
+            }
+
+            if (expenseTagMobileService.doesExists(rid, tagName)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
                 Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
                 return ErrorEncounteredJson.toJson(errors);
-            } else if (tagName.length() > expenseTagSize) {
+            }
+
+            if (tagName.length() > expenseTagSize) {
                 LOG.warn("Expense Tag expenseTagName={} for rid={} length size={} greater", tagName, rid, expenseTagSize);
-                Map<String, String> errors = getErrorUserInput(tagName + " length should not be greater than " + expenseTagSize + " .");
+                Map<String, String> errors = getErrorUserInput("Expense Tag " + tagName + " length should not be greater than " + expenseTagSize + " characters.");
                 return ErrorEncounteredJson.toJson(errors);
-            } else {
-                try {
-                    if (expenseTagMobileService.getExpenseTags(rid).size() < expenseTagCountMax) {
-                        expenseTagMobileService.save(tagName, rid, tagColor);
-                        return expenseTagMobileService.getUpdates(rid).asJson();
-                    } else {
-                        Map<String, String> errors = getErrorUserInput("Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
-                        return ErrorEncounteredJson.toJson(errors);
-                    }
-                } catch (Exception e) {
-                    LOG.error("Failure during addition of expense tag rid={} reason={}", rid, e.getLocalizedMessage(), e);
-                    Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
+            }
+
+            try {
+                if (expenseTagMobileService.getExpenseTags(rid).size() < expenseTagCountMax) {
+                    expenseTagMobileService.save(tagName, rid, tagColor);
+                    return expenseTagMobileService.getUpdates(rid).asJson();
+                } else {
+                    Map<String, String> errors = getErrorUserInput("Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
                     return ErrorEncounteredJson.toJson(errors);
                 }
+            } catch (Exception e) {
+                LOG.error("Failure during addition of expense tag rid={} reason={}", rid, e.getLocalizedMessage(), e);
+                Map<String, String> errors = getErrorUserInput("Something went wrong. Engineers are looking into this.");
+                return ErrorEncounteredJson.toJson(errors);
             }
         }
     }
