@@ -60,4 +60,8 @@ public class Profile {
                 userProfile.getEmail()
         );
     }
+
+    public String getReceiptUserId() {
+        return receiptUserId;
+    }
 }
