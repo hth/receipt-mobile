@@ -74,6 +74,7 @@ public class DeviceService {
      * @param rid
      * @param did        Device Id
      * @param deviceType iPhone or Android
+     * @param token      Notification token
      * @return
      */
     public AvailableAccountUpdates getUpdates(String rid, String did, DeviceTypeEnum deviceType, String token) {
@@ -83,19 +84,27 @@ public class DeviceService {
             registeredDeviceManager.registerDevice(rid, did, deviceType, token);
             availableAccountUpdates = getAll(rid);
         } else {
-            availableAccountUpdates = getUpdates(rid, did);
+            availableAccountUpdates = getUpdates(rid, did, token);
         }
 
         LOG.info("{} {}", availableAccountUpdates.getType(), availableAccountUpdates);
         return availableAccountUpdates;
     }
 
-    public AvailableAccountUpdates getUpdates(String rid, String did) {
-        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+    private AvailableAccountUpdates getUpdates(String rid, String did, String token) {
+        return getAvailableAccountUpdates(lastAccessed(rid, did, token));
+    }
 
-        RegisteredDeviceEntity registeredDevice = lastAccessed(rid, did);
+    public AvailableAccountUpdates getUpdates(String rid, String did) {
+        return getAvailableAccountUpdates(lastAccessed(rid, did));
+    }
+
+    private AvailableAccountUpdates getAvailableAccountUpdates(RegisteredDeviceEntity registeredDevice) {
+        String rid = registeredDevice.getReceiptUserId();
+
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
         Date updated = registeredDevice.getUpdated();
-        LOG.info("rid={} did={} last updated={}", rid, did, updated);
+        LOG.info("rid={} did={} last updated={}", rid, registeredDevice.getDeviceId(), updated);
 
         List<ReceiptEntity> receipts = receiptMobileService.getAllUpdatedReceiptSince(rid, updated);
         receiptMobileService.getReceiptAndItemUpdates(availableAccountUpdates, rid, receipts);
@@ -200,5 +209,9 @@ public class DeviceService {
 
     public RegisteredDeviceEntity lastAccessed(String rid, String did) {
         return registeredDeviceManager.lastAccessed(rid, did);
+    }
+
+    private RegisteredDeviceEntity lastAccessed(String rid, String did, String token) {
+        return registeredDeviceManager.lastAccessed(rid, did, token);
     }
 }
