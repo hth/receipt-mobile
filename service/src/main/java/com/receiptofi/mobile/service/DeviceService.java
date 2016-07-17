@@ -91,6 +91,14 @@ public class DeviceService {
         return availableAccountUpdates;
     }
 
+    /**
+     * Every time iPhone App is opened, token is received and that token is sent across.
+     *
+     * @param rid
+     * @param did
+     * @param token
+     * @return
+     */
     private AvailableAccountUpdates getUpdates(String rid, String did, String token) {
         return getAvailableAccountUpdates(lastAccessed(rid, did, token));
     }
