@@ -7,14 +7,14 @@ println "Building for environment: $env"
 ext {
     webInf = file('/WEB-INF')
     lib = file("$webInf/lib")
-    classes = file("$webInf/classes")
-    conf = file("$classes/conf")
-    images = file("$classes/images")
+    javaClasses = file("$webInf/classes")
+    conf = file("$javaClasses/conf")
+    images = file("$javaClasses/images")
 
     warDir = file("$buildDir/explodedWar/$env")
     warWebInfDir = file("$warDir$webInf")
     warLibDir = file("$warDir$lib")
-    warClassesDir = file("$warDir$classes")
+    warClassesDir = file("$warDir$javaClasses")
     warConfDir = file("$warDir$conf")
     warWebInfClassesImagesDir = file("$warDir$images")
 
