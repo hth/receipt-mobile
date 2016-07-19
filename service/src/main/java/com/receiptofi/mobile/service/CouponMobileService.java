@@ -224,8 +224,7 @@ public class CouponMobileService {
                 image,
                 coupon.getFileSystemEntities());
 
-        coupon.setFileSystemEntities(fileSystems)
-                .setCouponUploadStatus(CouponUploadStatusEnum.A);
+        coupon.setFileSystemEntities(fileSystems);
         save(coupon);
     }
 }
