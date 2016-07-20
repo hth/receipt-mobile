@@ -203,7 +203,6 @@ subprojects {
         compile 'org.freemarker:freemarker:2.3.23'
         compile 'commons-validator:commons-validator:1.5.0'
         compile 'commons-io:commons-io:2.4'
-        compile 'org.apache.poi:poi:3.13'
         compile 'commons-codec:commons-codec:1.10'
         compile 'commons-logging:commons-logging:1.2'
 
@@ -227,6 +226,7 @@ subprojects {
         compile "org.apache.activemq:activemq-client:$activemq"
         compile 'org.apache.commons:commons-lang3:3.4'
 
+        compile "org.apache.poi:poi:$poi"
         compile "org.apache.tika:tika-parsers:$tika"
         compile "org.apache.tika:tika-core:$tika"
 
