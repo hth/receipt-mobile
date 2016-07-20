@@ -7,6 +7,7 @@ import com.receiptofi.domain.json.JsonCoupon;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.CouponMobileService;
+import com.receiptofi.mobile.service.DeviceService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,13 +54,17 @@ public class CouponController {
 
     private AuthenticateService authenticateService;
     private CouponMobileService couponMobileService;
+    private DeviceService deviceService;
 
     @Autowired
     public CouponController(
             AuthenticateService authenticateService,
-            CouponMobileService couponMobileService) {
+            CouponMobileService couponMobileService,
+            DeviceService deviceService
+    ) {
         this.authenticateService = authenticateService;
         this.couponMobileService = couponMobileService;
+        this.deviceService = deviceService;
     }
 
     /**
@@ -86,6 +90,9 @@ public class CouponController {
 
             @RequestHeader ("X-R-AUTH")
             String auth,
+
+            @RequestHeader ("X-R-DID")
+            String deviceId,
 
             @RequestBody
             String requestBodyJson,
@@ -120,9 +127,8 @@ public class CouponController {
                 }
                 couponMobileService.save(coupon);
                 couponMobileService.shareCoupon(coupon);
-                AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-                availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
-                return availableAccountUpdates.asJson();
+
+                return deviceService.getUpdates(rid, deviceId).asJson();
             } catch (Exception e) {
                 LOG.error("Failure during coupon save rid={} reason={}", rid, e.getLocalizedMessage(), e);
                 Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");
