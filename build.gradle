@@ -227,8 +227,8 @@ subprojects {
         compile "org.apache.activemq:activemq-client:$activemq"
         compile 'org.apache.commons:commons-lang3:3.4'
 
-        compile 'org.apache.tika:tika-parsers:1.12'
-        compile 'org.apache.tika:tika-core:1.12'
+        compile "org.apache.tika:tika-parsers:$tika"
+        compile "org.apache.tika:tika-core:$tika"
 
         compile 'org.apache.httpcomponents:httpclient:4.5.2'
 

@@ -3,8 +3,6 @@ package com.receiptofi.mobile.web.controller.api;
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
 
 import com.receiptofi.domain.CouponEntity;
-import com.receiptofi.domain.json.JsonCoupon;
-import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.CouponMobileService;
 import com.receiptofi.mobile.service.DeviceService;
@@ -159,6 +157,9 @@ public class CouponController {
             @RequestHeader ("X-R-AUTH")
             String auth,
 
+            @RequestHeader ("X-R-DID")
+            String deviceId,
+
             @PathVariable ("id")
             ScrubbedInput id,
 
@@ -187,10 +188,7 @@ public class CouponController {
                 }
 
                 couponMobileService.uploadCoupon(multipartFile, rid, coupon);
-
-                AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
-                availableAccountUpdates.addJsonCoupons(JsonCoupon.newInstance(coupon));
-                return availableAccountUpdates.asJson();
+                return deviceService.getUpdates(rid, deviceId).asJson();
             } catch (Exception e) {
                 LOG.error("Failure during coupon save rid={} reason={}", rid, e.getLocalizedMessage(), e);
                 Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");
