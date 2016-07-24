@@ -5,7 +5,7 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
 import com.google.gson.JsonObject;
 
-import com.receiptofi.domain.types.FriendConnectionTypeEnum;
+import com.receiptofi.domain.types.ConnectionTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -193,13 +193,13 @@ public class FriendController {
                 return ErrorEncounteredJson.toJson(errors);
             }
 
-            FriendConnectionTypeEnum friendConnectionType;
+            ConnectionTypeEnum connectionType;
             try {
-                friendConnectionType = FriendConnectionTypeEnum.valueOf(map.get("ct").getText());
-                if (friendMobileService.updateFriendConnection(
+                connectionType = ConnectionTypeEnum.valueOf(map.get("ct").getText());
+                if (friendMobileService.updateConnection(
                         map.get("id").getText(),
                         map.get("au").getText(),
-                        friendConnectionType,
+                        connectionType,
                         rid)) {
 
                     AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();

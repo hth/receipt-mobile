@@ -1,7 +1,7 @@
 package com.receiptofi.mobile.service;
 
 import com.receiptofi.domain.UserAccountEntity;
-import com.receiptofi.domain.types.FriendConnectionTypeEnum;
+import com.receiptofi.domain.types.ConnectionTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.service.FriendService;
 
@@ -36,8 +36,8 @@ public class FriendMobileService {
         availableAccountUpdates.setAwaitingFriends(friendService.getAwaitingConnections(rid));
     }
 
-    public boolean updateFriendConnection(String id, String auth, FriendConnectionTypeEnum friendConnectionType, String rid) {
-        return friendService.updateFriendConnection(id, auth, friendConnectionType, rid);
+    public boolean updateConnection(String id, String auth, ConnectionTypeEnum connectionType, String rid) {
+        return friendService.updateConnection(id, auth, connectionType, rid);
     }
 
     public boolean unfriend(String receiptUserId, String fid) {
