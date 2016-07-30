@@ -194,10 +194,10 @@ subprojects {
 
         compile 'aopalliance:aopalliance:1.0'
 
-        compile 'org.aspectj:aspectjrt:1.8.8'
-        compile 'org.slf4j:slf4j-api:1.7.18'
+        compile "org.aspectj:aspectjrt:$aspectjrt"
+        compile "org.slf4j:slf4j-api:$slf4japi"
         compile 'org.hibernate:hibernate-validator:5.2.4.Final'
-        compile 'joda-time:joda-time:2.9.2'
+        compile "joda-time:joda-time:$joda"
         compile 'org.freemarker:freemarker:2.3.23'
 
         compile "com.google.guava:guava:$guava"
@@ -383,7 +383,7 @@ project(':web') {
 
 
 task wrapper(type: Wrapper){
-    gradleVersion = '2.14'
+    gradleVersion = '2.14.1'
 }
 
 task copyJars(type: Copy) {
