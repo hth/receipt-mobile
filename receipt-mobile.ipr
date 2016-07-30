@@ -266,6 +266,36 @@
             <element id="library" level="project" name="Gradle: org.apache.sis.storage:sis-storage:0.6" />
             <element id="library" level="project" name="Gradle: org.apache.sis.core:sis-referencing:0.6" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-aspects:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-context:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-expression:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-instrument-tomcat:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-jms:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-test:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT" />
+            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
+            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.1" />
+            <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
+            <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.2" />
+            <element id="library" level="project" name="Gradle: commons-io:commons-io:2.5" />
+            <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.1" />
+            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
+            <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.2.RELEASE" />
+            <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.7.5" />
+            <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.6.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -354,13 +384,12 @@
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.2" />
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
-            <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
-            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
+            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -368,7 +397,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
-            <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
@@ -376,7 +404,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
@@ -501,7 +528,10 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/d600c79d5bf4845e49b65ce26e334360f0af119c/libphonenumber-7.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/5d7491ed6ebd02b6a8d2305f8e6b7fe5dbd95f72/commons-fileupload-1.3.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/851950c9d30b84bebbb78d5c6917b1ba77e67f13/logstash-logback-encoder-4.7.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -570,13 +600,12 @@
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.2" />
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
-            <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
-            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
+            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -584,7 +613,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
-            <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
@@ -592,7 +620,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
@@ -717,7 +744,10 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/d600c79d5bf4845e49b65ce26e334360f0af119c/libphonenumber-7.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/5d7491ed6ebd02b6a8d2305f8e6b7fe5dbd95f72/commons-fileupload-1.3.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/851950c9d30b84bebbb78d5c6917b1ba77e67f13/logstash-logback-encoder-4.7.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -786,13 +816,12 @@
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.2" />
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
-            <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
-            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
+            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -800,7 +829,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
-            <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
@@ -808,7 +836,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
@@ -941,7 +968,10 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/d600c79d5bf4845e49b65ce26e334360f0af119c/libphonenumber-7.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/5d7491ed6ebd02b6a8d2305f8e6b7fe5dbd95f72/commons-fileupload-1.3.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/851950c9d30b84bebbb78d5c6917b1ba77e67f13/logstash-logback-encoder-4.7.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1010,13 +1040,12 @@
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.2" />
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: commons-validator:commons-validator:1.5.0" />
-            <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
             <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
-            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.6.2" />
+            <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -1024,7 +1053,6 @@
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
-            <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
@@ -1032,7 +1060,6 @@
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
-            <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.60.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
@@ -1165,7 +1192,10 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/d600c79d5bf4845e49b65ce26e334360f0af119c/libphonenumber-7.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/5d7491ed6ebd02b6a8d2305f8e6b7fe5dbd95f72/commons-fileupload-1.3.2.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/851950c9d30b84bebbb78d5c6917b1ba77e67f13/logstash-logback-encoder-4.7.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1602,15 +1632,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/a2926c057ca3b662b9db194c869bdbe7d3bb8aef/jsr305-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.google.code.gson:gson:2.6.2">
+    <library name="Gradle: com.google.code.gson:gson:2.7">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/b429363c56e1b4c8d9053662946a25e8b0acc781/gson-2.6.2-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/ceb1b728624941fdcc57d2c6d9aa10643bdd5d4c/gson-2.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/6d8591dcd32b4b97808d3ed78d76c6272299309c/gson-2.6.2-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.google.guava:guava:19.0">
@@ -1850,26 +1880,26 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-digester/commons-digester/1.8.1/3165d0f4fec8cd6836e7a3bc2986b3ff2bd101d/commons-digester-1.8.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: commons-fileupload:commons-fileupload:1.3.1">
+    <library name="Gradle: commons-fileupload:commons-fileupload:1.3.2">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/c621b54583719ac0310404463d6d99db27e1052c/commons-fileupload-1.3.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/5d7491ed6ebd02b6a8d2305f8e6b7fe5dbd95f72/commons-fileupload-1.3.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/cd475c77e988dba8595b8ee82fa8895cfcbd7dba/commons-fileupload-1.3.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/12bbb300a1b61e038defb1dee85e8302d6f1bbaa/commons-fileupload-1.3.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.1/a1fa20f7f3ad210f4b2eb51b63be3f0273be263a/commons-fileupload-1.3.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3.2/23996750d5a80dc74dad55633c2a0f3db91462cb/commons-fileupload-1.3.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: commons-io:commons-io:2.4">
+    <library name="Gradle: commons-io:commons-io:2.5">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/2852e6e05fbb95076fc091f6d1780f1f8fe35e0f/commons-io-2.5.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/3b5b0183c509963d5ffdf0d9d452a4a7521aeaa3/commons-io-2.4-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/b219c20b7b44a4da22cb1898bfc6bfbb100f33c7/commons-io-2.5-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/f2d8698c46d1167ff24b06a840a87d91a02db891/commons-io-2.4-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.5/caf033a4a7c37b4a8ff3ea084cba591539b0b69/commons-io-2.5-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: commons-lang:commons-lang:2.6">
@@ -1901,15 +1931,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/ecf26c7507d67782a3bbd148d170b31dfad001aa/commons-logging-1.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: commons-validator:commons-validator:1.5.0">
+    <library name="Gradle: commons-validator:commons-validator:1.5.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.0/26b98c21975c5caf6bf34bacdeb7183be7a65970/commons-validator-1.5.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/86d05a46e8f064b300657f751b5a98c62807e2a0/commons-validator-1.5.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.0/f3f3364cb4b3e9d9b0362b2bb2770a579ec76a64/commons-validator-1.5.0-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/1c5fbdeb20a211050d91366eb1a33d6b8adb3323/commons-validator-1.5.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.0/96c77b61d4ed9ca3b58a7a40bac7fa98a09f5c2f/commons-validator-1.5.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-validator/commons-validator/1.5.1/1779e91e01dc506f388c350a8684f77c43943a08/commons-validator-1.5.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5">
@@ -2298,15 +2328,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.jcip/jcip-annotations/1.0/d853625d8001c00d40abed553e670279504699f9/jcip-annotations-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.logstash.logback:logstash-logback-encoder:4.6">
+    <library name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.6/fa48f006090ceb16c8cee10bebc6513a4820baa4/logstash-logback-encoder-4.6.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/851950c9d30b84bebbb78d5c6917b1ba77e67f13/logstash-logback-encoder-4.7.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.6/b173fdc2612e5be0091b15a17d6fc6913ff99968/logstash-logback-encoder-4.6-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/c434b2c0c029a8c599e4f9a2a0c564fa1d855de4/logstash-logback-encoder-4.7-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.6/eee2a4ef2ae43b698cd20d16fb8fff4bee6153e0/logstash-logback-encoder-4.6-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.7/eb9d5bd0020577c070c3814fb766925e01b84654/logstash-logback-encoder-4.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: net.sf.ehcache:ehcache-core:2.6.2">
