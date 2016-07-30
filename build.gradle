@@ -136,6 +136,7 @@ subprojects {
         jcenter()
         maven { url "http://repo.spring.io/libs-milestone" }
         maven { url "http://repo1.maven.org/maven2/" }
+        maven { url 'https://repo.spring.io/libs-snapshot' }
     }
 
     dependencies {
