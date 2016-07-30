@@ -208,9 +208,9 @@ subprojects {
         compile 'commons-logging:commons-logging:1.2'
 
         compile "com.google.guava:guava:$guava"
-        compile 'com.google.code.gson:gson:2.6.2'
+        compile "com.google.code.gson:gson:$gson"
         compile 'com.google.maps:google-maps-services:0.1.15'
-        compile 'com.googlecode.libphonenumber:libphonenumber:7.4.2'
+        compile "com.googlecode.libphonenumber:libphonenumber:$libphonenumber"
         compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
 
         compile 'com.fasterxml:classmate:1.3.1'
