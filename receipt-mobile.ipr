@@ -215,6 +215,8 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/jsp/isWorking.jsp" />
@@ -290,13 +292,15 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
+            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
+            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -318,10 +322,10 @@
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
-            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
+            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
@@ -441,16 +445,14 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
             <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.9/87372d9e2323313bec24b09a325bfea8ae0eb867/aspectjrt-1.8.9.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.4/1c295b462f16702ebe720bbb08f62e1ba80da41b/joda-time-2.9.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/f881a9ef243b52946061b59f5caa5f916fbc4372/spring-data-mongodb-1.10.0.M1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/8c3e8693bdc4421d74bfb3b2722a771021764ee7/spring-data-commons-1.13.0.M1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -506,13 +508,15 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
+            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
+            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -534,10 +538,10 @@
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
-            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
+            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
@@ -657,16 +661,14 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
             <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.9/87372d9e2323313bec24b09a325bfea8ae0eb867/aspectjrt-1.8.9.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.4/1c295b462f16702ebe720bbb08f62e1ba80da41b/joda-time-2.9.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/f881a9ef243b52946061b59f5caa5f916fbc4372/spring-data-mongodb-1.10.0.M1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/8c3e8693bdc4421d74bfb3b2722a771021764ee7/spring-data-commons-1.13.0.M1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -722,13 +724,15 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
+            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
+            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -750,10 +754,10 @@
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
-            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
+            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
@@ -873,8 +877,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
             <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
               <element id="module-output" name="domain_main" />
@@ -889,8 +891,8 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.9/87372d9e2323313bec24b09a325bfea8ae0eb867/aspectjrt-1.8.9.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.4/1c295b462f16702ebe720bbb08f62e1ba80da41b/joda-time-2.9.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/f881a9ef243b52946061b59f5caa5f916fbc4372/spring-data-mongodb-1.10.0.M1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/8c3e8693bdc4421d74bfb3b2722a771021764ee7/spring-data-commons-1.13.0.M1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -946,13 +948,15 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
+            <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
+            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -974,10 +978,10 @@
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
             <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.13.3" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
-            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" />
+            <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.0" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
@@ -1097,8 +1101,6 @@
             <element id="library" level="project" name="Gradle: regexp:regexp:1.3" />
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
             <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
               <element id="module-output" name="domain_main" />
@@ -1113,8 +1115,8 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.9/87372d9e2323313bec24b09a325bfea8ae0eb867/aspectjrt-1.8.9.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.4/1c295b462f16702ebe720bbb08f62e1ba80da41b/joda-time-2.9.4.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/f881a9ef243b52946061b59f5caa5f916fbc4372/spring-data-mongodb-1.10.0.M1.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/8c3e8693bdc4421d74bfb3b2722a771021764ee7/spring-data-commons-1.13.0.M1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -3082,26 +3084,26 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.21/f285ac123f201fb4b028bac556928d7cf527ef48/slf4j-api-1.7.21-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.springframework.data:spring-data-commons:1.13.0.BUILD-SNAPSHOT">
+    <library name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.BUILD-SNAPSHOT/94c65d504e472a237b693d6e3e62d2c013244a5b/spring-data-commons-1.13.0.BUILD-SNAPSHOT.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/8c3e8693bdc4421d74bfb3b2722a771021764ee7/spring-data-commons-1.13.0.M1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.BUILD-SNAPSHOT/bfccd7fd440884a050022c4ab72f0feb22650055/spring-data-commons-1.13.0.BUILD-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/169e589a89f8571f766b1840cbe626c3de2ff53c/spring-data-commons-1.13.0.M1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.BUILD-SNAPSHOT/4eb3df15319e0598e323a254a1221a8d8b1f6de5/spring-data-commons-1.13.0.BUILD-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.13.0.M1/512be2494a87996fe5c9a3587b7f18630b3fcbe3/spring-data-commons-1.13.0.M1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.BUILD-SNAPSHOT">
+    <library name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.BUILD-SNAPSHOT/f13806e644171791295d1e063021122acf3ea1f6/spring-data-mongodb-1.10.0.BUILD-SNAPSHOT.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/f881a9ef243b52946061b59f5caa5f916fbc4372/spring-data-mongodb-1.10.0.M1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.BUILD-SNAPSHOT/e60fb5e763dff9c53111368603f6923a5ffad892/spring-data-mongodb-1.10.0.BUILD-SNAPSHOT-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/e2e84dbbe954efdad95815ce674f14504d2f8d4b/spring-data-mongodb-1.10.0.M1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.BUILD-SNAPSHOT/8145b033f5e54399305b853e239822e4c4621f9e/spring-data-mongodb-1.10.0.BUILD-SNAPSHOT-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-mongodb/1.10.0.M1/28756e7c8d3ab2d71eb9ac0e636892c154ce03a/spring-data-mongodb-1.10.0.M1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE">
