@@ -230,6 +230,9 @@
           <element id="file-copy" path="$PROJECT_DIR$/web/environment/dev/receipt-mobile-servlet.xml" />
           <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/web.xml" />
           <element id="file-copy" path="$PROJECT_DIR$/web/web/WEB-INF/root-context.xml" />
+          <element id="directory" name="freemarker">
+            <element id="dir-copy" path="$PROJECT_DIR$/web/web/WEB-INF/freemarker" />
+          </element>
         </element>
         <element id="file-copy" path="$PROJECT_DIR$/web/web/blank.html" />
         <element id="file-copy" path="$PROJECT_DIR$/web/web/robots.txt" />
@@ -1704,14 +1707,40 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.receiptofi:social:2.0.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.rometools:rome-utils:1.5.1">
       <CLASSES>

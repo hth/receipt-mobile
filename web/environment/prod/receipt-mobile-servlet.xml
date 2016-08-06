@@ -15,7 +15,7 @@
 
     <!-- Scans the classpath of this application for @Components to deploy as beans -->
     <context:component-scan base-package="com.receiptofi">
-        <context:exclude-filter type="assignable" expression="com.receiptofi.service.MailService" />
+        <!--<context:exclude-filter type="assignable" expression="com.receiptofi.service.MailService" />-->
         <!--<context:exclude-filter type="assignable" expression="com.receiptofi.service.ReportService" />-->
     </context:component-scan>
 
@@ -157,4 +157,8 @@
     <!-- ===================================== -->
     <!-- JSM bean End                          -->
     <!-- ===================================== -->
+
+    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+    </bean>
 </beans>
