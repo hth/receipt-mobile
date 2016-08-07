@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,6 +60,9 @@ public class CouponMobileService {
     private CampaignService campaignService;
     private FileSystemService fileSystemService;
     private FriendMobileService friendMobileService;
+
+    @Value("${couponExpireAfterMonths:3}")
+    private int couponExpireAfterMonths;
 
     @Autowired
     public CouponMobileService(
@@ -180,8 +184,14 @@ public class CouponMobileService {
                                 .setId(map.get("id").toString());
                     }
 
+                    Date expire = DateUtils.addMonths(new Date(), couponExpireAfterMonths);
+                    if (StringUtils.isNotBlank(map.get("ex").toString())) {
+                        Date localExpireDate = DateUtils.parseDate(map.get("ex").toString(), ISO8601_FMT);
+                        expire = localExpireDate.after(expire) ? expire : localExpireDate;
+                    }
+
                     coupon.setAvailable(DateUtils.parseDate(map.get("av").toString(), ISO8601_FMT))
-                            .setExpire(DateUtils.parseDate(map.get("ex").toString(), ISO8601_FMT))
+                            .setExpire(expire)
                             .setCouponType(CouponTypeEnum.I)
                             .setLocalId(map.get("lid").toString());
                     break;
