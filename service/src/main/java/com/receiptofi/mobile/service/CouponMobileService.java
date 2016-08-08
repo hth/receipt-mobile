@@ -16,6 +16,7 @@ import com.receiptofi.repository.CouponManager;
 import com.receiptofi.service.CampaignService;
 import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.ImageSplitService;
+import com.receiptofi.utils.DateUtil;
 import com.receiptofi.utils.ParseJsonStringToMap;
 import com.receiptofi.utils.ScrubbedInput;
 
@@ -184,7 +185,7 @@ public class CouponMobileService {
                                 .setId(map.get("id").toString());
                     }
 
-                    Date expire = DateUtils.addMonths(new Date(), couponExpireAfterMonths);
+                    Date expire = DateUtils.addMonths(DateUtil.nowMidnightDate(), couponExpireAfterMonths);
                     if (StringUtils.isNotBlank(map.get("ex").toString())) {
                         Date localExpireDate = DateUtils.parseDate(map.get("ex").toString(), ISO8601_FMT);
                         expire = localExpireDate.after(expire) ? expire : localExpireDate;
