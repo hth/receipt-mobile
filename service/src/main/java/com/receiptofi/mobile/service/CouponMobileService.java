@@ -62,8 +62,8 @@ public class CouponMobileService {
     private FileSystemService fileSystemService;
     private FriendMobileService friendMobileService;
 
-    @Value("${couponExpireAfterMonths:3}")
-    private int couponExpireAfterMonths;
+    @Value("${couponExpireAfterDays:90}")
+    private int couponExpireAfterDays;
 
     @Autowired
     public CouponMobileService(
@@ -185,7 +185,7 @@ public class CouponMobileService {
                                 .setId(map.get("id").toString());
                     }
 
-                    Date expire = DateUtils.addMonths(DateUtil.nowMidnightDate(), couponExpireAfterMonths);
+                    Date expire = DateUtils.addDays(DateUtil.nowMidnightDate(), couponExpireAfterDays);
                     if (StringUtils.isNotBlank(map.get("ex").toString())) {
                         Date localExpireDate = DateUtils.parseDate(map.get("ex").toString(), ISO8601_FMT);
                         expire = localExpireDate.after(expire) ? expire : localExpireDate;
