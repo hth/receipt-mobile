@@ -29,7 +29,7 @@ public class LatestReceiptController {
         this.receiptMobileService = receiptMobileService;
     }
 
-    @CrossOrigin (origins = "https://receiptofi.com")
+    @CrossOrigin (origins = {"https://receiptofi.com", "https://www.receiptofi.com"})
     @RequestMapping (
             value = "/receipt",
             method = RequestMethod.GET,

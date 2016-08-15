@@ -186,6 +186,8 @@ subprojects {
         compile "org.mongodb:mongo-java-driver:$mongoJavaDriver"
 
         compile "com.braintreepayments.gateway:braintree-java:$braintree"
+        compile "$springDataGroup:spring-data-redis:$redis"
+        compile "redis.clients:jedis:$jedis"
 
         /** --- Specific to Receipt Mobile Web Application ---- */
         compile "io.springfox:springfox-swagger2:2.5.0"
