@@ -154,7 +154,7 @@ public class ReceiptControllerTest {
     @Test
     public void testThisMonthReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
-        when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(Arrays.asList(receiptEntity));
+        when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(Collections.singletonList(receiptEntity));
         List<JsonReceipt> jsonReceipts = receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
