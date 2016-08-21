@@ -35,8 +35,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -121,7 +121,7 @@ public class CouponMobileService {
                             .setExpire(coupon.getExpire())
                             .setCouponType(coupon.getCouponType())
                             .setImagePath(coupon.getImagePath())
-                            .setSharedWithRids(Arrays.asList(coupon.getRid()))
+                            .setSharedWithRids(Collections.singletonList(coupon.getRid()))
                             .setOriginId(coupon.getId())
                             .setInitiatedFromId(coupon.getInitiatedFromId())
                             .setFileSystemEntities(coupon.getFileSystemEntities())
