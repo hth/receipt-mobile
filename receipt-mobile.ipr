@@ -147,17 +147,10 @@
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.5.0" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-tika:0.8" />
             <element id="library" level="project" name="Gradle: com.healthmarketscience.jackcess:jackcess:2.1.3" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-compress:1.11" />
@@ -200,7 +193,6 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.1" />
@@ -291,12 +283,6 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
@@ -313,7 +299,7 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.2" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -345,7 +331,6 @@
             </element>
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.2.RELEASE" />
@@ -462,6 +447,13 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-aspects/4.1.1.RELEASE/1a36f0874d74ac5801425a8b6cbab269a3d96cf/spring-security-aspects-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.1.RELEASE/3616b49db81527d69d2bf3d9ad6b0fa899d1080d/spring-security-config-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.1.RELEASE/238b789b01ebfe20944bd5e011f548f2f2319844/spring-security-core-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-crypto/4.1.1.RELEASE/b3f11688603f33947bc5b89481c98a0c31864dde/spring-security-crypto-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/4.1.1.RELEASE/819e4eb36f877ad82481f331242c6cd7ac54100a/spring-security-taglibs-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.1.RELEASE/b4c912edc0c437f24e96db587848d856605734e2/spring-security-web-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/4.1.1.RELEASE/ef46ac8ae1e5a0920a07aa4fa46b0e09507c04f4/spring-security-acl-4.1.1.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -511,12 +503,6 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
@@ -533,7 +519,7 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.2" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -565,7 +551,6 @@
             </element>
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.2.RELEASE" />
@@ -682,6 +667,13 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-aspects/4.1.1.RELEASE/1a36f0874d74ac5801425a8b6cbab269a3d96cf/spring-security-aspects-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.1.RELEASE/3616b49db81527d69d2bf3d9ad6b0fa899d1080d/spring-security-config-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.1.RELEASE/238b789b01ebfe20944bd5e011f548f2f2319844/spring-security-core-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-crypto/4.1.1.RELEASE/b3f11688603f33947bc5b89481c98a0c31864dde/spring-security-crypto-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/4.1.1.RELEASE/819e4eb36f877ad82481f331242c6cd7ac54100a/spring-security-taglibs-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.1.RELEASE/b4c912edc0c437f24e96db587848d856605734e2/spring-security-web-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/4.1.1.RELEASE/ef46ac8ae1e5a0920a07aa4fa46b0e09507c04f4/spring-security-acl-4.1.1.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -731,12 +723,6 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
@@ -753,7 +739,7 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.2" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -785,7 +771,6 @@
             </element>
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.2.RELEASE" />
@@ -910,6 +895,13 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-aspects/4.1.1.RELEASE/1a36f0874d74ac5801425a8b6cbab269a3d96cf/spring-security-aspects-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.1.RELEASE/3616b49db81527d69d2bf3d9ad6b0fa899d1080d/spring-security-config-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.1.RELEASE/238b789b01ebfe20944bd5e011f548f2f2319844/spring-security-core-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-crypto/4.1.1.RELEASE/b3f11688603f33947bc5b89481c98a0c31864dde/spring-security-crypto-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/4.1.1.RELEASE/819e4eb36f877ad82481f331242c6cd7ac54100a/spring-security-taglibs-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.1.RELEASE/b4c912edc0c437f24e96db587848d856605734e2/spring-security-web-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/4.1.1.RELEASE/ef46ac8ae1e5a0920a07aa4fa46b0e09507c04f4/spring-security-acl-4.1.1.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -959,12 +951,6 @@
             <element id="library" level="project" name="Gradle: org.springframework:spring-tx:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-web:4.3.2.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-aspects:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-crypto:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-taglibs:4.1.1.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
@@ -981,7 +967,7 @@
             <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
-            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1" />
+            <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.2" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
             <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.1" />
@@ -1013,7 +999,6 @@
             </element>
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjweaver:1.8.9" />
             <element id="library" level="project" name="Gradle: org.springframework:spring-messaging:4.3.2.RELEASE" />
-            <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.1.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.2.RELEASE" />
@@ -1138,6 +1123,13 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-aspects/4.1.1.RELEASE/1a36f0874d74ac5801425a8b6cbab269a3d96cf/spring-security-aspects-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/4.1.1.RELEASE/3616b49db81527d69d2bf3d9ad6b0fa899d1080d/spring-security-config-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/4.1.1.RELEASE/238b789b01ebfe20944bd5e011f548f2f2319844/spring-security-core-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-crypto/4.1.1.RELEASE/b3f11688603f33947bc5b89481c98a0c31864dde/spring-security-crypto-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-taglibs/4.1.1.RELEASE/819e4eb36f877ad82481f331242c6cd7ac54100a/spring-security-taglibs-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/4.1.1.RELEASE/b4c912edc0c437f24e96db587848d856605734e2/spring-security-web-4.1.1.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-acl/4.1.1.RELEASE/ef46ac8ae1e5a0920a07aa4fa46b0e09507c04f4/spring-security-acl-4.1.1.RELEASE.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1641,15 +1633,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/77979eaa98f90806f984155f44f63cc1fb60ac25/juniversalchardet-1.0.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.1">
+    <library name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.5.2">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/d600c79d5bf4845e49b65ce26e334360f0af119c/libphonenumber-7.5.1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.2/a345c75da35c6bdb6dbbe952849bd51a3e175dcf/libphonenumber-7.5.2.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/a55a27662cded2773e15da851bef3b63dc5d569f/libphonenumber-7.5.1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.2/732c7cca625044ee9306a29f8d868e38d803afee/libphonenumber-7.5.2-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.1/38ce99f2558976fd09441faac37451d404a7042e/libphonenumber-7.5.1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/7.5.2/c0c3dbb6fb3fdee209b3c8e805e198d5a71e385d/libphonenumber-7.5.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.googlecode.mp4parser:isoparser:1.1.18">
@@ -1719,60 +1711,21 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:service:2.0.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:social:2.0.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/2.0.0/social-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.rometools:rome-utils:1.5.1">
       <CLASSES>
