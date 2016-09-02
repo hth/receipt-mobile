@@ -27,6 +27,9 @@
         <property name="typeMapper" ref="defaultMongoTypeMapper" />
     </bean>
 
+    <!-- Add Nearest mongo as read preference. This change be changed to many other read preferences. -->
+    <bean id="readPreference" class="com.mongodb.TaggableReadPreference.NearestReadPreference" />
+
     <!-- Define the MongoTemplate which handles connectivity with MongoDB -->
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <!--suppress SpringModelInspection -->
@@ -34,6 +37,7 @@
         <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
         <property name="writeConcern" value="JOURNALED" />
         <property name="writeResultChecking" value="EXCEPTION" />
+        <property name="readPreference" ref="readPreference" />
     </bean>
 
     <bean id="gridfsDb" factory-bean="mongoTemplate" factory-method="getDb" />
