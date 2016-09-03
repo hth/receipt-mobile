@@ -48,7 +48,7 @@ public class ExpenseTagController {
     @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
     private int expenseTagCountMax;
 
-    @Value ("${UserProfilePreferenceController.ExpenseTagSize:22}")
+    @Value ("${UserProfilePreferenceController.ExpenseTagSize}")
     private int expenseTagSize;
 
     @Autowired
