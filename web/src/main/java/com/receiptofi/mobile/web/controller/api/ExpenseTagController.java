@@ -135,7 +135,7 @@ public class ExpenseTagController {
     }
 
     /**
-     * Create new expense tag.
+     * Update existing expense tag.
      *
      * @param mail
      * @param auth
