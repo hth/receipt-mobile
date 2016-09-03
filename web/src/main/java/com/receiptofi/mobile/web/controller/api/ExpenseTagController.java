@@ -135,7 +135,7 @@ public class ExpenseTagController {
     }
 
     /**
-     * Create new expense tag.
+     * Update existing expense tag.
      *
      * @param mail
      * @param auth
@@ -177,6 +177,10 @@ public class ExpenseTagController {
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) || StringUtils.isBlank(tagId)) {
                 LOG.warn("Null tagName={} or tagColor={} or tagId={}", tagName, tagColor, tagId);
                 Map<String, String> errors = getErrorSevere("Either Expense Tag or Color or Id received as empty.");
+                return ErrorEncounteredJson.toJson(errors);
+            } else if (tagName.length() > expenseTagSize) {
+                LOG.warn("Expense Tag expenseTagName={} for rid={} length size={} greater", tagName, rid, expenseTagSize);
+                Map<String, String> errors = getErrorUserInput("Expense Tag " + tagName + " length should not be greater than " + expenseTagSize + " characters.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} could not be found", tagName, rid);
