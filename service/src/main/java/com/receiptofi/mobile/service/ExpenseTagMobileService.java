@@ -45,7 +45,7 @@ public class ExpenseTagMobileService {
         return expensesService.getExpenseTags(rid);
     }
 
-    public List<ExpenseTagEntity> getAllExpenseTags(String rid) {
+    private List<ExpenseTagEntity> getAllExpenseTags(String rid) {
         return expensesService.getAllExpenseTypes(rid);
     }
 
@@ -86,7 +86,7 @@ public class ExpenseTagMobileService {
         return availableAccountUpdates;
     }
 
-    public void getAllExpenseTags(String rid, AvailableAccountUpdates availableAccountUpdates) {
+    void getAllExpenseTags(String rid, AvailableAccountUpdates availableAccountUpdates) {
         availableAccountUpdates.addJsonExpenseTag(getAllExpenseTags(rid));
     }
 

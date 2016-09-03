@@ -1,5 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.ExpenseTagMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
@@ -169,8 +170,8 @@ public class ExpenseTagController {
             return null;
         } else {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
-            String tagName = map.containsKey("tagName") ? map.get("tagName").getText() : null;
-            String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText() : null;
+            String tagName = map.containsKey("tagName") ? map.get("tagName").getText().toUpperCase() : null;
+            String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText().toUpperCase() : null;
             String tagId = map.containsKey("tagId") ? map.get("tagId").getText() : null;
 
             if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) || StringUtils.isBlank(tagId)) {
@@ -182,9 +183,15 @@ public class ExpenseTagController {
                 Map<String, String> errors = getErrorSevere("Expense Tag does not exists.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (expenseTagMobileService.doesExists(rid, tagName)) {
-                LOG.warn("Expense Tag with expenseTagName={} for rid={} already exists", tagName, rid);
-                Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
-                return ErrorEncounteredJson.toJson(errors);
+                ExpenseTagEntity existingET = expenseTagMobileService.getExpenseTag(rid, tagId);
+                if (existingET.getTagColor().equalsIgnoreCase(tagColor)) {
+                    LOG.warn("No change detected for expenseTagName={} for rid={}", tagName, rid);
+                    Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
+                    return ErrorEncounteredJson.toJson(errors);
+                } else {
+                    expenseTagMobileService.update(tagId, tagName, rid, tagColor);
+                    return expenseTagMobileService.getUpdates(rid).asJson();
+                }
             } else {
                 try {
                     expenseTagMobileService.update(tagId, tagName, rid, tagColor);
