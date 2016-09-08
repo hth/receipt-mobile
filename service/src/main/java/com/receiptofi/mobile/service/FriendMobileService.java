@@ -21,8 +21,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class FriendMobileService {
 
-    @Autowired private FriendService friendService;
-    @Autowired private AccountMobileService accountMobileService;
+    private final FriendService friendService;
+    private final AccountMobileService accountMobileService;
+
+    @Autowired
+    public FriendMobileService(AccountMobileService accountMobileService, FriendService friendService) {
+        this.accountMobileService = accountMobileService;
+        this.friendService = friendService;
+    }
 
     public void getActiveFriends(String rid, AvailableAccountUpdates availableAccountUpdates) {
         availableAccountUpdates.setActiveFriends(friendService.getFriends(rid).values());

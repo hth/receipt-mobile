@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SplitExpensesMobileService {
 
+    private final SplitExpensesService splitExpensesService;
+
     @Autowired
-    private SplitExpensesService splitExpensesService;
+    public SplitExpensesMobileService(SplitExpensesService splitExpensesService) {
+        this.splitExpensesService = splitExpensesService;
+    }
 
     public void getJsonOwe(String rid, AvailableAccountUpdates availableAccountUpdates) {
         availableAccountUpdates.setOwes(splitExpensesService.getJsonOweExpenses(rid));

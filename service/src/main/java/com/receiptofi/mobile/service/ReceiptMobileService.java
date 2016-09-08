@@ -28,13 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -59,14 +57,35 @@ public class ReceiptMobileService {
             .expireAfterWrite(60, TimeUnit.MINUTES)
             .build();
 
-    @Autowired private ReceiptService receiptService;
-    @Autowired private CommentService commentService;
-    @Autowired private DocumentMobileService documentMobileService;
-    @Autowired private ReceiptManagerMobile receiptManagerMobile;
-    @Autowired private ItemService itemService;
-    @Autowired private SplitExpensesService splitExpensesService;
-    @Autowired private FriendService friendService;
-    @Autowired private UserProfilePreferenceService userProfilePreferenceService;
+    private final ReceiptService receiptService;
+    private final CommentService commentService;
+    private final DocumentMobileService documentMobileService;
+    private final ReceiptManagerMobile receiptManagerMobile;
+    private final ItemService itemService;
+    private final SplitExpensesService splitExpensesService;
+    private final FriendService friendService;
+    private final UserProfilePreferenceService userProfilePreferenceService;
+
+    @Autowired
+    public ReceiptMobileService(
+            SplitExpensesService splitExpensesService,
+            DocumentMobileService documentMobileService,
+            ReceiptManagerMobile receiptManagerMobile,
+            ItemService itemService,
+            ReceiptService receiptService,
+            CommentService commentService,
+            FriendService friendService,
+            UserProfilePreferenceService userProfilePreferenceService
+    ) {
+        this.splitExpensesService = splitExpensesService;
+        this.documentMobileService = documentMobileService;
+        this.receiptManagerMobile = receiptManagerMobile;
+        this.itemService = itemService;
+        this.receiptService = receiptService;
+        this.commentService = commentService;
+        this.friendService = friendService;
+        this.userProfilePreferenceService = userProfilePreferenceService;
+    }
 
     public ReceiptEntity findReceipt(String receiptId, String rid) {
         return receiptService.findReceipt(receiptId, rid);
@@ -89,7 +108,7 @@ public class ReceiptMobileService {
     public void saveComment(String notes, ReceiptEntity receipt) {
         CommentEntity comment = receipt.getNotes();
         if (null == comment) {
-            comment = CommentEntity.newInstance(CommentTypeEnum.N)
+            comment = CommentEntity.newInstance(receipt.getReceiptUserId(), CommentTypeEnum.N)
                     .setText(notes);
         } else {
             comment.setText(notes);
