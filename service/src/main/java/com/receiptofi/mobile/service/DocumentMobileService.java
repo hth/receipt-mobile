@@ -19,7 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentMobileService {
 
-    @Autowired DocumentManager documentManager;
+    private final DocumentManager documentManager;
+
+    @Autowired
+    public DocumentMobileService(DocumentManager documentManager) {
+        this.documentManager = documentManager;
+    }
 
     public void getUnprocessedDocuments(String rid, AvailableAccountUpdates availableAccountUpdates) {
         availableAccountUpdates.setUnprocessedDocuments(documentManager.numberOfPendingReceipts(rid));

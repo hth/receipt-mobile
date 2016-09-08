@@ -57,14 +57,35 @@ public class ReceiptMobileService {
             .expireAfterWrite(60, TimeUnit.MINUTES)
             .build();
 
-    @Autowired private ReceiptService receiptService;
-    @Autowired private CommentService commentService;
-    @Autowired private DocumentMobileService documentMobileService;
-    @Autowired private ReceiptManagerMobile receiptManagerMobile;
-    @Autowired private ItemService itemService;
-    @Autowired private SplitExpensesService splitExpensesService;
-    @Autowired private FriendService friendService;
-    @Autowired private UserProfilePreferenceService userProfilePreferenceService;
+    private final ReceiptService receiptService;
+    private final CommentService commentService;
+    private final DocumentMobileService documentMobileService;
+    private final ReceiptManagerMobile receiptManagerMobile;
+    private final ItemService itemService;
+    private final SplitExpensesService splitExpensesService;
+    private final FriendService friendService;
+    private final UserProfilePreferenceService userProfilePreferenceService;
+
+    @Autowired
+    public ReceiptMobileService(
+            SplitExpensesService splitExpensesService,
+            DocumentMobileService documentMobileService,
+            ReceiptManagerMobile receiptManagerMobile,
+            ItemService itemService,
+            ReceiptService receiptService,
+            CommentService commentService,
+            FriendService friendService,
+            UserProfilePreferenceService userProfilePreferenceService
+    ) {
+        this.splitExpensesService = splitExpensesService;
+        this.documentMobileService = documentMobileService;
+        this.receiptManagerMobile = receiptManagerMobile;
+        this.itemService = itemService;
+        this.receiptService = receiptService;
+        this.commentService = commentService;
+        this.friendService = friendService;
+        this.userProfilePreferenceService = userProfilePreferenceService;
+    }
 
     public ReceiptEntity findReceipt(String receiptId, String rid) {
         return receiptService.findReceipt(receiptId, rid);
