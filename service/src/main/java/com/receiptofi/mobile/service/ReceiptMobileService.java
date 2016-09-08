@@ -28,13 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -89,7 +87,7 @@ public class ReceiptMobileService {
     public void saveComment(String notes, ReceiptEntity receipt) {
         CommentEntity comment = receipt.getNotes();
         if (null == comment) {
-            comment = CommentEntity.newInstance(CommentTypeEnum.N)
+            comment = CommentEntity.newInstance(receipt.getReceiptUserId(), CommentTypeEnum.N)
                     .setText(notes);
         } else {
             comment.setText(notes);
