@@ -73,7 +73,8 @@ New fields
             "splitTotal": 320.0,
             "tax": 185.26,
             "total": 640.0,
-            "cs": "US"
+            "cs": "US",
+            "cd": "1234"
           },
           {
             "a": true,
@@ -113,7 +114,8 @@ New fields
             "splitTotal": 13.98,
             "tax": 0.0,
             "total": 41.93,
-            "cs": "US"
+            "cs": "US",
+            "cd": "1234"
           }
         ]
     
