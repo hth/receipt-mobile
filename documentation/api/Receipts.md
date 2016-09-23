@@ -72,7 +72,8 @@ New fields
             "splitTax": 92.63,
             "splitTotal": 320.0,
             "tax": 185.26,
-            "total": 640.0
+            "total": 640.0,
+            "cs": "US"
           },
           {
             "a": true,
@@ -111,7 +112,8 @@ New fields
             "splitTax": 0.0,
             "splitTotal": 13.98,
             "tax": 0.0,
-            "total": 41.93
+            "total": 41.93,
+            "cs": "US"
           }
         ]
     

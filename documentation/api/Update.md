@@ -36,7 +36,8 @@ When there are updates available, response will contain receipts list ordered by
       "lastName": "Test",
       "mail": "test@receiptofi.com",
       "name": "Test Test",
-      "rid": "10000000002"
+      "rid": "10000000002",
+      "cs": "US"
     },
     "receipts": [
       {
