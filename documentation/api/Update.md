@@ -63,7 +63,8 @@ When there are updates available, response will contain receipts list ordered by
         },
         "ptax": "0.0000",
         "rid": "10000000002",
-        "total": 1969.0
+        "total": 1969.0.
+        "cs": "US"
       },
       {
         "date": "2014-08-17T00:00:00.000-07:00",
