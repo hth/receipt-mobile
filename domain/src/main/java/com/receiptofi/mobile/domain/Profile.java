@@ -43,12 +43,16 @@ public class Profile {
     @JsonProperty ("mail")
     private String mail;
 
-    private Profile(String receiptUserId, String name, String firstName, String lastName, String mail) {
+    @JsonProperty ("cs")
+    private String countryShortName;
+
+    private Profile(String receiptUserId, String name, String firstName, String lastName, String mail, String countryShortName) {
         this.receiptUserId = receiptUserId;
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
+        this.countryShortName = countryShortName;
     }
 
     public static Profile newInstance(UserProfileEntity userProfile) {
@@ -57,7 +61,8 @@ public class Profile {
                 userProfile.getName(),
                 userProfile.getFirstName(),
                 userProfile.getLastName(),
-                userProfile.getEmail()
+                userProfile.getEmail(),
+                userProfile.getCountryShortName()
         );
     }
 
