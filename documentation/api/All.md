@@ -171,6 +171,7 @@ JSON Response data
           "rid": "10000000004",
           "tax": 0.0,
           "total": 7.99,
+          "cs": "US",
           "cd": "1234"
         }
       ],

@@ -42,6 +42,7 @@ public class DeviceService {
     private FriendMobileService friendMobileService;
     private SplitExpensesMobileService splitExpensesMobileService;
     private CouponMobileService couponMobileService;
+    private PaymentCardMobileService paymentCardMobileService;
 
     @Autowired
     public DeviceService(
@@ -54,7 +55,8 @@ public class DeviceService {
             BillingMobileService billingMobileService,
             FriendMobileService friendMobileService,
             SplitExpensesMobileService splitExpensesMobileService,
-            CouponMobileService couponMobileService
+            CouponMobileService couponMobileService,
+            PaymentCardMobileService paymentCardMobileService
     ) {
         this.registeredDeviceManager = registeredDeviceManager;
         this.userProfilePreferenceService = userProfilePreferenceService;
@@ -66,6 +68,7 @@ public class DeviceService {
         this.friendMobileService = friendMobileService;
         this.splitExpensesMobileService = splitExpensesMobileService;
         this.couponMobileService = couponMobileService;
+        this.paymentCardMobileService = paymentCardMobileService;
     }
 
     /**
@@ -142,6 +145,7 @@ public class DeviceService {
         splitExpensesMobileService.getJsonOwesOther(rid, availableAccountUpdates);
 
         couponMobileService.getCouponUpdateSince(rid, updated, availableAccountUpdates);
+        paymentCardMobileService.getPaymentCardUpdatedSince(rid, updated, availableAccountUpdates);
 
         return availableAccountUpdates;
     }
@@ -187,6 +191,7 @@ public class DeviceService {
         splitExpensesMobileService.getJsonOwesOther(rid, availableAccountUpdates);
 
         couponMobileService.getAll(rid, availableAccountUpdates);
+        paymentCardMobileService.getAll(rid, availableAccountUpdates);
 
         return availableAccountUpdates;
     }
