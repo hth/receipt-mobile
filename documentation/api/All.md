@@ -141,7 +141,8 @@ JSON Response data
           "rid": "10000000004",
           "tax": 0.0,
           "total": 13.75,
-          "cs": "US"
+          "cs": "US",
+          "cd": "1234"          
         },
         {
           "bizName": {
@@ -169,7 +170,9 @@ JSON Response data
           "receiptDate": "2015-04-02T10:06:00.000-07:00",
           "rid": "10000000004",
           "tax": 0.0,
-          "total": 7.99
+          "total": 7.99,
+          "cs": "US",
+          "cd": "1234"
         }
       ],
       "unprocessedDocuments": {

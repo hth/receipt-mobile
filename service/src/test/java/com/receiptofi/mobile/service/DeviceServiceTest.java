@@ -49,6 +49,7 @@ public class DeviceServiceTest {
     @Mock private FriendMobileService friendMobileService;
     @Mock private SplitExpensesMobileService splitExpensesMobileService;
     @Mock private CouponMobileService couponMobileService;
+    @Mock private PaymentCardMobileService paymentCardMobileService;
 
     @Mock private RegisteredDeviceEntity registeredDeviceEntity;
     @Mock private ReceiptEntity receipt;
@@ -75,7 +76,8 @@ public class DeviceServiceTest {
                 billingMobileService,
                 friendMobileService,
                 splitExpensesMobileService,
-                couponMobileService);
+                couponMobileService,
+                paymentCardMobileService);
 
         when(receipt.getBizName()).thenReturn(bizName);
         when(receipt.getBizStore()).thenReturn(bizStore);

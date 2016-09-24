@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.receiptofi.domain.ExpenseTagEntity;
 import com.receiptofi.domain.ItemEntity;
 import com.receiptofi.domain.NotificationEntity;
+import com.receiptofi.domain.PaymentCardEntity;
 import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.domain.UserProfileEntity;
 import com.receiptofi.domain.json.JsonAwaitingAcceptance;
@@ -16,6 +17,7 @@ import com.receiptofi.domain.json.JsonExpenseTag;
 import com.receiptofi.domain.json.JsonFriend;
 import com.receiptofi.domain.json.JsonNotification;
 import com.receiptofi.domain.json.JsonOweExpenses;
+import com.receiptofi.domain.json.JsonPaymentCard;
 import com.receiptofi.domain.json.JsonReceipt;
 import com.receiptofi.domain.json.JsonReceiptItem;
 import com.receiptofi.domain.json.JsonReceiptSplit;
@@ -90,6 +92,9 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     @JsonProperty ("coupons")
     private List<JsonCoupon> jsonCoupons = new ArrayList<>();
+
+    @JsonProperty ("paymentCards")
+    private List<JsonPaymentCard> jsonPaymentCards = new ArrayList<>();
 
     private AvailableAccountUpdates() {
         this.type = Type.UPDATE;
@@ -226,6 +231,14 @@ public class AvailableAccountUpdates extends AbstractDomain {
 
     public void addJsonCoupons(JsonCoupon jsonCoupon) {
         this.jsonCoupons.add(jsonCoupon);
+    }
+
+    public List<JsonPaymentCard> getJsonPaymentCards() {
+        return jsonPaymentCards;
+    }
+
+    public void addJsonPaymentCards(List<PaymentCardEntity> paymentCards) {
+        this.jsonPaymentCards.addAll(paymentCards.stream().map(JsonPaymentCard::new).collect(Collectors.toList()));
     }
 
     @Override
