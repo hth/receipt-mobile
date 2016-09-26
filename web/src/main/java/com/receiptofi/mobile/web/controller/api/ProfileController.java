@@ -209,7 +209,7 @@ public class ProfileController {
             String auth,
 
             @RequestBody
-            String updatedPasswordJson,
+            String updatedCountryJson,
 
             HttpServletResponse response
     ) throws IOException {
@@ -219,7 +219,7 @@ public class ProfileController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedPasswordJson);
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedCountryJson);
             String countryShortName = map.get(AccountMobileService.REGISTRATION.CS.name()).getText();
 
             Map <String, String> errors = new HashMap<>();
