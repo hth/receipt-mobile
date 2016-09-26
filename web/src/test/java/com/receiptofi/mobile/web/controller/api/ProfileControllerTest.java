@@ -57,7 +57,7 @@ public class ProfileControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userInfoValidator = new UserInfoValidator(5, 3, 6);
+        userInfoValidator = new UserInfoValidator(5, 3, 6, 2);
         profileController = new ProfileController(
                 authenticateService,
                 accountService,
@@ -74,7 +74,7 @@ public class ProfileControllerTest {
     @Test
     public void testUpdateMailNull() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        assertNull(profileController.updateMail("m", "z", "", httpServletResponse));
+        assertNull(profileController.mail("m", "z", "", httpServletResponse));
 
         verify(accountService, never()).findByUserId(anyString());
     }
@@ -82,7 +82,7 @@ public class ProfileControllerTest {
     @Test
     public void testUpdateMailValidation() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
-        String responseJson = profileController.updateMail("m", "z", createJsonForMail(""), httpServletResponse);
+        String responseJson = profileController.mail("m", "z", createJsonForMail(""), httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -97,7 +97,7 @@ public class ProfileControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         when(accountService.findByUserId(anyString())).thenReturn(userAccountEntity);
 
-        String responseJson = profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
+        String responseJson = profileController.mail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_EXISTING.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -114,7 +114,7 @@ public class ProfileControllerTest {
         when(accountService.findByUserId(anyString())).thenReturn(null);
         when(accountMobileService.changeUID(anyString(), anyString())).thenReturn(userAccountEntity);
 
-        profileController.updateMail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
+        profileController.mail("m", "z", createJsonForMail("p@x.com"), httpServletResponse);
 
         verify(accountMobileService, times(1)).changeUID(anyString(), anyString());
     }
@@ -122,14 +122,14 @@ public class ProfileControllerTest {
     @Test
     public void testUpdatePasswordNull() throws IOException {
         when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(null);
-        assertNull(profileController.updatePassword("m", "z", "", httpServletResponse));
+        assertNull(profileController.password("m", "z", "", httpServletResponse));
         verify(accountService, never()).updateAuthentication(any(UserAuthenticationEntity.class));
     }
 
     @Test
     public void testUpdatePasswordValidation() throws IOException {
         when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(userAccountEntity);
-        String responseJson = profileController.updatePassword("m", "z", createJsonForPassword(""), httpServletResponse);
+        String responseJson = profileController.password("m", "z", createJsonForPassword(""), httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -144,7 +144,7 @@ public class ProfileControllerTest {
         when(authenticateService.findUserAccount(anyString(), anyString())).thenReturn(userAccountEntity);
         when(userAccountEntity.isAccountValidated()).thenReturn(true);
         doNothing().when(accountService).updateAuthentication(userAuthenticationEntity);
-        profileController.updatePassword("m", "z", createJsonForPassword("password"), httpServletResponse);
+        profileController.password("m", "z", createJsonForPassword("password"), httpServletResponse);
         verify(accountService, times(1)).updateAuthentication(any(UserAuthenticationEntity.class));
     }
 
