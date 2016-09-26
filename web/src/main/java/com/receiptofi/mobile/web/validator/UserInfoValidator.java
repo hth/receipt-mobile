@@ -4,7 +4,6 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
 import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
-import com.receiptofi.mobile.web.controller.AccountController;
 import com.receiptofi.mobile.web.controller.api.UtilityController;
 import com.receiptofi.utils.Constants;
 
@@ -32,6 +31,7 @@ public class UserInfoValidator {
     private int mailLength;
     private int nameLength;
     private int passwordLength;
+    private int countryShortNameLength;
 
     @Autowired
     public UserInfoValidator(
@@ -42,11 +42,15 @@ public class UserInfoValidator {
             int nameLength,
 
             @Value ("${UserInfoValidator.passwordLength:6}")
-            int passwordLength
+            int passwordLength,
+
+            @Value ("${UserInfoValidator.countryShortNameLength:2}")
+            int countryShortNameLength
     ) {
         this.mailLength = mailLength;
         this.nameLength = nameLength;
         this.passwordLength = passwordLength;
+        this.countryShortNameLength = countryShortNameLength;
     }
 
     public Map<String, String> validate(String mail, String firstName, String password, String birthday) {
@@ -113,6 +117,16 @@ public class UserInfoValidator {
         }
     }
 
+    public void countryValidation(String countryShortName, Map<String, String> errors) {
+        if (StringUtils.isBlank(countryShortName) || countryShortName.length() != countryShortNameLength) {
+            LOG.info("failed validation countryShortName={}", countryShortName);
+            errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
+            errors.put(AccountMobileService.REGISTRATION.CS.name(), StringUtils.isBlank(countryShortName) ? EMPTY : countryShortName);
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+        }
+    }
+
     public int getMailLength() {
         return mailLength;
     }
@@ -123,5 +137,9 @@ public class UserInfoValidator {
 
     public int getPasswordLength() {
         return passwordLength;
+    }
+
+    public int getCountryShortNameLength() {
+        return countryShortNameLength;
     }
 }

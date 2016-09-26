@@ -290,7 +290,8 @@ public class AccountMobileService {
         FN, //FirstName
         EM, //Email
         BD, //Birthday
-        PW  //Password
+        PW, //Password
+        CS  //CountryShortName
     }
 
     public enum REGISTRATION_TURNED_ON {

@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
         "PMD.LongVariable"
 })
 @RestController
-@RequestMapping (value = "/api")
+@RequestMapping (value = "/api/profile")
 public class ProfileController {
     private static final Logger LOG = LoggerFactory.getLogger(ProfileController.class);
 
@@ -79,13 +79,13 @@ public class ProfileController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/updateMail.json",
+            value = "/mail.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String updateMail(
+    public String mail(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -132,13 +132,13 @@ public class ProfileController {
     }
 
     @RequestMapping (
-            value = "/updatePassword.json",
+            value = "/password.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String updatePassword(
+    public String password(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -191,6 +191,46 @@ public class ProfileController {
                 response.addHeader(AUTH, userAuthentication.getAuthenticationKeyEncoded());
                 return null;
             }
+        }
+    }
+
+    @RequestMapping (
+            value = "/country.json",
+            method = RequestMethod.POST,
+            headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+    )
+    public String country(
+            @RequestHeader ("X-R-MAIL")
+            String mail,
+
+            @RequestHeader ("X-R-AUTH")
+            String auth,
+
+            @RequestBody
+            String updatedCountryJson,
+
+            HttpServletResponse response
+    ) throws IOException {
+        LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
+        UserAccountEntity userAccount = authenticateService.findUserAccount(mail, auth);
+        if (null == userAccount) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
+            return null;
+        } else {
+            Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(updatedCountryJson);
+            String countryShortName = map.get(AccountMobileService.REGISTRATION.CS.name()).getText();
+
+            Map <String, String> errors = new HashMap<>();
+            userInfoValidator.countryValidation(countryShortName, errors);
+            if (!errors.isEmpty()) {
+                return ErrorEncounteredJson.toJson(errors);
+            }
+
+            accountService.updateCountryShortName(countryShortName, userAccount.getReceiptUserId());
+            LOG.info("country updated={} rid={}", countryShortName, userAccount.getReceiptUserId());
+            return null;
         }
     }
 }
