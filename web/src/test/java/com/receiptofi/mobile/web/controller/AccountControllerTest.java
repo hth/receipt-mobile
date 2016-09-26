@@ -20,7 +20,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.UserProfileEntity;
-import com.receiptofi.domain.types.ProviderEnum;
 import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.web.validator.UserInfoValidator;
 import com.receiptofi.service.AccountService;
@@ -49,8 +48,9 @@ public class AccountControllerTest {
     public static final String REASON = "reason";
     public static final String ERROR = "error";
     private static final int mailLength = 5;
-    private static final int nameLength = 2;
+    private static final int nameLength = 3;
     private static final int passwordLength = 6;
+    private static final int countryShortNameLength = 2;
 
     @Mock private AccountMobileService accountMobileService;
     @Mock private AccountService accountService;
@@ -62,7 +62,7 @@ public class AccountControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        userInfoValidator = new UserInfoValidator(mailLength, nameLength, passwordLength);
+        userInfoValidator = new UserInfoValidator(mailLength, nameLength, passwordLength, countryShortNameLength);
         MockitoAnnotations.initMocks(this);
         accountController = new AccountController(
                 accountService,
