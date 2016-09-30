@@ -26,8 +26,6 @@ import javax.servlet.ServletContextListener;
 public class ReceiptofiServletContextListener implements ServletContextListener {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptofiServletContextListener.class);
 
-    private Properties messages = new Properties();
-
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         LOG.info("Receiptofi mobile context destroyed");
@@ -37,25 +35,38 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
     public void contextInitialized(ServletContextEvent arg0) {
         LOG.info("Receiptofi context initialized");
 
+        Properties messages = new Properties();
+        Properties environment = new Properties();
+
         try {
             messages.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("messages.properties"));
+
+            if (StringUtils.equals(messages.getProperty("build.env"), "prod")) {
+                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/prod.properties"));
+            } else if (StringUtils.equals(messages.getProperty("build.env"), "test")) {
+                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/test.properties"));
+            } else {
+                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/dev.properties"));
+            }
+
         } catch (IOException e) {
             LOG.error("could not load config properties file reason={}", e.getLocalizedMessage(), e);
         }
 
-        checkEnvironment();
+        checkEnvironment(messages, environment);
     }
 
-    private void checkEnvironment() {
+    private void checkEnvironment(Properties messages, Properties environment) {
         try {
             String hostName = InetAddress.getLocalHost().getHostName();
             String buildEnvironment = (String) messages.get("build.env");
+            String hostname = environment.getProperty("hostname.starts.with");
 
             LOG.info("Deploying on environment={} and host={}", buildEnvironment, hostName);
-            if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith("t")) {
+            if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
-            } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.equals("receiptofi.com")) {
+            } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.equals(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
             }
