@@ -52,7 +52,7 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
             String buildEnvironment = (String) messages.get("build.env");
 
             LOG.info("Deploying on environment={} and host={}", buildEnvironment, hostName);
-            if (StringUtils.equals(buildEnvironment, "prod") && (!hostName.equals("t1") || !hostName.equals("t2") || !hostName.equals("t3") || !hostName.equals("t4"))) {
+            if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith("t")) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
             } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.equals("receiptofi.com")) {
