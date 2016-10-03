@@ -11,7 +11,7 @@ API call <code>/receipt-mobile/api/profile/mail.json</code>
     -H "X-R-MAIL: email@receiptofi.com"
     -H "X-R-AUTH: %242a%241"
     -d '{"UID":"change-email@receiptofi.com"}'
-    http://localhost:9090/receipt-mobile/api/updateMail.json
+    http://localhost:9090/receipt-mobile/api/profile/mail.json
 
 - HTTP header response upon success
 
@@ -46,7 +46,7 @@ API call <code>/receipt-mobile/api/profile/password.json</code>
     -H "X-R-MAIL: email@receiptofi.com"
     -H "X-R-AUTH: %242"
     -d '{"PA":"somepassword"}'
-    http://localhost:9090/receipt-mobile/api/updatePassword.json
+    http://localhost:9090/receipt-mobile/api/profile/password.json
 
 HTTP header response when there is an exception
 
@@ -149,4 +149,4 @@ API call <code>/receipt-mobile/api/profile/country.json</code>
     -H "X-R-MAIL: email@receiptofi.com"
     -H "X-R-AUTH: %242a%241"
     -d '{"CS":"us"}'
-    http://localhost:9090/receipt-mobile/api/updateMail.json
+    http://localhost:9090/receipt-mobile/api/profile/country.json
