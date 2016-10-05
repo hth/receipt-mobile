@@ -66,7 +66,7 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
             if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
-            } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.equals(hostname)) {
+            } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.startsWith(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
             }
