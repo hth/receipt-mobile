@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.service;
 
 import com.receiptofi.domain.ExpenseTagEntity;
+import com.receiptofi.domain.types.ExpenseTagIconEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
 import com.receiptofi.mobile.repository.ExpenseTagManagerMobile;
 import com.receiptofi.service.ExpensesService;
@@ -67,16 +68,16 @@ public class ExpenseTagMobileService {
         return expenseTagManagerMobile.doesExits(rid, tagName);
     }
 
-    public ExpenseTagEntity save(String tagName, String rid, String tagColor) {
-        ExpenseTagEntity expenseTag = ExpenseTagEntity.newInstance(tagName, rid, tagColor);
+    public ExpenseTagEntity save(String tagName, String rid, String tagColor, ExpenseTagIconEnum icon) {
+        ExpenseTagEntity expenseTag = ExpenseTagEntity.newInstance(tagName, rid, tagColor, icon);
         expensesService.saveExpenseTag(expenseTag);
         return expenseTag;
     }
 
-    public void update(String tagId, String tagName, String rid, String tagColor) {
+    public void update(String tagId, String tagName, String rid, String tagColor, ExpenseTagIconEnum icon) {
         ExpenseTagEntity expenseTag = expensesService.getExpenseTag(rid, tagId);
         Assert.notNull(expenseTag, "Expense Tag does not exists.");
-        expensesService.updateExpenseTag(tagId, tagName, tagColor, rid);
+        expensesService.updateExpenseTag(tagId, tagName, tagColor, icon, rid);
     }
 
     public AvailableAccountUpdates getUpdates(String rid) {

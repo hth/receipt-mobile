@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import com.receiptofi.domain.ExpenseTagEntity;
+import com.receiptofi.domain.types.ExpenseTagIconEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.ExpenseTagMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
@@ -39,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
         "PMD.LongVariable"
 })
 @RestController
-@RequestMapping (value = "/api")
+@RequestMapping (value = "/api/expenseTag")
 public class ExpenseTagController {
     private static final Logger LOG = LoggerFactory.getLogger(ExpenseTagController.class);
 
@@ -72,7 +73,7 @@ public class ExpenseTagController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/addExpenseTag.json",
+            value = "/add.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -99,9 +100,10 @@ public class ExpenseTagController {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
             String tagName = map.containsKey("tagName") ? map.get("tagName").getText().toUpperCase() : null;
             String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText() : null;
+            String tagIcon = map.containsKey("tagIcon") ? map.get("tagIcon").getText().toUpperCase() : null;
 
-            if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor)) {
-                LOG.warn("Null tagName={} or tagColor={}", tagName, tagColor);
+            if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) ||  StringUtils.isBlank(tagIcon)) {
+                LOG.warn("Null tagName={} or tagColor={} or tagIcon={} ", tagName, tagColor, tagIcon);
                 Map<String, String> errors = getErrorUserInput("Either Expense Tag or Color received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
             }
@@ -118,9 +120,15 @@ public class ExpenseTagController {
                 return ErrorEncounteredJson.toJson(errors);
             }
 
+            if (StringUtils.isBlank(tagIcon)) {
+                LOG.warn("Expense Tag tagIcon={} for rid={} is empty", tagName, rid);
+                Map<String, String> errors = getErrorUserInput("Expense Tag " + tagName + " is missing icon.");
+                return ErrorEncounteredJson.toJson(errors);
+            }
+
             try {
                 if (expenseTagMobileService.getExpenseTags(rid).size() < expenseTagCountMax) {
-                    expenseTagMobileService.save(tagName, rid, tagColor);
+                    expenseTagMobileService.save(tagName, rid, tagColor, ExpenseTagIconEnum.valueOf(tagIcon));
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } else {
                     Map<String, String> errors = getErrorUserInput("Maximum number of TAG(s) allowed " + expenseTagCountMax + ". Could not add " + tagName + ".");
@@ -145,7 +153,7 @@ public class ExpenseTagController {
      * @throws IOException
      */
     @RequestMapping (
-            value = "/updateExpenseTag.json",
+            value = "/update.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -172,15 +180,20 @@ public class ExpenseTagController {
             Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
             String tagName = map.containsKey("tagName") ? map.get("tagName").getText().toUpperCase() : null;
             String tagColor = map.containsKey("tagColor") ? map.get("tagColor").getText().toUpperCase() : null;
+            String tagIcon = map.containsKey("tagIcon") ? map.get("tagIcon").getText().toUpperCase() : null;
             String tagId = map.containsKey("tagId") ? map.get("tagId").getText() : null;
 
-            if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) || StringUtils.isBlank(tagId)) {
-                LOG.warn("Null tagName={} or tagColor={} or tagId={}", tagName, tagColor, tagId);
+            if (StringUtils.isBlank(tagName) || StringUtils.isBlank(tagColor) ||  StringUtils.isBlank(tagIcon) || StringUtils.isBlank(tagId)) {
+                LOG.warn("Null tagName={} or tagColor={} or tagIcon={} or tagId={}", tagName, tagColor, tagIcon, tagId);
                 Map<String, String> errors = getErrorSevere("Either Expense Tag or Color or Id received as empty.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (tagName.length() > expenseTagSize) {
                 LOG.warn("Expense Tag expenseTagName={} for rid={} length size={} greater", tagName, rid, expenseTagSize);
                 Map<String, String> errors = getErrorUserInput("Expense Tag " + tagName + " length should not be greater than " + expenseTagSize + " characters.");
+                return ErrorEncounteredJson.toJson(errors);
+            } else if (StringUtils.isBlank(tagIcon)) {
+                LOG.warn("Expense Tag tagIcon={} for rid={} is empty", tagName, rid);
+                Map<String, String> errors = getErrorUserInput("Expense Tag " + tagName + " is missing icon.");
                 return ErrorEncounteredJson.toJson(errors);
             } else if (null == expenseTagMobileService.getExpenseTag(rid, tagId)) {
                 LOG.warn("Expense Tag with expenseTagName={} for rid={} could not be found", tagName, rid);
@@ -193,12 +206,12 @@ public class ExpenseTagController {
                     Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
                     return ErrorEncounteredJson.toJson(errors);
                 } else {
-                    expenseTagMobileService.update(tagId, tagName, rid, tagColor);
+                    expenseTagMobileService.update(tagId, tagName, rid, tagColor, ExpenseTagIconEnum.valueOf(tagIcon));
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 }
             } else {
                 try {
-                    expenseTagMobileService.update(tagId, tagName, rid, tagColor);
+                    expenseTagMobileService.update(tagId, tagName, rid, tagColor, ExpenseTagIconEnum.valueOf(tagIcon));
                     return expenseTagMobileService.getUpdates(rid).asJson();
                 } catch (Exception e) {
                     LOG.error("Failure during expense tag update rid={} reason={}", rid, e.getLocalizedMessage(), e);
@@ -219,7 +232,7 @@ public class ExpenseTagController {
      * @return
      */
     @RequestMapping (
-            value = "/deleteExpenseTag.json",
+            value = "/delete.json",
             method = RequestMethod.POST,
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
