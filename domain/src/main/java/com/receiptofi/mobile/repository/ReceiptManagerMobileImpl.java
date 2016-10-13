@@ -41,7 +41,12 @@ public class ReceiptManagerMobileImpl implements ReceiptManagerMobile {
             Document.class,
             "collection");
 
-    @Autowired private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
+
+    @Autowired
+    public ReceiptManagerMobileImpl(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public List<ReceiptEntity> getAllReceipts(String receiptUserId) {
