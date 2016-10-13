@@ -36,8 +36,14 @@ public class BillingAccountManagerMobileImpl implements BillingAccountManagerMob
             Document.class,
             "collection");
 
-    @Autowired private MongoTemplate mongoTemplate;
-    @Autowired private BillingAccountManager billingAccountManager;
+    private final MongoTemplate mongoTemplate;
+    private final BillingAccountManager billingAccountManager;
+
+    @Autowired
+    public BillingAccountManagerMobileImpl(MongoTemplate mongoTemplate, BillingAccountManager billingAccountManager) {
+        this.mongoTemplate = mongoTemplate;
+        this.billingAccountManager = billingAccountManager;
+    }
 
     @Override
     public BillingAccountEntity getLatestBillingAccount(String rid) {

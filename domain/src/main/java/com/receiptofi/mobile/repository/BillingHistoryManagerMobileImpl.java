@@ -40,8 +40,14 @@ public class BillingHistoryManagerMobileImpl implements BillingHistoryManagerMob
             Document.class,
             "collection");
 
-    @Autowired private MongoTemplate mongoTemplate;
-    @Autowired private BillingHistoryManager billingHistoryManager;
+    private final MongoTemplate mongoTemplate;
+    private final BillingHistoryManager billingHistoryManager;
+
+    @Autowired
+    public BillingHistoryManagerMobileImpl(MongoTemplate mongoTemplate, BillingHistoryManager billingHistoryManager) {
+        this.mongoTemplate = mongoTemplate;
+        this.billingHistoryManager = billingHistoryManager;
+    }
 
     @Override
     public List<BillingHistoryEntity> getHistory(String rid, Date since) {

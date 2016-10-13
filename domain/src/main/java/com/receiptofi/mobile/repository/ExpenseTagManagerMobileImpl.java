@@ -36,7 +36,12 @@ public class ExpenseTagManagerMobileImpl implements ExpenseTagManagerMobile {
             Document.class,
             "collection");
 
-    @Autowired private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
+
+    @Autowired
+    public ExpenseTagManagerMobileImpl(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public ExpenseTagEntity getExpenseTag(String rid, String tagId, String tagName) {
