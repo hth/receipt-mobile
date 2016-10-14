@@ -40,8 +40,6 @@
             <element id="library" level="project" name="Gradle: com.github.virtuald:curvesapi:1.03" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
             <element id="library" level="project" name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7" />
             <element id="library" level="project" name="Gradle: com.google.protobuf:protobuf-java:2.5.0" />
             <element id="library" level="project" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" />
@@ -102,7 +100,6 @@
             <element id="library" level="project" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.0.1" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.61.0" />
             <element id="library" level="project" name="Gradle: net.java.dev.jna:jna-platform:4.0.0" />
             <element id="library" level="project" name="Gradle: net.java.dev.jna:jna:4.1.0" />
             <element id="library" level="project" name="Gradle: net.jcip:jcip-annotations:1.0" />
@@ -301,6 +298,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-redis:1.7.3.RELEASE" />
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
@@ -313,9 +311,7 @@
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.6.0" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
@@ -340,7 +336,6 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.61.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
               <element id="module-output" name="common_main" />
@@ -351,6 +346,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.4.2" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.9" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.9" />
@@ -459,8 +455,9 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/1.7.3.RELEASE/7f5bad9379ac856cd46e8152b85a541f61c2c3df/spring-data-redis-1.7.3.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-keyvalue/1.1.3.RELEASE/22e08c60fcb8e1d6233053ab87f989430630c994/spring-data-keyvalue-1.1.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/35be1874f3f1f2a461f1ce0f409da318b6c21365/google-maps-services-0.1.16.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/f1ee3fe3a023d07cd071dbd424a1b1d7bafbc59a/javamelody-core-1.62.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -519,6 +516,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-redis:1.7.3.RELEASE" />
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
@@ -531,9 +529,7 @@
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.6.0" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
@@ -558,7 +554,6 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.61.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
               <element id="module-output" name="common_main" />
@@ -569,6 +564,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.4.2" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.9" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.9" />
@@ -677,8 +673,9 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/1.7.3.RELEASE/7f5bad9379ac856cd46e8152b85a541f61c2c3df/spring-data-redis-1.7.3.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-keyvalue/1.1.3.RELEASE/22e08c60fcb8e1d6233053ab87f989430630c994/spring-data-keyvalue-1.1.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/35be1874f3f1f2a461f1ce0f409da318b6c21365/google-maps-services-0.1.16.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/f1ee3fe3a023d07cd071dbd424a1b1d7bafbc59a/javamelody-core-1.62.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -737,6 +734,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-redis:1.7.3.RELEASE" />
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
@@ -749,9 +747,7 @@
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.6.0" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
@@ -776,7 +772,6 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.61.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
               <element id="module-output" name="common_main" />
@@ -787,6 +782,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.4.2" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.9" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.9" />
@@ -903,8 +899,9 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/1.7.3.RELEASE/7f5bad9379ac856cd46e8152b85a541f61c2c3df/spring-data-redis-1.7.3.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-keyvalue/1.1.3.RELEASE/22e08c60fcb8e1d6233053ab87f989430630c994/spring-data-keyvalue-1.1.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/35be1874f3f1f2a461f1ce0f409da318b6c21365/google-maps-services-0.1.16.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/f1ee3fe3a023d07cd071dbd424a1b1d7bafbc59a/javamelody-core-1.62.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -963,6 +960,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:1.10.0.M1" />
             <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.3.0" />
             <element id="library" level="project" name="Gradle: com.braintreepayments.gateway:braintree-java:2.64.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-redis:1.7.3.RELEASE" />
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.5.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.5.0" />
@@ -975,9 +973,7 @@
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:19.0" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
-            <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.15" />
             <element id="library" level="project" name="Gradle: com.googlecode.libphonenumber:libphonenumber:7.6.0" />
             <element id="library" level="project" name="Gradle: com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239" />
             <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.1" />
@@ -1002,7 +998,6 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
-            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.61.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
               <element id="module-output" name="common_main" />
@@ -1013,6 +1008,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-acl:4.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.21" />
             <element id="library" level="project" name="Gradle: org.osgi:org.osgi.core:4.2.0" />
+            <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:1.1.3.RELEASE" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.4.2" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.9" />
             <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.9" />
@@ -1129,8 +1125,9 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/1.7.3.RELEASE/7f5bad9379ac856cd46e8152b85a541f61c2c3df/spring-data-redis-1.7.3.RELEASE.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-keyvalue/1.1.3.RELEASE/22e08c60fcb8e1d6233053ab87f989430630c994/spring-data-keyvalue-1.1.3.RELEASE.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/35be1874f3f1f2a461f1ce0f409da318b6c21365/google-maps-services-0.1.16.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/f1ee3fe3a023d07cd071dbd424a1b1d7bafbc59a/javamelody-core-1.62.0.jar" />
+            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar" />
           </element>
         </element>
         <element id="directory" name="META-INF">
@@ -1579,26 +1576,26 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.google.guava:guava:19.0">
+    <library name="Gradle: com.google.guava:guava:20.0-rc1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/1b83a1c2f6138f09b5d3adf1b33e3d06d0c4ea2b/guava-19.0-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/53ab481503d962aaed6bc25ddcb5f24fb1da06a8/guava-20.0-rc1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/91a4d115400e904f22b03a78deb355e9ea803cd4/guava-19.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/65e6c4c7fb0f39f1d00d2ea62087f5a412108f29/guava-20.0-rc1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.google.maps:google-maps-services:0.1.15">
+    <library name="Gradle: com.google.maps:google-maps-services:0.1.16">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.15/b1c15d5c6b8b6b780113205c7ea9b045897d74eb/google-maps-services-0.1.15.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/35be1874f3f1f2a461f1ce0f409da318b6c21365/google-maps-services-0.1.16.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.15/7f138a15df43c64d84e389900cab1d49f501033f/google-maps-services-0.1.15-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/7902a2853437d18ce32051b6720ad12f9ff73e65/google-maps-services-0.1.16-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.15/d973728f38acbbff84a5221c5c2391a2fd0b61ae/google-maps-services-0.1.15-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.16/ef0062cdd5a4ce5b94bb046edf87adf4a40feca1/google-maps-services-0.1.16-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7">
@@ -1741,20 +1738,7 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:social:2.0.0">
       <CLASSES>
@@ -2266,15 +2250,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.bull.javamelody:javamelody-core:1.61.0">
+    <library name="Gradle: net.bull.javamelody:javamelody-core:1.62.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.61.0/4f58f4d02a0d9eb3796eebc15ed84e84182ba4f8/javamelody-core-1.61.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/f1ee3fe3a023d07cd071dbd424a1b1d7bafbc59a/javamelody-core-1.62.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.61.0/325c9c8994aa96f9cc46f90874343dec76e83ee/javamelody-core-1.61.0-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/5efc44301d06bf59caa7ca89d65b83bf9588187/javamelody-core-1.62.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.61.0/e2e42a5dd6433182babb365b4329ff84d786a385/javamelody-core-1.61.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.62.0/4c39fa6c5755a1130d345878da6a6ab2646a8cfc/javamelody-core-1.62.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: net.java.dev.jna:jna-platform:4.0.0">
