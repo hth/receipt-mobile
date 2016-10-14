@@ -208,7 +208,7 @@ subprojects {
 
         compile "com.google.guava:guava:$guava"
         compile "com.google.code.gson:gson:$gson"
-        compile 'com.google.maps:google-maps-services:0.1.15'
+        compile "com.google.maps:google-maps-services:$googleMap"
         compile "com.googlecode.libphonenumber:libphonenumber:$libphonenumber"
         compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
 
