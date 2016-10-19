@@ -1,7 +1,5 @@
 package com.receiptofi.mobile.web.controller;
 
-import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.SEVERE;
-
 import com.receiptofi.mobile.service.SocialAuthenticationService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
