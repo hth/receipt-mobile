@@ -28,7 +28,7 @@ ext {
 
 allprojects {
     group = 'com.receiptofi.mobile'
-    version = '2.0.0'
+    apply from: "$rootDir/versioning.gradle"
 }
 
 subprojects {
@@ -409,7 +409,23 @@ task unzip(type: Copy, dependsOn: [':web:war']) {
     into unzipDir
 }
 
-task prepWar(dependsOn: [unzip, copyJars]) << {
+task createBuildInfoFile << {
+    buildDir.mkdirs()
+    def buildInfoFile = new File("$buildDir/build-info.properties")
+    Properties props = new Properties();
+    props.setProperty('owner', 'Receiptofi Inc');
+    props.setProperty('copyright', 'All rights reserved');
+    props.setProperty('build.version', project.version.toString());
+    props.setProperty('build.env', "$env");
+
+    props.store(buildInfoFile.newWriter(), null);
+}
+
+task prepWar(dependsOn: [
+        createBuildInfoFile,
+        unzip,
+        copyJars
+]) << {
     warClassesDir.mkdirs()
     warConfDir.mkdirs()
 
@@ -475,6 +491,11 @@ task prepWar(dependsOn: [unzip, copyJars]) << {
         from unzipLibDir
         into warLibDir
     }
+
+    copy {
+        from "${buildDir}/build-info.properties"
+        into warClassesDir
+    }
 }
 
 task clean(type: Delete) {
@@ -484,26 +505,10 @@ task clean(type: Delete) {
 task war(type: War, dependsOn: prepWar) {
     doFirst {
         if (env == 'test' || env == 'prod') {
-            // This adds escape character to message.properties; if you would like to avoid updating file at runtime
-            // then create a new file 'versionFile.name' in your favorite location and add the new file as below
-            //
-            // from(rootDir) {
-            //      include versionFile.name
-            // }
-
-            ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
-                entry(key: "build.version", value: System.getenv().BUILD_NUMBER?.toInteger())
-                entry(key: "build.env", value: env)
-            }
-
-            baseName = "receipt-mobile-$env." + System.getenv().BUILD_NUMBER?.toInteger()
+            baseName = "receipt-mobile-$env." + project.version.toString()
         }
 
         if (env == 'dev') {
-            ant.propertyfile(file: "$warDir/WEB-INF/classes/messages.properties") {
-                entry(key: "build.version", value: 'dev')
-            }
-
             baseName = "receipt-mobile-$env"
         }
     }
