@@ -451,7 +451,7 @@ task prepWar(dependsOn: [
             }
         }
 
-        if (env == 'test') {
+        if (env == 'sandbox') {
             if (passFileTest.exists()) {
                 from passwordTestFileLocation
             } else {
@@ -504,7 +504,7 @@ task clean(type: Delete) {
 
 task war(type: War, dependsOn: prepWar) {
     doFirst {
-        if (env == 'test' || env == 'prod') {
+        if (env == 'sandbox' || env == 'prod') {
             baseName = "receipt-mobile-$env." + project.version.toString()
         }
 
