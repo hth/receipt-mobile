@@ -43,8 +43,8 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
 
             if (StringUtils.equals(messages.getProperty("build.env"), "prod")) {
                 environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/prod.properties"));
-            } else if (StringUtils.equals(messages.getProperty("build.env"), "test")) {
-                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/test.properties"));
+            } else if (StringUtils.equals(messages.getProperty("build.env"), "sandbox")) {
+                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/sandbox.properties"));
             } else {
                 environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/dev.properties"));
             }
@@ -66,7 +66,7 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
             if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
-            } else if (StringUtils.equals(buildEnvironment, "test") && !hostName.startsWith(hostname)) {
+            } else if (StringUtils.equals(buildEnvironment, "sandbox") && !hostName.startsWith(hostname)) {
                 LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
                 throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
             }
