@@ -17,7 +17,7 @@ class ProjectVersion {
     String toString() {
         String fullVersion = "$major.$minor"
 
-        if(build) {
+        if (build) {
             fullVersion += ".$build"
         }
 
