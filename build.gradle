@@ -425,7 +425,7 @@ task prepWar(dependsOn: [
         createBuildInfoFile,
         unzip,
         copyJars
-]) << {
+]) {
     warClassesDir.mkdirs()
     warConfDir.mkdirs()
 
