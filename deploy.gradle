@@ -2,59 +2,49 @@ ssh.settings {
     dryRun = false
     logging = 'stdout'
     timeoutSec = 600000
-    identity = file('${System.properties[\'user.home\']}/.ssh/id_rsa')
+    identity = file("${System.properties['user.home']}/.ssh/id_rsa")
 }
 
 remotes {
     r1 {
         host = '192.168.1.20'
         user = 'db'
-        rootFile = 'ROOT-sandbox.*.war'
-        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r2 {
         host = '192.168.1.22'
         user = 'db'
-        rootFile = 'ROOT-sandbox.*.war'
-        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r3 {
         host = '192.168.1.21'
         user = 'db'
-        rootFile = 'ROOT-sandbox.*.war'
-        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r4 {
         host = '192.168.1.23'
         user = 'db'
-        rootFile = 'ROOT-loader-sandbox.*.war'
-        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
 }
 
-task deployServer << {
-    deploy(remotes.r1)
+task deployServer {
+    deploy(remotes.r1, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+
+    //deploy(remotes.r2, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    //deploy(remotes.r3, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    //deploy(remotes.r4, 'ROOT-loader-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
 }
 
-deployServer.dependsOn war
-
-def deploy(def server) {
+def deploy(def server, def rootFile, def mobileFile) {
     logger.lifecycle("Deploying to $server for $env")
-    logger.lifecycle("Copying ${war.archivePath.absolutePath} to $server ... Be patient .. takes time ...")
-    sshexec {
-        session(server) {
-            put(war.archivePath.absolutePath, war.archiveName)
-        }
-    }
+    logger.lifecycle("Copying $rootFile, $mobileFile to $server ... Be patient .. takes time ...")
+
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
     sshExecute(server, 'rm -rf /usr/local/tomcat/webapps/*')
     put from: files(
-            "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$server.rootFile",
-            "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$server.mobileFile"
+            "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile",
+            "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile"
     ), into: "/usr/local/tomcat/webapps/"
-    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $server.rootFile ROOT.war")
-    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $server.mobileFile receipt-mobile.war")
+    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
+    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $mobileFile receipt-mobile.war")
 
     sshExecute(server, 'sudo service tomcat start')
     sshExecute(server, 'sudo service tomcat status')
@@ -62,7 +52,7 @@ def deploy(def server) {
 
 def sshExecute(def server, def cmd) {
     logger.lifecycle("Executing '$cmd'  ...")
-    sshexec {
+    ssh.run {
         session(server) {
             execute(cmd, pty: false)
         }
