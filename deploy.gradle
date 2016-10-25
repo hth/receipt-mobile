@@ -1,3 +1,20 @@
+if (!hasProperty('env')) {
+    ext.env = System.env['GRADLE_ENV']
+}
+
+println "Building for environment: $env"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.hidetake:gradle-ssh-plugin:2.7.0'
+    }
+}
+
+apply plugin: 'org.hidetake.ssh'
+
 ssh.settings {
     dryRun = false
     logging = 'stdout'
