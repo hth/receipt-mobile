@@ -55,7 +55,7 @@ def deploy(def server, def rootFile, def mobileFile) {
 
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
-    sshExecute(server, 'rm -rf /usr/local/tomcat/webapps/*')
+    sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *')
     put from: files(
             "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile",
             "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile"
