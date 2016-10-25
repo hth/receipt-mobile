@@ -75,7 +75,7 @@ def sshExecute(def server, def cmd) {
     }
 }
 
-def sshCopy(def server, def filePath) {
+def copyFiles(def server, def filePath) {
     logger.lifecycle("Copying $filePath to $server ... Be patient .. takes time ...")
     ssh.run {
         session(server) {
