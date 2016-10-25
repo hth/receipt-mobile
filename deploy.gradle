@@ -42,10 +42,12 @@ remotes {
 }
 
 task deployServer {
-    deploy(remotes.r1, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-    deploy(remotes.r2, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-    deploy(remotes.r3, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-    deploy(remotes.r4, 'ROOT-loader-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    if (env == 'sandbox') {
+        deploy(remotes.r1, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+        deploy(remotes.r2, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+        deploy(remotes.r3, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+        deploy(remotes.r4, 'ROOT-loader-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    }
 }
 
 def deploy(def server, def rootFile, def mobileFile) {
