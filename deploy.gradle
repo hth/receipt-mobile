@@ -1,0 +1,86 @@
+ssh.settings {
+    dryRun = false
+    logging = 'stdout'
+    timeoutSec = 600000
+    identity = file('${System.properties[\'user.home\']}/.ssh/id_rsa')
+}
+
+remotes {
+    r1 {
+        host = '192.168.1.20'
+        user = 'db'
+    }
+    r2 {
+        host = '192.168.1.22'
+        user = 'db'
+    }
+    r3 {
+        host = '192.168.1.21'
+        user = 'db'
+    }
+    r4 {
+        host = '192.168.1.23'
+        user = 'db'
+    }
+}
+
+task stop {
+    doLast {
+        println "Stop for environment: $env"
+    }
+
+    ssh.run {
+        session(remotes.r1) {
+            executeSudo 'service tomcat stop'
+            execute 'sleep 20'
+        }
+    }
+}
+
+task reload (dependsOn: [stop]) {
+    doLast {
+        println "Deploy for environment: $env"
+    }
+
+    ssh.run {
+        session(remotes.r1) {
+            execute 'cd /usr/local/tomcat/webapps/; rm -rf *'
+            put from: files(
+                    '/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/ROOT-sandbox.*.war',
+                    '/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/receipt-mobile-sandbox.*.war'
+            ), into: '/usr/local/tomcat/webapps/'
+            execute 'cd /usr/local/tomcat/webapps/; mv ROOT-sandbox.*.war ROOT.war'
+            execute 'cd /usr/local/tomcat/webapps/; mv receipt-mobile-sandbox.*.war receipt-mobile.war'
+        }
+    }
+}
+
+task start (dependsOn: [reload]) {
+    doLast {
+        println "Starting Tomcat : $env"
+    }
+
+    ssh.run {
+        session(remotes.r1) {
+            executeSudo 'service tomcat start'
+        }
+    }
+}
+
+task checkWebServers << {
+    ssh.run {
+        session(remotes.r1) {
+            // Execute a command
+            def result = execute 'sudo service httpd status'
+
+            // Also Groovy methods or properties are available in a session closure
+            println result
+        }
+        session(remotes.r2) {
+            def result = execute 'sudo service httpd status'
+
+            // Also Groovy style assertion is available in a session closure
+            assert result.contains('running')
+        }
+    }
+}
