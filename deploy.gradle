@@ -9,78 +9,62 @@ remotes {
     r1 {
         host = '192.168.1.20'
         user = 'db'
+        rootFile = 'ROOT-sandbox.*.war'
+        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r2 {
         host = '192.168.1.22'
         user = 'db'
+        rootFile = 'ROOT-sandbox.*.war'
+        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r3 {
         host = '192.168.1.21'
         user = 'db'
+        rootFile = 'ROOT-sandbox.*.war'
+        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
     r4 {
         host = '192.168.1.23'
         user = 'db'
+        rootFile = 'ROOT-loader-sandbox.*.war'
+        mobileFile = 'receipt-mobile-sandbox.*.war'
     }
 }
 
-task stop {
-    doLast {
-        println "Stop for environment: $env"
-    }
-
-    ssh.run {
-        session(remotes.r1) {
-            executeSudo 'service tomcat stop'
-            execute 'sleep 20'
-        }
-    }
+task deployServer << {
+    deploy(remotes.r1)
 }
 
-task reload (dependsOn: [stop]) {
-    doLast {
-        println "Deploy for environment: $env"
-    }
+deployServer.dependsOn war
 
-    ssh.run {
-        session(remotes.r1) {
-            execute 'cd /usr/local/tomcat/webapps/; rm -rf *'
-            put from: files(
-                    '/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/ROOT-sandbox.*.war',
-                    '/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/receipt-mobile-sandbox.*.war'
-            ), into: '/usr/local/tomcat/webapps/'
-            execute 'cd /usr/local/tomcat/webapps/; mv ROOT-sandbox.*.war ROOT.war'
-            execute 'cd /usr/local/tomcat/webapps/; mv receipt-mobile-sandbox.*.war receipt-mobile.war'
+def deploy(def server) {
+    logger.lifecycle("Deploying to $server for $env")
+    logger.lifecycle("Copying ${war.archivePath.absolutePath} to $server ... Be patient .. takes time ...")
+    sshexec {
+        session(server) {
+            put(war.archivePath.absolutePath, war.archiveName)
         }
     }
+    sshExecute(server, 'sudo service tomcat stop')
+    sshExecute(server, 'sleep 20')
+    sshExecute(server, 'rm -rf /usr/local/tomcat/webapps/*')
+    put from: files(
+            "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$server.rootFile",
+            "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$server.mobileFile"
+    ), into: "/usr/local/tomcat/webapps/"
+    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $server.rootFile ROOT.war")
+    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $server.mobileFile receipt-mobile.war")
+
+    sshExecute(server, 'sudo service tomcat start')
+    sshExecute(server, 'sudo service tomcat status')
 }
 
-task start (dependsOn: [reload]) {
-    doLast {
-        println "Starting Tomcat : $env"
-    }
-
-    ssh.run {
-        session(remotes.r1) {
-            executeSudo 'service tomcat start'
-        }
-    }
-}
-
-task checkWebServers << {
-    ssh.run {
-        session(remotes.r1) {
-            // Execute a command
-            def result = execute 'sudo service httpd status'
-
-            // Also Groovy methods or properties are available in a session closure
-            println result
-        }
-        session(remotes.r2) {
-            def result = execute 'sudo service httpd status'
-
-            // Also Groovy style assertion is available in a session closure
-            assert result.contains('running')
+def sshExecute(def server, def cmd) {
+    logger.lifecycle("Executing '$cmd'  ...")
+    sshexec {
+        session(server) {
+            execute(cmd, pty: false)
         }
     }
 }
