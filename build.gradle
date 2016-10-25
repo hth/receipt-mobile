@@ -442,6 +442,7 @@ task prepWar(dependsOn: [
 
     copy {
         from 'web/resources/conf/application-messages.properties'
+        from 'web/resources/conf/config.properties'
 
         if (env == 'prod') {
             if (passFileProd.exists()) {
