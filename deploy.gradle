@@ -51,15 +51,12 @@ task deployServer {
 
 def deploy(def server, def rootFile, def mobileFile) {
     logger.lifecycle("Deploying to $server for $env")
-    logger.lifecycle("Copying $rootFile, $mobileFile to $server ... Be patient .. takes time ...")
 
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
     sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *')
-    put from: files(
-            "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile",
-            "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile"
-    ), into: "/usr/local/tomcat/webapps/"
+    sshCopy(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile")
+    sshCopy(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $mobileFile receipt-mobile.war")
 
@@ -72,6 +69,15 @@ def sshExecute(def server, def cmd) {
     ssh.run {
         session(server) {
             execute(cmd, pty: false)
+        }
+    }
+}
+
+def sshCopy(def server, def filePath) {
+    logger.lifecycle("Copying $filePath to $server ... Be patient .. takes time ...")
+    ssh.run {
+        session(server) {
+            put from: files("$filePath"), into: "/usr/local/tomcat/webapps/"
         }
     }
 }
