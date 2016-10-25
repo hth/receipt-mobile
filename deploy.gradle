@@ -43,10 +43,9 @@ remotes {
 
 task deployServer {
     deploy(remotes.r1, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-
-    //deploy(remotes.r2, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-    //deploy(remotes.r3, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
-    //deploy(remotes.r4, 'ROOT-loader-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    deploy(remotes.r2, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    deploy(remotes.r3, 'ROOT-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
+    deploy(remotes.r4, 'ROOT-loader-sandbox.*.war', 'receipt-mobile-sandbox.*.war')
 }
 
 def deploy(def server, def rootFile, def mobileFile) {
@@ -55,12 +54,13 @@ def deploy(def server, def rootFile, def mobileFile) {
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
     sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *')
-    sshCopy(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile")
-    sshCopy(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile")
+    copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi-sandbox-build/workspace/build/war/sandbox/$rootFile")
+    copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-sandbox-build/workspace/build/war/sandbox/$mobileFile")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $mobileFile receipt-mobile.war")
 
     sshExecute(server, 'sudo service tomcat start')
+    sshExecute(server, 'sleep 20')
     sshExecute(server, 'sudo service tomcat status')
 }
 
