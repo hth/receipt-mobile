@@ -35,40 +35,40 @@ public class ReceiptofiServletContextListener implements ServletContextListener 
     public void contextInitialized(ServletContextEvent arg0) {
         LOG.info("Receiptofi context initialized");
 
-        Properties messages = new Properties();
         Properties environment = new Properties();
+        Properties system = new Properties();
 
         try {
-            messages.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("messages.properties"));
+            environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("messages.properties"));
 
-            if (StringUtils.equals(messages.getProperty("build.env"), "prod")) {
-                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/prod.properties"));
-            } else if (StringUtils.equals(messages.getProperty("build.env"), "sandbox")) {
-                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/sandbox.properties"));
+            if (StringUtils.equals(environment.getProperty("build.env"), "prod")) {
+                system.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/prod.properties"));
+            } else if (StringUtils.equals(environment.getProperty("build.env"), "sandbox")) {
+                system.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/sandbox.properties"));
             } else {
-                environment.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/dev.properties"));
+                system.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf/dev.properties"));
             }
 
         } catch (IOException e) {
             LOG.error("could not load config properties file reason={}", e.getLocalizedMessage(), e);
         }
 
-        checkEnvironment(messages, environment);
+        checkEnvironment(environment, system);
     }
 
-    private void checkEnvironment(Properties messages, Properties environment) {
+    private void checkEnvironment(Properties environment, Properties system) {
         try {
             String hostName = InetAddress.getLocalHost().getHostName();
-            String buildEnvironment = (String) messages.get("build.env");
-            String hostname = environment.getProperty("hostname.starts.with");
+            String buildEnvironment = (String) environment.get("build.env");
+            String hostname = system.getProperty("hostname.starts.with");
 
-            LOG.info("Deploying on environment={} and host={}", buildEnvironment, hostName);
+            LOG.info("Deploying on system={} and host={}", buildEnvironment, hostName);
             if (StringUtils.equals(buildEnvironment, "prod") && !hostName.startsWith(hostname)) {
-                LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
-                throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
+                LOG.error("Mismatch system. Found env={} on host={}", buildEnvironment, hostName);
+                throw new RuntimeException("Mismatch system. Found env=" + buildEnvironment + " on host=" + hostName);
             } else if (StringUtils.equals(buildEnvironment, "sandbox") && !hostName.startsWith(hostname)) {
-                LOG.error("Mismatch environment. Found env={} on host={}", buildEnvironment, hostName);
-                throw new RuntimeException("Mismatch environment. Found env=" + buildEnvironment + " on host=" + hostName);
+                LOG.error("Mismatch system. Found env={} on host={}", buildEnvironment, hostName);
+                throw new RuntimeException("Mismatch system. Found env=" + buildEnvironment + " on host=" + hostName);
             }
         } catch (UnknownHostException e) {
             LOG.error("Could not get hostname reason={}", e.getLocalizedMessage(), e);
