@@ -22,6 +22,7 @@
             <element id="module-output" name="security_main" />
             <element id="module-output" name="service_main" />
             <element id="module-output" name="web_main" />
+            <element id="file-copy" path="$PROJECT_DIR$/web/resources/conf/build-info.properties" />
           </element>
           <element id="directory" name="lib">
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
