@@ -26,9 +26,21 @@ ext {
     passFileProd = file(passwordProdFileLocation)
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.hidetake:gradle-ssh-plugin:2.7.0'
+    }
+}
+
+apply plugin: 'org.hidetake.ssh'
+
 allprojects {
     group = 'com.receiptofi.mobile'
     apply from: "$rootDir/versioning.gradle"
+    apply from: "$rootDir/deploy.gradle"
 }
 
 subprojects {
