@@ -66,6 +66,8 @@ def deploy(def server, def path, def rootFile, def mobileFile) {
 
     sshExecute(server, 'sudo service tomcat start')
     sshExecute(server, 'sleep 20')
+    sshExecute(server, "echo 'server=abc' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
+    sshExecute(server, "echo 'server=abc' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
     sshExecute(server, 'sudo service tomcat status')
 }
 
