@@ -50,28 +50,6 @@ task deployServer {
     }
 }
 
-task stopServer {
-    logger.lifecycle("Stop $server on $env")
-    if (env == 'sandbox') {
-        sshExecute(remotes.r1, 'sudo service tomcat stop')
-        sshExecute(remotes.r2, 'sudo service tomcat stop')
-        sshExecute(remotes.r3, 'sudo service tomcat stop')
-        sshExecute(remotes.r4, 'sudo service tomcat stop')
-        sshExecute(server, 'sleep 20')
-    }
-}
-
-task startServer {
-    logger.lifecycle("Start $server on $env")
-    if (env == 'sandbox') {
-        sshExecute(server, 'sleep 20')
-        sshExecute(remotes.r1, 'sudo service tomcat start')
-        sshExecute(remotes.r2, 'sudo service tomcat start')
-        sshExecute(remotes.r3, 'sudo service tomcat start')
-        sshExecute(remotes.r4, 'sudo service tomcat start')
-    }
-}
-
 def deploy(def server, def path, def rootFile, def mobileFile) {
     logger.lifecycle("Deploying to $server for $env")
 
