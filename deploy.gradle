@@ -61,16 +61,19 @@ def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
     sshExecute(server, 'cd /usr/local/tomcat/logs/; rm -rf *')
     copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi-$env-build/workspace/build/war/$path/$rootFile")
     copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-$env-build/workspace/build/war/$env/$mobileFile")
-    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
-    sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $mobileFile receipt-mobile.war")
+    sshExecute(server, "mkdir /usr/local/tomcat/webapps/ROOT")
+    sshExecute(server, "mkdir /usr/local/tomcat/webapps/receipt-mobile")
+    sshExecute(server, "cd /usr/local/tomcat/webapps/ROOT; mv $rootFile ROOT.war")
+    sshExecute(server, "cd /usr/local/tomcat/webapps/receipt-mobile; mv $mobileFile receipt-mobile.war")
     sshExecute(server, "tar -xzvf ROOT.war")
     sshExecute(server, "tar -xzvf receipt-mobile.war")
-    sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *.war')
+    sshExecute(server, 'cd /usr/local/tomcat/webapps/ROOT; rm -rf ROOT.war')
+    sshExecute(server, 'cd /usr/local/tomcat/webapps/receipt-mobile; rm -rf receipt-mobile.war')
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
 
     sshExecute(server, 'sudo service tomcat start')
-    sshExecute(server, 'sleep 20')
+    sshExecute(server, 'sleep 15')
     sshExecute(server, 'sudo service tomcat status')
 }
 
