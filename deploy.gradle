@@ -78,6 +78,7 @@ def deploy(def server, def path, def rootFile, def mobileFile) {
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
     sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *')
+    sshExecute(server, 'cd /usr/local/tomcat/logs/; rm -rf *')
     copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi-$env-build/workspace/build/war/$path/$rootFile")
     copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-$env-build/workspace/build/war/$env/$mobileFile")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
