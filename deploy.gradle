@@ -43,10 +43,10 @@ remotes {
 
 task deployServer {
     if (env == 'sandbox') {
-        deploy(remotes.r1, "r1", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r2, "r2", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r3, "r3", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r4, "r4", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r4, "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
 
@@ -63,11 +63,14 @@ def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
     copyFiles(server, "/Users/Shared/Jenkins/Home/jobs/receiptofi.mobile-$env-build/workspace/build/war/$env/$mobileFile")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $rootFile ROOT.war")
     sshExecute(server,  "cd /usr/local/tomcat/webapps/; mv $mobileFile receipt-mobile.war")
-
-    sshExecute(server, 'sudo service tomcat start')
-    sshExecute(server, 'sleep 30')
+    sshExecute(server, "tar -xzvf ROOT.war")
+    sshExecute(server, "tar -xzvf receipt-mobile.war")
+    sshExecute(server, 'cd /usr/local/tomcat/webapps/; rm -rf *.war')
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
+
+    sshExecute(server, 'sudo service tomcat start')
+    sshExecute(server, 'sleep 20')
     sshExecute(server, 'sudo service tomcat status')
 }
 
