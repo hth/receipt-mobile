@@ -51,7 +51,9 @@ task deployServer {
 }
 
 def deploy(def server, def path, def rootFile, def mobileFile) {
+    logger.lifecycle("$server$server$server$server$server$server$server$server$server$server$server$server")
     logger.lifecycle("Deploying to $server for $env")
+    logger.lifecycle("$server$server$server$server$server$server$server$server$server$server$server$server")
 
     sshExecute(server, 'sudo service tomcat stop')
     sshExecute(server, 'sleep 20')
