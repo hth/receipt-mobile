@@ -43,14 +43,14 @@ remotes {
 
 task deployServer {
     if (env == 'sandbox') {
-        deploy(remotes.r1, "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r2, "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r3, "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r4, "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r1, "r1", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r2, "r2", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r3, "r3", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r4, "r4", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
 
-def deploy(def server, def path, def rootFile, def mobileFile) {
+def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
     logger.lifecycle("--------------------------------------------")
     logger.lifecycle("         Deploying to $server for $env")
     logger.lifecycle("--------------------------------------------")
@@ -66,8 +66,8 @@ def deploy(def server, def path, def rootFile, def mobileFile) {
 
     sshExecute(server, 'sudo service tomcat start')
     sshExecute(server, 'sleep 30')
-    sshExecute(server, "echo 'server=$server.substring(2)' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
-    sshExecute(server, "echo 'server=$server.substring(2)' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
+    sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
+    sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
     sshExecute(server, 'sudo service tomcat status')
 }
 
