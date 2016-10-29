@@ -28,11 +28,11 @@ remotes {
         user = 'db'
     }
     r2 {
-        host = '192.168.1.22'
+        host = '192.168.1.21'
         user = 'db'
     }
     r3 {
-        host = '192.168.1.21'
+        host = '192.168.1.22'
         user = 'db'
     }
     r4 {
