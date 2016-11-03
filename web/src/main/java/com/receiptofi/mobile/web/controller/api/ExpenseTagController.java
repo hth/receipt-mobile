@@ -201,7 +201,7 @@ public class ExpenseTagController {
                 return ErrorEncounteredJson.toJson(errors);
             } else if (expenseTagMobileService.doesExists(rid, tagName)) {
                 ExpenseTagEntity existingET = expenseTagMobileService.getExpenseTag(rid, tagId);
-                if (existingET.getTagColor().equalsIgnoreCase(tagColor)) {
+                if (existingET.getTagColor().equalsIgnoreCase(tagColor) && existingET.getIcon().getName().equalsIgnoreCase(tagIcon)) {
                     LOG.warn("No change detected for expenseTagName={} for rid={}", tagName, rid);
                     Map<String, String> errors = getErrorUserInput("Expense Tag already exists.");
                     return ErrorEncounteredJson.toJson(errors);
