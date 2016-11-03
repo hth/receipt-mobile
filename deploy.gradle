@@ -23,6 +23,18 @@ ssh.settings {
 }
 
 remotes {
+    s1 {
+        host = '192.168.1.30'
+        user = 'db'
+    }
+    s2 {
+        host = '192.168.1.31'
+        user = 'db'
+    }
+    s3 {
+        host = '192.168.1.32'
+        user = 'db'
+    }
     r1 {
         host = '192.168.1.20'
         user = 'db'
@@ -43,6 +55,12 @@ remotes {
 
 task deployServer {
     if (env == 'sandbox') {
+        deploy(remotes.s1, "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s2, "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s3, "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+
+    }
+    if (env == 'prod') {
         deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
