@@ -109,7 +109,6 @@
             <element id="library" level="project" name="Gradle: net.sf.ehcache:ehcache-core:2.6.2" />
             <element id="library" level="project" name="Gradle: net.sf.jwordnet:jwnl:1.3.3" />
             <element id="library" level="project" name="Gradle: net.sourceforge.jmatio:jmatio:1.0" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-compress:1.11" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-csv:1.0" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-exec:1.3" />
@@ -159,9 +158,7 @@
             <element id="library" level="project" name="Gradle: org.gagravarr:vorbis-java-tika:0.8" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-all:1.3" />
             <element id="library" level="project" name="Gradle: org.hamcrest:hamcrest-core:1.3" />
-            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
             <element id="library" level="project" name="Gradle: org.itadaki:bzip2:0.9.1" />
-            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
             <element id="library" level="project" name="Gradle: org.jdom:jdom2:2.0.4" />
             <element id="library" level="project" name="Gradle: org.jrobin:jrobin:1.5.9" />
             <element id="library" level="project" name="Gradle: org.json:json:20160212" />
@@ -249,13 +246,13 @@
         <element id="file-copy" path="$PROJECT_DIR$/web/web/favicon.ico" />
       </root>
     </artifact>
-    <artifact type="war" name="Gradle : com.receiptofi.mobile : security-2.0.0.war">
+    <artifact type="war" name="Gradle : com.receiptofi.mobile : security-2.0.war">
       <output-path>$PROJECT_DIR$/out/artifacts/security</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
       </properties>
-      <root id="archive" name="security-2.0.0.war">
-        <element id="javaee-facet-resources" facet="security_main/web/Web Gradle : security-2.0.0.war" />
+      <root id="archive" name="security-2.0.war">
+        <element id="javaee-facet-resources" facet="security_main/web/Web Gradle : security-2.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="security_main" />
@@ -310,7 +307,7 @@
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -330,7 +327,7 @@
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.0" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
@@ -341,7 +338,7 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.62.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
-            <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
             </element>
@@ -361,7 +358,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
+            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final" />
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.7.5" />
             <element id="library" level="project" name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
@@ -453,9 +450,9 @@
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0-rc1" />
+            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
-            <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-domain.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
@@ -463,17 +460,17 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.0.war/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.war/META-INF/MANIFEST.MF" />
         </element>
       </root>
     </artifact>
-    <artifact type="exploded-war" name="Gradle : com.receiptofi.mobile : security-2.0.0.war (exploded)">
-      <output-path>$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.0.war</output-path>
+    <artifact type="exploded-war" name="Gradle : com.receiptofi.mobile : security-2.0.war (exploded)">
+      <output-path>$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.war</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
       </properties>
       <root id="root">
-        <element id="javaee-facet-resources" facet="security_main/web/Web Gradle : security-2.0.0.war" />
+        <element id="javaee-facet-resources" facet="security_main/web/Web Gradle : security-2.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="security_main" />
@@ -528,7 +525,7 @@
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -548,7 +545,7 @@
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.0" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
@@ -559,7 +556,7 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.62.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
-            <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
             </element>
@@ -579,7 +576,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
+            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final" />
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.7.5" />
             <element id="library" level="project" name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
@@ -671,9 +668,9 @@
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0-rc1" />
+            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
-            <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-domain.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
@@ -681,17 +678,17 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.0.war/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/security/exploded/security-2.0.war/META-INF/MANIFEST.MF" />
         </element>
       </root>
     </artifact>
-    <artifact type="war" name="Gradle : com.receiptofi.mobile : receiptofi.mobile-web-2.0.0.war">
+    <artifact type="war" name="Gradle : com.receiptofi.mobile : receiptofi.mobile-web-2.0.war">
       <output-path>$PROJECT_DIR$/out/artifacts/web</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
       </properties>
-      <root id="archive" name="receiptofi.mobile-web-2.0.0.war">
-        <element id="javaee-facet-resources" facet="web_main/web/Web Gradle : receiptofi.mobile-web-2.0.0.war" />
+      <root id="archive" name="receiptofi.mobile-web-2.0.war">
+        <element id="javaee-facet-resources" facet="web_main/web/Web Gradle : receiptofi.mobile-web-2.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="web_main" />
@@ -746,7 +743,7 @@
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -766,7 +763,7 @@
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.0" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
@@ -777,7 +774,7 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.62.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
-            <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
             </element>
@@ -797,7 +794,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
+            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final" />
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.7.5" />
             <element id="library" level="project" name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
@@ -889,35 +886,35 @@
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0-rc1" />
+            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
-            <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-domain.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
-            <element id="archive" name="com.receiptofi.mobile-security-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-security.jar">
               <element id="module-output" name="security_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-service-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-service.jar">
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.0.war/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.war/META-INF/MANIFEST.MF" />
         </element>
       </root>
     </artifact>
-    <artifact type="exploded-war" name="Gradle : com.receiptofi.mobile : receiptofi.mobile-web-2.0.0.war (exploded)">
-      <output-path>$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.0.war</output-path>
+    <artifact type="exploded-war" name="Gradle : com.receiptofi.mobile : receiptofi.mobile-web-2.0.war (exploded)">
+      <output-path>$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.war</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
       </properties>
       <root id="root">
-        <element id="javaee-facet-resources" facet="web_main/web/Web Gradle : receiptofi.mobile-web-2.0.0.war" />
+        <element id="javaee-facet-resources" facet="web_main/web/Web Gradle : receiptofi.mobile-web-2.0.war" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="web_main" />
@@ -972,7 +969,7 @@
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.21" />
-            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final" />
+            <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.4" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
@@ -992,7 +989,7 @@
             <element id="library" level="project" name="Gradle: javax.mail:mail:1.4.7" />
             <element id="library" level="project" name="Gradle: javax.validation:validation-api:1.1.0.Final" />
             <element id="library" level="project" name="Gradle: javax.inject:javax.inject:1" />
-            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.0" />
+            <element id="library" level="project" name="Gradle: org.apache.activemq:activemq-client:5.14.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.4" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-parsers:1.13" />
             <element id="library" level="project" name="Gradle: org.apache.tika:tika-core:1.13" />
@@ -1003,7 +1000,7 @@
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.7" />
             <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.62.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
-            <element id="archive" name="com.receiptofi.mobile-common-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/common/build/resources/main" />
             </element>
@@ -1023,7 +1020,7 @@
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
             <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.0.0.Final" />
-            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final" />
+            <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final" />
             <element id="library" level="project" name="Gradle: com.squareup.okhttp:okhttp:2.7.5" />
             <element id="library" level="project" name="Gradle: com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7" />
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.1" />
@@ -1115,25 +1112,25 @@
             <element id="library" level="project" name="Gradle: org.codehaus.woodstox:stax2-api:3.1.4" />
             <element id="library" level="project" name="Gradle: org.springframework.social:spring-social-config:1.1.4.RELEASE" />
             <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:1.13.0.M1" />
-            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0-rc1" />
+            <element id="library" level="project" name="Gradle: com.google.guava:guava:20.0" />
             <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.15-beta1" />
-            <element id="archive" name="com.receiptofi.mobile-domain-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-domain.jar">
               <element id="module-output" name="domain_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
-            <element id="archive" name="com.receiptofi.mobile-security-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-security.jar">
               <element id="module-output" name="security_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/security/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="archive" name="com.receiptofi.mobile-service-2.0.0.jar">
+            <element id="archive" name="com.receiptofi.mobile-service.jar">
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.0.war/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/web/exploded/receiptofi.mobile-web-2.0.war/META-INF/MANIFEST.MF" />
         </element>
       </root>
     </artifact>
@@ -1579,15 +1576,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.google.guava:guava:20.0-rc1">
+    <library name="Gradle: com.google.guava:guava:20.0">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/4c2a4581b69b16a57968da32fcadb8e362b639b2/guava-20.0-rc1.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0/89507701249388e1ed5ddcf8c41f4ce1be7831ef/guava-20.0.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/53ab481503d962aaed6bc25ddcb5f24fb1da06a8/guava-20.0-rc1-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0/fcf063ba2bcd1f6866d09feeef65a181bf32da0d/guava-20.0-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0-rc1/65e6c4c7fb0f39f1d00d2ea62087f5a412108f29/guava-20.0-rc1-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/20.0/9c8493c7991464839b612d7547d6c263adf08f75/guava-20.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: com.google.maps:google-maps-services:0.1.16">
@@ -1734,40 +1731,14 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/domain/2.0.0/domain-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:service:2.0.0">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/2.0.0/service-2.0.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
-        <root url="file://$PROJECT_DIR$/../receipt/web/src/main/java" />
-      </SOURCES>
+      <SOURCES />
     </library>
     <library name="Gradle: com.receiptofi:social:2.0.0">
       <CLASSES>
@@ -2365,15 +2336,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.jmatio/jmatio/1.0/ad4536babac74b401af4655c7270afa9b0361fc0/jmatio-1.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.apache.activemq:activemq-client:5.14.0">
+    <library name="Gradle: org.apache.activemq:activemq-client:5.14.1">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.0/e667e31cbb81c0e90adc069975cc56fdb748db75/activemq-client-5.14.0.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.1/14aab3d3a9ec4583cd8f51bba1d311e33eceeb61/activemq-client-5.14.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.0/22a276eaa823b7b1a3e111b3f5f9a1da02a933c/activemq-client-5.14.0-javadoc.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.1/92b2c9cc06601fd157e287228920f7a85d8343e0/activemq-client-5.14.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.0/3da3b6d92f0aec54dd8647cb699b2ab724635eeb/activemq-client-5.14.0-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.activemq/activemq-client/5.14.1/a3c6717d119fe68502220818f00d6d632cc78036/activemq-client-5.14.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.apache.commons:commons-collections4:4.1">
@@ -2951,13 +2922,13 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.hibernate:hibernate-validator:5.2.4.Final">
+    <library name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.4.Final/fb18766b576aa6632bcfe9a20a023cbd52bf9769/hibernate-validator-5.2.4.Final.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.3.0.Final/fe2600d905fc7ca8294044310c3b2a72e98ec27e/hibernate-validator-5.3.0.Final.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.4.Final/b02d7b80cdadbfc51106252238fc1a667c8287eb/hibernate-validator-5.2.4.Final-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.3.0.Final/63da687eded394daf3edde90409acf978f8a99d8/hibernate-validator-5.3.0.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.itadaki:bzip2:0.9.1">
@@ -2971,13 +2942,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.itadaki/bzip2/0.9.1/655282fbaee3bcd3b79d9383b0abff561bb496f0/bzip2-0.9.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.jboss.logging:jboss-logging:3.2.1.Final">
+    <library name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final">
       <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.2.1.Final/fedf11b3d4665a434b554a5891fe7f208f029f45/jboss-logging-3.2.1.Final.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3616bb87707910296e2c195dc016287080bba5af/jboss-logging-3.3.0.Final.jar!/" />
       </CLASSES>
-      <JAVADOC />
+      <JAVADOC>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/772d044bc1084caa8969cb0e09cd7dbeb54ce5b2/jboss-logging-3.3.0.Final-javadoc.jar!/" />
+      </JAVADOC>
       <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.2.1.Final/107183008a58bce4d729e4442203320fefc34e75/jboss-logging-3.2.1.Final-sources.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.3.0.Final/3625e6818158ddb4754fa2ec51299e5f57e596b4/jboss-logging-3.3.0.Final-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.jdom:jdom2:2.0.4">
