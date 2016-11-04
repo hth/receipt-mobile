@@ -37,6 +37,7 @@ public class LatestReceiptController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
     public JsonReceiptSanitized getLatestReceipt() {
-        return receiptMobileService.getRecentReceipts();
+        //return receiptMobileService.getRecentReceipts();
+        return new JsonReceiptSanitized();
     }
 }
