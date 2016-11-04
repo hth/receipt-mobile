@@ -1,6 +1,5 @@
 package com.receiptofi.mobile.web.controller;
 
-import com.receiptofi.domain.json.JsonReceiptSanitized;
 import com.receiptofi.mobile.service.ReceiptMobileService;
 
 import org.slf4j.Logger;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Shows recent receipt sanitized to main web home screen.
+ *
  * User: hitender
  * Date: 2/11/16 7:43 PM
  */
@@ -36,8 +37,8 @@ public class LatestReceiptController {
             headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public JsonReceiptSanitized getLatestReceipt() {
+    public String getLatestReceipt() {
         //return receiptMobileService.getRecentReceipts();
-        return new JsonReceiptSanitized();
+        return "{}";
     }
 }
