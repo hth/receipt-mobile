@@ -60,12 +60,12 @@ task deployServer {
         deploy(remotes.s3, "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
     }
-//    if (env == 'prod') {
-//        deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-//        deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-//        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-//        deploy(remotes.r4, "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
-//    }
+    if (env == 'prod') {
+        deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r4, "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+    }
 }
 
 def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
