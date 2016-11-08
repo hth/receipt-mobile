@@ -47,17 +47,22 @@ public class ExpenseTagController {
     private AuthenticateService authenticateService;
     private ExpenseTagMobileService expenseTagMobileService;
 
-    @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
     private int expenseTagCountMax;
-
-    @Value ("${UserProfilePreferenceController.ExpenseTagSize}")
     private int expenseTagSize;
 
     @Autowired
     public ExpenseTagController(
+            @Value ("${UserProfilePreferenceController.ExpenseTagCountMax}")
+            int expenseTagCountMax,
+
+            @Value ("${UserProfilePreferenceController.ExpenseTagSize}")
+            int expenseTagSize,
+
             AuthenticateService authenticateService,
             ExpenseTagMobileService expenseTagMobileService
     ) {
+        this.expenseTagCountMax = expenseTagCountMax;
+        this.expenseTagSize = expenseTagSize;
         this.authenticateService = authenticateService;
         this.expenseTagMobileService = expenseTagMobileService;
     }
