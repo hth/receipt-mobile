@@ -55,20 +55,20 @@ remotes {
 
 task deployServer {
     if (env == 'sandbox') {
-        deploy(remotes.s1, "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s2, "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s3, "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s1, "192.168.1.30", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s2, "192.168.1.31", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s3, "192.168.1.32", "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
     }
     if (env == 'prod') {
-        deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-//        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r4, "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r1, "192.168.1.20", "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r2, "192.168.1.21", "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+//        deploy(remotes.r3, "192.168.1.22", "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r4, "192.168.1.23", "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
 
-def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
+def deploy(def server, def ip, def serverName, def path, def rootFile, def mobileFile) {
     logger.lifecycle("--------------------------------------------")
     logger.lifecycle("         Deploying to $server for $env")
     logger.lifecycle("--------------------------------------------")
@@ -92,9 +92,12 @@ def deploy(def server, def serverName, def path, def rootFile, def mobileFile) {
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/build-info.properties")
     sshExecute(server, "echo 'server=$serverName' >> /usr/local/tomcat/webapps/receipt-mobile/WEB-INF/classes/build-info.properties")
 
-    sshExecute(server, 'sudo service tomcat start')
-    sshExecute(server, 'sleep 15')
-    sshExecute(server, 'sudo service tomcat status')
+    sshExecute(server, "sudo service tomcat start'")
+    sshExecute(server, "sleep 15")
+    sshExecute(server, "sudo service tomcat status")
+    sshExecute(server, "curl -I http://$ip:8080/open/login.htm")
+    sshExecute(server, "wget -qO- http://$ip:8080/open/login.htm > /dev/null 2>&1")
+    sshExecute(server, "wget -qO- http://$ip:8080/open/forgot/password.htm > /dev/null 2>&1")
 }
 
 def sshExecute(def server, def cmd) {
