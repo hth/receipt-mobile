@@ -43,10 +43,10 @@ remotes {
         host = '192.168.1.21'
         user = 'db'
     }
-    r3 {
-        host = '192.168.1.22'
-        user = 'db'
-    }
+//    r3 {
+//        host = '192.168.1.22'
+//        user = 'db'
+//    }
     r4 {
         host = '192.168.1.23'
         user = 'db'
@@ -63,7 +63,7 @@ task deployServer {
     if (env == 'prod') {
         deploy(remotes.r1, "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r2, "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+//        deploy(remotes.r3, "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r4, "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
