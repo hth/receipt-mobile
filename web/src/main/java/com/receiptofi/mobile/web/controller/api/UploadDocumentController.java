@@ -129,20 +129,16 @@ public class UploadDocumentController {
                         uploadDocumentImage.getOriginalFileName(),
                         rid);
 
+                messageDocumentService.markMessageForReceiptAsDuplicate(
+                        document.getId(),
+                        documentRejectUserId,
+                        documentRejectRid);
+
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
                         document.getId(),
                         DocumentOfTypeEnum.RECEIPT,
                         DocumentRejectReasonEnum.D);
-
-                /**
-                 * The process above marks message as reject. Changing the order because
-                 * there are dual rejection on same document.
-                 */
-                messageDocumentService.markMessageForReceiptAsDuplicate(
-                        document.getId(),
-                        documentRejectUserId,
-                        documentRejectRid);
             }
 
             DocumentUpload documentUpload = DocumentUpload.newInstance(
