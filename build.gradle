@@ -409,93 +409,97 @@ task unzip(type: Copy, dependsOn: [':web:war']) {
     into unzipDir
 }
 
-task createBuildInfoFile << {
-    buildDir.mkdirs()
-    def buildInfoFile = new File("$buildDir/build-info.properties")
-    Properties props = new Properties();
-    props.setProperty('owner', 'Receiptofi Inc');
-    props.setProperty('copyright', 'All rights reserved');
-    props.setProperty('build.version', project.version.toString());
-    props.setProperty('build.env', "$env");
+task createBuildInfoFile {
+    doLast {
+        buildDir.mkdirs()
+        def buildInfoFile = new File("$buildDir/build-info.properties")
+        Properties props = new Properties();
+        props.setProperty('owner', 'Receiptofi Inc');
+        props.setProperty('copyright', 'All rights reserved');
+        props.setProperty('build.version', project.version.toString());
+        props.setProperty('build.env', "$env");
 
-    props.store(buildInfoFile.newWriter(), null);
+        props.store(buildInfoFile.newWriter(), null);
+    }
 }
 
 task prepWar(dependsOn: [
         createBuildInfoFile,
         unzip,
         copyJars
-]) << {
-    warClassesDir.mkdirs()
-    warConfDir.mkdirs()
+]) {
+    doLast {
+        warClassesDir.mkdirs()
+        warConfDir.mkdirs()
 
-    copy {
-        from 'web/web'
-        into warDir
-        exclude '**/*.classes'
-    }
-
-    copy {
-        from file("web/environment/$env/$env" + ".properties")
-        into warConfDir
-    }
-
-    copy {
-        from 'web/resources/conf/application-messages.properties'
-        from 'web/resources/conf/config.properties'
-
-        if (env == 'prod') {
-            if (passFileProd.exists()) {
-                from passwordProdFileLocation
-            } else {
-                throw new Exception("Required pass file does not exists: $passFileProd.canonicalPath")
-            }
+        copy {
+            from 'web/web'
+            into warDir
+            exclude '**/*.classes'
         }
 
-        if (env == 'sandbox') {
-            if (passFileTest.exists()) {
-                from passwordTestFileLocation
-            } else {
-                throw new Exception("Required pass file does not exists: $passFileTest.canonicalPath")
-            }
+        copy {
+            from file("web/environment/$env/$env" + ".properties")
+            into warConfDir
         }
 
-        if (env == 'dev') {
-            println "Development environment, getting local pass file $passFileLocal.canonicalPath"
-            if (passFileLocal.exists()) {
-                from 'web/resources/conf/pass.properties'
-            } else {
-                throw new Exception("Required pass file does not exists: $passFileLocal.canonicalPath")
+        copy {
+            from 'web/resources/conf/application-messages.properties'
+            from 'web/resources/conf/config.properties'
+
+            if (env == 'prod') {
+                if (passFileProd.exists()) {
+                    from passwordProdFileLocation
+                } else {
+                    throw new Exception("Required pass file does not exists: $passFileProd.canonicalPath")
+                }
             }
+
+            if (env == 'sandbox') {
+                if (passFileTest.exists()) {
+                    from passwordTestFileLocation
+                } else {
+                    throw new Exception("Required pass file does not exists: $passFileTest.canonicalPath")
+                }
+            }
+
+            if (env == 'dev') {
+                println "Development environment, getting local pass file $passFileLocal.canonicalPath"
+                if (passFileLocal.exists()) {
+                    from 'web/resources/conf/pass.properties'
+                } else {
+                    throw new Exception("Required pass file does not exists: $passFileLocal.canonicalPath")
+                }
+            }
+
+            into warConfDir
         }
 
-        into warConfDir
-    }
+        copy {
+            from "web/environment/$env/logback.xml"
+            from 'web/resources/conf/messages.properties'
+            into warClassesDir
+        }
 
-    copy {
-        from "web/environment/$env/logback.xml"
-        from 'web/resources/conf/messages.properties'
-        into warClassesDir
-    }
+        copy {
+            from "web/environment/$env/receipt-mobile-servlet.xml"
+            into warWebInfDir
+        }
 
-    copy {
-        from "web/environment/$env/receipt-mobile-servlet.xml"
-        into warWebInfDir
-    }
+        copy {
+            from 'web/web/static/images'
+            into warWebInfClassesImagesDir
+        }
 
-    copy {
-        from 'web/web/static/images'
-        into warWebInfClassesImagesDir
-    }
+        copy {
+            from unzipLibDir
+            into warLibDir
+        }
 
-    copy {
-        from unzipLibDir
-        into warLibDir
-    }
-
-    copy {
-        from "${buildDir}/build-info.properties"
-        into warClassesDir
+        copy {
+            from "${buildDir}/build-info.properties"
+            into warClassesDir
+        }
     }
 }
 
