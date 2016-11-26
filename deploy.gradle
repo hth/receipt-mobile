@@ -55,7 +55,7 @@ remotes {
 
 task deployServer {
     if (env == 'sandbox') {
-        deploy(remotes.s1, "192.168.1.30", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+//        deploy(remotes.s1, "192.168.1.30", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.s2, "192.168.1.31", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.s3, "192.168.1.32", "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
