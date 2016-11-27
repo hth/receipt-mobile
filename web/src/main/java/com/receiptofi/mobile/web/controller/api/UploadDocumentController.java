@@ -129,7 +129,7 @@ public class UploadDocumentController {
                         uploadDocumentImage.getOriginalFileName(),
                         rid);
 
-                messageDocumentService.markMessageForReceiptAsDuplicate(
+                messageDocumentService.lockMessageWhenDuplicate(
                         document.getId(),
                         documentRejectUserId,
                         documentRejectRid);
