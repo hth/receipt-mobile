@@ -82,7 +82,7 @@ public class CouponController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String updateExpenseTag(
+    public String update(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
