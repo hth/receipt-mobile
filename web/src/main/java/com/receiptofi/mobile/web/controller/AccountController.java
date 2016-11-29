@@ -96,7 +96,7 @@ public class AccountController {
         }
 
         if (map.isEmpty()) {
-            /** Validation failure as there is not data in the map. */
+            /** Validation failure as there is no data in the map. */
             return ErrorEncounteredJson.toJson(userInfoValidator.validate(null, null, null, null));
         } else {
             Set<String> unknownKeys = invalidElementsInMapDuringRegistration(map);
