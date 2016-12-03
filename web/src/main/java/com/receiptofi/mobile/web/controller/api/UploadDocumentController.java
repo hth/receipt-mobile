@@ -1,6 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
+import static java.lang.Thread.sleep;
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.shared.UploadDocumentImage;
@@ -130,10 +131,17 @@ public class UploadDocumentController {
                         uploadDocumentImage.getOriginalFileName(),
                         rid);
 
-                messageDocumentService.lockMessageWhenDuplicate(
-                        document.getId(),
-                        documentRejectUserId,
-                        documentRejectRid);
+                boolean lockObtained;
+                do {
+                    lockObtained = messageDocumentService.lockMessageWhenDuplicate(
+                            document.getId(),
+                            documentRejectUserId,
+                            documentRejectRid);
+
+                    /* JMS takes a while, so there is a network delay. */
+                    LOG.info("lock not obtained on {} did={} rid={}", DocumentRejectReasonEnum.D.getDescription(), document.getId(), rid);
+                    sleep(100);
+                } while (!lockObtained);
 
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
