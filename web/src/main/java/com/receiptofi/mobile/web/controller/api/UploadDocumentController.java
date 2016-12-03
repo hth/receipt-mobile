@@ -133,6 +133,7 @@ public class UploadDocumentController {
                         rid);
 
                 boolean lockObtained;
+                int attempt = 0;
                 do {
                     lockObtained = messageDocumentService.lockMessageWhenDuplicate(
                             document.getId(),
@@ -140,8 +141,10 @@ public class UploadDocumentController {
                             documentRejectRid);
 
                     if (!lockObtained) {
+                        attempt ++;
                         /* JMS takes a while, so there is a network delay. */
-                        LOG.info("lock not obtained on {} did={} rid={}",
+                        LOG.info("lock not obtained on attempt={} {} did={} rid={}",
+                                attempt,
                                 DocumentRejectReasonEnum.D.getDescription(),
                                 document.getId(),
                                 rid);
@@ -153,7 +156,7 @@ public class UploadDocumentController {
                                 document.getId(),
                                 rid);
                     }
-                } while (!lockObtained);
+                } while (!lockObtained || attempt < 3);
 
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
