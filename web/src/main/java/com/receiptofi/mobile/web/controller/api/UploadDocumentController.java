@@ -156,7 +156,7 @@ public class UploadDocumentController {
                                 document.getId(),
                                 rid);
                     }
-                } while (!lockObtained || attempt < 3);
+                } while (!lockObtained || attempt <= 3);
 
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
