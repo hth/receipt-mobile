@@ -138,9 +138,20 @@ public class UploadDocumentController {
                             documentRejectUserId,
                             documentRejectRid);
 
-                    /* JMS takes a while, so there is a network delay. */
-                    LOG.info("lock not obtained on {} did={} rid={}", DocumentRejectReasonEnum.D.getDescription(), document.getId(), rid);
-                    sleep(100);
+                    if (!lockObtained) {
+                        /* JMS takes a while, so there is a network delay. */
+                        LOG.info("lock not obtained on {} did={} rid={}",
+                                DocumentRejectReasonEnum.D.getDescription(),
+                                document.getId(),
+                                rid);
+
+                        sleep(100);
+                    } else {
+                        LOG.info("lock on {} did={} rid={}",
+                                DocumentRejectReasonEnum.D.getDescription(),
+                                document.getId(),
+                                rid);
+                    }
                 } while (!lockObtained);
 
                 documentUpdateService.processDocumentForReject(
