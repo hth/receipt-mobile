@@ -154,7 +154,7 @@ public class UploadDocumentController {
                                 document.getId(),
                                 rid);
 
-                        sleep(100);
+                        sleep(150);
                     }
                 } while (attempt <= 3);
 
