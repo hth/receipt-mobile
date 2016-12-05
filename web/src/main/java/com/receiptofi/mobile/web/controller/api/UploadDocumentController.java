@@ -139,7 +139,13 @@ public class UploadDocumentController {
                             documentRejectUserId,
                             documentRejectRid);
 
-                    if (!lockObtained) {
+                    if (lockObtained) {
+                        attempt = 4;
+                        LOG.info("lock on {} did={} rid={}",
+                                DocumentRejectReasonEnum.D.getDescription(),
+                                document.getId(),
+                                rid);
+                    } else {
                         attempt ++;
                         /* JMS takes a while, so there is a network delay. */
                         LOG.info("lock not obtained on attempt={} {} did={} rid={}",
@@ -149,12 +155,6 @@ public class UploadDocumentController {
                                 rid);
 
                         sleep(100);
-                    } else {
-                        attempt = 3;
-                        LOG.info("lock on {} did={} rid={}",
-                                DocumentRejectReasonEnum.D.getDescription(),
-                                document.getId(),
-                                rid);
                     }
                 } while (attempt <= 3);
 
