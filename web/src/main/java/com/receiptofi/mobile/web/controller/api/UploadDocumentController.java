@@ -1,7 +1,6 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
-import static java.lang.Thread.sleep;
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.shared.UploadDocumentImage;
@@ -127,36 +126,10 @@ public class UploadDocumentController {
 
             /* Even if we know its a duplicate we need to add the document to list in rejection count. */
             if (!duplicateFile) {
-                LOG.info("{} receipt found, delete, name={} rid={}",
-                        DocumentRejectReasonEnum.D.getDescription(),
-                        uploadDocumentImage.getOriginalFileName(),
-                        rid);
-
-                int attempt = 0;
-                do {
-                    boolean lockObtained = messageDocumentService.lockMessageWhenDuplicate(
+                messageDocumentService.lockMessageWhenDuplicate(
                             document.getId(),
                             documentRejectUserId,
                             documentRejectRid);
-
-                    if (lockObtained) {
-                        LOG.info("lock on {} did={} rid={}",
-                                DocumentRejectReasonEnum.D.getDescription(),
-                                document.getId(),
-                                rid);
-                        break;
-                    } else {
-                        attempt ++;
-                        /* JMS takes a while, so there is a network delay. */
-                        LOG.info("lock not obtained on attempt={} {} did={} rid={}",
-                                attempt,
-                                DocumentRejectReasonEnum.D.getDescription(),
-                                document.getId(),
-                                rid);
-
-                        sleep(50 * attempt);
-                    }
-                } while (attempt <= 3);
 
                 documentUpdateService.processDocumentForReject(
                         documentRejectRid,
