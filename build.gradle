@@ -21,7 +21,7 @@ ext {
     unzipDir = file("${buildDir}/unpacked/dist")
     unzipLibDir = file("$unzipDir$lib")
 
-    passFileLocal = file('web/resources/conf/pass.properties')
+    passFileLocal = file('view/resources/conf/pass.properties')
     passFileTest = file(passwordTestFileLocation)
     passFileProd = file(passwordProdFileLocation)
 }
@@ -370,10 +370,10 @@ project(':service') {
     }
 }
 
-project(':web') {
+project(':view') {
     apply plugin: 'war'
-    jar.baseName = 'receiptofi.mobile-web'
-    war.baseName = 'receiptofi.mobile-web'
+    jar.baseName = 'receiptofi.mobile-view'
+    war.baseName = 'receiptofi.mobile-view'
 
     repositories {
         mavenCentral()
@@ -397,13 +397,13 @@ task copyJars(type: Copy) {
     from 'domain/build/libs'
     from 'security/build/libs'
     from 'service/build/libs'
-    from 'web/build/libs'
+    from 'view/build/libs'
     into warLibDir
     include '**/*.jar'
 }
 
-task unzip(type: Copy, dependsOn: [':web:war']) {
-    def zipFile = file("web/build/libs/receiptofi.mobile-web-${version}.war")
+task unzip(type: Copy, dependsOn: [':view:war']) {
+    def zipFile = file("view/build/libs/receiptofi.mobile-view-${version}.war")
 
     from zipTree(zipFile)
     into unzipDir
@@ -433,19 +433,19 @@ task prepWar(dependsOn: [
         warConfDir.mkdirs()
 
         copy {
-            from 'web/web'
+            from 'view/web'
             into warDir
             exclude '**/*.classes'
         }
 
         copy {
-            from file("web/environment/$env/$env" + ".properties")
+            from file("view/environment/$env/$env" + ".properties")
             into warConfDir
         }
 
         copy {
-            from 'web/resources/conf/application-messages.properties'
-            from 'web/resources/conf/config.properties'
+            from 'view/resources/conf/application-messages.properties'
+            from 'view/resources/conf/config.properties'
 
             if (env == 'prod') {
                 if (passFileProd.exists()) {
@@ -466,7 +466,7 @@ task prepWar(dependsOn: [
             if (env == 'dev') {
                 println "Development environment, getting local pass file $passFileLocal.canonicalPath"
                 if (passFileLocal.exists()) {
-                    from 'web/resources/conf/pass.properties'
+                    from 'view/resources/conf/pass.properties'
                 } else {
                     throw new Exception("Required pass file does not exists: $passFileLocal.canonicalPath")
                 }
@@ -476,18 +476,18 @@ task prepWar(dependsOn: [
         }
 
         copy {
-            from "web/environment/$env/logback.xml"
-            from 'web/resources/conf/messages.properties'
+            from "view/environment/$env/logback.xml"
+            from 'view/resources/conf/messages.properties'
             into warClassesDir
         }
 
         copy {
-            from "web/environment/$env/receipt-mobile-servlet.xml"
+            from "view/environment/$env/receipt-mobile-servlet.xml"
             into warWebInfDir
         }
 
         copy {
-            from 'web/web/static/images'
+            from 'view/web/static/images'
             into warWebInfClassesImagesDir
         }
 
