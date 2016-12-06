@@ -27,24 +27,11 @@ import javax.jms.JMSException;
 public class ReceiptofiInitializationCheckBean {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiptofiInitializationCheckBean.class);
 
-    private JmsTemplate jmsSenderTemplate;
     private RedisCacheConfig redisCacheConfig;
 
     @Autowired
-    public ReceiptofiInitializationCheckBean(JmsTemplate jmsSenderTemplate, RedisCacheConfig redisCacheConfig) {
-        this.jmsSenderTemplate = jmsSenderTemplate;
+    public ReceiptofiInitializationCheckBean(RedisCacheConfig redisCacheConfig) {
         this.redisCacheConfig = redisCacheConfig;
-    }
-
-    @PostConstruct
-    public void checkActiveMQ() {
-        try {
-            jmsSenderTemplate.getConnectionFactory().createConnection();
-            LOG.info("ActiveMQ messaging is running");
-        } catch (JMSException e) {
-            LOG.error("ActiveMQ messaging is unavailable reason={}", e.getLocalizedMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
-        }
     }
 
     @PostConstruct
