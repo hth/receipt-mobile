@@ -212,7 +212,7 @@ subprojects {
         compile "com.googlecode.libphonenumber:libphonenumber:$libphonenumber"
         compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
 
-        compile 'com.fasterxml:classmate:1.3.1'
+        compile 'com.fasterxml:classmate:1.3.3'
         compile "com.fasterxml.jackson.core:jackson-annotations:$jackson"
         compile "com.fasterxml.jackson.core:jackson-core:$jackson"
         compile "com.fasterxml.jackson.core:jackson-databind:$jackson"
