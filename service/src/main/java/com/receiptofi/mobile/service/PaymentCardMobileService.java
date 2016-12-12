@@ -60,6 +60,7 @@ public class PaymentCardMobileService {
     }
 
     private void populateAvailableAccountUpdate(AvailableAccountUpdates availableAccountUpdates, List<PaymentCardEntity> paymentCards) {
+        LOG.info("size of cards{}", paymentCards.size());
         availableAccountUpdates.addJsonPaymentCards(paymentCards);
     }
 

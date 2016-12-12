@@ -43,6 +43,7 @@ public class PaymentCardManageMobileImpl implements PaymentCardManagerMobile {
     }
 
     public List<PaymentCardEntity> getUpdatedSince(String rid, Date since) {
+        LOG.info("paymentCard rid={} since={}", rid, since);
         return mongoTemplate.find(
                 query(where("RID").is(rid).and("U").gte(since)),
                 PaymentCardEntity.class,
