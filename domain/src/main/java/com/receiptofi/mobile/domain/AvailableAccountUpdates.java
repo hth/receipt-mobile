@@ -255,6 +255,7 @@ public class AvailableAccountUpdates extends AbstractDomain {
                 ", awaitingFriends=" + awaitingFriends.size() +
                 ", owes=" + owes.size() +
                 ", owesOther=" + owesOther.size() +
+                ", jsonPaymentCards=" + jsonPaymentCards.size() +
                 '}';
     }
 }
