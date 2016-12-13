@@ -15,6 +15,9 @@ Json format for Payment cards
       @JsonProperty ("id")
       private String id;
   
+      @JsonProperty ("nm")
+      private String cardName;
+  
       @JsonProperty ("cn")
       private String cardNetwork;
   
