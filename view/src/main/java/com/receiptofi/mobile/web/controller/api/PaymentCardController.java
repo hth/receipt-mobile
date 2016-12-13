@@ -86,9 +86,6 @@ public class PaymentCardController {
             @RequestHeader ("X-R-AUTH")
             String auth,
 
-            @RequestHeader ("X-R-DID")
-            String deviceId,
-
             @RequestBody
             String requestBodyJson,
 
