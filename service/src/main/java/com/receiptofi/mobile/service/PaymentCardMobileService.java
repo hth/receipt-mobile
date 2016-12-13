@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +55,13 @@ public class PaymentCardMobileService {
 
     private List<PaymentCardEntity> getUpdatedSince(String rid, Date since) {
         return paymentCardManagerMobile.getUpdatedSince(rid, since);
+    }
+
+    public AvailableAccountUpdates getUpdateForChangedCard(PaymentCardEntity paymentCard) {
+        Assert.notNull(paymentCard, "PaymentCardEntity should not be null");
+        AvailableAccountUpdates availableAccountUpdates = AvailableAccountUpdates.newInstance();
+        populateAvailableAccountUpdate(availableAccountUpdates, Collections.singletonList(paymentCard));
+        return availableAccountUpdates;
     }
 
     void getPaymentCardUpdatedSince(String rid, Date since, AvailableAccountUpdates availableAccountUpdates) {

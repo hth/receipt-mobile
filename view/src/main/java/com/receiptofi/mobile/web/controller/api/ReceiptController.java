@@ -177,7 +177,7 @@ public class ReceiptController {
             value = "/receiptAction",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String upload(
+    public String receiptAction(
             @RequestHeader ("X-R-MAIL")
             String mail,
 

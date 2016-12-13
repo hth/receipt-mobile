@@ -5,7 +5,6 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_JSON;
 import com.receiptofi.domain.PaymentCardEntity;
 import com.receiptofi.domain.types.CardNetworkEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.service.DeviceService;
 import com.receiptofi.mobile.service.PaymentCardMobileService;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.web.validator.PaymentCardValidator;
@@ -51,23 +50,20 @@ public class PaymentCardController {
 
     private AuthenticateService authenticateService;
     private PaymentCardMobileService paymentCardMobileService;
-    private DeviceService deviceService;
     private PaymentCardValidator paymentCardValidator;
 
     @Autowired
     public PaymentCardController(
             AuthenticateService authenticateService,
             PaymentCardMobileService paymentCardMobileService,
-            DeviceService deviceService,
             PaymentCardValidator paymentCardValidator) {
         this.authenticateService = authenticateService;
         this.paymentCardMobileService = paymentCardMobileService;
-        this.deviceService = deviceService;
         this.paymentCardValidator = paymentCardValidator;
     }
 
     /**
-     * Create, Update, Delete coupons.
+     * Create, Update, Delete payment card.
      *
      * @param mail
      * @param auth
@@ -83,7 +79,7 @@ public class PaymentCardController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
     )
-    public String update(
+    public String upsertPaymentCard(
             @RequestHeader ("X-R-MAIL")
             String mail,
 
@@ -147,7 +143,7 @@ public class PaymentCardController {
                             rid);
 
                     paymentCardMobileService.save(paymentCard);
-                    return deviceService.getUpdates(rid, deviceId).asJson();
+                    return paymentCardMobileService.getUpdateForChangedCard(paymentCard).asJson();
                 } catch (Exception e) {
                     LOG.error("Failure during payment card save rid={} reason={}", rid, e.getLocalizedMessage(), e);
                     Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");
