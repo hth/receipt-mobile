@@ -73,7 +73,7 @@ public class PaymentCardValidator {
     private void cardNameLength(String cardName, Map<String, String> errors) {
         if (StringUtils.isNotBlank(cardName) && cardName.length() > cardNameLength) {
             LOG.info("failed validation cardName length={}", cardNameLength);
-            errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
+            errors.put(ErrorEncounteredJson.REASON, "Card name exceeds " + cardNameLength + " characters.");
             errors.put("nm", "Card name exceeds " + cardNameLength + " characters.");
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
@@ -88,20 +88,20 @@ public class PaymentCardValidator {
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         } else {
-            if (NumberUtils.isDigits(cardDigit)) {
+            if (!NumberUtils.isDigits(cardDigit)) {
                 LOG.info("failed validation cardDigit length={}", cardDigitLength);
-                errors.put(ErrorEncounteredJson.REASON, "Card digits has to be number.");
-                errors.put("cd", "Card digits has to be number.");
+                errors.put(ErrorEncounteredJson.REASON, "Card digits has to be numbers.");
+                errors.put("cd", "Card digits has to be numbers.");
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-            }
-
-            if (cardDigit.length() > cardDigitLength) {
-                LOG.info("failed validation cardDigit length={}", cardDigitLength);
-                errors.put(ErrorEncounteredJson.REASON, "Card number cannot exceed " + cardDigitLength + " digits.");
-                errors.put("cd", "Card number cannot exceed " + cardDigitLength + " digits.");
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
-                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+            } else {
+                if (cardDigit.length() > cardDigitLength) {
+                    LOG.info("failed validation cardDigit length={}", cardDigitLength);
+                    errors.put(ErrorEncounteredJson.REASON, "Card number cannot exceed " + cardDigitLength + " digits.");
+                    errors.put("cd", "Card number cannot exceed " + cardDigitLength + " digits.");
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+                    errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+                }
             }
         }
     }
@@ -109,37 +109,37 @@ public class PaymentCardValidator {
     private void cardNetwork(String cardNetwork, Map<String, String> errors) {
         if (StringUtils.isBlank(cardNetwork) || cardNetwork.length() != cardNetworkLength) {
             LOG.info("failed validation cardNetwork length={}", cardNetworkLength);
-            errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-            errors.put("cn", "Failed data validation.");
+            errors.put(ErrorEncounteredJson.REASON, "Card network cannot be empty.");
+            errors.put("cn", "Card network cannot be empty.");
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-        }
-
-        try {
-            CardNetworkEnum.valueOf(cardNetwork);
-        } catch (Exception e) {
-            errors.put(ErrorEncounteredJson.REASON, "No such card network.");
-            errors.put("cn", "Failed data validation.");
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+        } else {
+            try {
+                CardNetworkEnum.valueOf(cardNetwork);
+            } catch (Exception e) {
+                LOG.error("failed validation cardNetwork={}", cardNetwork, e.getLocalizedMessage());
+                errors.put(ErrorEncounteredJson.REASON, "No such card network.");
+                errors.put("cn", "No such card network.");
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+                errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
+            }
         }
     }
 
     private void cardActive(String cardActive, Map<String, String> errors) {
         if (StringUtils.isBlank(cardActive)) {
             LOG.info("failed validation cardActive={}", cardActive);
-            errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-            errors.put("a", "Failed parsing active.");
+            errors.put(ErrorEncounteredJson.REASON, "Card state is not set.");
+            errors.put("a", "Card state is not set.");
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
-        }
-
-        if (StringUtils.isNotBlank(cardActive)) {
+        } else {
             try {
                 BooleanUtils.toBoolean(Integer.parseInt(cardActive));
             } catch(Exception e) {
-                errors.put(ErrorEncounteredJson.REASON, "Failed parsing active card.");
-                errors.put("a", "Failed parsing active.");
+                LOG.error("failed parsing cardActive={}", cardActive, e.getLocalizedMessage());
+                errors.put(ErrorEncounteredJson.REASON, "Failed parsing card state.");
+                errors.put("a", "Failed parsing card state.");
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MOBILE_JSON.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MOBILE_JSON.getCode());
             }
