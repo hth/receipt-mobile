@@ -29,7 +29,7 @@ import java.util.List;
 })
 @Repository
 public class PaymentCardManageMobileImpl implements PaymentCardManagerMobile {
-    private static final Logger LOG = LoggerFactory.getLogger(ReceiptManagerMobileImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PaymentCardManageMobileImpl.class);
     private static final String TABLE = BaseEntity.getClassAnnotationValue(
             PaymentCardEntity.class,
             Document.class,
@@ -43,7 +43,6 @@ public class PaymentCardManageMobileImpl implements PaymentCardManagerMobile {
     }
 
     public List<PaymentCardEntity> getUpdatedSince(String rid, Date since) {
-        LOG.info("paymentCard rid={} since={}", rid, since);
         return mongoTemplate.find(
                 query(where("RID").is(rid).and("U").gte(since)),
                 PaymentCardEntity.class,
