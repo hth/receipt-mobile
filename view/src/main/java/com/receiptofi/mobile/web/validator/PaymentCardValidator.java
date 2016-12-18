@@ -88,18 +88,18 @@ public class PaymentCardValidator {
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
         } else {
-            if (cardDigit.length() > cardDigitLength) {
+            if (NumberUtils.isDigits(cardDigit)) {
                 LOG.info("failed validation cardDigit length={}", cardDigitLength);
-                errors.put(ErrorEncounteredJson.REASON, "Card number cannot exceed " + cardDigitLength + " digits.");
-                errors.put("cd", "Card number cannot exceed " + cardDigitLength + " digits.");
+                errors.put(ErrorEncounteredJson.REASON, "Card digits has to be number.");
+                errors.put("cd", "Card digits has to be number.");
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
             }
 
-            if (NumberUtils.isDigits(cardDigit)) {
+            if (cardDigit.length() > cardDigitLength) {
                 LOG.info("failed validation cardDigit length={}", cardDigitLength);
-                errors.put(ErrorEncounteredJson.REASON, "Failed data validation.");
-                errors.put("cd", "Card digits has to be number.");
+                errors.put(ErrorEncounteredJson.REASON, "Card number cannot exceed " + cardDigitLength + " digits.");
+                errors.put("cd", "Card number cannot exceed " + cardDigitLength + " digits.");
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
                 errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
             }
