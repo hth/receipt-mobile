@@ -136,7 +136,7 @@ public class PaymentCardValidator {
         } else {
             try {
                 BooleanUtils.toBoolean(Integer.parseInt(cardActive));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 LOG.error("failed parsing cardActive={}", cardActive, e.getLocalizedMessage());
                 errors.put(ErrorEncounteredJson.REASON, "Failed parsing card state.");
                 errors.put("a", "Failed parsing card state.");

@@ -126,9 +126,12 @@ public class PaymentCardController {
                         return ErrorEncounteredJson.toJson(errors);
                     }
 
-                    Map<String, String> errors = paymentCardValidator.validate(cardName, cardNetwork, cardDigit, active);
-                    if (!errors.isEmpty()) {
-                        return ErrorEncounteredJson.toJson(errors);
+                    /* Validate only when card is set to active */
+                    if (BooleanUtils.toBoolean(Integer.parseInt(active))) {
+                        Map<String, String> errors = paymentCardValidator.validate(cardName, cardNetwork, cardDigit, active);
+                        if (!errors.isEmpty()) {
+                            return ErrorEncounteredJson.toJson(errors);
+                        }
                     }
 
                     PaymentCardEntity paymentCard = paymentCardMobileService.populateCard(
