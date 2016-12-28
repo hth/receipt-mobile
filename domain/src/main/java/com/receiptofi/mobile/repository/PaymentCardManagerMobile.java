@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface PaymentCardManagerMobile extends RepositoryManager<PaymentCardEntity> {
 
+    PaymentCardEntity findOne(String id, String rid);
+    List<PaymentCardEntity> getAllPaymentCards(String rid);
     List<PaymentCardEntity> getUpdatedSince(String rid, Date since);
 }

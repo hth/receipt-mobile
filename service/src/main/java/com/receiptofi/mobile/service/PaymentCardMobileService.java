@@ -50,7 +50,7 @@ public class PaymentCardMobileService {
      * @return
      */
     void getAll(String rid, AvailableAccountUpdates availableAccountUpdates) {
-        populateAvailableAccountUpdate(availableAccountUpdates, paymentCardManager.getPaymentCards(rid));
+        populateAvailableAccountUpdate(availableAccountUpdates, paymentCardManagerMobile.getAllPaymentCards(rid));
     }
 
     private List<PaymentCardEntity> getUpdatedSince(String rid, Date since) {
@@ -76,7 +76,7 @@ public class PaymentCardMobileService {
         PaymentCardEntity paymentCard = null;
 
         if (StringUtils.isNotBlank(id) && Validate.isValidObjectId(id)) {
-            paymentCard = paymentCardManager.findOne(id, rid);
+            paymentCard = paymentCardManagerMobile.findOne(id, rid);
         }
 
         if (null == paymentCard) {
