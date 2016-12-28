@@ -42,6 +42,24 @@ public class PaymentCardManageMobileImpl implements PaymentCardManagerMobile {
         this.mongoTemplate = mongoTemplate;
     }
 
+    @Override
+    public PaymentCardEntity findOne(String id, String rid) {
+        return mongoTemplate.findOne(
+                query(where("id").is(id).and("RID").is(rid)),
+                PaymentCardEntity.class,
+                TABLE
+        );
+    }
+
+    @Override
+    public List<PaymentCardEntity> getAllPaymentCards(String rid) {
+        return mongoTemplate.find(
+                query(where("RID").is(rid)),
+                PaymentCardEntity.class,
+                TABLE
+        );
+    }
+
     public List<PaymentCardEntity> getUpdatedSince(String rid, Date since) {
         return mongoTemplate.find(
                 query(where("RID").is(rid).and("U").gte(since)),
