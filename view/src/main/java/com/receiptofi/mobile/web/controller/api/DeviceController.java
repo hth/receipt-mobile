@@ -105,8 +105,8 @@ public class DeviceController {
         try {
             return deviceService.getUpdates(rid, deviceId, deviceTypeEnum, deviceToken).asJson();
         } catch (Exception e) {
-            LOG.error("fetching updates for device failed deviceId={} reason={}",
-                    deviceId, e.getLocalizedMessage(), e);
+            LOG.error("fetching updates for device failed rid={} deviceId={} reason={}",
+                    rid, deviceId, e.getLocalizedMessage(), e);
 
             Map<String, String> errors = new HashMap<>();
             errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
@@ -154,7 +154,7 @@ public class DeviceController {
         try {
             return deviceService.getAll(rid).asJson();
         } catch (Exception e) {
-            LOG.error("fetching all reason={}", e.getLocalizedMessage(), e);
+            LOG.error("fetching all for rid={} reason={}", rid, e.getLocalizedMessage(), e);
             return getErrorReason("Something went wrong. Engineers are looking into this.");
         }
     }
