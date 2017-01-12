@@ -37,7 +37,7 @@
     create a new password.
 </p>
 <p>
-    Please note that the link will expire three hours after this email was sent.
+    This link will expire in three hours.
 </p>
 <p>
     <a href="${https}://${domain}/open/forgot/authenticate.htm?authenticationKey=${link}">Reset your Receiptofi account password ></a>
