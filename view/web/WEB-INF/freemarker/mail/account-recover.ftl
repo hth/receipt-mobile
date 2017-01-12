@@ -37,7 +37,7 @@
     create a new password.
 </p>
 <p>
-    Please note that the link will expire three hours after this email was sent.
+    This link will expire in three hours.
 </p>
 <p>
     <a href="${https}://${domain}/open/forgot/authenticate.htm?authenticationKey=${link}">Reset your Receiptofi account password ></a>
@@ -55,7 +55,7 @@
 <br/><br/><br/>
 <hr/>
 <span class="tm">
-    TM &trade; and Copyright &copy; 2016 Receiptofi Inc. Sunnyvale, CA 94085 USA. <br/>
+    TM &trade; and Copyright &copy; 2017 Receiptofi Inc. Sunnyvale, CA 94085 USA. <br/>
     All Rights Reserved / <a href="https://www.receiptofi.com/privacypolicy">Privacy Policy</a>
 </span>
 <br/>
