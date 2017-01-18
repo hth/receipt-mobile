@@ -1,20 +1,19 @@
 package com.receiptofi.mobile.web.filter;
 
+import static com.receiptofi.utils.HttpUtil.extractDataFromURL;
+import static com.receiptofi.utils.HttpUtil.getHeader;
+import static com.receiptofi.utils.HttpUtil.getHeadersInfo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -43,10 +42,6 @@ public class LogContextFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
 
     private static final String SKIP_APP_NAME = "/receipt-mobile";
-
-    /* https://stackoverflow.com/questions/24894093/ruby-regular-expression-extracting-part-of-url */
-    private static final Pattern EXTRACT_ENDPOINT_PATTERN =
-            Pattern.compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
 
     @Override
@@ -65,7 +60,7 @@ public class LogContextFilter implements Filter {
 
         LOG.info("Request received:"
                         + " ForwardedFor=\"" + getHeader(headerMap, "x-forwarded-for") + "\""
-                        + " Endpoint=\"" + extractDataFromURL(url, "$5") + "\""
+                        + " Endpoint=\"" + extractDataFromURL(url, "$5", SKIP_APP_NAME) + "\""
                         + " UserAgent=\"" + getHeader(headerMap, "user-agent") + "\""
                         + " Host=\"" + getHeader(headerMap, "host") + "\""
                         + " Accept=\"" + getHeader(headerMap, "accept") + "\""
@@ -81,28 +76,6 @@ public class LogContextFilter implements Filter {
         } else {
             chain.doFilter(req, res);
         }
-    }
-
-    private String getHeader(Map<String, String> headers, String header) {
-        return CollectionUtils.isEmpty(headers) && !headers.containsKey(header) ? "" : headers.get(header);
-    }
-
-    private String extractDataFromURL(String uri, String group) {
-        return EXTRACT_ENDPOINT_PATTERN.matcher(uri).replaceFirst(group).replaceFirst(SKIP_APP_NAME, "");
-    }
-
-    private Map<String, String> getHeadersInfo(HttpServletRequest request) {
-
-        Map<String, String> map = new HashMap<>();
-
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = (String) headerNames.nextElement();
-            String value = request.getHeader(key);
-            map.put(key, value);
-        }
-
-        return map;
     }
 
     @Override
