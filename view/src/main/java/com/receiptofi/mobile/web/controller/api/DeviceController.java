@@ -4,7 +4,6 @@ import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.DeviceRegistered;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
-import com.receiptofi.mobile.types.NotSupportedAPIEnum;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
 import com.receiptofi.utils.ScrubbedInput;
@@ -86,9 +85,6 @@ public class DeviceController {
             @RequestHeader (value = "X-R-TK", required = false, defaultValue = "")
             ScrubbedInput deviceToken,
 
-            @RequestHeader (value = "X-R-VR", required = false, defaultValue = "V150")
-            ScrubbedInput version,
-
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("Update for mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
@@ -102,19 +98,6 @@ public class DeviceController {
         DeviceTypeEnum deviceTypeEnum;
         try {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
-            if (deviceTypeEnum == DeviceTypeEnum.I) {
-                LOG.info("Check if API version is supported for {} version={} rid={}", deviceTypeEnum.getDescription(), version.getText(), rid);
-                try {
-                    NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
-                    if (notSupportedAPI.isNotSupported()) {
-                        LOG.warn("Sent warning to upgrade rid={}", rid);
-                        return getErrorReason("To continue, please upgrade to latest version");
-                    }
-                } catch (Exception e) {
-                    LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
-                    return getErrorReason("Incorrect API version type.");
-                }
-            }
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
             return getErrorReason("Incorrect device type.");
@@ -242,7 +225,7 @@ public class DeviceController {
         }
     }
 
-    private String getErrorReason(String reason) {
+    public static String getErrorReason(String reason) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ErrorEncounteredJson.REASON, reason);
         errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
