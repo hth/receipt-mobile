@@ -20,6 +20,7 @@ import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.ExpenseTagMobileService;
 import com.receiptofi.mobile.service.ReceiptMobileService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.joda.time.DateTime;
 
@@ -75,28 +76,28 @@ public class ReceiptControllerTest {
     public void testYtdReceiptsWhenUserIsNotPresent() throws Exception {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceiptsForTheYear(anyString(), any(DateTime.class));
-        assertTrue(receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.ytdReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testYtdReceiptsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(new ArrayList<>());
-        assertTrue(receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.ytdReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testYtdReceiptsException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         doThrow(new RuntimeException()).when(landingService).getAllReceiptsForTheYear(anyString(), any(DateTime.class));
-        assertTrue(receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.ytdReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testYtdReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForTheYear(anyString(), any(DateTime.class))).thenReturn(Collections.singletonList(receiptEntity));
-        List<JsonReceipt> jsonReceipts = receiptController.ytdReceipts("mail@mail.com", "", httpServletResponse);
+        List<JsonReceipt> jsonReceipts = receiptController.ytdReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 
@@ -104,28 +105,28 @@ public class ReceiptControllerTest {
     public void testAllReceiptsWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceipts(anyString());
-        assertTrue(receiptController.allReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.allReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testAllReceiptsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceipts(anyString())).thenReturn(new ArrayList<>());
-        assertTrue(receiptController.allReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.allReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testAllReceiptsException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         doThrow(new RuntimeException()).when(landingService).getAllReceipts(anyString());
-        assertTrue(receiptController.allReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.allReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testAllReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceipts(anyString())).thenReturn(Collections.singletonList(receiptEntity));
-        List<JsonReceipt> jsonReceipts = receiptController.allReceipts("mail@mail.com", "", httpServletResponse);
+        List<JsonReceipt> jsonReceipts = receiptController.allReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 
@@ -133,28 +134,28 @@ public class ReceiptControllerTest {
     public void testThisMonthReceiptsWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(landingService, never()).getAllReceiptsForThisMonth(anyString(), any(DateTime.class));
-        assertTrue(receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.thisMonthReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testThisMonthReceiptsIsEmpty() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(new ArrayList<>());
-        assertTrue(receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.thisMonthReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testThisMonthReceiptsException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         doThrow(new RuntimeException()).when(landingService).getAllReceiptsForThisMonth(anyString(), any(DateTime.class));
-        assertTrue(receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse).isEmpty());
+        assertTrue(receiptController.thisMonthReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testThisMonthReceipts() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(landingService.getAllReceiptsForThisMonth(anyString(), any(DateTime.class))).thenReturn(Collections.singletonList(receiptEntity));
-        List<JsonReceipt> jsonReceipts = receiptController.thisMonthReceipts("mail@mail.com", "", httpServletResponse);
+        List<JsonReceipt> jsonReceipts = receiptController.thisMonthReceipts(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), httpServletResponse);
         assertEquals(receiptEntity.getReceiptUserId(), jsonReceipts.get(0).getReceiptUserId());
     }
 }

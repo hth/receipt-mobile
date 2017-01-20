@@ -11,6 +11,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.FileDBService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.apache.commons.io.FileUtils;
 
@@ -71,7 +72,7 @@ public class FileDownloadControllerTest {
     @Test
     public void testHasUpdateFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        fileDownloadController.getDocumentImage("", "", "", httpServletRequest, httpServletResponse);
+        fileDownloadController.getDocumentImage(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput(""), httpServletRequest, httpServletResponse);
         verify(fileDBService, never()).getFile(anyString());
     }
 
@@ -80,7 +81,7 @@ public class FileDownloadControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         when(fileDBService.getFile(anyString())).thenReturn(null);
         when(httpServletRequest.getServletContext()).thenReturn(servletContext);
-        fileDownloadController.getDocumentImage("", "", "5542247dbd28986e59b31df9", httpServletRequest, httpServletResponse);
+        fileDownloadController.getDocumentImage(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("5542247dbd28986e59b31df9"), httpServletRequest, httpServletResponse);
         verify(outputStream, times(1)).close();
     }
 
@@ -89,7 +90,7 @@ public class FileDownloadControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("");
         when(fileDBService.getFile(anyString())).thenReturn(gridFSDBFile);
         when(gridFSDBFile.getFilename()).thenReturn("filename");
-        fileDownloadController.getDocumentImage("", "", "5542247dbd28986e59b31df9", httpServletRequest, httpServletResponse);
+        fileDownloadController.getDocumentImage(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("5542247dbd28986e59b31df9"), httpServletRequest, httpServletResponse);
         verify(gridFSDBFile, times(1)).writeTo(httpServletResponse.getOutputStream());
     }
 }

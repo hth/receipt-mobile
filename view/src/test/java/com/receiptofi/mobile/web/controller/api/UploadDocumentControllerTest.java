@@ -21,12 +21,10 @@ import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.MessageDocumentService;
-
-import org.joda.time.DateTime;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +32,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +67,7 @@ public class UploadDocumentControllerTest {
     @Test
     public void testUploadWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        assertNull(uploadDocumentController.upload("mail@mail.com", "", multipartFile, httpServletResponse));
+        assertNull(uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse));
     }
 
     @Test
@@ -78,7 +75,7 @@ public class UploadDocumentControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(multipartFile.isEmpty()).thenReturn(true);
 
-        String responseJson = uploadDocumentController.upload("mail@mail.com", "", multipartFile, httpServletResponse);
+        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(DOCUMENT_UPLOAD.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
@@ -92,7 +89,7 @@ public class UploadDocumentControllerTest {
         when(multipartFile.getOriginalFilename()).thenReturn("filename");
         when(landingService.pendingReceipt(anyString())).thenReturn(1L);
         when(fileSystemService.fileWithSimilarNameDoesNotExists(anyString(), anyString())).thenReturn(true);
-        String responseJson = uploadDocumentController.upload("mail@mail.com", "", multipartFile, httpServletResponse);
+        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
         responseJson = StringUtils.replace(responseJson, "null", "\"blobId\"");
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
@@ -109,7 +106,7 @@ public class UploadDocumentControllerTest {
         when(landingService.pendingReceipt(anyString())).thenReturn(1L);
         doThrow(new RuntimeException()).when(landingService).uploadDocument(any(UploadDocumentImage.class));
 
-        String responseJson = uploadDocumentController.upload("mail@mail.com", "", multipartFile, httpServletResponse);
+        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
