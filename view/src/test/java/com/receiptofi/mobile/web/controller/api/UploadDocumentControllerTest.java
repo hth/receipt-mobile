@@ -86,7 +86,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("V150"),
+                new ScrubbedInput("150"),
                 multipartFile,
                 httpServletResponse);
         
@@ -108,7 +108,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("V150"),
+                new ScrubbedInput("150"),
                 multipartFile,
                 httpServletResponse);
         responseJson = StringUtils.replace(responseJson, "null", "\"blobId\"");
@@ -131,7 +131,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("V150"),
+                new ScrubbedInput("150"),
                 multipartFile,
                 httpServletResponse);
 
