@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 import com.receiptofi.domain.shared.UploadDocumentImage;
 import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.types.LowestSupportedAppEnum;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.LandingService;
@@ -86,7 +87,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("150"),
+                new ScrubbedInput(LowestSupportedAppEnum.VI.name()),
                 multipartFile,
                 httpServletResponse);
         
@@ -108,7 +109,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("150"),
+                new ScrubbedInput(LowestSupportedAppEnum.VI.name()),
                 multipartFile,
                 httpServletResponse);
         responseJson = StringUtils.replace(responseJson, "null", "\"blobId\"");
@@ -131,7 +132,7 @@ public class UploadDocumentControllerTest {
                 new ScrubbedInput("mail@mail.com"),
                 new ScrubbedInput(""),
                 new ScrubbedInput(DeviceTypeEnum.I.getName()),
-                new ScrubbedInput("150"),
+                new ScrubbedInput(LowestSupportedAppEnum.VI.name()),
                 multipartFile,
                 httpServletResponse);
 
