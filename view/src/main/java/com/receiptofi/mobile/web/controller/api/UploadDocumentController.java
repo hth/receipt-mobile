@@ -1,6 +1,8 @@
 package com.receiptofi.mobile.web.controller.api;
 
 import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLOAD;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.MOBILE_UPGRADE;
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.shared.UploadDocumentImage;
@@ -127,19 +129,19 @@ public class UploadDocumentController {
                     int versionNumber = Integer.valueOf(version.getText());
                     if (LowestSupportedAppEnum.isLessThanLowestSupportedVersion(deviceTypeEnum, versionNumber)) {
                         LOG.warn("Sent warning to upgrade rid={} versionNumber={}", rid, versionNumber);
-                        return DeviceController.getErrorReason("To continue, please upgrade to latest version");
+                        return DeviceController.getErrorReason("To continue, please upgrade to latest version", MOBILE_UPGRADE);
                     }
                 } catch (NumberFormatException e) {
                     LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
-                    return DeviceController.getErrorReason("Failed to read API version type.");
+                    return DeviceController.getErrorReason("Failed to read API version type.", USER_INPUT);
                 } catch (Exception e) {
                     LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
-                    return DeviceController.getErrorReason("Incorrect API version type.");
+                    return DeviceController.getErrorReason("Incorrect API version type.", USER_INPUT);
                 }
             }
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
-            return DeviceController.getErrorReason("Incorrect device type.");
+            return DeviceController.getErrorReason("Incorrect device type.", USER_INPUT);
         }
 
         LOG.info("upload document begins rid={}", rid);
