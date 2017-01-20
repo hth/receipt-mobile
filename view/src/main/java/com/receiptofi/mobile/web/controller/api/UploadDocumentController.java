@@ -10,7 +10,7 @@ import com.receiptofi.domain.types.DocumentRejectReasonEnum;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
-import com.receiptofi.mobile.types.NotSupportedAPIEnum;
+import com.receiptofi.mobile.types.LowestSupportedAppEnum;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
@@ -103,7 +103,7 @@ public class UploadDocumentController {
             @RequestHeader (value = "X-R-DT", required = false, defaultValue = "I")
             ScrubbedInput deviceType,
 
-            @RequestHeader (value = "X-R-VR", required = false, defaultValue = "V150")
+            @RequestHeader (value = "X-R-VR", required = false, defaultValue = "150")
             ScrubbedInput version,
 
             @RequestPart ("qqfile")
@@ -124,11 +124,14 @@ public class UploadDocumentController {
             if (deviceTypeEnum == DeviceTypeEnum.I) {
                 LOG.info("Check if API version is supported for {} version={} rid={}", deviceTypeEnum.getDescription(), version.getText(), rid);
                 try {
-                    NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
-                    if (notSupportedAPI.isNotSupported() && notSupportedAPI.ordinal() >= NotSupportedAPIEnum.V150.ordinal()) {
-                        LOG.warn("Sent warning to upgrade rid={}", rid);
+                    int versionNumber = Integer.valueOf(version.getText());
+                    if (LowestSupportedAppEnum.isLessThanLowestSupportedVersion(deviceTypeEnum, versionNumber)) {
+                        LOG.warn("Sent warning to upgrade rid={} versionNumber={}", rid, versionNumber);
                         return DeviceController.getErrorReason("To continue, please upgrade to latest version");
                     }
+                } catch (NumberFormatException e) {
+                    LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
+                    return DeviceController.getErrorReason("Failed to read API version type.");
                 } catch (Exception e) {
                     LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
                     return DeviceController.getErrorReason("Incorrect API version type.");
