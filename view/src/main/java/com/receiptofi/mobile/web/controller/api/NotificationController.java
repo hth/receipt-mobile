@@ -61,13 +61,13 @@ public class NotificationController {
     )
     public String markNotificationRead(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String deviceId,
+            ScrubbedInput deviceId,
 
             @RequestBody
             String requestBodyJson,
@@ -75,7 +75,7 @@ public class NotificationController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -83,6 +83,6 @@ public class NotificationController {
 
         Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
         notificationMobileService.markNotificationRead(map.get("notificationIds").getText(), rid);
-        return deviceService.getUpdates(rid, deviceId).asJson();
+        return deviceService.getUpdates(rid, deviceId.getText()).asJson();
     }
 }

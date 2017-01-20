@@ -2,6 +2,8 @@ package com.receiptofi.mobile.web.controller.api;
 
 import com.google.gson.JsonObject;
 
+import com.receiptofi.utils.ScrubbedInput;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,10 +54,10 @@ public class MobileAppVersionController {
     )
     public String getLatestAPK(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth
+            ScrubbedInput auth
     ) {
         LOG.info("Latest APK mail={}", mail);
         return json.toString();

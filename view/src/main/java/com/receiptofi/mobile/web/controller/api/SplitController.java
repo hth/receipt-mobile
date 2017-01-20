@@ -84,15 +84,15 @@ public class SplitController {
     @ResponseBody
     public Collection<JsonFriend> getFriends(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
@@ -121,13 +121,13 @@ public class SplitController {
     @ResponseBody
     public String split(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String deviceId,
+            ScrubbedInput deviceId,
 
             @RequestBody
             String requestBodyJson,
@@ -135,7 +135,7 @@ public class SplitController {
             HttpServletResponse httpServletResponse
     ) throws IOException {
         LOG.info("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -163,7 +163,7 @@ public class SplitController {
                     receiptMobileService.executeSplit(fidAdd, receiptId, receipt);
                 }
 
-                return deviceService.getUpdates(rid, deviceId).asJson();
+                return deviceService.getUpdates(rid, deviceId.getText()).asJson();
             } catch (Exception e) {
                 LOG.error("Failure during split rid={} reason={}", rid, e.getLocalizedMessage(), e);
 

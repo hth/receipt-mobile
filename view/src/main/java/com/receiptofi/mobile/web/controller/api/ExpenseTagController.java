@@ -86,10 +86,10 @@ public class ExpenseTagController {
     )
     public String addExpenseTag(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String requestBodyJson,
@@ -97,7 +97,7 @@ public class ExpenseTagController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -166,10 +166,10 @@ public class ExpenseTagController {
     )
     public String updateExpenseTag(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String requestBodyJson,
@@ -177,7 +177,7 @@ public class ExpenseTagController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -245,10 +245,10 @@ public class ExpenseTagController {
     )
     public String deleteExpenseTag(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String requestBodyJson,
@@ -256,7 +256,7 @@ public class ExpenseTagController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;

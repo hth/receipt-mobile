@@ -14,6 +14,7 @@ import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
 import com.receiptofi.service.LandingService;
 import com.receiptofi.service.MessageDocumentService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,10 +93,10 @@ public class UploadDocumentController {
     )
     public String upload(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestPart ("qqfile")
             MultipartFile file,
@@ -103,7 +104,7 @@ public class UploadDocumentController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;

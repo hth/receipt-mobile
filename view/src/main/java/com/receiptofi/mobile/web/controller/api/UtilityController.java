@@ -4,6 +4,7 @@ import com.receiptofi.mobile.domain.UnprocessedDocuments;
 import com.receiptofi.mobile.domain.UserAccess;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.LandingService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,15 +54,15 @@ public class UtilityController {
     )
     public UserAccess hasAccess(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, AUTH_KEY_HIDDEN);
-        if (authenticateService.hasAccess(mail, auth)) {
+        if (authenticateService.hasAccess(mail.getText(), auth.getText())) {
             return UserAccess.newInstance("granted");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED);
@@ -76,15 +77,15 @@ public class UtilityController {
     )
     public UnprocessedDocuments unprocessedDocuments(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED);
             return null;

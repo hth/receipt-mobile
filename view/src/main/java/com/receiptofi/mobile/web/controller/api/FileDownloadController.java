@@ -4,6 +4,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.FileDBService;
+import com.receiptofi.utils.ScrubbedInput;
 import com.receiptofi.utils.Validate;
 
 import org.apache.commons.io.FileUtils;
@@ -74,31 +75,31 @@ public class FileDownloadController {
     @RequestMapping (method = RequestMethod.GET, value = "/image/{imageId}")
     public void getDocumentImage(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @PathVariable
-            String imageId,
+            ScrubbedInput imageId,
 
             HttpServletRequest req,
 
             HttpServletResponse res
     ) throws IOException {
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return;
         }
 
-        if (!Validate.isValidObjectId(imageId)) {
+        if (!Validate.isValidObjectId(imageId.getText())) {
             LOG.error("ImageId not valid ObjectId={}", imageId);
             return;
         }
 
         try {
-            GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId);
+            GridFSDBFile gridFSDBFile = fileDBService.getFile(imageId.getText());
 
             if (null == gridFSDBFile) {
                 LOG.warn("GridFSDBFile failed to find image={}", imageId);
