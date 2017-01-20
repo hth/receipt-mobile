@@ -4,11 +4,13 @@ import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.DOCUMENT_UPLO
 
 import com.receiptofi.domain.DocumentEntity;
 import com.receiptofi.domain.shared.UploadDocumentImage;
+import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.domain.types.DocumentOfTypeEnum;
 import com.receiptofi.domain.types.DocumentRejectReasonEnum;
 import com.receiptofi.domain.types.FileTypeEnum;
 import com.receiptofi.mobile.domain.DocumentUpload;
 import com.receiptofi.mobile.service.AuthenticateService;
+import com.receiptofi.mobile.types.NotSupportedAPIEnum;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
@@ -98,6 +100,12 @@ public class UploadDocumentController {
             @RequestHeader ("X-R-AUTH")
             ScrubbedInput auth,
 
+            @RequestHeader (value = "X-R-DT", required = false, defaultValue = "I")
+            ScrubbedInput deviceType,
+
+            @RequestHeader (value = "X-R-VR", required = false, defaultValue = "V150")
+            ScrubbedInput version,
+
             @RequestPart ("qqfile")
             MultipartFile file,
 
@@ -109,6 +117,28 @@ public class UploadDocumentController {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         }
+
+        DeviceTypeEnum deviceTypeEnum;
+        try {
+            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
+            if (deviceTypeEnum == DeviceTypeEnum.I) {
+                LOG.info("Check if API version is supported for {} version={} rid={}", deviceTypeEnum.getDescription(), version.getText(), rid);
+                try {
+                    NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
+                    if (notSupportedAPI.isNotSupported() && notSupportedAPI.ordinal() >= NotSupportedAPIEnum.V150.ordinal()) {
+                        LOG.warn("Sent warning to upgrade rid={}", rid);
+                        return DeviceController.getErrorReason("To continue, please upgrade to latest version");
+                    }
+                } catch (Exception e) {
+                    LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
+                    return DeviceController.getErrorReason("Incorrect API version type.");
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
+            return DeviceController.getErrorReason("Incorrect device type.");
+        }
+
         LOG.info("upload document begins rid={}", rid);
 
         if (file.isEmpty()) {

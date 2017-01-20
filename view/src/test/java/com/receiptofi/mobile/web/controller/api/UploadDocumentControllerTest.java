@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.shared.UploadDocumentImage;
+import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.DocumentUpdateService;
 import com.receiptofi.service.FileSystemService;
@@ -67,7 +68,13 @@ public class UploadDocumentControllerTest {
     @Test
     public void testUploadWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        assertNull(uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse));
+        assertNull(uploadDocumentController.upload(
+                new ScrubbedInput("mail@mail.com"),
+                new ScrubbedInput(""),
+                new ScrubbedInput(DeviceTypeEnum.I.getName()),
+                new ScrubbedInput(""),
+                multipartFile,
+                httpServletResponse));
     }
 
     @Test
@@ -75,7 +82,14 @@ public class UploadDocumentControllerTest {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(multipartFile.isEmpty()).thenReturn(true);
 
-        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
+        String responseJson = uploadDocumentController.upload(
+                new ScrubbedInput("mail@mail.com"),
+                new ScrubbedInput(""),
+                new ScrubbedInput(DeviceTypeEnum.I.getName()),
+                new ScrubbedInput("V150"),
+                multipartFile,
+                httpServletResponse);
+        
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
         assertEquals(DOCUMENT_UPLOAD.name(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR).getAsString());
@@ -89,7 +103,14 @@ public class UploadDocumentControllerTest {
         when(multipartFile.getOriginalFilename()).thenReturn("filename");
         when(landingService.pendingReceipt(anyString())).thenReturn(1L);
         when(fileSystemService.fileWithSimilarNameDoesNotExists(anyString(), anyString())).thenReturn(true);
-        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
+
+        String responseJson = uploadDocumentController.upload(
+                new ScrubbedInput("mail@mail.com"),
+                new ScrubbedInput(""),
+                new ScrubbedInput(DeviceTypeEnum.I.getName()),
+                new ScrubbedInput("V150"),
+                multipartFile,
+                httpServletResponse);
         responseJson = StringUtils.replace(responseJson, "null", "\"blobId\"");
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
@@ -106,7 +127,13 @@ public class UploadDocumentControllerTest {
         when(landingService.pendingReceipt(anyString())).thenReturn(1L);
         doThrow(new RuntimeException()).when(landingService).uploadDocument(any(UploadDocumentImage.class));
 
-        String responseJson = uploadDocumentController.upload(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), multipartFile, httpServletResponse);
+        String responseJson = uploadDocumentController.upload(
+                new ScrubbedInput("mail@mail.com"),
+                new ScrubbedInput(""),
+                new ScrubbedInput(DeviceTypeEnum.I.getName()),
+                new ScrubbedInput("V150"),
+                multipartFile,
+                httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(DOCUMENT_UPLOAD.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
