@@ -1,5 +1,7 @@
 package com.receiptofi.mobile.web.controller.api;
 
+import static com.receiptofi.mobile.util.MobileSystemErrorCodeEnum.USER_INPUT;
+
 import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.DeviceRegistered;
 import com.receiptofi.mobile.service.AuthenticateService;
@@ -100,7 +102,7 @@ public class DeviceController {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
-            return getErrorReason("Incorrect device type.");
+            return getErrorReason("Incorrect device type.", USER_INPUT);
         }
 
         try {
@@ -112,8 +114,8 @@ public class DeviceController {
             Map<String, String> errors = new HashMap<>();
             errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
             errors.put("did", deviceId.getText());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR, USER_INPUT.name());
+            errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, USER_INPUT.getCode());
 
             return ErrorEncounteredJson.toJson(errors);
         }
@@ -156,7 +158,7 @@ public class DeviceController {
             return deviceService.getAll(rid).asJson();
         } catch (Exception e) {
             LOG.error("fetching all for rid={} reason={}", rid, e.getLocalizedMessage(), e);
-            return getErrorReason("Something went wrong. Engineers are looking into this.");
+            return getErrorReason("Something went wrong. Engineers are looking into this.", USER_INPUT);
         }
     }
 
@@ -209,7 +211,7 @@ public class DeviceController {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
-            return getErrorReason("Incorrect device type.");
+            return getErrorReason("Incorrect device type.", USER_INPUT);
         }
 
         try {
@@ -221,15 +223,15 @@ public class DeviceController {
             }
         } catch (Exception e) {
             LOG.error("Failed registering deviceType={}, reason={}", deviceTypeEnum, e.getLocalizedMessage(), e);
-            return getErrorReason("Something went wrong. Engineers are looking into this.");
+            return getErrorReason("Something went wrong. Engineers are looking into this.", USER_INPUT);
         }
     }
 
-    public static String getErrorReason(String reason) {
+    static String getErrorReason(String reason, MobileSystemErrorCodeEnum mobileSystemErrorCode) {
         Map<String, String> errors = new HashMap<>();
         errors.put(ErrorEncounteredJson.REASON, reason);
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
-        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR, mobileSystemErrorCode.name());
+        errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, mobileSystemErrorCode.getCode());
 
         return ErrorEncounteredJson.toJson(errors);
     }
