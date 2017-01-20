@@ -24,6 +24,10 @@ public enum LowestSupportedAppEnum {
         this.deviceType = deviceType;
     }
 
+    public int getAppVersionNumber() {
+        return appVersionNumber;
+    }
+
     public static boolean isLessThanLowestSupportedVersion(DeviceTypeEnum deviceType, int appVersionNumber) {
         boolean notSupported = false;
         for (LowestSupportedAppEnum lowestSupportedAPI : LowestSupportedAppEnum.values()) {
