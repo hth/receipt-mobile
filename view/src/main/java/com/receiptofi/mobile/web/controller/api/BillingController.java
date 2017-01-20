@@ -80,15 +80,15 @@ public class BillingController {
     )
     public List<ReceiptofiPlan> getPlans(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -120,23 +120,23 @@ public class BillingController {
     )
     public String brainTreeClientToken(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String did,
+            ScrubbedInput did,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            if (deviceService.isDeviceRegistered(rid, did)) {
+            if (deviceService.isDeviceRegistered(rid, did.getText())) {
                 try {
                     LOG.info("Generating client token for rid={} did={}", rid, did);
                     Gson gson = new Gson();
@@ -180,13 +180,13 @@ public class BillingController {
     )
     public String brainTreePayment(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String did,
+            ScrubbedInput did,
 
             @RequestBody
             String requestBodyJson,
@@ -194,12 +194,12 @@ public class BillingController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            if (deviceService.isDeviceRegistered(rid, did)) {
+            if (deviceService.isDeviceRegistered(rid, did.getText())) {
                 LOG.info("Submitting payment for rid={} did={}", rid, did);
 
                 Map<String, ScrubbedInput> map = ParseJsonStringToMap.jsonStringToMap(requestBodyJson);
@@ -271,23 +271,23 @@ public class BillingController {
     )
     public String cancelSubscription(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String did,
+            ScrubbedInput did,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
         } else {
-            if (deviceService.isDeviceRegistered(rid, did)) {
+            if (deviceService.isDeviceRegistered(rid, did.getText())) {
                 try {
                     LOG.info("Cancel subscription for rid={} did={}", rid, did);
                     TransactionDetail transactionDetail = billingMobileService.cancelLastSubscription(rid);

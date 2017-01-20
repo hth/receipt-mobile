@@ -4,8 +4,10 @@ import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.DeviceRegistered;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.mobile.types.NotSupportedAPIEnum;
 import com.receiptofi.mobile.util.ErrorEncounteredJson;
 import com.receiptofi.mobile.util.MobileSystemErrorCodeEnum;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,24 +72,27 @@ public class DeviceController {
     )
     public String updates(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String deviceId,
+            ScrubbedInput deviceId,
 
             @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
-            String deviceType,
+            ScrubbedInput deviceType,
 
-            @RequestHeader (value = "X-R-TK", required = false)
-            String deviceToken,
+            @RequestHeader (value = "X-R-TK", required = false, defaultValue = "")
+            ScrubbedInput deviceToken,
+
+            @RequestHeader (value = "X-R-VR", required = false, defaultValue = "V150")
+            ScrubbedInput version,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("Update for mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             LOG.info("Un-authorized access to /api/update by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
@@ -96,21 +101,34 @@ public class DeviceController {
 
         DeviceTypeEnum deviceTypeEnum;
         try {
-            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
+            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
+            if (deviceTypeEnum == DeviceTypeEnum.I) {
+                LOG.info("Check if API version is supported for {} version={} rid={}", deviceTypeEnum.getDescription(), version.getText(), rid);
+                try {
+                    NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
+                    if (notSupportedAPI.isNotSupported()) {
+                        LOG.warn("Sent warning to upgrade rid={}", rid);
+                        return getErrorReason("To continue, please upgrade to latest version");
+                    }
+                } catch (Exception e) {
+                    LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
+                    return getErrorReason("Incorrect API version type.");
+                }
+            }
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
             return getErrorReason("Incorrect device type.");
         }
 
         try {
-            return deviceService.getUpdates(rid, deviceId, deviceTypeEnum, deviceToken).asJson();
+            return deviceService.getUpdates(rid, deviceId.getText(), deviceTypeEnum, deviceToken.getText()).asJson();
         } catch (Exception e) {
             LOG.error("fetching updates for device failed rid={} deviceId={} reason={}",
                     rid, deviceId, e.getLocalizedMessage(), e);
 
             Map<String, String> errors = new HashMap<>();
             errors.put(ErrorEncounteredJson.REASON, "Something went wrong. Engineers are looking into this.");
-            errors.put("did", deviceId);
+            errors.put("did", deviceId.getText());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR, MobileSystemErrorCodeEnum.USER_INPUT.name());
             errors.put(ErrorEncounteredJson.SYSTEM_ERROR_CODE, MobileSystemErrorCodeEnum.USER_INPUT.getCode());
 
@@ -136,15 +154,15 @@ public class DeviceController {
     )
     public String all(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("All for mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             LOG.info("Un-authorized access to /api/all by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
@@ -179,24 +197,24 @@ public class DeviceController {
     )
     public String registerDevice(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String did,
+            ScrubbedInput did,
 
             @RequestHeader (value = "X-R-DT", required = false, defaultValue = "A")
-            String deviceType,
+            ScrubbedInput deviceType,
 
-            @RequestHeader (value = "X-R-TK", required = false)
-            String deviceToken,
+            @RequestHeader (value = "X-R-TK", required = false, defaultValue = "")
+            ScrubbedInput deviceToken,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.info("Register mail={}, auth={} token={}", mail, UtilityController.AUTH_KEY_HIDDEN, deviceToken);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             LOG.info("Un-authorized access to /api/register by mail={}", mail);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
@@ -205,18 +223,18 @@ public class DeviceController {
 
         DeviceTypeEnum deviceTypeEnum;
         try {
-            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType);
+            deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);
             return getErrorReason("Incorrect device type.");
         }
 
         try {
-            if (deviceService.lastAccessed(rid, did) != null) {
+            if (deviceService.lastAccessed(rid, did.getText()) != null) {
                 LOG.info("Device already registered rid={} did={}", rid, did);
                 return DeviceRegistered.newInstance(true).asJson();
             } else {
-                return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did, deviceTypeEnum, deviceToken)).asJson();
+                return DeviceRegistered.newInstance(deviceService.registerDevice(rid, did.getText(), deviceTypeEnum, deviceToken.getText())).asJson();
             }
         } catch (Exception e) {
             LOG.error("Failed registering deviceType={}, reason={}", deviceTypeEnum, e.getLocalizedMessage(), e);

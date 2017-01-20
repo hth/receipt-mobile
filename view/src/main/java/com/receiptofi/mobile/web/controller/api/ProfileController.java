@@ -87,10 +87,10 @@ public class ProfileController {
     )
     public String mail(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String updatedMailJson,
@@ -98,7 +98,7 @@ public class ProfileController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -114,7 +114,7 @@ public class ProfileController {
 
             UserAccountEntity userAccountExists = accountService.findByUserId(newUserId);
             if (null == userAccountExists) {
-                UserAccountEntity userAccount = accountMobileService.changeUID(mail, newUserId);
+                UserAccountEntity userAccount = accountMobileService.changeUID(mail.getText(), newUserId);
 
                 response.addHeader(MAIL, userAccount.getUserId());
                 response.addHeader(AUTH, userAccount.getUserAuthentication().getAuthenticationKeyEncoded());
@@ -140,10 +140,10 @@ public class ProfileController {
     )
     public String password(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String updatedPasswordJson,
@@ -151,7 +151,7 @@ public class ProfileController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        UserAccountEntity userAccount = authenticateService.findUserAccount(mail, auth);
+        UserAccountEntity userAccount = authenticateService.findUserAccount(mail.getText(), auth.getText());
         if (null == userAccount) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -187,7 +187,7 @@ public class ProfileController {
                 userAuthentication.setCreated(userAccount.getUserAuthentication().getCreated());
                 accountService.updateAuthentication(userAuthentication);
 
-                response.addHeader(MAIL, mail);
+                response.addHeader(MAIL, mail.getText());
                 response.addHeader(AUTH, userAuthentication.getAuthenticationKeyEncoded());
                 return null;
             }
@@ -203,10 +203,10 @@ public class ProfileController {
     )
     public String country(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestBody
             String updatedCountryJson,
@@ -214,7 +214,7 @@ public class ProfileController {
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        UserAccountEntity userAccount = authenticateService.findUserAccount(mail, auth);
+        UserAccountEntity userAccount = authenticateService.findUserAccount(mail.getText(), auth.getText());
         if (null == userAccount) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;

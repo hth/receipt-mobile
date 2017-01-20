@@ -84,13 +84,13 @@ public class CouponController {
     )
     public String update(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String deviceId,
+            ScrubbedInput deviceId,
 
             @RequestBody
             String requestBodyJson,
@@ -98,7 +98,7 @@ public class CouponController {
             HttpServletResponse response
     ) throws IOException, ParseException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -126,7 +126,7 @@ public class CouponController {
                 couponMobileService.save(coupon);
                 couponMobileService.shareCoupon(coupon);
 
-                return deviceService.getUpdates(rid, deviceId).asJson();
+                return deviceService.getUpdates(rid, deviceId.getText()).asJson();
             } catch (Exception e) {
                 LOG.error("Failure during coupon save rid={} reason={}", rid, e.getLocalizedMessage(), e);
                 Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");
@@ -152,13 +152,13 @@ public class CouponController {
     )
     public String upload(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @RequestHeader ("X-R-DID")
-            String deviceId,
+            ScrubbedInput deviceId,
 
             @PathVariable ("id")
             ScrubbedInput id,
@@ -169,7 +169,7 @@ public class CouponController {
             HttpServletResponse response
     ) throws IOException {
         LOG.info("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (rid == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return null;
@@ -188,7 +188,7 @@ public class CouponController {
                 }
 
                 couponMobileService.uploadCoupon(multipartFile, rid, coupon);
-                return deviceService.getUpdates(rid, deviceId).asJson();
+                return deviceService.getUpdates(rid, deviceId.getText()).asJson();
             } catch (Exception e) {
                 LOG.error("Failure during coupon save rid={} reason={}", rid, e.getLocalizedMessage(), e);
                 Map<String, String> errors = ExpenseTagController.getErrorSevere("Something went wrong. Engineers are looking into this.");

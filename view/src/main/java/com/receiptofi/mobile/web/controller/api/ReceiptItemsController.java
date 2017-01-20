@@ -6,6 +6,7 @@ import com.receiptofi.domain.json.JsonReceiptItem;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.ReceiptService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,18 +72,18 @@ public class ReceiptItemsController {
     )
     public List<JsonReceiptItem> getDetailedReceipt(
             @RequestHeader ("X-R-MAIL")
-            String mail,
+            ScrubbedInput mail,
 
             @RequestHeader ("X-R-AUTH")
-            String auth,
+            ScrubbedInput auth,
 
             @PathVariable (value = "id")
-            String receiptId,
+            ScrubbedInput receiptId,
 
             HttpServletResponse response
     ) throws IOException {
         LOG.debug("mail={}, auth={}", mail, UtilityController.AUTH_KEY_HIDDEN);
-        String rid = authenticateService.getReceiptUserId(mail, auth);
+        String rid = authenticateService.getReceiptUserId(mail.getText(), auth.getText());
         if (null == rid) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, UtilityController.UNAUTHORIZED);
             return Collections.emptyList();
@@ -90,9 +91,9 @@ public class ReceiptItemsController {
 
         List<JsonReceiptItem> jsonReceiptItems = new LinkedList<>();
         try {
-            ReceiptEntity receipt = receiptService.findReceipt(receiptId, rid);
+            ReceiptEntity receipt = receiptService.findReceipt(receiptId.getText(), rid);
             if (null != receipt && receipt.getId().equals(receiptId)) {
-                List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId);
+                List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId.getText());
                 for (ItemEntity item : items) {
                     jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
                 }
