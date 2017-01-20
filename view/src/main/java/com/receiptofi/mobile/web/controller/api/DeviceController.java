@@ -103,7 +103,7 @@ public class DeviceController {
         try {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
             if (deviceTypeEnum == DeviceTypeEnum.I) {
-                LOG.info("Check if API version is supported for {} rid={}", deviceTypeEnum.getDescription(), rid);
+                LOG.info("Check if API version is supported for {} version={} rid={}", deviceTypeEnum.getDescription(), version.getText(), rid);
                 try {
                     NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
                     if (notSupportedAPI.isNotSupported()) {
