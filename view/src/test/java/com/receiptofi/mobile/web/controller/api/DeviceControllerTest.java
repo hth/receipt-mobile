@@ -7,7 +7,6 @@ import static com.receiptofi.mobile.web.controller.AccountControllerTest.SYSTEM_
 import static com.receiptofi.mobile.web.controller.AccountControllerTest.SYSTEM_ERROR_CODE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -16,15 +15,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import com.receiptofi.domain.types.DeviceTypeEnum;
 import com.receiptofi.mobile.domain.AvailableAccountUpdates;
-import com.receiptofi.mobile.service.AccountMobileService;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.mobile.service.DeviceService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +58,7 @@ public class DeviceControllerTest {
     @Test
     public void testHasUpdateFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        deviceController.updates("", "", "did", "", "", httpServletResponse);
+        deviceController.updates(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("did"), new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse);
         verify(deviceService, never()).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
     }
 
@@ -68,7 +66,7 @@ public class DeviceControllerTest {
     public void testHasUpdateException() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         doThrow(new RuntimeException()).when(deviceService).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
-        String responseJson = deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
+        String responseJson = deviceController.updates(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("did"), new ScrubbedInput(DeviceTypeEnum.A.getName()), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse);
 
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertEquals(USER_INPUT.getCode(), jo.get(ERROR).getAsJsonObject().get(SYSTEM_ERROR_CODE).getAsString());
@@ -81,21 +79,21 @@ public class DeviceControllerTest {
     public void testHasUpdate() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(deviceService.getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(availableAccountUpdates);
-        deviceController.updates("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
+        deviceController.updates(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("did"), new ScrubbedInput(DeviceTypeEnum.A.getName()), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse);
         verify(deviceService, times(1)).getUpdates(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString());
     }
 
     @Test
     public void testRegisterDeviceFailsToFindUser() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
-        assertNull(deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse));
+        assertNull(deviceController.registerDevice(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("did"), new ScrubbedInput(DeviceTypeEnum.A.getName()), new ScrubbedInput(""), httpServletResponse));
     }
 
     @Test
     public void testRegisterDevice() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(deviceService.registerDevice(anyString(), anyString(), Matchers.any(DeviceTypeEnum.class), anyString())).thenReturn(true);
-        String responseJson = deviceController.registerDevice("", "", "did", DeviceTypeEnum.A.getName(), "", httpServletResponse);
+        String responseJson = deviceController.registerDevice(new ScrubbedInput(""), new ScrubbedInput(""), new ScrubbedInput("did"), new ScrubbedInput(DeviceTypeEnum.A.getName()), new ScrubbedInput(""), httpServletResponse);
         JsonObject jo = (JsonObject) new JsonParser().parse(responseJson);
         assertTrue(jo.getAsJsonPrimitive("registered").getAsBoolean());
     }

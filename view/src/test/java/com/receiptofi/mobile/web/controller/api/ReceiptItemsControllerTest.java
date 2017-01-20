@@ -14,6 +14,7 @@ import com.receiptofi.domain.ReceiptEntity;
 import com.receiptofi.mobile.service.AuthenticateService;
 import com.receiptofi.service.ItemService;
 import com.receiptofi.service.ReceiptService;
+import com.receiptofi.utils.ScrubbedInput;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletResponse;
@@ -55,14 +55,14 @@ public class ReceiptItemsControllerTest {
     public void testGetDetailedReceiptWhenUserIsNotPresent() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn(null);
         verify(receiptService, never()).findReceipt(anyString(), anyString());
-        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "", httpServletResponse).isEmpty());
+        assertTrue(receiptItemsController.getDetailedReceipt(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
     public void testGetDetailedReceiptIsNull() throws IOException {
         when(authenticateService.getReceiptUserId(anyString(), anyString())).thenReturn("rid");
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(null);
-        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "", httpServletResponse).isEmpty());
+        assertTrue(receiptItemsController.getDetailedReceipt(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ReceiptItemsControllerTest {
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(receiptEntity);
         when(receiptEntity.getId()).thenReturn("id");
         when(itemService.getAllItemsOfReceipt("id")).thenReturn(new ArrayList<>());
-        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "", httpServletResponse).isEmpty());
+        assertTrue(receiptItemsController.getDetailedReceipt(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), new ScrubbedInput(""), httpServletResponse).isEmpty());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ReceiptItemsControllerTest {
         when(receiptService.findReceipt(anyString(), anyString())).thenReturn(receiptEntity);
         when(receiptEntity.getId()).thenReturn("id");
         doThrow(new RuntimeException()).when(itemService).getAllItemsOfReceipt("id");
-        assertTrue(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "id", httpServletResponse).isEmpty());
+        assertTrue(receiptItemsController.getDetailedReceipt(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), new ScrubbedInput("id"), httpServletResponse).isEmpty());
     }
 
 
@@ -98,6 +98,6 @@ public class ReceiptItemsControllerTest {
         when(itemEntity.getReceipt()).thenReturn(receiptEntity);
         when(itemEntity.getExpenseTag()).thenReturn(expenseTagEntity);
 
-        assertFalse(receiptItemsController.getDetailedReceipt("mail@mail.com", "", "id", httpServletResponse).isEmpty());
+        assertFalse(receiptItemsController.getDetailedReceipt(new ScrubbedInput("mail@mail.com"), new ScrubbedInput(""), new ScrubbedInput("id"), httpServletResponse).isEmpty());
     }
 }

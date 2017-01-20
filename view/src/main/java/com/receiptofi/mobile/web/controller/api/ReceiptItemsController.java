@@ -92,7 +92,7 @@ public class ReceiptItemsController {
         List<JsonReceiptItem> jsonReceiptItems = new LinkedList<>();
         try {
             ReceiptEntity receipt = receiptService.findReceipt(receiptId.getText(), rid);
-            if (null != receipt && receipt.getId().equals(receiptId)) {
+            if (null != receipt && receipt.getId().equals(receiptId.getText())) {
                 List<ItemEntity> items = itemService.getAllItemsOfReceipt(receiptId.getText());
                 for (ItemEntity item : items) {
                     jsonReceiptItems.add(JsonReceiptItem.newInstance(item));
