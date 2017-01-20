@@ -102,15 +102,18 @@ public class DeviceController {
         DeviceTypeEnum deviceTypeEnum;
         try {
             deviceTypeEnum = DeviceTypeEnum.valueOf(deviceType.getText());
-            try {
-                NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
-                if (notSupportedAPI.isNotSupported()) {
-                    LOG.warn("Sent warning to upgrade rid={}", rid);
-                    return getErrorReason("To continue, please upgrade to latest version");
+            if (deviceTypeEnum == DeviceTypeEnum.I) {
+                LOG.info("Check if API version is supported for {} rid={}", deviceTypeEnum.getDescription(), rid);
+                try {
+                    NotSupportedAPIEnum notSupportedAPI = NotSupportedAPIEnum.valueOf(version.getText());
+                    if (notSupportedAPI.isNotSupported()) {
+                        LOG.warn("Sent warning to upgrade rid={}", rid);
+                        return getErrorReason("To continue, please upgrade to latest version");
+                    }
+                } catch (Exception e) {
+                    LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
+                    return getErrorReason("Incorrect API version type.");
                 }
-            } catch (Exception e) {
-                LOG.error("Failed parsing API version, reason={}", e.getLocalizedMessage(), e);
-                return getErrorReason("Incorrect API version type.");
             }
         } catch (Exception e) {
             LOG.error("Failed parsing deviceType, reason={}", e.getLocalizedMessage(), e);

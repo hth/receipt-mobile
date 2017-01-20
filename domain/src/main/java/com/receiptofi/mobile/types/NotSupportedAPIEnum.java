@@ -6,8 +6,8 @@ package com.receiptofi.mobile.types;
  */
 public enum NotSupportedAPIEnum {
 
-    V150("V150", true),
-    V160("V160", false);
+    V150("1.5.0", false),
+    V160("1.6.0", false);
 
     private String version;
     private boolean notSupported;
