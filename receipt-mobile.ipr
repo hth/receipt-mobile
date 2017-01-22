@@ -323,6 +323,7 @@
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.22" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.0" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.17" />
@@ -349,6 +350,7 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.8" />
+            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.63.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
@@ -467,8 +469,6 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6eb2e87ddb09e944bb88f06f19ba0638d4607ffd/joda-time-2.9.7.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.63.0/a20c895599af5cec865388e1005b1a725f2d7a1d/javamelody-core-1.63.0.jar" />
           </element>
         </element>
       </root>
@@ -540,6 +540,7 @@
             <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.8.9" />
             <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.22" />
             <element id="library" level="project" name="Gradle: org.hibernate:hibernate-validator:5.3.0.Final" />
+            <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.7" />
             <element id="library" level="project" name="Gradle: org.freemarker:freemarker:2.3.23" />
             <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.0" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.17" />
@@ -566,6 +567,7 @@
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.1.7" />
             <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.1.7" />
             <element id="library" level="project" name="Gradle: net.logstash.logback:logstash-logback-encoder:4.8" />
+            <element id="library" level="project" name="Gradle: net.bull.javamelody:javamelody-core:1.63.0" />
             <element id="library" level="project" name="Gradle: junit:junit:4.12" />
             <element id="archive" name="com.receiptofi.mobile-common.jar">
               <element id="module-output" name="common_main" />
@@ -692,8 +694,6 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6eb2e87ddb09e944bb88f06f19ba0638d4607ffd/joda-time-2.9.7.jar" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.bull.javamelody/javamelody-core/1.63.0/a20c895599af5cec865388e1005b1a725f2d7a1d/javamelody-core-1.63.0.jar" />
           </element>
         </element>
       </root>
