@@ -175,7 +175,7 @@ public class UploadDocumentController {
             }
 
             DocumentUpload documentUpload = DocumentUpload.newInstance(
-                    file.getOriginalFilename(),
+                    uploadDocumentImage.getRealFileName(),
                     uploadDocumentImage.getBlobId(),
                     landingService.pendingReceipt(rid)
             );
