@@ -11,7 +11,7 @@ import com.receiptofi.domain.types.DeviceTypeEnum;
 public enum LowestSupportedAppEnum {
 
     /** List lowest supported version of iPhone and Android app. */
-    VI("1.5.0", 150, DeviceTypeEnum.I),
+    VI("1.6.0", 160, DeviceTypeEnum.I),
     VA("1.0.0", 100, DeviceTypeEnum.A);
 
     private String appVersion;
