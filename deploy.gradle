@@ -24,15 +24,19 @@ ssh.settings {
 
 remotes {
     s1 {
-        host = '192.168.1.30'
+        host = '192.168.1.51'
         user = 'db'
     }
     s2 {
-        host = '192.168.1.31'
+        host = '192.168.1.52'
         user = 'db'
     }
     s3 {
-        host = '192.168.1.32'
+        host = '192.168.1.53'
+        user = 'db'
+    }
+    s4 {
+        host = '192.168.1.54'
         user = 'db'
     }
     r1 {
@@ -56,8 +60,10 @@ remotes {
 task deployServer {
     if (env == 'sandbox') {
         //s1 is mac as of Dec 6th 2016.
-        deploy(remotes.s2, "192.168.1.31", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s3, "192.168.1.32", "3s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s1, "192.168.1.51", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s2, "192.168.1.52", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s3, "192.168.1.53", "3s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s4, "192.168.1.54", "4s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
     }
     if (env == 'prod') {
