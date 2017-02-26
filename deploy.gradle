@@ -35,10 +35,6 @@ remotes {
         host = '192.168.1.53'
         user = 'db'
     }
-    s4 {
-        host = '192.168.1.54'
-        user = 'db'
-    }
     r1 {
         host = '192.168.1.20'
         user = 'db'
@@ -62,8 +58,7 @@ task deployServer {
         //s1 is mac as of Dec 6th 2016.
         deploy(remotes.s1, "192.168.1.51", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.s2, "192.168.1.52", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s3, "192.168.1.53", "3s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s4, "192.168.1.54", "4s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.s3, "192.168.1.53", "4s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
     }
     if (env == 'prod') {
