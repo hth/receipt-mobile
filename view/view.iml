@@ -535,26 +535,26 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/73c3a70ec0b10b61c8eb9ef1659131cd78dbbd82/springfox-swagger2-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/37e495ce27deef06ebeaa96f89c00d4779c583b7/springfox-swagger2-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/a261bb597909943960202f02934ab7085f6f2db7/springfox-swagger2-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/1fcee7a8940eed948887a0585488b90ae669f23c/springfox-swagger2-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/ea18222cb4a669f9bdde1b3efb2ad06705d293c1/springfox-swagger2-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/4c854c86c91ab36c86fc1a63571a0614c2ea9ab2/springfox-swagger-ui-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/3bc4c7b8c0aa10313a836870dbf3a424797323ae/springfox-swagger-ui-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/6fd66ecf726573d5c9d0a8ced18b29cf60d8d2d6/springfox-swagger-ui-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/71ecd1f88b4547dcb662771f9fee3f8d9521bca1/springfox-swagger-ui-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/ddabadf93d7b80a2c4513c8ab1688037b7e1c538/springfox-swagger-ui-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -633,13 +633,13 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6eb2e87ddb09e944bb88f06f19ba0638d4607ffd/joda-time-2.9.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/f7b520c458572890807d143670c9b24f4de90897/joda-time-2.9.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6550aee9dcf793ace4511b76e3cc9875c481b294/joda-time-2.9.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/bc84c376eb7a32276f94297bc936b5078f243787/joda-time-2.9.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/7099392eb30172b794b270401c2462e1a27ae63/joda-time-2.9.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/29a9fcf32288cd678b37b372974786f731b982d1/joda-time-2.9.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -685,13 +685,13 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/12916c231064fd63e2670f5b9b143aa5e1ff2f2/google-maps-services-0.1.17.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c44e78878ed5187c7d10295664dc3988b5bc255d/google-maps-services-0.1.19.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/7fc6b3ca2ae36b4652afb3b39d8afb945a69cdb5/google-maps-services-0.1.17-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c19d1fdf43abd0bc98329b5eade99c8c138b3fe1/google-maps-services-0.1.19-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/b7196721ff108e327b3ca622117d566d21b4844f/google-maps-services-0.1.17-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/f0d0591f98d3cee4b6e39550a68bad724357b831/google-maps-services-0.1.19-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -958,39 +958,39 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/864344400c3d4d92dfeb0a305dc87d953677c03c/logback-core-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/fa2cbf9704ad3b77032bd97b868323ce15c53724/logback-core-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/c978d4afd24d32991c8aa31a9c8a1119f19a1cb4/logback-core-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/15a62dbee75aadf62b7d35640533262d764b29d3/logback-core-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/3ebabe69eba0196af9ad3a814f723fb720b9101e/logback-core-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/7c4f3c474fb2c041d8028740440937705ebb473a/logback-classic-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/776ed0f0f714fe8d76787fd540a60d621c7400bb/logback-classic-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/99b0433b7d86044643b7d677f22d2c793d31d416/logback-classic-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/6cfaf5c02fb50bfdf7ea5e563955d3c229d7e154/logback-classic-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/c9cbf30997277c641fef99f92486522ff7047b83/logstash-logback-encoder-4.8.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/4c192f4a76a204ec7c7e0656b4384269d5a3a3d4/logstash-logback-encoder-4.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/851438356665af4b63fb8b9ef9e19d78e0c33138/logstash-logback-encoder-4.8-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/e755b1df834dea1682e2374c2f32d3b626496c04/logstash-logback-encoder-4.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/8182910093b5c97e9ec2ac4e453ef70588ed24e4/logstash-logback-encoder-4.8-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/6bd3489b24d0ede5dd22cf5ce042b69e390c40aa/logstash-logback-encoder-4.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -1127,78 +1127,78 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/246ec68bce560227d3633d5ab5979437544bd6dc/swagger-annotations-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/95f1b65d5cefd1614a04734f8a69641ee02bae8a/swagger-annotations-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/7ff187f2d86f014630d0da9e16689989e24580b6/swagger-annotations-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/12a6e044c9cbbd51629578da30c6bc343526ffee/swagger-annotations-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/d35dbd4f2f08053921288fb9f3e798aeeda338ce/swagger-annotations-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/da29e4f4f7cff80b1ef134b0f3805013be443e58/swagger-models-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/9099b2f8457df6d630f28eec2631c965f275a307/swagger-models-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/5e8f26bdc6bfc45018d1c4dd609c0ed2d056d790/swagger-models-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7bf0d6703bd21e77d88b3ec38713e472fa396c1c/swagger-models-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/398eb434c5c1e969e851a93a83627cd20fc57356/swagger-models-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/972ae720c6a9a5f31be2744972b435cc39166174/springfox-spi-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/447a3ccab7401bc3b4dc461b38d0ab25b0b9b192/springfox-spi-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/a5c4f8e73369d800f7d60c5485d624227aa9d662/springfox-spi-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/c3213ceb37e0a2a8cc9b962e7ad418240c99311/springfox-spi-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/1547fb2a632a46d3890233266222e50966c8d9b0/springfox-spi-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/b4d837ed7dc726a59504d2e6587e162e071a8965/springfox-schema-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/e51f8afa423dfa329bf059aa8e785c587b64615f/springfox-schema-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/44f79dee4d67f495cfe280dd81972396d60c927c/springfox-schema-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/4d9b3a18be302d795bd51688bae75ba441fa4d6f/springfox-schema-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/fada1df36aa57114f1b82d861518e84a8d4a2a20/springfox-schema-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/47befb039a0a1f0cdaab74d2777fa9eb6b01f8db/springfox-swagger-common-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/64e30057b202716c3d8ad8c21912bd7dd3f7abe7/springfox-swagger-common-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/b9271e5668ac3ca12178c30bac55f6a782892a29/springfox-swagger-common-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/c43771e9504b3970479706a89bcb67d805704378/springfox-swagger-common-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/5e452eee198e8b6ff3ec1800d65fa1fbd4f45874/springfox-swagger-common-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/6478ed7e49755b652aac907d42a735349056a6a/springfox-spring-web-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3a0ff040cd2cba0bcb6425789f89cea491d94885/springfox-spring-web-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/8dd6354377a8279e5b9662cf1a95707b07630548/springfox-spring-web-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3fb5bafe4e8b004d88e8278b99e2e2fe1eca46b4/springfox-spring-web-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/3322c13436cc726184998808e35d474acfa043fd/springfox-spring-web-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -1270,13 +1270,13 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/3d7ec36bbfbf5d7259356a6b8fec0ce4f96e3f47/jsr305-3.0.1-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/7cb5b4e91eb0741882c8fefb2fd0338eff9857c/jsr305-3.0.2-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/a2926c057ca3b662b9db194c869bdbe7d3bb8aef/jsr305-3.0.1-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -1903,13 +1903,13 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/5c502e6b9d50d34096077eacc384cd00f63710e1/springfox-core-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5be3d5d246afd20156b8f6af5294c1a29dfc98ff/springfox-core-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/95ae8bcf9ffe966defd5ff55a1b2562c3973f633/springfox-core-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/60fc98f381dbd6260bd369d7b5f85b2fc93f8151/springfox-core-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/6267a96afb6610db68821fa5886277422fdc107f/springfox-core-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -2392,13 +2392,13 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/cfb26c12340ab1f9fe28a2ee6dbf77de3cc34bc3/slf4j-api-1.7.24-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/f003e89ddebdbaca5cf3fc7cc0c67c88c2ca1a3c/slf4j-api-1.7.25-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/9f1cecd7c757ad5dde29453d43315228bb0a7c7e/slf4j-api-1.7.24-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/962153db4a9ea71b79d047dfd1b2a0d80d8f4739/slf4j-api-1.7.25-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -2939,26 +2939,26 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/73c3a70ec0b10b61c8eb9ef1659131cd78dbbd82/springfox-swagger2-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/37e495ce27deef06ebeaa96f89c00d4779c583b7/springfox-swagger2-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/a261bb597909943960202f02934ab7085f6f2db7/springfox-swagger2-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/1fcee7a8940eed948887a0585488b90ae669f23c/springfox-swagger2-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/ea18222cb4a669f9bdde1b3efb2ad06705d293c1/springfox-swagger2-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/4c854c86c91ab36c86fc1a63571a0614c2ea9ab2/springfox-swagger-ui-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/3bc4c7b8c0aa10313a836870dbf3a424797323ae/springfox-swagger-ui-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/6fd66ecf726573d5c9d0a8ced18b29cf60d8d2d6/springfox-swagger-ui-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/71ecd1f88b4547dcb662771f9fee3f8d9521bca1/springfox-swagger-ui-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/ddabadf93d7b80a2c4513c8ab1688037b7e1c538/springfox-swagger-ui-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -3037,13 +3037,13 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6eb2e87ddb09e944bb88f06f19ba0638d4607ffd/joda-time-2.9.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/f7b520c458572890807d143670c9b24f4de90897/joda-time-2.9.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6550aee9dcf793ace4511b76e3cc9875c481b294/joda-time-2.9.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/bc84c376eb7a32276f94297bc936b5078f243787/joda-time-2.9.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/7099392eb30172b794b270401c2462e1a27ae63/joda-time-2.9.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/29a9fcf32288cd678b37b372974786f731b982d1/joda-time-2.9.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -3089,13 +3089,13 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/12916c231064fd63e2670f5b9b143aa5e1ff2f2/google-maps-services-0.1.17.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c44e78878ed5187c7d10295664dc3988b5bc255d/google-maps-services-0.1.19.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/7fc6b3ca2ae36b4652afb3b39d8afb945a69cdb5/google-maps-services-0.1.17-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c19d1fdf43abd0bc98329b5eade99c8c138b3fe1/google-maps-services-0.1.19-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/b7196721ff108e327b3ca622117d566d21b4844f/google-maps-services-0.1.17-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/f0d0591f98d3cee4b6e39550a68bad724357b831/google-maps-services-0.1.19-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -3362,39 +3362,39 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/864344400c3d4d92dfeb0a305dc87d953677c03c/logback-core-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/fa2cbf9704ad3b77032bd97b868323ce15c53724/logback-core-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/c978d4afd24d32991c8aa31a9c8a1119f19a1cb4/logback-core-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/15a62dbee75aadf62b7d35640533262d764b29d3/logback-core-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/3ebabe69eba0196af9ad3a814f723fb720b9101e/logback-core-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/7c4f3c474fb2c041d8028740440937705ebb473a/logback-classic-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/776ed0f0f714fe8d76787fd540a60d621c7400bb/logback-classic-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/99b0433b7d86044643b7d677f22d2c793d31d416/logback-classic-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/6cfaf5c02fb50bfdf7ea5e563955d3c229d7e154/logback-classic-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/c9cbf30997277c641fef99f92486522ff7047b83/logstash-logback-encoder-4.8.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/4c192f4a76a204ec7c7e0656b4384269d5a3a3d4/logstash-logback-encoder-4.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/851438356665af4b63fb8b9ef9e19d78e0c33138/logstash-logback-encoder-4.8-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/e755b1df834dea1682e2374c2f32d3b626496c04/logstash-logback-encoder-4.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/8182910093b5c97e9ec2ac4e453ef70588ed24e4/logstash-logback-encoder-4.8-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/6bd3489b24d0ede5dd22cf5ce042b69e390c40aa/logstash-logback-encoder-4.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -3529,78 +3529,78 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/246ec68bce560227d3633d5ab5979437544bd6dc/swagger-annotations-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/95f1b65d5cefd1614a04734f8a69641ee02bae8a/swagger-annotations-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/7ff187f2d86f014630d0da9e16689989e24580b6/swagger-annotations-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/12a6e044c9cbbd51629578da30c6bc343526ffee/swagger-annotations-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/d35dbd4f2f08053921288fb9f3e798aeeda338ce/swagger-annotations-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/da29e4f4f7cff80b1ef134b0f3805013be443e58/swagger-models-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/9099b2f8457df6d630f28eec2631c965f275a307/swagger-models-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/5e8f26bdc6bfc45018d1c4dd609c0ed2d056d790/swagger-models-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7bf0d6703bd21e77d88b3ec38713e472fa396c1c/swagger-models-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/398eb434c5c1e969e851a93a83627cd20fc57356/swagger-models-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/972ae720c6a9a5f31be2744972b435cc39166174/springfox-spi-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/447a3ccab7401bc3b4dc461b38d0ab25b0b9b192/springfox-spi-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/a5c4f8e73369d800f7d60c5485d624227aa9d662/springfox-spi-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/c3213ceb37e0a2a8cc9b962e7ad418240c99311/springfox-spi-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/1547fb2a632a46d3890233266222e50966c8d9b0/springfox-spi-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/b4d837ed7dc726a59504d2e6587e162e071a8965/springfox-schema-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/e51f8afa423dfa329bf059aa8e785c587b64615f/springfox-schema-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/44f79dee4d67f495cfe280dd81972396d60c927c/springfox-schema-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/4d9b3a18be302d795bd51688bae75ba441fa4d6f/springfox-schema-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/fada1df36aa57114f1b82d861518e84a8d4a2a20/springfox-schema-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/47befb039a0a1f0cdaab74d2777fa9eb6b01f8db/springfox-swagger-common-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/64e30057b202716c3d8ad8c21912bd7dd3f7abe7/springfox-swagger-common-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/b9271e5668ac3ca12178c30bac55f6a782892a29/springfox-swagger-common-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/c43771e9504b3970479706a89bcb67d805704378/springfox-swagger-common-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/5e452eee198e8b6ff3ec1800d65fa1fbd4f45874/springfox-swagger-common-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/6478ed7e49755b652aac907d42a735349056a6a/springfox-spring-web-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3a0ff040cd2cba0bcb6425789f89cea491d94885/springfox-spring-web-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/8dd6354377a8279e5b9662cf1a95707b07630548/springfox-spring-web-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3fb5bafe4e8b004d88e8278b99e2e2fe1eca46b4/springfox-spring-web-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/3322c13436cc726184998808e35d474acfa043fd/springfox-spring-web-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -3672,13 +3672,13 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/3d7ec36bbfbf5d7259356a6b8fec0ce4f96e3f47/jsr305-3.0.1-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/7cb5b4e91eb0741882c8fefb2fd0338eff9857c/jsr305-3.0.2-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/a2926c057ca3b662b9db194c869bdbe7d3bb8aef/jsr305-3.0.1-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -4294,13 +4294,13 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/5c502e6b9d50d34096077eacc384cd00f63710e1/springfox-core-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5be3d5d246afd20156b8f6af5294c1a29dfc98ff/springfox-core-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/95ae8bcf9ffe966defd5ff55a1b2562c3973f633/springfox-core-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/60fc98f381dbd6260bd369d7b5f85b2fc93f8151/springfox-core-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/6267a96afb6610db68821fa5886277422fdc107f/springfox-core-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -4783,13 +4783,13 @@
     <orderEntry type="module-library" scope="RUNTIME">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/cfb26c12340ab1f9fe28a2ee6dbf77de3cc34bc3/slf4j-api-1.7.24-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/f003e89ddebdbaca5cf3fc7cc0c67c88c2ca1a3c/slf4j-api-1.7.25-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/9f1cecd7c757ad5dde29453d43315228bb0a7c7e/slf4j-api-1.7.24-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/962153db4a9ea71b79d047dfd1b2a0d80d8f4739/slf4j-api-1.7.25-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5330,26 +5330,26 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/b5f50caa259409ef25930d00c3cd48ba44afb97a/springfox-swagger2-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/73c3a70ec0b10b61c8eb9ef1659131cd78dbbd82/springfox-swagger2-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/37e495ce27deef06ebeaa96f89c00d4779c583b7/springfox-swagger2-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/a261bb597909943960202f02934ab7085f6f2db7/springfox-swagger2-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.5.0/1fcee7a8940eed948887a0585488b90ae669f23c/springfox-swagger2-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.6.1/ea18222cb4a669f9bdde1b3efb2ad06705d293c1/springfox-swagger2-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/6f7838c1d208edb5c3de2bce2232969623dac88b/springfox-swagger-ui-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/4c854c86c91ab36c86fc1a63571a0614c2ea9ab2/springfox-swagger-ui-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/3bc4c7b8c0aa10313a836870dbf3a424797323ae/springfox-swagger-ui-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/6fd66ecf726573d5c9d0a8ced18b29cf60d8d2d6/springfox-swagger-ui-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.5.0/71ecd1f88b4547dcb662771f9fee3f8d9521bca1/springfox-swagger-ui-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.6.1/ddabadf93d7b80a2c4513c8ab1688037b7e1c538/springfox-swagger-ui-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5428,13 +5428,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6eb2e87ddb09e944bb88f06f19ba0638d4607ffd/joda-time-2.9.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/f7b520c458572890807d143670c9b24f4de90897/joda-time-2.9.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/6550aee9dcf793ace4511b76e3cc9875c481b294/joda-time-2.9.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/bc84c376eb7a32276f94297bc936b5078f243787/joda-time-2.9.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.7/7099392eb30172b794b270401c2462e1a27ae63/joda-time-2.9.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/29a9fcf32288cd678b37b372974786f731b982d1/joda-time-2.9.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5480,13 +5480,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/12916c231064fd63e2670f5b9b143aa5e1ff2f2/google-maps-services-0.1.17.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c44e78878ed5187c7d10295664dc3988b5bc255d/google-maps-services-0.1.19.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/7fc6b3ca2ae36b4652afb3b39d8afb945a69cdb5/google-maps-services-0.1.17-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/c19d1fdf43abd0bc98329b5eade99c8c138b3fe1/google-maps-services-0.1.19-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.17/b7196721ff108e327b3ca622117d566d21b4844f/google-maps-services-0.1.17-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.maps/google-maps-services/0.1.19/f0d0591f98d3cee4b6e39550a68bad724357b831/google-maps-services-0.1.19-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5753,39 +5753,39 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/7873092d39ef741575ca91378a6a21c388363ac8/logback-core-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/864344400c3d4d92dfeb0a305dc87d953677c03c/logback-core-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/fa2cbf9704ad3b77032bd97b868323ce15c53724/logback-core-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/c978d4afd24d32991c8aa31a9c8a1119f19a1cb4/logback-core-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.7/15a62dbee75aadf62b7d35640533262d764b29d3/logback-core-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.3/3ebabe69eba0196af9ad3a814f723fb720b9101e/logback-core-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/9865cf6994f9ff13fce0bf93f2054ef6c65bb462/logback-classic-1.1.7.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/7c4f3c474fb2c041d8028740440937705ebb473a/logback-classic-1.2.3.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/776ed0f0f714fe8d76787fd540a60d621c7400bb/logback-classic-1.1.7-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/99b0433b7d86044643b7d677f22d2c793d31d416/logback-classic-1.2.3-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.7/6cfaf5c02fb50bfdf7ea5e563955d3c229d7e154/logback-classic-1.1.7-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/c9cbf30997277c641fef99f92486522ff7047b83/logstash-logback-encoder-4.8.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/4c192f4a76a204ec7c7e0656b4384269d5a3a3d4/logstash-logback-encoder-4.9.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/851438356665af4b63fb8b9ef9e19d78e0c33138/logstash-logback-encoder-4.8-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/e755b1df834dea1682e2374c2f32d3b626496c04/logstash-logback-encoder-4.9-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.8/8182910093b5c97e9ec2ac4e453ef70588ed24e4/logstash-logback-encoder-4.8-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/net.logstash.logback/logstash-logback-encoder/4.9/6bd3489b24d0ede5dd22cf5ce042b69e390c40aa/logstash-logback-encoder-4.9-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5844,13 +5844,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/1.50.5/2393e167c3c6ed6b896470fdb813244769ac0d3f/de.flapdoodle.embed.mongo-1.50.5.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/2.0.0/a2a38b016f42e82ba5842287c71132b328fea60f/de.flapdoodle.embed.mongo-2.0.0.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/1.50.5/39e0a84dbeaeb76165e2dfd6a757f0328455bf7f/de.flapdoodle.embed.mongo-1.50.5-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/2.0.0/57bfbb3af20f72de519936491c679026f776cd8/de.flapdoodle.embed.mongo-2.0.0-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/1.50.5/d84a21631e9b5d4445562ff349988976c6b2c78b/de.flapdoodle.embed.mongo-1.50.5-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.mongo/2.0.0/8cc298548e1770d5f212753360471a3a2d7a3734/de.flapdoodle.embed.mongo-2.0.0-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -5948,78 +5948,78 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/598403e3d21da08f8e46efb9f2b6d7b1bc0046d/swagger-annotations-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/246ec68bce560227d3633d5ab5979437544bd6dc/swagger-annotations-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/95f1b65d5cefd1614a04734f8a69641ee02bae8a/swagger-annotations-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/7ff187f2d86f014630d0da9e16689989e24580b6/swagger-annotations-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.9/12a6e044c9cbbd51629578da30c6bc343526ffee/swagger-annotations-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.10/d35dbd4f2f08053921288fb9f3e798aeeda338ce/swagger-annotations-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7cc6e2b63619d826f9da4203630ab7add866a473/swagger-models-1.5.9.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/da29e4f4f7cff80b1ef134b0f3805013be443e58/swagger-models-1.5.10.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/9099b2f8457df6d630f28eec2631c965f275a307/swagger-models-1.5.9-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/5e8f26bdc6bfc45018d1c4dd609c0ed2d056d790/swagger-models-1.5.10-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.9/7bf0d6703bd21e77d88b3ec38713e472fa396c1c/swagger-models-1.5.9-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.10/398eb434c5c1e969e851a93a83627cd20fc57356/swagger-models-1.5.10-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/1b439a0b05feee1e1af8ca35c0d35b38096f7601/springfox-spi-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/972ae720c6a9a5f31be2744972b435cc39166174/springfox-spi-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/447a3ccab7401bc3b4dc461b38d0ab25b0b9b192/springfox-spi-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/a5c4f8e73369d800f7d60c5485d624227aa9d662/springfox-spi-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.5.0/c3213ceb37e0a2a8cc9b962e7ad418240c99311/springfox-spi-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.6.1/1547fb2a632a46d3890233266222e50966c8d9b0/springfox-spi-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/2716c322aff0cf2684715b6022f1edb7dacb8f67/springfox-schema-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/b4d837ed7dc726a59504d2e6587e162e071a8965/springfox-schema-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/e51f8afa423dfa329bf059aa8e785c587b64615f/springfox-schema-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/44f79dee4d67f495cfe280dd81972396d60c927c/springfox-schema-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.5.0/4d9b3a18be302d795bd51688bae75ba441fa4d6f/springfox-schema-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.6.1/fada1df36aa57114f1b82d861518e84a8d4a2a20/springfox-schema-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/817f6b5cf4ee5304b762f57ab85d2d1a2ea1f32a/springfox-swagger-common-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/47befb039a0a1f0cdaab74d2777fa9eb6b01f8db/springfox-swagger-common-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/64e30057b202716c3d8ad8c21912bd7dd3f7abe7/springfox-swagger-common-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/b9271e5668ac3ca12178c30bac55f6a782892a29/springfox-swagger-common-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.5.0/c43771e9504b3970479706a89bcb67d805704378/springfox-swagger-common-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.6.1/5e452eee198e8b6ff3ec1800d65fa1fbd4f45874/springfox-swagger-common-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/88adc4f0c85b06a9f47222ab68c6230a24d08ee0/springfox-spring-web-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/6478ed7e49755b652aac907d42a735349056a6a/springfox-spring-web-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3a0ff040cd2cba0bcb6425789f89cea491d94885/springfox-spring-web-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/8dd6354377a8279e5b9662cf1a95707b07630548/springfox-spring-web-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.5.0/3fb5bafe4e8b004d88e8278b99e2e2fe1eca46b4/springfox-spring-web-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.6.1/3322c13436cc726184998808e35d474acfa043fd/springfox-spring-web-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -6091,13 +6091,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/3d7ec36bbfbf5d7259356a6b8fec0ce4f96e3f47/jsr305-3.0.1-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/7cb5b4e91eb0741882c8fefb2fd0338eff9857c/jsr305-3.0.2-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/a2926c057ca3b662b9db194c869bdbe7d3bb8aef/jsr305-3.0.1-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/b19b5927c2c25b6c70f093767041e641ae0b1b35/jsr305-3.0.2-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -6711,13 +6711,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/1.50.2/7f00ce5e05a6f7d58b2fffd04fbdbb15956bfa8/de.flapdoodle.embed.process-1.50.2.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/2.0.1/116a63e9f0f498b2375f4f6e7cd9e2fd8abe9a5f/de.flapdoodle.embed.process-2.0.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/1.50.2/9b99b0531408a6e9d2e23326f7aaab1366b7e305/de.flapdoodle.embed.process-1.50.2-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/2.0.1/170e5e8c5cfcbba965a19f626ccec43ffb964bf2/de.flapdoodle.embed.process-2.0.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/1.50.2/a61e56cffdffa1616f5b92c2ee62980ba2e835fa/de.flapdoodle.embed.process-1.50.2-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/de.flapdoodle.embed/de.flapdoodle.embed.process/2.0.1/629afac5e8a8e7c1035360fa46fc315907b2917c/de.flapdoodle.embed.process-2.0.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -6737,13 +6737,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5b2310cd6b2cf584b81a14edf12e522abc966255/springfox-core-2.5.0.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/5c502e6b9d50d34096077eacc384cd00f63710e1/springfox-core-2.6.1.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/5be3d5d246afd20156b8f6af5294c1a29dfc98ff/springfox-core-2.5.0-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/95ae8bcf9ffe966defd5ff55a1b2562c3973f633/springfox-core-2.6.1-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.5.0/60fc98f381dbd6260bd369d7b5f85b2fc93f8151/springfox-core-2.5.0-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.6.1/6267a96afb6610db68821fa5886277422fdc107f/springfox-core-2.6.1-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
@@ -7239,13 +7239,13 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/3f6b4bd4f8dbe8d4bea06d107a3826469b85c3e9/slf4j-api-1.7.24.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar!/"/>
         </CLASSES>
         <JAVADOC>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/cfb26c12340ab1f9fe28a2ee6dbf77de3cc34bc3/slf4j-api-1.7.24-javadoc.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/f003e89ddebdbaca5cf3fc7cc0c67c88c2ca1a3c/slf4j-api-1.7.25-javadoc.jar!/"/>
         </JAVADOC>
         <SOURCES>
-          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.24/9f1cecd7c757ad5dde29453d43315228bb0a7c7e/slf4j-api-1.7.24-sources.jar!/"/>
+          <root url="jar:///Users/hitender/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/962153db4a9ea71b79d047dfd1b2a0d80d8f4739/slf4j-api-1.7.25-sources.jar!/"/>
         </SOURCES>
       </library>
     </orderEntry>
