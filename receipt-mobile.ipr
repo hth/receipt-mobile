@@ -207,6 +207,18 @@
             <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" />
             <element id="library" level="project" name="Gradle: com.google.maps:google-maps-services:0.1.19" />
             <element id="library" level="project" name="Gradle: joda-time:joda-time:2.9.9" />
+            <element id="library" level="project" name="Gradle: commons-httpclient:commons-httpclient:3.1" />
+            <element id="library" level="project" name="Gradle: de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.0.0" />
+            <element id="library" level="project" name="Gradle: de.flapdoodle.embed:de.flapdoodle.embed.process:2.0.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.6.1" />
+            <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.10" />
+            <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.10" />
           </element>
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/view/web/WEB-INF/jsp/isWorking.jsp" />
@@ -307,6 +319,7 @@
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.6.1" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.6.1" />
+            <element id="library" level="project" name="Gradle: commons-httpclient:commons-httpclient:3.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-vfs2:2.1" />
             <element id="library" level="project" name="Gradle: com.jcraft:jsch:0.1.54" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
@@ -458,7 +471,6 @@
               <element id="dir-copy" path="$PROJECT_DIR$/domain/build/resources/main" />
             </element>
             <element id="library" level="project" name="Gradle: javax.servlet:jstl:1.2" />
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-httpclient/commons-httpclient/3.1/964cd74171f427720480efdec40a7c7f6e58426a/commons-httpclient-3.1.jar" />
           </element>
         </element>
       </root>
@@ -524,6 +536,7 @@
             <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.6.1" />
             <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.6.1" />
+            <element id="library" level="project" name="Gradle: commons-httpclient:commons-httpclient:3.1" />
             <element id="library" level="project" name="Gradle: org.apache.commons:commons-vfs2:2.1" />
             <element id="library" level="project" name="Gradle: com.jcraft:jsch:0.1.54" />
             <element id="library" level="project" name="Gradle: aopalliance:aopalliance:1.0" />
@@ -683,7 +696,6 @@
               <element id="module-output" name="service_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/service/build/resources/main" />
             </element>
-            <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-httpclient/commons-httpclient/3.1/964cd74171f427720480efdec40a7c7f6e58426a/commons-httpclient-3.1.jar" />
           </element>
         </element>
       </root>
@@ -1301,7 +1313,21 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/2.0/social-2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/test/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.rometools:rome-utils:1.5.1">
       <CLASSES>
