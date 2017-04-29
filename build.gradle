@@ -503,10 +503,7 @@ task prepWar(dependsOn: [
 }
 
 task clean(type: Delete) {
-    doFirst {
-        delete buildDir
-        println 'Executing clean complete'
-    }
+    delete buildDir
 }
 
 task war(type: War, dependsOn: prepWar) {

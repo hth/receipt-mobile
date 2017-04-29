@@ -1313,7 +1313,21 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/social/2.0/social-2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/test/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.rometools:rome-utils:1.5.1">
       <CLASSES>
