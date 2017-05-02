@@ -52,7 +52,7 @@ remotes {
         user = 'db'
     }
     r5 {
-        host = '192.168.1.25'
+        host = '192.168.1.24'
         user = 'db'
     }
 }
