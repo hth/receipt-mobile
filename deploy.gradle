@@ -62,10 +62,10 @@ task deployServer {
 
     }
     if (env == 'prod') {
-        deploy(remotes.r8, "192.168.1.27", "bs8r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r5, "192.168.1.24", "2bs5r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r6, "192.168.1.25", "3bs6r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
         deploy(remotes.r7, "192.168.1.26", "3bs7r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r8, "192.168.1.27", "bs8r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
 
