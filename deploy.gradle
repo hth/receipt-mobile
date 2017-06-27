@@ -23,32 +23,32 @@ ssh.settings {
 }
 
 remotes {
-    s1 {
-        host = '192.168.1.51'
+    sr1 {
+        host = '10.0.0.52'
         user = 'db'
     }
-    s2 {
-        host = '192.168.1.52'
+    sr2 {
+        host = '10.0.0.62'
         user = 'db'
     }
-    s3 {
-        host = '192.168.1.53'
+    sr3 {
+        host = '10.0.0.72'
         user = 'db'
     }
     r1 {
-        host = '192.168.1.21'
+        host = '10.0.0.51'
         user = 'db'
     }
     r2 {
-        host = '192.168.1.22'
+        host = '10.0.0.61'
         user = 'db'
     }
     r4 {
-        host = '192.168.1.24'
+        host = '10.0.0.71'
         user = 'db'
     }
     r7 {
-        host = '192.168.1.27'
+        host = '10.0.0.81'
         user = 'db'
     }
 }
@@ -56,16 +56,16 @@ remotes {
 task deployServer {
     if (env == 'sandbox') {
         //s1 is mac as of Dec 6th 2016.
-        deploy(remotes.s1, "192.168.1.51", "1s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s2, "192.168.1.52", "2s", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.s3, "192.168.1.53", "4s", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.sr1, "10.0.0.52", "1rs", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.sr2, "10.0.0.62", "2rs", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.sr3, "10.0.0.72", "3rs", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
 
     }
     if (env == 'prod') {
-        deploy(remotes.r1, "192.168.1.21", "4bs1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r2, "192.168.1.22", "4bs2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r4, "192.168.1.24", "2bs5r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
-        deploy(remotes.r7, "192.168.1.27", "bs8r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r1, "10.0.0.51", "1r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r2, "10.0.0.61", "2r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r4, "10.0.0.71", "3r", "$env", "ROOT-$env.*.war", "receipt-mobile-$env.*.war")
+        deploy(remotes.r7, "10.0.0.81", "4r", "$env-loader", "ROOT-loader-$env.*.war", "receipt-mobile-$env.*.war")
     }
 }
 
