@@ -188,10 +188,11 @@ subprojects {
         compile "com.braintreepayments.gateway:braintree-java:$braintree"
         compile "$springDataGroup:spring-data-redis:$redis"
         compile "redis.clients:jedis:$jedis"
+        compile "org.quartz-scheduler:quartz:$quartz"
 
         /** --- Specific to Receipt Mobile Web Application ---- */
-        compile "io.springfox:springfox-swagger2:2.6.1"
-        compile "io.springfox:springfox-swagger-ui:2.6.1"
+        compile "io.springfox:springfox-swagger2:2.7.0"
+        compile "io.springfox:springfox-swagger-ui:2.7.0"
         /** To prevent URIException not found. */
         compile 'commons-httpclient:commons-httpclient:3.1'
         /** ------- */
@@ -204,11 +205,11 @@ subprojects {
         compile "org.slf4j:slf4j-api:$slf4japi"
         compile 'org.hibernate:hibernate-validator:5.3.0.Final'
         compile "joda-time:joda-time:$joda"
-        compile 'org.freemarker:freemarker:2.3.23'
+        compile "org.freemarker:freemarker:$freemarker"
 
         compile "com.google.guava:guava:$guava"
         compile "com.google.code.gson:gson:$gson"
-        compile "com.google.maps:google-maps-services:$googleMap"
+        compile "com.google.maps:google-maps-services:$googleMapsServices"
         compile "com.googlecode.libphonenumber:libphonenumber:$libphonenumber"
         compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:r239'
 
@@ -217,7 +218,7 @@ subprojects {
         compile "com.fasterxml.jackson.core:jackson-core:$jackson"
         compile "com.fasterxml.jackson.core:jackson-databind:$jackson"
 
-        compile 'org.json:json:20160212'
+        compile 'org.json:json:20170516'
 
         compile "commons-fileupload:commons-fileupload:$commonsfileupload"
         compile "commons-io:commons-io:$commonsio"
@@ -240,7 +241,7 @@ subprojects {
         compile "ch.qos.logback:logback-core:$logback"
         compile "ch.qos.logback:logback-classic:$logback"
         compile "net.logstash.logback:logstash-logback-encoder:$logstashlogbackencoder"
-        compile 'net.bull.javamelody:javamelody-core:1.+'
+        compile "net.bull.javamelody:javamelody-core:$javamelody"
         /** Because using org.junit.Assert in code. */
         compile group: 'junit', name: 'junit', version: '4.+'
 
@@ -386,9 +387,8 @@ project(':view') {
     }
 }
 
-
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
+    gradleVersion = '4.1.0'
 }
 
 task copyJars(type: Copy) {
