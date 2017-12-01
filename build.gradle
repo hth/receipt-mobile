@@ -218,12 +218,12 @@ subprojects {
         compile "com.fasterxml.jackson.core:jackson-core:$jackson"
         compile "com.fasterxml.jackson.core:jackson-databind:$jackson"
 
-        compile 'org.json:json:20170516'
+        compile 'org.json:json:20171018'
 
         compile "commons-fileupload:commons-fileupload:$commonsfileupload"
         compile "commons-io:commons-io:$commonsio"
         compile "commons-validator:commons-validator:$commonsvalidator"
-        compile 'commons-codec:commons-codec:1.10'
+        compile 'commons-codec:commons-codec:1.11'
         compile 'commons-logging:commons-logging:1.2'
 
         compile "javax.mail:javax.mail-api:$javaxMail"
@@ -387,7 +387,7 @@ project(':view') {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.3.0'
+    gradleVersion = '4.3.1'
 }
 
 task copyJars(type: Copy) {
