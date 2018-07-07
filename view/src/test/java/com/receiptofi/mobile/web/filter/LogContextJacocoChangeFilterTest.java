@@ -21,19 +21,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogContextFilterTest {
+public class LogContextJacocoChangeFilterTest {
 
     @Mock (extraInterfaces = {HttpServletRequest.class}) private ServletRequest servletRequest;
     @Mock (extraInterfaces = {HttpServletResponse.class}) private ServletResponse servletResponse;
     @Mock private FilterChain filterChain;
 
-    private LogContextFilter logContextFilter;
+    private LogContextJacocoChangeFilter logContextJacocoChangeFilter;
     private List<String> headers;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        logContextFilter = new LogContextFilter();
+        logContextJacocoChangeFilter = new LogContextJacocoChangeFilter();
         headers = new ArrayList<>();
         headers.add("host");
         headers.add("user-agent");
@@ -50,7 +50,7 @@ public class LogContextFilterTest {
         when(((HttpServletRequest) servletRequest).getHeader("user-agent")).thenReturn("Mozilla");
         when(((HttpServletRequest) servletRequest).getHeader("accept")).thenReturn("test/html");
         when(((HttpServletRequest) servletRequest).getHeader("x-forwarded-for")).thenReturn("someURL");
-        logContextFilter.doFilter(servletRequest, servletResponse, filterChain);
+        logContextJacocoChangeFilter.doFilter(servletRequest, servletResponse, filterChain);
         verify(filterChain, times(1)).doFilter(servletRequest, servletResponse);
     }
 }
