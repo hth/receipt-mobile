@@ -39,7 +39,7 @@
     </appender>
 
     <logger name="com.receiptofi" level="DEBUG" />
-    <logger name="com.receiptofi.mobile.web.filter.LogContextJacocoChangeFilter" level="ON" />
+    <logger name="com.receiptofi.mobile.web.filter.LogContextFilter" level="ON" />
     <logger name="com.receiptofi.mobile.service" level="INFO" />
     <logger name="org.springframework" level="WARN" />
     <logger name="com.mangofactory" level="OFF" />
