@@ -38,8 +38,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
         "PMD.MethodArgumentCouldBeFinal",
         "PMD.LongVariable"
 })
-public class LogContextFilter implements Filter {
-    private static final Logger LOG = LoggerFactory.getLogger(LogContextFilter.class);
+public class LogContextJacocoChangeFilter implements Filter {
+    private static final Logger LOG = LoggerFactory.getLogger(LogContextJacocoChangeFilter.class);
 
     private static final String SKIP_APP_NAME = "/receipt-mobile";
     private static final String REQUEST_ID_MDC_KEY = "X-REQUEST-ID";
