@@ -230,9 +230,6 @@
           <element id="directory" name="jsp">
             <element id="file-copy" path="$PROJECT_DIR$/view/web/WEB-INF/jsp/isWorking.jsp" />
           </element>
-          <element id="directory" name="mongo">
-            <element id="file-copy" path="$PROJECT_DIR$/view/web/WEB-INF/mongo/mongo-config.xml" />
-          </element>
           <element id="directory" name="security">
             <element id="file-copy" path="$PROJECT_DIR$/view/web/WEB-INF/security/secure.xml" />
           </element>
@@ -981,38 +978,22 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" group="common" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/common.iml" group="common" />
       <module fileurl="file://$PROJECT_DIR$/common/common_main.iml" filepath="$PROJECT_DIR$/common/common_main.iml" group="common" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/common_main.iml" group="common" />
       <module fileurl="file://$PROJECT_DIR$/common/common_test.iml" filepath="$PROJECT_DIR$/common/common_test.iml" group="common" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/common_test.iml" group="common" />
       <module fileurl="file://$PROJECT_DIR$/documentation/documentation.iml" filepath="$PROJECT_DIR$/documentation/documentation.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" group="domain" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain.iml" group="domain" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain_main.iml" filepath="$PROJECT_DIR$/domain/domain_main.iml" group="domain" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain_main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain_main.iml" group="domain" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain_test.iml" filepath="$PROJECT_DIR$/domain/domain_test.iml" group="domain" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain_test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain_test.iml" group="domain" />
       <module fileurl="file://$PROJECT_DIR$/receipt-mobile.iml" filepath="$PROJECT_DIR$/receipt-mobile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/receipt-mobile.iml" filepath="$PROJECT_DIR$/.idea/modules/receipt-mobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/security/security.iml" filepath="$PROJECT_DIR$/security/security.iml" group="security" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security/security.iml" filepath="$PROJECT_DIR$/.idea/modules/security/security.iml" group="security" />
       <module fileurl="file://$PROJECT_DIR$/security/security_main.iml" filepath="$PROJECT_DIR$/security/security_main.iml" group="security" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security/security_main.iml" filepath="$PROJECT_DIR$/.idea/modules/security/security_main.iml" group="security" />
       <module fileurl="file://$PROJECT_DIR$/security/security_test.iml" filepath="$PROJECT_DIR$/security/security_test.iml" group="security" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/security/security_test.iml" filepath="$PROJECT_DIR$/.idea/modules/security/security_test.iml" group="security" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" group="service" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" group="service" />
       <module fileurl="file://$PROJECT_DIR$/service/service_main.iml" filepath="$PROJECT_DIR$/service/service_main.iml" group="service" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_main.iml" group="service" />
       <module fileurl="file://$PROJECT_DIR$/service/service_test.iml" filepath="$PROJECT_DIR$/service/service_test.iml" group="service" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service_test.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service_test.iml" group="service" />
       <module fileurl="file://$PROJECT_DIR$/view/view.iml" filepath="$PROJECT_DIR$/view/view.iml" group="view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view.iml" group="view" />
       <module fileurl="file://$PROJECT_DIR$/view/view_main.iml" filepath="$PROJECT_DIR$/view/view_main.iml" group="view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_main.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_main.iml" group="view" />
       <module fileurl="file://$PROJECT_DIR$/view/view_test.iml" filepath="$PROJECT_DIR$/view/view_test.iml" group="view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/view/view_test.iml" filepath="$PROJECT_DIR$/.idea/modules/view/view_test.iml" group="view" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
@@ -1363,7 +1344,21 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/common/2.0/common-2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/test/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.receiptofi:domain:2.0">
       <CLASSES>
@@ -1377,7 +1372,34 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/receiptofi/service/2.0/service-2.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../noqapp/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/health/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/health/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/medical/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/search/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../noqapp/view/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/common/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/domain/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/loader/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/security/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/integration/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/service/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/social/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../receipt/view/src/test/java" />
+      </SOURCES>
     </library>
     <library name="Gradle: com.receiptofi:social:2.0">
       <CLASSES>
